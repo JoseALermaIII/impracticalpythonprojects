@@ -14,7 +14,7 @@ class TestPigLatin(unittest.TestCase):
         self.assertEqual(pig_latin.encode('opportunity'), 'opportunityway')
 
     def test_bad_type(self):
-        """Test that is raises an error if word is not a string."""
+        """Test that it raises an error if word is not a string."""
         with self.assertRaises(TypeError):
             pig_latin.encode(2)
 
