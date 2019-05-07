@@ -13,6 +13,9 @@ def encode(word: str) -> str:
     Returns:
         Encoded Pig Latin word.
 
+    Raises:
+        TypeError: If `word` is not a string.
+
     """
     vowels = ('a', 'e', 'i', 'o', 'u')
 
