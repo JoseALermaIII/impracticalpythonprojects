@@ -13,5 +13,10 @@ class TestPigLatin(unittest.TestCase):
         """Test that it can encode a word starting with a vowel."""
         self.assertEqual(pig_latin.encode('opportunity'), 'opportunityway')
 
+    def test_bad_type(self):
+        """Test that is raises an error if word is not a string."""
+        with self.assertRaises(TypeError):
+            pig_latin.encode(2)
+
 if __name__ == '__main__':
     unittest.main()

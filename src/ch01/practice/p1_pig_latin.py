@@ -16,6 +16,10 @@ def encode(word: str) -> str:
     """
     vowels = ('a', 'e', 'i', 'o', 'u')
 
+    # Check if word is a string
+    if not isinstance(word, str):
+        raise TypeError('Word must be a string.')
+
     # Check if word starts with a vowel.
     if word.lower().startswith(vowels):
         # If so, append 'way' and return result.
