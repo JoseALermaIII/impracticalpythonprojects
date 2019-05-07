@@ -1,4 +1,4 @@
-"""Test impractical python projects."""
+"""Test Chapter 1."""
 import unittest
 import src.ch01.practice.p1_pig_latin as pig_latin
 
