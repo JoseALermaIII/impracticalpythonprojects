@@ -1,4 +1,12 @@
-"""Takes a word as input and returns its Pig Latin equivalent."""
+"""Takes a word as input and returns its Pig Latin equivalent.
+
+Attributes:
+    VOWELS (tuple): Tuple containing characters of the English vowels
+        (except for 'y')
+
+"""
+
+VOWELS = ('a', 'e', 'i', 'o', 'u')
 
 def encode(word: str) -> str:
     """Check if word starts with vowel, then translate to Pig Latin.
@@ -17,14 +25,12 @@ def encode(word: str) -> str:
         TypeError: If `word` is not a string.
 
     """
-    vowels = ('a', 'e', 'i', 'o', 'u')
-
     # Check if word is a string
     if not isinstance(word, str):
         raise TypeError('Word must be a string.')
 
     # Check if word starts with a vowel.
-    if word.lower().startswith(vowels):
+    if word.lower().startswith(VOWELS):
         # If so, append 'way' and return result.
         return word + 'way'
 
