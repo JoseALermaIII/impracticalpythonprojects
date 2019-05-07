@@ -18,5 +18,9 @@ class TestPigLatin(unittest.TestCase):
         with self.assertRaises(TypeError):
             pig_latin.encode(2)
 
+    def test_upper_to_lower(self):
+        """Test that it converts uppercase to lowercase."""
+        self.assertEqual(pig_latin.encode('Jose'), 'osejay')
+
 if __name__ == '__main__':
     unittest.main()
