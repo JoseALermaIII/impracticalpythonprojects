@@ -30,8 +30,7 @@ def encode(word: str) -> str:
 
     # If not, move the consonant to the end of the word, add 'ay', and
     # return the result
-    word = word[1:] + word[0].lower() + 'ay'
-    return word
+    return word[1:] + word[0].lower() + 'ay'
 
 
 def main():
