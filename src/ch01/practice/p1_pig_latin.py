@@ -8,7 +8,7 @@ def encode(word: str) -> str:
     vowel, add 'way' to the end of the word.
 
     Args:
-        word: Word to encode to Pig Latin.
+        word (str): Word to encode to Pig Latin.
 
     Returns:
         Encoded Pig Latin word.
