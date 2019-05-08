@@ -8,6 +8,7 @@ Attributes:
 
 VOWELS = ('a', 'e', 'i', 'o', 'u')
 
+
 def encode(word: str) -> str:
     """Check if word starts with vowel, then translate to Pig Latin.
 
@@ -51,6 +52,7 @@ def main():
         if retry.lower().startswith('n'):
             print("\nThank you, and good bye.")
             break
+
 
 if __name__ == '__main__':
     main()
