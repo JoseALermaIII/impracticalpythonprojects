@@ -1,4 +1,12 @@
+# PyCharm IDE
+.idea
+
+# Git
 .git
+
+# Testing
 .tox
+
+# Python
 __pycache__
 venv*/
