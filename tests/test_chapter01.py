@@ -1,6 +1,8 @@
 """Test Chapter 1."""
 import unittest
 import src.ch01.practice.p1_pig_latin as pig_latin
+from src.ch01.practice import ENCODE_ERROR
+
 
 class TestPigLatin(unittest.TestCase):
     """Test Pig Latin encoder."""
@@ -15,12 +17,14 @@ class TestPigLatin(unittest.TestCase):
 
     def test_bad_type(self):
         """Test that it raises an error if word is not a string."""
-        with self.assertRaises(TypeError):
+        with self.assertRaises(TypeError) as err:
             pig_latin.encode(2)
+            self.assertEqual(ENCODE_ERROR, err.exception)
 
     def test_upper_to_lower(self):
         """Test that it converts uppercase to lowercase."""
         self.assertEqual(pig_latin.encode('Jose'), 'osejay')
+
 
 if __name__ == '__main__':
     unittest.main()
