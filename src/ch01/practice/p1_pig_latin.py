@@ -1,12 +1,5 @@
-"""Takes a word as input and returns its Pig Latin equivalent.
-
-Attributes:
-    VOWELS (tuple): Tuple containing characters of the English vowels
-        (except for 'y')
-
-"""
-
-VOWELS = ('a', 'e', 'i', 'o', 'u')
+"""Takes a word as input and returns its Pig Latin equivalent."""
+from src.ch01.practice import VOWELS, ENCODE_ERROR
 
 
 def encode(word: str) -> str:
@@ -28,7 +21,7 @@ def encode(word: str) -> str:
     """
     # Check if word is a string
     if not isinstance(word, str):
-        raise TypeError('Word must be a string.')
+        raise TypeError(ENCODE_ERROR)
 
     # Check if word starts with a vowel.
     if word.lower().startswith(VOWELS):
