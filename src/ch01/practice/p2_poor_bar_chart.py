@@ -17,6 +17,14 @@ def freq_analysis(sentence: str) -> dict:
         Dictionary with each letter as keys and list with letters repeated
         based on their frequency as values.
 
+    Example:
+        >>> from src.ch01.practice.p2_poor_bar_chart import freq_analysis
+        >>> test = 'aaabbbccc'
+        >>> freq_analysis(test)
+        defaultdict(<class 'list'>, {'a': ['a', 'a', 'a'],
+                                     'b': ['b', 'b', 'b'],
+                                     'c': ['c', 'c', 'c']})
+
     Raises:
         TypeError: If `sentence` is not a string.
 
