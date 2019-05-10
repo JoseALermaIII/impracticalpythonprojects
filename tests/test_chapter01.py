@@ -1,10 +1,10 @@
 """Test Chapter 1."""
 import unittest
 import string
+from tests import random_string
 import src.ch01.practice.p1_pig_latin as pig_latin
 import src.ch01.practice.p2_poor_bar_chart as bar_chart
 from src.ch01.practice import ENCODE_ERROR, FREQ_ANALYSIS_ERROR, PRINT_BAR_CHART_ERROR
-from tests import random_string
 
 
 class TestPigLatin(unittest.TestCase):
