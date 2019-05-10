@@ -68,7 +68,9 @@ def print_bar_chart(freq_dict: dict) -> None:
 
 def main():
     """Demonstrates the Poor Bar Chart."""
+    print('This is an Affordable Bar Chart.\n')
     twister = 'Sally sells seashells by the seashore.'
+    print(f'Analyzing: {twister}\n')
     print_bar_chart(freq_analysis(twister))
 
 
