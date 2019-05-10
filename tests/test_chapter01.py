@@ -1,8 +1,10 @@
 """Test Chapter 1."""
 import unittest
+import string
 import src.ch01.practice.p1_pig_latin as pig_latin
 import src.ch01.practice.p2_poor_bar_chart as bar_chart
 from src.ch01.practice import ENCODE_ERROR, FREQ_ANALYSIS_ERROR, PRINT_BAR_CHART_ERROR
+from tests import random_string
 
 
 class TestPigLatin(unittest.TestCase):
@@ -39,6 +41,32 @@ class TestBarChart(unittest.TestCase):
         with self.assertRaises(TypeError) as err:
             bar_chart.print_bar_chart(4)
             self.assertEqual(PRINT_BAR_CHART_ERROR, err.exception)
+
+    def test_freq_analysis(self):
+        """Test that it performs a proper frequency analysis."""
+        test_string = random_string(20, string.ascii_lowercase)
+        string_set = set(test_string)
+        analysis = bar_chart.freq_analysis(test_string)
+
+        for element in string_set:
+            # Test that each element in the set is a key.
+            self.assertIn(element, analysis)
+            # Test that each element in the dictionary value matches the key.
+            for i in analysis[element]:
+                self.assertEqual(element, i)
+            # Test that each dictionary value has the correct number of elements.
+            self.assertEqual(test_string.count(element), len(analysis[element]))
+
+        # Test that it skips non-letters.
+        test_string = random_string(20, string.punctuation + string.whitespace)
+        analysis = bar_chart.freq_analysis(test_string)
+        self.assertDictEqual(analysis, {})
+
+        # Test that it converts uppercase to lowercase.
+        test_string = random_string(20, string.ascii_uppercase)
+        analysis = bar_chart.freq_analysis(test_string)
+        for key in analysis.keys():
+            self.assertTrue(key.islower())
 
 
 if __name__ == '__main__':
