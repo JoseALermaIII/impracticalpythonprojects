@@ -31,7 +31,7 @@ class TestBarChart(unittest.TestCase):
     """Test Poor Bar Chart."""
 
     def test_bad_type(self):
-        """Test that it raises an error if sentence is not a string nor
+        """Test that it raises an error if sentence is not a string and
         if freq_dict is not a dictionary."""
         with self.assertRaises(TypeError) as err:
             bar_chart.freq_analysis(3)
