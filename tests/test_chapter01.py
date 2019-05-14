@@ -1,6 +1,9 @@
 """Test Chapter 1."""
-import unittest
+import io
+import os
 import string
+import unittest
+import unittest.mock
 from tests import random_string
 import src.ch01.practice.p1_pig_latin as pig_latin
 import src.ch01.practice.p2_poor_bar_chart as bar_chart
@@ -67,6 +70,17 @@ class TestBarChart(unittest.TestCase):
         analysis = bar_chart.freq_analysis(test_string)
         for key in analysis.keys():
             self.assertTrue(key.islower())
+
+    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    def test_print_bar_chart(self, mock_stdout):
+        """Test that it properly prints a dictionary."""
+        with open(os.path.normpath('tests/data/poor_bar_chart.txt'), 'r') as file:
+            file_data = ''.join(file.readlines())
+
+        test_string = "Peter Piper picked a peck of pickled peppers."
+        test_dict = bar_chart.freq_analysis(test_string)
+        bar_chart.print_bar_chart(test_dict)
+        self.assertEqual(mock_stdout.getvalue(), file_data)
 
 
 if __name__ == '__main__':
