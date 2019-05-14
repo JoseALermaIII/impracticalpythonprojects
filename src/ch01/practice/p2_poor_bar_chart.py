@@ -80,6 +80,8 @@ def main():
     twister = 'Sally sells seashells by the seashore.'
     print(f'Analyzing: {twister}\n')
     print_bar_chart(freq_analysis(twister))
+    print('\nIf you tilt your head to the right, the letter "s" is the most '
+          'frequent, followed by "e" and "l".')
 
 
 if __name__ == '__main__':
