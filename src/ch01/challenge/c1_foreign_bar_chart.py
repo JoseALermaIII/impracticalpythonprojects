@@ -2,6 +2,7 @@
 letter."""
 import string
 from src.ch01.challenge import ADD_KEYS_ERROR
+from src.ch01.practice import FREQ_ANALYSIS_ERROR
 from src.ch01.practice.p2_poor_bar_chart import freq_analysis, print_bar_chart
 
 
@@ -47,6 +48,8 @@ def foreign_freq_analysis(sentence: str) -> dict:
         TypeError: If `sentence` is not a string.
 
     """
+    if not isinstance(sentence, str):
+        raise TypeError(FREQ_ANALYSIS_ERROR)
     return add_keys_to_dict(freq_analysis(sentence))
 
 
