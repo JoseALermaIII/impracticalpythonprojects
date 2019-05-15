@@ -1,6 +1,7 @@
 """Generate random names from a list of names."""
 import os
 import random
+from src.ch01.challenge import SPLIT_FROM_FILE_ERROR
 
 
 def split_names_from_file(filepath: str) -> dict:
@@ -15,11 +16,18 @@ def split_names_from_file(filepath: str) -> dict:
         Dictionary of lists with ``first``, ``middle``, and ``last`` as keys
         and names as values.
 
+    Raises:
+        EOFError: If given file is empty.
+
     Note:
         Drops suffix and adds nickname to middle names.
 
     """
-    # TODO: Read lines from file and remove trailing whitespaces.
+    # Read lines from file and remove trailing whitespaces.
+    with open(filepath, 'r') as file:
+        file_data = [line.rstrip() for line in file]
+    if not file_data:
+        raise EOFError(SPLIT_FROM_FILE_ERROR)
 
     # TODO: Raise error if empty file.
 
