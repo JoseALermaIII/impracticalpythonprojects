@@ -29,9 +29,15 @@ def split_names_from_file(filepath: str) -> dict:
     if not file_data:
         raise EOFError(SPLIT_FROM_FILE_ERROR)
 
-    # TODO: Raise error if empty file.
-
-    # TODO: Check for quotes for nicknames and add to middle names.
+    names = {'first': [], 'middle': [], 'last': []}
+    for name in file_data:
+        # Check for quotes for nicknames and add to middle names.
+        if '"' in name:
+            start = name.find('"')
+            end = name.find('"', start + 1)
+            nickname = name[start:end + 2]  # Include space for replace
+            names['middle'].append(nickname.strip())
+            name = name.replace(nickname, '')
 
     # TODO: Check middle name by counting whitespace and add to middle names.
 
