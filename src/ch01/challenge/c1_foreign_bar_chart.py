@@ -1,5 +1,4 @@
-"""Takes a non-English sentence as input and returns a 'bar chart' of each
-letter."""
+"""Return letter 'bar chart' of a non-English sentence."""
 import string
 from src.ch01.challenge import ADD_KEYS_ERROR
 from src.ch01.practice import FREQ_ANALYSIS_ERROR
@@ -32,7 +31,7 @@ def add_keys_to_dict(dictionary: dict) -> dict:
 
 
 def foreign_freq_analysis(sentence: str) -> dict:
-    """Wrapper for freq_analysis and add_keys_to_dict.
+    """Wrap freq_analysis and add_keys_to_dict.
 
     Passes given sentence through freq_analysis then add_keys_to_dict to
     fill in missing keys.
