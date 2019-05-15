@@ -7,7 +7,10 @@ import unittest.mock
 from tests import random_string
 import src.ch01.practice.p1_pig_latin as pig_latin
 import src.ch01.practice.p2_poor_bar_chart as bar_chart
+import src.ch01.challenge.c1_foreign_bar_chart as foreign_chart
 from src.ch01.practice import ENCODE_ERROR, FREQ_ANALYSIS_ERROR, PRINT_BAR_CHART_ERROR
+from src.ch01.challenge import ADD_KEYS_ERROR
+from tests.data.ch01 import EMPTY_LETTER_DICT
 
 
 class TestPigLatin(unittest.TestCase):
@@ -81,6 +84,33 @@ class TestBarChart(unittest.TestCase):
         test_dict = bar_chart.freq_analysis(test_string)
         bar_chart.print_bar_chart(test_dict)
         self.assertEqual(mock_stdout.getvalue(), file_data)
+
+
+class TestForeignChart(unittest.TestCase):
+    """Test Foreign Bar Chart."""
+
+    def test_bad_type(self):
+        """Test that it raises an error if sentence is not a string and
+        if dictionary is not a dictionary."""
+        with self.assertRaises(TypeError) as err:
+            foreign_chart.foreign_freq_analysis(3)
+            self.assertEqual(FREQ_ANALYSIS_ERROR, err.exception)
+        with self.assertRaises(TypeError) as err:
+            foreign_chart.add_keys_to_dict(4)
+            self.assertEqual(ADD_KEYS_ERROR, err.exception)
+
+    def test_add_keys_to_dict(self):
+        """Test add_keys_to_dict function."""
+        # Test that it adds all ASCII lowercase letters to a dictionary.
+        test_dict = foreign_chart.add_keys_to_dict({})
+        for letter in string.ascii_lowercase:
+            self.assertIn(letter, test_dict)
+
+        # Test that it doesn't duplicate keys.
+        random_letter = random_string(1, string.ascii_lowercase)
+        random_dict = {random_letter: []}
+        test_dict = foreign_chart.add_keys_to_dict(random_dict)
+        self.assertDictEqual(test_dict, EMPTY_LETTER_DICT)
 
 
 if __name__ == '__main__':
