@@ -39,16 +39,17 @@ def split_names_from_file(filepath: str) -> dict:
             names['middle'].append(nickname.strip())
             name = name.replace(nickname, '')
 
-    # TODO: Check middle name by counting whitespace and add to middle names.
+        # TODO: Check middle name by counting whitespace and add to middle names.
 
-    # TODO: Check for repeat middle names while adding.
+        # TODO: Check for repeat middle names while adding.
 
-    # TODO: Drop suffix by dropping last name if less than 4 characters,
-    #  has a '.', or all uppercase.
+        # TODO: Drop suffix by dropping last name if less than 4 characters,
+        #  has a '.', or all uppercase.
 
-    # TODO: Split and add first and last names.
+        # TODO: Split and add first and last names.
 
-    # TODO: Check for repeat first and last times while adding.
+        # TODO: Check for repeat first and last times while adding.
+    return names
 
 
 def generate_name(name_dict: dict) -> str:
