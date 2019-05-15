@@ -48,7 +48,7 @@ def split_names_from_file(filepath: str) -> dict:
 
         # TODO: Split and add first and last names.
 
-        # TODO: Check for repeat first and last times while adding.
+        # TODO: Check for repeat first and last names while adding.
     return names
 
 
