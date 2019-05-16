@@ -31,7 +31,7 @@ def read_from_file(filepath: str) -> list:
     return file_data
 
 
-def add_name_to_key(name: str, dictionary: dict, key: str) -> dict:
+def add_name_to_key(name: str, dictionary: dict, key: str) -> None:
     """Add name to key in dictionary.
 
     Add name to dictionary under key if not already present.
@@ -42,8 +42,8 @@ def add_name_to_key(name: str, dictionary: dict, key: str) -> dict:
          dictionary (dict): Dictionary to add name to.
 
     Returns:
-        Dictionary with name added under key if not present, unchanged
-        dictionary otherwise.
+        None. Name is added under key if not present, dictionary is unchanged
+        otherwise.
 
     Raises:
         TypeError: If name and key aren't strings or if dictionary isn't a
@@ -56,7 +56,6 @@ def add_name_to_key(name: str, dictionary: dict, key: str) -> dict:
     # Check for repeat names while adding.
     if name not in dictionary[key]:
         dictionary[key].append(name)
-    return dictionary
 
 
 def split_names(name_list: list) -> dict:
