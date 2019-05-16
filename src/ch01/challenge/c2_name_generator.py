@@ -1,7 +1,8 @@
 """Generate random names from a list of names."""
 import os
 import random
-from src.ch01.challenge import SPLIT_FROM_FILE_ERROR
+from src.ch01.challenge import READ_FROM_FILE_ERROR, SPLIT_NAME_LIST_ERROR, \
+    SPLIT_NAME_EMPTY_ERROR
 
 
 def read_from_file(filepath: str) -> list:
@@ -26,31 +27,37 @@ def read_from_file(filepath: str) -> list:
     with open(filepath, 'r') as file:
         file_data = [line.rstrip() for line in file]
     if not file_data:
-        raise EOFError(SPLIT_FROM_FILE_ERROR)
+        raise EOFError(READ_FROM_FILE_ERROR)
     return file_data
 
 
-def split_names_from_file(filepath: str) -> dict:
+def split_names(name_list: list) -> dict:
     """Split names from file.
 
-    Splits first, middle, and last names from a given file.
+    Splits first, middle, and last names from a given list of names.
 
     Args:
-        filepath (str): Path to file with names.
+        name_list (list): List with names as elements.
 
     Returns:
         Dictionary of lists with ``first``, ``middle``, and ``last`` as keys
         and names as values.
 
     Raises:
-        EOFError: If given file is empty.
+        TypeError: If given name list is not a list or tuple.
+        ValueError: If given name list is empty.
 
     Note:
         Drops suffix and adds nickname to middle names.
 
     """
+    if not any([isinstance(name_list, list), isinstance(name_list, tuple)]):
+        raise TypeError(SPLIT_NAME_LIST_ERROR)
+    if not name_list:
+        raise ValueError(SPLIT_NAME_EMPTY_ERROR)
+
     names = {'first': [], 'middle': [], 'last': []}
-    for name in file_data:
+    for name in name_list:
         # Check for quotes for nicknames and add to middle names.
         if '"' in name:
             start = name.find('"')
