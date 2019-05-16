@@ -92,9 +92,15 @@ def split_names(name_list: list) -> dict:
                     names['middle'].append(middle.strip())
             name = name.replace(middle, '')
 
-        # TODO: Split and add first and last names.
-
-        # TODO: Check for repeat first and last names while adding.
+        # Split and add first and last names.
+        end = name.find(' ')
+        first = name[:end]
+        last = name[end + 1:]  # Exclude leading space
+        # Check for repeat first and last names while adding.
+        if first not in names['first']:
+            names['first'].append(first)
+        if last not in names['last']:
+            names['last'].append(last)
     return names
 
 
