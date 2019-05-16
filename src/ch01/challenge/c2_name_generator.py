@@ -20,7 +20,7 @@ def read_from_file(filepath: str) -> list:
         EOFError: If given file is empty.
 
     Note:
-        Removes leading and trailing whitespaces.
+        Removes trailing whitespaces.
 
     """
     # Read lines from file and remove trailing whitespaces.
