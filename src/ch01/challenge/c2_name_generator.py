@@ -2,7 +2,7 @@
 import os
 import random
 from src.ch01.challenge import READ_FROM_FILE_ERROR, SPLIT_NAME_LIST_ERROR, \
-    SPLIT_NAME_EMPTY_ERROR
+    SPLIT_NAME_EMPTY_ERROR, ADD_NAME_TO_KEY_ERROR
 
 
 def read_from_file(filepath: str) -> list:
@@ -29,6 +29,34 @@ def read_from_file(filepath: str) -> list:
     if not file_data:
         raise EOFError(READ_FROM_FILE_ERROR)
     return file_data
+
+
+def add_name_to_key(name: str, dictionary: dict, key: str) -> dict:
+    """Add name to key in dictionary.
+
+    Add name to dictionary under key if not already present.
+
+    Args:
+         name (str): Name to add to dictionary.
+         key (str): Key to add name under.
+         dictionary (dict): Dictionary to add name to.
+
+    Returns:
+        Dictionary with name added under key if not present, unchanged
+        dictionary otherwise.
+
+    Raises:
+        TypeError: If name and key aren't strings or if dictionary isn't a
+        dictionary.
+
+    """
+    if not any([isinstance(name, str), isinstance(key, str),
+                isinstance(dictionary, dict)]):
+        raise TypeError(ADD_NAME_TO_KEY_ERROR)
+    # Check for repeat names while adding.
+    if name not in dictionary[key]:
+        dictionary[key].append(name)
+    return dictionary
 
 
 def split_names(name_list: list) -> dict:
@@ -63,7 +91,7 @@ def split_names(name_list: list) -> dict:
             start = name.find('"')
             end = name.find('"', start + 1)
             nickname = name[start:end + 2]  # Include space for replace
-            names['middle'].append(nickname.strip())
+            add_name_to_key(nickname.strip(), names, 'middle')
             name = name.replace(nickname, '')
 
         # Drop suffix by dropping last name if less than 4 characters, has
@@ -82,25 +110,18 @@ def split_names(name_list: list) -> dict:
                 end = middle.rfind(' ')
                 middle1 = middle[:end]
                 middle2 = middle[end:]
-                if middle1 not in names['middle']:
-                    names['middle'].append(middle1.strip())
-                if middle2 not in names['middle']:
-                    names['middle'].append(middle2.strip())
+                add_name_to_key(middle1.strip(), names, 'middle')
+                add_name_to_key(middle2.strip(), names, 'middle')
             else:
-                # Check for repeat middle names while adding.
-                if middle not in names['middle']:
-                    names['middle'].append(middle.strip())
+                add_name_to_key(middle.strip(), names, 'middle')
             name = name.replace(middle, '')
 
         # Split and add first and last names.
         end = name.find(' ')
         first = name[:end]
         last = name[end + 1:]  # Exclude leading space
-        # Check for repeat first and last names while adding.
-        if first not in names['first']:
-            names['first'].append(first)
-        if last not in names['last']:
-            names['last'].append(last)
+        add_name_to_key(first, names, 'first')
+        add_name_to_key(last, names, 'last')
     return names
 
 
