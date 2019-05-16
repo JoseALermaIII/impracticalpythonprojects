@@ -73,9 +73,24 @@ def split_names(name_list: list) -> dict:
         if len(suffix.strip()) < 4 and any(['.' in suffix, suffix.isupper()]):
             name = name.replace(suffix, '')
 
-        # TODO: Check middle name by counting whitespace and add to middle names.
-
-        # TODO: Check for repeat middle names while adding.
+        # Check middle name by counting whitespace and add to middle names.
+        if name.count(' ') >= 2:
+            start = name.find(' ')
+            end = name.rfind(' ')  # For multi-name middle names
+            middle = name[start:end]  # Include leading space for replace
+            if middle.count(' ') > 1:
+                end = middle.rfind(' ')
+                middle1 = middle[:end]
+                middle2 = middle[end:]
+                if middle1 not in names['middle']:
+                    names['middle'].append(middle1.strip())
+                if middle2 not in names['middle']:
+                    names['middle'].append(middle2.strip())
+            else:
+                # Check for repeat middle names while adding.
+                if middle not in names['middle']:
+                    names['middle'].append(middle.strip())
+            name = name.replace(middle, '')
 
         # TODO: Split and add first and last names.
 
