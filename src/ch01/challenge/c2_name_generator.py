@@ -140,6 +140,10 @@ def generate_name(name_dict: dict) -> str:
     # TODO: Raise error if there aren't three keys in dictionary.
 
     # TODO: Add middle name between 1/3 and 1/4 of the time.
+    if 25 >= random.choice(range(100)) <= 33:
+        pass
+    else:
+        pass
 
 
 def main():
