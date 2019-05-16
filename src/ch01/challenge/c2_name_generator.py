@@ -2,7 +2,7 @@
 import os
 import random
 from src.ch01.challenge import READ_FROM_FILE_ERROR, SPLIT_NAME_LIST_ERROR, \
-    SPLIT_NAME_EMPTY_ERROR, ADD_NAME_TO_KEY_ERROR
+    SPLIT_NAME_EMPTY_ERROR, ADD_NAME_TO_KEY_ERROR, GENERATE_NAME_ERROR
 
 
 def read_from_file(filepath: str) -> list:
@@ -137,7 +137,9 @@ def generate_name(name_dict: dict) -> str:
         Only add middle name between 1/3 and 1/4 of the time.
 
     """
-    # TODO: Raise error if there aren't three keys in dictionary.
+    # Raise error if there aren't three keys in dictionary.
+    if not len(name_dict.keys()) == 3:
+        raise KeyError(GENERATE_NAME_ERROR)
 
     # TODO: Add middle name between 1/3 and 1/4 of the time.
     if 25 >= random.choice(range(100)) <= 33:
