@@ -103,13 +103,12 @@ def split_names(name_list: list) -> dict:
 
         # Check middle name by counting whitespace and add to middle names.
         if name.count(' ') >= 2:
-            start = name.find(' ')
-            end = name.rfind(' ')  # For multi-name middle names
+            # For multi-name middle names
+            start, end = name.find(' '), name.rfind(' ')
             middle = name[start:end]  # Include leading space for replace
             if middle.count(' ') > 1:
                 end = middle.rfind(' ')
-                middle1 = middle[:end]
-                middle2 = middle[end:]
+                middle1, middle2 = middle[:end], middle[end:]
                 add_name_to_key(middle1.strip(), names, 'middle')
                 add_name_to_key(middle2.strip(), names, 'middle')
             else:
@@ -118,8 +117,7 @@ def split_names(name_list: list) -> dict:
 
         # Split and add first and last names.
         end = name.find(' ')
-        first = name[:end]
-        last = name[end + 1:]  # Exclude leading space
+        first, last = name[:end], name[end + 1:]  # Exclude leading space
         add_name_to_key(first, names, 'first')
         add_name_to_key(last, names, 'last')
     return names
