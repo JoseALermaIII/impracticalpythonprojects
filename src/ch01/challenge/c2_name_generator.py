@@ -4,6 +4,32 @@ import random
 from src.ch01.challenge import SPLIT_FROM_FILE_ERROR
 
 
+def read_from_file(filepath: str) -> list:
+    """Read from file.
+
+    Reads lines from text file and returns a list.
+
+    Args:
+        filepath (str): Path to file with names.
+
+    Returns:
+        List with each line from the file as an element.
+
+    Raises:
+        EOFError: If given file is empty.
+
+    Note:
+        Removes trailing whitespaces.
+
+    """
+    # Read lines from file and remove trailing whitespaces.
+    with open(filepath, 'r') as file:
+        file_data = [line.rstrip() for line in file]
+    if not file_data:
+        raise EOFError(SPLIT_FROM_FILE_ERROR)
+    return file_data
+
+
 def split_names_from_file(filepath: str) -> dict:
     """Split names from file.
 
@@ -23,12 +49,6 @@ def split_names_from_file(filepath: str) -> dict:
         Drops suffix and adds nickname to middle names.
 
     """
-    # Read lines from file and remove trailing whitespaces.
-    with open(filepath, 'r') as file:
-        file_data = [line.rstrip() for line in file]
-    if not file_data:
-        raise EOFError(SPLIT_FROM_FILE_ERROR)
-
     names = {'first': [], 'middle': [], 'last': []}
     for name in file_data:
         # Check for quotes for nicknames and add to middle names.
