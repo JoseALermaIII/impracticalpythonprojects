@@ -125,10 +125,10 @@ def split_names(name_list: list) -> dict:
 def generate_name(name_dict: dict) -> str:
     """Generate pseudo-random name.
 
-    Use names in given dictionary to generate a random name.
+    Use names in dictionary to generate a random name.
 
     Args:
-        name_dict: Dictionary from split_names_from_file.
+        name_dict: Dictionary from split_names.
 
     Returns:
         String with a random name.
@@ -137,7 +137,7 @@ def generate_name(name_dict: dict) -> str:
         Only add middle name between 1/3 and 1/4 of the time.
 
     """
-    # TODO: Raise error if 'first', 'middle', and 'last' aren't keys.
+    # TODO: Raise error if there aren't three keys in dictionary.
 
     # TODO: Add middle name between 1/3 and 1/4 of the time.
 
