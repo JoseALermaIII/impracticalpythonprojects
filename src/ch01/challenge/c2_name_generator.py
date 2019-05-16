@@ -32,7 +32,7 @@ def read_from_file(filepath: str) -> list:
 
 
 def split_names(name_list: list) -> dict:
-    """Split names from file.
+    """Split names from list of names.
 
     Splits first, middle, and last names from a given list of names.
 
