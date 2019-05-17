@@ -141,18 +141,41 @@ def generate_name(name_dict: dict) -> str:
     if not len(name_dict.keys()) == 3:
         raise KeyError(GENERATE_NAME_ERROR)
 
-    # TODO: Add middle name between 1/3 and 1/4 of the time.
+    keys = list(name_dict.keys())  # Make keys indexable. Python3.6 only?
+    first, last = random.choice(name_dict[keys[0]]),\
+        random.choice(name_dict[keys[2]])
+    # Add middle name between 1/3 and 1/4 of the time.
     if 25 >= random.choice(range(100)) <= 33:
-        pass
-    else:
-        pass
+        middle = random.choice(name_dict[keys[1]])
+        return ' '.join([first, middle, last])
+    return ' '.join([first, last])
+
+
+def name_generator(filepath: str) -> str:
+    """Wrap generate_name, split_names, and read_from_file.
+
+    Passes given filepath through read_from_file to get the names in a list,
+    then split_names to split them into a dictionary, and finally through
+    generate_name to make the actual name.
+
+    Args:
+         filepath (str): Path to file with names.
+
+    Returns:
+        String with random name.
+
+    """
+    return generate_name(split_names(read_from_file(filepath)))
 
 
 def main():
     """Demonstrate name generator."""
     print('This is a random name generator.\n'
-          'Similar to a certain American detective comedy-drama television\n'
-          'series.')
+          'Similar to a character from a certain American detective\n'
+          'comedy-drama television series.\n')
+    file = os.path.abspath('c2files/names.txt')
+
+    print(f'Generated name: {name_generator(file)}')
 
 
 if __name__ == '__main__':
