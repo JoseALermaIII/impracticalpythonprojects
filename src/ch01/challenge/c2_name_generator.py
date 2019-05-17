@@ -2,7 +2,8 @@
 import os
 import random
 from src.ch01.challenge import READ_FROM_FILE_ERROR, SPLIT_NAME_LIST_ERROR, \
-    SPLIT_NAME_EMPTY_ERROR, ADD_NAME_TO_KEY_ERROR, GENERATE_NAME_ERROR
+    SPLIT_NAME_EMPTY_ERROR, ADD_NAME_TO_KEY_ERROR, GENERATE_NAME_ERROR, \
+    BUILD_LIST_ERROR
 
 
 def read_from_file(filepath: str) -> list:
@@ -29,6 +30,32 @@ def read_from_file(filepath: str) -> list:
     if not file_data:
         raise EOFError(READ_FROM_FILE_ERROR)
     return file_data
+
+
+def build_name_list(folderpath: str) -> list:
+    """Build name list from folder.
+
+    Builds list of names from name files in given folder.
+
+    Args:
+        folderpath (str): Path to folder with name files.
+
+    Returns:
+        List with names from folderpath.
+
+    Raises:
+        IndexError: If folderpath has no files.
+
+    """
+    if not folderpath.endswith('/'):
+        folderpath = folderpath + '/'
+    files, name_list = [file for file in os.listdir(folderpath) if
+                        file.endswith('.txt')], []
+    if not files:
+        raise IndexError(BUILD_LIST_ERROR)
+    for file in files:
+        name_list.extend(read_from_file(folderpath + file))
+    return name_list
 
 
 def add_name_to_key(name: str, dictionary: dict, key: str) -> None:
@@ -151,21 +178,21 @@ def generate_name(name_dict: dict) -> str:
     return ' '.join([first, last])
 
 
-def name_generator(filepath: str) -> str:
-    """Wrap generate_name, split_names, and read_from_file.
+def name_generator(folderpath: str) -> str:
+    """Wrap generate_name, split_names, and build_name_list.
 
-    Passes given filepath through read_from_file to get the names in a list,
-    then split_names to split them into a dictionary, and finally through
-    generate_name to make the actual name.
+    Passes given folderpath through build_name_list to get the names in a
+    list, then split_names to split them into a dictionary, and finally
+    through generate_name to make the actual name.
 
     Args:
-         filepath (str): Path to file with names.
+         folderpath (str): Path to folder with name files.
 
     Returns:
         String with random name.
 
     """
-    return generate_name(split_names(read_from_file(filepath)))
+    return generate_name(split_names(build_name_list(folderpath)))
 
 
 def main():
@@ -173,9 +200,9 @@ def main():
     print('This is a random name generator.\n'
           'Similar to a character from a certain American detective\n'
           'comedy-drama television series.\n')
-    file = os.path.abspath('c2files/names.txt')
+    folder = os.path.abspath('c2files')
 
-    print(f'Generated name: {name_generator(file)}')
+    print(f'Generated name: {name_generator(folder)}')
 
 
 if __name__ == '__main__':
