@@ -1,44 +1,3 @@
-Chester Charles Bennington
-Michael Kenji Shinoda
-Joseph Hahn
-Robert Gregory Bourdon
-Bradford Phillip Delson
-David Michael "Phoenix" Farrell
-Serj Tankian
-Daron Vartan Malakian
-Shavarsh "Shavo" Odadjian
-John Dolmayan
-Ontronik "Andy" Khachaturian
-Billie Joe Armstrong
-Frank Edwin Wright III
-Michael Ryan Pritchard
-Jason White
-Gerard Arthur Way
-Frank Anthony Thomas Iero Jr.
-Michael James Way
-Raymond Manuel Toro-Ortiz
-Robert Cory "Bob" Bryar
-Matt Pelissier
-James Matthew Dewees
-Chad Everett Gilbert
-Jordan Izaak Pundik
-Stephen Lee "Steve" Klein
-Ian Ryan Grushka
-Cyrus Bolooki
-Aaron Lewis
-Michael "Mike" Mushok
-John Wysocki
-Johnny April
-Olga Vitalevna Yakovleva
-Anthony Michael Bourdain
-Albert Einstein
-Henry Ford
-Augusta Ada King-Noel
-Louis Pasteur
-Susan B. Anthony
-Yoko Kanno
-Maaya Sakamoto
-Ilaria Graziano
 Alexander Robert Hirsch
 Ariel Caskey Hirsch
 Kristen Joy Schaal
@@ -52,7 +11,6 @@ Orville Willis Forte IV
 Dee Bradley Baker
 Nicholas Offerman
 Jonathan Kimble Simmons
-Neil deGrasse Tyson
 Eri Grey Van Oosbree
 Bradley Joseph "Brad" Breeck
 Ian Abando
