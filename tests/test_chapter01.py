@@ -2,7 +2,6 @@
 import io
 import os
 import string
-import unittest
 import unittest.mock
 from tests import random_string
 import src.ch01.practice.p1_pig_latin as pig_latin
@@ -13,7 +12,7 @@ from src.ch01.practice import ENCODE_ERROR, FREQ_ANALYSIS_ERROR, PRINT_BAR_CHART
 from src.ch01.challenge import ADD_KEYS_ERROR, READ_FROM_FILE_ERROR, \
     SPLIT_NAME_LIST_ERROR, SPLIT_NAME_EMPTY_ERROR, ADD_NAME_TO_KEY_ERROR, \
     GENERATE_NAME_ERROR, BUILD_LIST_ERROR
-from tests.data.ch01 import EMPTY_LETTER_DICT
+from tests.data.ch01.ch01 import EMPTY_LETTER_DICT
 
 
 class TestPigLatin(unittest.TestCase):
@@ -80,7 +79,7 @@ class TestBarChart(unittest.TestCase):
     @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
     def test_print_bar_chart(self, mock_stdout):
         """Test that it properly prints a dictionary."""
-        with open(os.path.normpath('tests/data/poor_bar_chart.txt'), 'r') as file:
+        with open(os.path.normpath('tests/data/ch01/poor_bar_chart.txt'), 'r') as file:
             file_data = ''.join(file.readlines())
 
         test_string = "Peter Piper picked a peck of pickled peppers."
@@ -122,11 +121,11 @@ class TestNameGenerator(unittest.TestCase):
     def test_errors(self):
         """Test that each function raises its errors."""
         with self.assertRaises(EOFError) as err:
-            name_generator.read_from_file('tests/data/empty.txt')
+            name_generator.read_from_file('tests/data/ch01/empty.txt')
             self.assertEqual(READ_FROM_FILE_ERROR, err.exception)
         with self.assertRaises(IndexError) as err:
-            os.makedirs('tests/data/empty', exist_ok=True)
-            name_generator.build_name_list('tests/data/empty')
+            os.makedirs('tests/data/ch01/empty', exist_ok=True)
+            name_generator.build_name_list('tests/data/ch01/empty')
             self.assertEqual(BUILD_LIST_ERROR, err.exception)
         with self.assertRaises(TypeError) as err:
             test_dict = {'blank': []}
