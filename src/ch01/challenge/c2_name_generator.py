@@ -1,9 +1,8 @@
 """Generate random names from a list of names."""
 import os
 import random
-from src.ch01.challenge import READ_FROM_FILE_ERROR, SPLIT_NAME_LIST_ERROR, \
-    SPLIT_NAME_EMPTY_ERROR, ADD_NAME_TO_KEY_ERROR, GENERATE_NAME_ERROR, \
-    BUILD_LIST_ERROR
+from src.ch01.challenge import SPLIT_NAME_LIST_ERROR, SPLIT_NAME_EMPTY_ERROR,\
+    ADD_NAME_TO_KEY_ERROR, GENERATE_NAME_ERROR, BUILD_LIST_ERROR
 
 
 def read_from_file(filepath: str) -> list:
@@ -17,9 +16,6 @@ def read_from_file(filepath: str) -> list:
     Returns:
         List with each line from the file as an element.
 
-    Raises:
-        EOFError: If given file is empty.
-
     Note:
         Removes trailing whitespaces.
 
@@ -27,8 +23,6 @@ def read_from_file(filepath: str) -> list:
     # Read lines from file and remove trailing whitespaces.
     with open(filepath, 'r') as file:
         file_data = [line.rstrip() for line in file]
-    if not file_data:
-        raise EOFError(READ_FROM_FILE_ERROR)
     return file_data
 
 

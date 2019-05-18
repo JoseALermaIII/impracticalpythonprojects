@@ -9,9 +9,9 @@ import src.ch01.practice.p2_poor_bar_chart as bar_chart
 import src.ch01.challenge.c1_foreign_bar_chart as foreign_chart
 import src.ch01.challenge.c2_name_generator as name_generator
 from src.ch01.practice import ENCODE_ERROR, FREQ_ANALYSIS_ERROR, PRINT_BAR_CHART_ERROR
-from src.ch01.challenge import ADD_KEYS_ERROR, READ_FROM_FILE_ERROR, \
-    SPLIT_NAME_LIST_ERROR, SPLIT_NAME_EMPTY_ERROR, ADD_NAME_TO_KEY_ERROR, \
-    GENERATE_NAME_ERROR, BUILD_LIST_ERROR
+from src.ch01.challenge import ADD_KEYS_ERROR, SPLIT_NAME_LIST_ERROR, \
+    SPLIT_NAME_EMPTY_ERROR, ADD_NAME_TO_KEY_ERROR, GENERATE_NAME_ERROR, \
+    BUILD_LIST_ERROR
 from tests.data.ch01.ch01 import EMPTY_LETTER_DICT
 
 
@@ -120,9 +120,6 @@ class TestNameGenerator(unittest.TestCase):
 
     def test_errors(self):
         """Test that each function raises its errors."""
-        with self.assertRaises(EOFError) as err:
-            name_generator.read_from_file('tests/data/ch01/empty.txt')
-            self.assertEqual(READ_FROM_FILE_ERROR, err.exception)
         with self.assertRaises(IndexError) as err:
             os.makedirs('tests/data/ch01/empty', exist_ok=True)
             name_generator.build_name_list('tests/data/ch01/empty')
