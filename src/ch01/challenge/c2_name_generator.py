@@ -160,6 +160,9 @@ def generate_name(name_dict: dict) -> str:
     Returns:
         String with a random name.
 
+    Raises:
+        KeyError: If there aren't three keys in the dictionary.
+
     Note:
         Only add middle name between 1/3 and 1/4 of the time.
 
