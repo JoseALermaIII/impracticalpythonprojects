@@ -125,6 +125,7 @@ class TestNameGenerator(unittest.TestCase):
             name_generator.read_from_file('tests/data/empty.txt')
             self.assertEqual(READ_FROM_FILE_ERROR, err.exception)
         with self.assertRaises(IndexError) as err:
+            os.makedirs('tests/data/empty', exist_ok=True)
             name_generator.build_name_list('tests/data/empty')
             self.assertEqual(BUILD_LIST_ERROR, err.exception)
         with self.assertRaises(TypeError) as err:
