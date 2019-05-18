@@ -8,8 +8,11 @@ from tests import random_string
 import src.ch01.practice.p1_pig_latin as pig_latin
 import src.ch01.practice.p2_poor_bar_chart as bar_chart
 import src.ch01.challenge.c1_foreign_bar_chart as foreign_chart
+import src.ch01.challenge.c2_name_generator as name_generator
 from src.ch01.practice import ENCODE_ERROR, FREQ_ANALYSIS_ERROR, PRINT_BAR_CHART_ERROR
-from src.ch01.challenge import ADD_KEYS_ERROR
+from src.ch01.challenge import ADD_KEYS_ERROR, READ_FROM_FILE_ERROR, \
+    SPLIT_NAME_LIST_ERROR, SPLIT_NAME_EMPTY_ERROR, ADD_NAME_TO_KEY_ERROR, \
+    GENERATE_NAME_ERROR, BUILD_LIST_ERROR
 from tests.data.ch01 import EMPTY_LETTER_DICT
 
 
@@ -111,6 +114,36 @@ class TestForeignChart(unittest.TestCase):
         random_dict = {random_letter: []}
         test_dict = foreign_chart.add_keys_to_dict(random_dict)
         self.assertDictEqual(test_dict, EMPTY_LETTER_DICT)
+
+
+class TestNameGenerator(unittest.TestCase):
+    """Test Name Generator."""
+
+    def test_errors(self):
+        """Test that each function raises its errors."""
+        with self.assertRaises(EOFError) as err:
+            name_generator.read_from_file('tests/data/empty.txt')
+            self.assertEqual(READ_FROM_FILE_ERROR, err.exception)
+        with self.assertRaises(IndexError) as err:
+            name_generator.build_name_list('tests/data/empty')
+            self.assertEqual(BUILD_LIST_ERROR, err.exception)
+        with self.assertRaises(TypeError) as err:
+            test_dict = {'blank': []}
+            name_generator.add_name_to_key(4, test_dict, 'blank')
+            self.assertEqual(ADD_NAME_TO_KEY_ERROR, err.exception)
+            name_generator.add_name_to_key('First', test_dict, 5)
+            self.assertEqual(ADD_NAME_TO_KEY_ERROR, err.exception)
+            name_generator.add_name_to_key('First', 6, 'blank')
+            self.assertEqual(ADD_NAME_TO_KEY_ERROR, err.exception)
+        with self.assertRaises(TypeError) as err:
+            name_generator.split_names(7)
+            self.assertEqual(SPLIT_NAME_LIST_ERROR, err.exception)
+            test_list = []
+            name_generator.split_names(test_list)
+            self.assertEqual(SPLIT_NAME_EMPTY_ERROR, err.exception)
+        with self.assertRaises(KeyError) as err:
+            name_generator.generate_name(test_dict)
+            self.assertEqual(GENERATE_NAME_ERROR, err.exception)
 
 
 if __name__ == '__main__':
