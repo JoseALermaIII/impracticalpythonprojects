@@ -3,6 +3,7 @@ import io
 import os
 import string
 import unittest.mock
+from random import Random
 from tests import random_string
 import src.ch01.practice.p1_pig_latin as pig_latin
 import src.ch01.practice.p2_poor_bar_chart as bar_chart
@@ -118,6 +119,11 @@ class TestForeignChart(unittest.TestCase):
 class TestNameGenerator(unittest.TestCase):
     """Test Name Generator."""
 
+    @classmethod
+    def setUpClass(cls):
+        """Configure attributes for use in this class only."""
+        cls.random = Random(512)
+
     def test_errors(self):
         """Test that each function raises its errors."""
         with self.assertRaises(IndexError) as err:
@@ -172,6 +178,19 @@ class TestNameGenerator(unittest.TestCase):
                      'middle': ['"The Squid"', 'Smith', 'Schmidt', 'Todd'],
                      'last': ['Smith', 'Sampson', 'Thomas']}
         self.assertDictEqual(test_dict, name_dict)
+
+    @unittest.mock.patch('src.ch01.challenge.c2_name_generator.random')
+    def test_generate_name(self, random):
+        """Test generate_name."""
+        name_dict = {'first': ['Sally', 'Sam', 'Tadd'],
+                     'middle': ['"The Squid"', 'Smith', 'Schmidt', 'Todd'],
+                     'last': ['Smith', 'Sampson', 'Thomas']}
+        random.choice._mock_side_effect = self.random.choice
+        # Use seed that generates a middle name.
+        self.assertEqual(name_generator.generate_name(name_dict), 'Sally Schmidt Sampson')
+        # Use seed that doesn't generate a middle name.
+        self.random = Random(511)
+        self.assertEqual(name_generator.generate_name(name_dict), 'Sam Sampson')
 
 
 if __name__ == '__main__':
