@@ -148,6 +148,13 @@ class TestNameGenerator(unittest.TestCase):
                      'Tadd Todd Thomas Sr.']
         self.assertListEqual(test_name_list, name_list)
 
+    def test_build_name_list(self):
+        """Test that build_name_list can read names from multiple files."""
+        test_name_list = name_generator.build_name_list('tests/data/ch01/names')
+        name_list = ['Sally Smith', 'Sam Smith Schmidt "The Squid" Sampson IV',
+                     'Tadd Todd Thomas Sr.']
+        self.assertListEqual(test_name_list, name_list)
+
 
 if __name__ == '__main__':
     unittest.main()
