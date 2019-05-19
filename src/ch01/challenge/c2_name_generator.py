@@ -71,8 +71,8 @@ def add_name_to_key(name: str, dictionary: dict, key: str) -> None:
         dictionary.
 
     """
-    if any([isinstance(name, str), isinstance(key, str),
-            isinstance(dictionary, dict)]):
+    if not all([isinstance(name, str), isinstance(key, str),
+                isinstance(dictionary, dict)]):
         raise TypeError(ADD_NAME_TO_KEY_ERROR)
     # Check for repeat names while adding.
     if name not in dictionary[key]:
