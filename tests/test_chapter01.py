@@ -143,7 +143,7 @@ class TestNameGenerator(unittest.TestCase):
 
     def test_read_from_file(self):
         """Test that read_from_file can read names from a file."""
-        test_name_list = name_generator.read_from_file('tests/data/ch01/name.txt')
+        test_name_list = name_generator.read_from_file('tests/data/ch01/names/name.txt')
         name_list = ['Sam Smith Schmidt "The Squid" Sampson IV',
                      'Tadd Todd Thomas Sr.']
         self.assertListEqual(test_name_list, name_list)
