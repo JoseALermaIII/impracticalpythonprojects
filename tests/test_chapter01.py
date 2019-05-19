@@ -164,6 +164,15 @@ class TestNameGenerator(unittest.TestCase):
         name_generator.add_name_to_key('name', test_dict, 'blank')
         self.assertDictEqual(test_dict, {'blank': ['name']})
 
+    def test_split_names(self):
+        """Test split_names."""
+        name_list = name_generator.build_name_list('tests/data/ch01/names')
+        test_dict = name_generator.split_names(name_list)
+        name_dict = {'first': ['Sally', 'Sam', 'Tadd'],
+                     'middle': ['"The Squid"', 'Smith', 'Schmidt', 'Todd'],
+                     'last': ['Smith', 'Sampson', 'Thomas']}
+        self.assertDictEqual(test_dict, name_dict)
+
 
 if __name__ == '__main__':
     unittest.main()
