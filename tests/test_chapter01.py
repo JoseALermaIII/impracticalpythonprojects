@@ -192,6 +192,12 @@ class TestNameGenerator(unittest.TestCase):
         self.random = Random(511)
         self.assertEqual(name_generator.generate_name(name_dict), 'Sam Sampson')
 
+    @unittest.mock.patch('src.ch01.challenge.c2_name_generator.random')
+    def test_name_generator(self, random):
+        """Test name_generator."""
+        random.choice._mock_side_effect = self.random.choice
+        self.assertEqual(name_generator.name_generator('tests/data/ch01/names'), 'Sam Smith')
+
 
 if __name__ == '__main__':
     unittest.main()
