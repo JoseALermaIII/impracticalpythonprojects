@@ -155,6 +155,15 @@ class TestNameGenerator(unittest.TestCase):
                      'Tadd Todd Thomas Sr.']
         self.assertListEqual(test_name_list, name_list)
 
+    def test_add_name_to_key(self):
+        """Test add_name_to_key."""
+        test_dict = {'blank': []}
+        name_generator.add_name_to_key('name', test_dict, 'blank')
+        self.assertDictEqual(test_dict, {'blank': ['name']})
+        # Test that it ignores duplicates.
+        name_generator.add_name_to_key('name', test_dict, 'blank')
+        self.assertDictEqual(test_dict, {'blank': ['name']})
+
 
 if __name__ == '__main__':
     unittest.main()
