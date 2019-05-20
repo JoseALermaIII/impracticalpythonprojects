@@ -38,7 +38,7 @@ def build_name_list(folderpath: str) -> list:
         List with names from folderpath.
 
     Raises:
-        IndexError: If folderpath has no files.
+        IndexError: If folderpath has no ``.txt`` files.
 
     """
     if not folderpath.endswith('/'):
