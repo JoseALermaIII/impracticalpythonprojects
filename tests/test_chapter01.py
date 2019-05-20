@@ -162,7 +162,7 @@ class TestNameGenerator(unittest.TestCase):
         self.assertListEqual(test_name_list, name_list)
 
     def test_add_name_to_key(self):
-        """Test add_name_to_key."""
+        """Test that add_name_to_key can add strings to a dictionary key."""
         test_dict = {'blank': []}
         name_generator.add_name_to_key('name', test_dict, 'blank')
         self.assertDictEqual(test_dict, {'blank': ['name']})
@@ -171,7 +171,8 @@ class TestNameGenerator(unittest.TestCase):
         self.assertDictEqual(test_dict, {'blank': ['name']})
 
     def test_split_names(self):
-        """Test split_names."""
+        """Test that split_names can split a list of names into a
+        dictionary."""
         name_list = name_generator.build_name_list('tests/data/ch01/names')
         test_dict = name_generator.split_names(name_list)
         name_dict = {'first': ['Sally', 'Sam', 'Tadd'],
@@ -181,7 +182,7 @@ class TestNameGenerator(unittest.TestCase):
 
     @unittest.mock.patch('src.ch01.challenge.c2_name_generator.random')
     def test_generate_name(self, random):
-        """Test generate_name."""
+        """Test that generate_name can make a name with(out) a middle name."""
         name_dict = {'first': ['Sally', 'Sam', 'Tadd'],
                      'middle': ['"The Squid"', 'Smith', 'Schmidt', 'Todd'],
                      'last': ['Smith', 'Sampson', 'Thomas']}
@@ -194,7 +195,7 @@ class TestNameGenerator(unittest.TestCase):
 
     @unittest.mock.patch('src.ch01.challenge.c2_name_generator.random')
     def test_name_generator(self, random):
-        """Test name_generator."""
+        """Test that name_generator can output a name."""
         random.choice._mock_side_effect = self.random.choice
         self.assertEqual(name_generator.name_generator('tests/data/ch01/names'), 'Sam Smith')
 
