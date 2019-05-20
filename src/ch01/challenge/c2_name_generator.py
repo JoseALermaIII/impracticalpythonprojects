@@ -1,6 +1,7 @@
 """Generate random names from a list of names."""
 import os
 import random
+import sys
 from src.ch01.challenge import SPLIT_NAME_LIST_ERROR, SPLIT_NAME_EMPTY_ERROR,\
     ADD_NAME_TO_KEY_ERROR, GENERATE_NAME_ERROR, BUILD_LIST_ERROR
 
@@ -199,7 +200,8 @@ def main():
           'comedy-drama television series.\n')
     folder = os.path.abspath('c2files')
 
-    print(f'Generated name: {name_generator(folder)}')
+    print(f'Generated name: {name_generator(folder)}',
+          file=sys.stderr)  # Red output
 
 
 if __name__ == '__main__':
