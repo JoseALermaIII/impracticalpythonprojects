@@ -9,7 +9,7 @@ from src.ch01.challenge import SPLIT_NAME_LIST_ERROR, SPLIT_NAME_EMPTY_ERROR,\
 def read_from_file(filepath: str) -> list:
     """Read from file.
 
-    Reads lines from text file and returns a list.
+    Reads lines from text file and returns a :py:obj:`list`.
 
     Args:
         filepath (str): Path to file with names.
@@ -36,10 +36,10 @@ def build_name_list(folderpath: str) -> list:
         folderpath (str): Path to folder with name files.
 
     Returns:
-        List with names from folderpath.
+        List with names from **folderpath**.
 
     Raises:
-        IndexError: If folderpath has no ``.txt`` files.
+        IndexError: If **folderpath** has no ``.txt`` files.
 
     """
     if not folderpath.endswith('/'):
@@ -56,20 +56,20 @@ def build_name_list(folderpath: str) -> list:
 def add_name_to_key(name: str, dictionary: dict, key: str) -> None:
     """Add name to key in dictionary.
 
-    Add name to dictionary under key if not already present.
+    Add **name** to **dictionary** under **key** if not already present.
 
     Args:
-         name (str): Name to add to dictionary.
-         key (str): Key to add name under.
-         dictionary (dict): Dictionary to add name to.
+         name (str): Name to add to **dictionary**.
+         key (str): Key to add **name** under.
+         dictionary (dict): Dictionary to add **name** to.
 
     Returns:
-        None. Name is added under key if not present, dictionary is unchanged
-        otherwise.
+        :py:obj:`None`. **name** is added under **key** if not present,
+        **dictionary** is unchanged otherwise.
 
     Raises:
-        TypeError: If name and key aren't strings or if dictionary isn't a
-        dictionary.
+        TypeError: If **name** and **key** aren't :py:obj:`str` or if
+            **dictionary** isn't a :py:obj:`dict`.
 
     """
     if not all([isinstance(name, str), isinstance(key, str),
@@ -93,7 +93,8 @@ def split_names(name_list: list) -> dict:
         and names as values.
 
     Raises:
-        TypeError: If given name list is not a list or tuple.
+        TypeError: If given name list is not a :py:obj:`list` or
+            :py:obj:`tuple`.
         ValueError: If given name list is empty.
 
     Note:
@@ -179,9 +180,10 @@ def generate_name(name_dict: dict) -> str:
 def name_generator(folderpath: str) -> str:
     """Wrap generate_name, split_names, and build_name_list.
 
-    Passes given folderpath through build_name_list to get the names in a
-    list, then split_names to split them into a dictionary, and finally
-    through generate_name to make the actual name.
+    Passes given **folderpath** through :func:`build_name_list` to get the
+    names in a :py:obj:`list`, then :func:`split_names` to split them into a
+    :py:obj:`dict`, and finally through :func:`generate_name` to make the
+    actual name.
 
     Args:
          folderpath (str): Path to folder with name files.
