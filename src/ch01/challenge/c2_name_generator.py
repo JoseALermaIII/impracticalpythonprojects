@@ -1,4 +1,4 @@
-"""Generate random names from a list of names."""
+"""Generate pseudo-random names from a list of names."""
 import os
 import random
 import sys
