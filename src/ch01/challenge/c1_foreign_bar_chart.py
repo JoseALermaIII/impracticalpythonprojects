@@ -13,10 +13,10 @@ def add_keys_to_dict(dictionary: dict) -> dict:
         dictionary (dict): Dictionary to check keys of.
 
     Returns:
-        Dictionary with all ASCII lowercase letters as keys.
+        Dictionary with :py:obj:`string.ascii_lowercase` as keys.
 
     Raises:
-        TypeError: If `dictionary` is not a dictionary.
+        TypeError: If **dictionary** is not a :py:obj:`dict`.
 
     """
     if not isinstance(dictionary, dict):
@@ -32,15 +32,17 @@ def add_keys_to_dict(dictionary: dict) -> dict:
 def foreign_freq_analysis(sentence: str) -> dict:
     """Wrap freq_analysis and add_keys_to_dict.
 
-    Passes given sentence through freq_analysis then add_keys_to_dict to
-    fill in missing keys.
+    Passes given sentence through
+    :func:`~src.ch01.practice.p2_poor_bar_chart.freq_analysis` then
+    :func:`add_keys_to_dict` to fill in missing keys.
 
     Args:
         sentence (str): String to count letters of.
 
     Returns:
-        Dictionary with all ASCII lowercase letters as keys and list with
-        letters repeated based on their frequency as values.
+        Dictionary with :py:obj:`string.ascii_lowercase` as keys and a
+        :py:obj:`list` with letters repeated based on their frequency as
+        values.
 
     """
     return add_keys_to_dict(freq_analysis(sentence))
