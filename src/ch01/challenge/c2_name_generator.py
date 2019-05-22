@@ -189,7 +189,7 @@ def name_generator(folderpath: str) -> str:
          folderpath (str): Path to folder with name files.
 
     Returns:
-        String with random name.
+        String with pseudo-random name.
 
     """
     return generate_name(split_names(build_name_list(folderpath)))
