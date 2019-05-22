@@ -14,8 +14,9 @@ def freq_analysis(sentence: str) -> dict:
         sentence (str): String to count letters of.
 
     Returns:
-        :py:class:`~collections.defaultdict` with each letter as keys and list
-        with letters repeated based on their frequency as values.
+        :py:class:`~collections.defaultdict` with each letter as keys and a
+        :py:obj:`list` with letters repeated based on their frequency as
+        values.
 
     Example:
         >>> from src.ch01.practice.p2_poor_bar_chart import freq_analysis
