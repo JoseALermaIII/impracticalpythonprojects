@@ -17,7 +17,7 @@ def encode(word: str) -> str:
         Encoded Pig Latin word.
 
     Raises:
-        TypeError: If `word` is not a string.
+        TypeError: If **word** is not a string.
 
     """
     # Check if word is a string
