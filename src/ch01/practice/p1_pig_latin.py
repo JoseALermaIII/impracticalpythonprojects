@@ -7,7 +7,8 @@ def encode(word: str) -> str:
 
     If a word begins with a consonant, move the consonant to the end of the
     word and add 'ay' to the end of the new word. If a word begins with a
-    vowel, add 'way' to the end of the word.
+    vowel in :data:`~src.ch01.practice.VOWELS`, add 'way' to the end of the
+    word.
 
     Args:
         word (str): Word to encode to Pig Latin.
