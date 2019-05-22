@@ -26,7 +26,7 @@ def freq_analysis(sentence: str) -> dict:
                                      'c': ['c', 'c', 'c']})
 
     Raises:
-        TypeError: If `sentence` is not a string.
+        TypeError: If **sentence** is not a string.
 
     """
     if not isinstance(sentence, str):
@@ -62,7 +62,7 @@ def print_bar_chart(freq_dict: dict) -> None:
         otherwise prints the dictionary.
 
     Raises:
-        TypeError: If `freq_dict` is not a dictionary.
+        TypeError: If **freq_dict** is not a dictionary.
 
     """
     if not isinstance(freq_dict, dict):
