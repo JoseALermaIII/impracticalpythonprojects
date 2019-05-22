@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src.ch01.challenge.c1_foreign_bar_chart &#8212; impracticalpythonprojects 0.8.0 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/flask.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <script>DOCUMENTATION_OPTIONS.URL_ROOT = '../../../../';</script>
+   
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">impracticalpythonprojects 0.8.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for src.ch01.challenge.c1_foreign_bar_chart</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Return letter &#39;bar chart&#39; of a non-English sentence.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">from</span> <span class="nn">src.ch01.challenge</span> <span class="k">import</span> <span class="n">ADD_KEYS_ERROR</span>
+<span class="kn">from</span> <span class="nn">src.ch01.practice.p2_poor_bar_chart</span> <span class="k">import</span> <span class="n">freq_analysis</span><span class="p">,</span> <span class="n">print_bar_chart</span>
+
+
+<div class="viewcode-block" id="add_keys_to_dict"><a class="viewcode-back" href="../../../../src.ch01.challenge.html#src.ch01.challenge.c1_foreign_bar_chart.add_keys_to_dict">[docs]</a><span class="k">def</span> <span class="nf">add_keys_to_dict</span><span class="p">(</span><span class="n">dictionary</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Add keys to dictionary.</span>
+
+<span class="sd">    Check keys of a letter dictionary and add missing letters.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dictionary (dict): Dictionary to check keys of.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary with :py:obj:`string.ascii_lowercase` as keys.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        TypeError: If **dictionary** is not a :py:obj:`dict`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dictionary</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">ADD_KEYS_ERROR</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_lowercase</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="p">:</span>
+            <span class="n">dictionary</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">return</span> <span class="n">dictionary</span></div>
+
+
+<div class="viewcode-block" id="foreign_freq_analysis"><a class="viewcode-back" href="../../../../src.ch01.challenge.html#src.ch01.challenge.c1_foreign_bar_chart.foreign_freq_analysis">[docs]</a><span class="k">def</span> <span class="nf">foreign_freq_analysis</span><span class="p">(</span><span class="n">sentence</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Wrap freq_analysis and add_keys_to_dict.</span>
+
+<span class="sd">    Passes given sentence through</span>
+<span class="sd">    :func:`~src.ch01.practice.p2_poor_bar_chart.freq_analysis` then</span>
+<span class="sd">    :func:`add_keys_to_dict` to fill in missing keys.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sentence (str): String to count letters of.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary with :py:obj:`string.ascii_lowercase` as keys and a</span>
+<span class="sd">        :py:obj:`list` with letters repeated based on their frequency as</span>
+<span class="sd">        values.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">add_keys_to_dict</span><span class="p">(</span><span class="n">freq_analysis</span><span class="p">(</span><span class="n">sentence</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../src.ch01.challenge.html#src.ch01.challenge.c1_foreign_bar_chart.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Demonstrates the Foreign Bar Chart.&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Este es un gráfico de barras asequible para idiomas extranjeros.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">trabalengua</span> <span class="o">=</span> <span class="s1">&#39;Sally vende conchas al lado del orilla del mar.&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Analizando: </span><span class="si">{trabalengua}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">print_bar_chart</span><span class="p">(</span><span class="n">foreign_freq_analysis</span><span class="p">(</span><span class="n">trabalengua</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Si inclina su cabeza hacia la derecha, la letra &quot;l&quot; es la más &#39;</span>
+          <span class="s1">&#39;frecuente.&#39;</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  
+    
+  
+<h3>Navigation</h3>
+<ul>
+  <li><a href="../../../../index.html">Overview</a>
+    <ul>
+      <li><a href="../../../index.html">Module code</a>
+        
+          
+          </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jose A. Lerma III.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
+    </div>
+
+  </body>
+</html>

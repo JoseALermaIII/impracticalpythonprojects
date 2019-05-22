@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src.ch01.challenge.c2_name_generator &#8212; impracticalpythonprojects 0.8.0 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/flask.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <script>DOCUMENTATION_OPTIONS.URL_ROOT = '../../../../';</script>
+   
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">impracticalpythonprojects 0.8.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for src.ch01.challenge.c2_name_generator</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Generate pseudo-random names from a list of names.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">src.ch01.challenge</span> <span class="k">import</span> <span class="n">SPLIT_NAME_LIST_ERROR</span><span class="p">,</span> <span class="n">SPLIT_NAME_EMPTY_ERROR</span><span class="p">,</span>\
+    <span class="n">ADD_NAME_TO_KEY_ERROR</span><span class="p">,</span> <span class="n">GENERATE_NAME_ERROR</span><span class="p">,</span> <span class="n">BUILD_LIST_ERROR</span>
+
+
+<div class="viewcode-block" id="read_from_file"><a class="viewcode-back" href="../../../../src.ch01.challenge.html#src.ch01.challenge.c2_name_generator.read_from_file">[docs]</a><span class="k">def</span> <span class="nf">read_from_file</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Read from file.</span>
+
+<span class="sd">    Reads lines from text file and returns a :py:obj:`list`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        filepath (str): Path to file with names.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List with each line from the file as an element.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Removes trailing whitespaces.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Read lines from file and remove trailing whitespaces.</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">file_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">file_data</span></div>
+
+
+<div class="viewcode-block" id="build_name_list"><a class="viewcode-back" href="../../../../src.ch01.challenge.html#src.ch01.challenge.c2_name_generator.build_name_list">[docs]</a><span class="k">def</span> <span class="nf">build_name_list</span><span class="p">(</span><span class="n">folderpath</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Build name list from folder.</span>
+
+<span class="sd">    Builds list of names from name files in given folder.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        folderpath (str): Path to folder with name files.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List with names from **folderpath**.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        IndexError: If **folderpath** has no ``.txt`` files.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">folderpath</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>
+        <span class="n">folderpath</span> <span class="o">=</span> <span class="n">folderpath</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
+    <span class="n">files</span><span class="p">,</span> <span class="n">name_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">file</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">folderpath</span><span class="p">)</span> <span class="k">if</span>
+                        <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.txt&#39;</span><span class="p">)],</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="n">BUILD_LIST_ERROR</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">name_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">read_from_file</span><span class="p">(</span><span class="n">folderpath</span> <span class="o">+</span> <span class="n">file</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">name_list</span></div>
+
+
+<div class="viewcode-block" id="add_name_to_key"><a class="viewcode-back" href="../../../../src.ch01.challenge.html#src.ch01.challenge.c2_name_generator.add_name_to_key">[docs]</a><span class="k">def</span> <span class="nf">add_name_to_key</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Add name to key in dictionary.</span>
+
+<span class="sd">    Add **name** to **dictionary** under **key** if not already present.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">         name (str): Name to add to **dictionary**.</span>
+<span class="sd">         key (str): Key to add **name** under.</span>
+<span class="sd">         dictionary (dict): Dictionary to add **name** to.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        :py:obj:`None`. **name** is added under **key** if not present,</span>
+<span class="sd">        **dictionary** is unchanged otherwise.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        TypeError: If **name** and **key** aren&#39;t :py:obj:`str` or if</span>
+<span class="sd">            **dictionary** isn&#39;t a :py:obj:`dict`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+                <span class="nb">isinstance</span><span class="p">(</span><span class="n">dictionary</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)]):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">ADD_NAME_TO_KEY_ERROR</span><span class="p">)</span>
+    <span class="c1"># Check for repeat names while adding.</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
+        <span class="n">dictionary</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="split_names"><a class="viewcode-back" href="../../../../src.ch01.challenge.html#src.ch01.challenge.c2_name_generator.split_names">[docs]</a><span class="k">def</span> <span class="nf">split_names</span><span class="p">(</span><span class="n">name_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Split names from list of names.</span>
+
+<span class="sd">    Splits first, middle, and last names from a given list of names.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name_list (list): List with names as elements.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary of lists with ``first``, ``middle``, and ``last`` as keys</span>
+<span class="sd">        and names as values.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        TypeError: If given name list is not a :py:obj:`list` or</span>
+<span class="sd">            :py:obj:`tuple`.</span>
+<span class="sd">        ValueError: If given name list is empty.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Drops suffix and adds nickname to middle names.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">name_list</span><span class="p">,</span> <span class="nb">list</span><span class="p">),</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name_list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)]):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">SPLIT_NAME_LIST_ERROR</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">name_list</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">SPLIT_NAME_EMPTY_ERROR</span><span class="p">)</span>
+
+    <span class="n">names</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;middle&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;last&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">name_list</span><span class="p">:</span>
+        <span class="c1"># Check for quotes for nicknames and add to middle names.</span>
+        <span class="k">if</span> <span class="s1">&#39;&quot;&#39;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="n">start</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">nickname</span> <span class="o">=</span> <span class="n">name</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># Include space for replace</span>
+            <span class="n">add_name_to_key</span><span class="p">(</span><span class="n">nickname</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">names</span><span class="p">,</span> <span class="s1">&#39;middle&#39;</span><span class="p">)</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">nickname</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Drop suffix by dropping last name if less than 4 characters, has</span>
+        <span class="c1"># a &#39;.&#39;, or all uppercase.</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+        <span class="n">suffix</span> <span class="o">=</span> <span class="n">name</span><span class="p">[</span><span class="n">end</span><span class="p">:]</span>  <span class="c1"># Include space for replace</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">suffix</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="o">&lt;</span> <span class="mi">4</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">([</span><span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">suffix</span><span class="p">,</span> <span class="n">suffix</span><span class="o">.</span><span class="n">isupper</span><span class="p">()]):</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">suffix</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Check middle name by counting whitespace and add to middle names.</span>
+        <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># For multi-name middle names</span>
+            <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">),</span> <span class="n">name</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+            <span class="n">middle</span> <span class="o">=</span> <span class="n">name</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>  <span class="c1"># Include leading space for replace</span>
+            <span class="k">if</span> <span class="n">middle</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">end</span> <span class="o">=</span> <span class="n">middle</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+                <span class="n">middle1</span><span class="p">,</span> <span class="n">middle2</span> <span class="o">=</span> <span class="n">middle</span><span class="p">[:</span><span class="n">end</span><span class="p">],</span> <span class="n">middle</span><span class="p">[</span><span class="n">end</span><span class="p">:]</span>
+                <span class="n">add_name_to_key</span><span class="p">(</span><span class="n">middle1</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">names</span><span class="p">,</span> <span class="s1">&#39;middle&#39;</span><span class="p">)</span>
+                <span class="n">add_name_to_key</span><span class="p">(</span><span class="n">middle2</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">names</span><span class="p">,</span> <span class="s1">&#39;middle&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">add_name_to_key</span><span class="p">(</span><span class="n">middle</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">names</span><span class="p">,</span> <span class="s1">&#39;middle&#39;</span><span class="p">)</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">middle</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Split and add first and last names.</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+        <span class="n">first</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">name</span><span class="p">[:</span><span class="n">end</span><span class="p">],</span> <span class="n">name</span><span class="p">[</span><span class="n">end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span>  <span class="c1"># Exclude leading space</span>
+        <span class="n">add_name_to_key</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">)</span>
+        <span class="n">add_name_to_key</span><span class="p">(</span><span class="n">last</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="s1">&#39;last&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">names</span></div>
+
+
+<div class="viewcode-block" id="generate_name"><a class="viewcode-back" href="../../../../src.ch01.challenge.html#src.ch01.challenge.c2_name_generator.generate_name">[docs]</a><span class="k">def</span> <span class="nf">generate_name</span><span class="p">(</span><span class="n">name_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Generate pseudo-random name.</span>
+
+<span class="sd">    Use names in dictionary to generate a random name.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name_dict: Dictionary from split_names.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        String with a random name.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        KeyError: If there aren&#39;t three keys in the dictionary.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Only add middle name between 1/3 and 1/4 of the time.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Raise error if there aren&#39;t three keys in dictionary.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">name_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">GENERATE_NAME_ERROR</span><span class="p">)</span>
+
+    <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">name_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>  <span class="c1"># Make keys indexable. Python3.6 only?</span>
+    <span class="n">first</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">name_dict</span><span class="p">[</span><span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]]),</span>\
+        <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">name_dict</span><span class="p">[</span><span class="n">keys</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+    <span class="c1"># Add middle name between 1/3 and 1/4 of the time.</span>
+    <span class="k">if</span> <span class="mi">25</span> <span class="o">&gt;=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="mi">33</span><span class="p">:</span>
+        <span class="n">middle</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">name_dict</span><span class="p">[</span><span class="n">keys</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+        <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">first</span><span class="p">,</span> <span class="n">middle</span><span class="p">,</span> <span class="n">last</span><span class="p">])</span>
+    <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">first</span><span class="p">,</span> <span class="n">last</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="name_generator"><a class="viewcode-back" href="../../../../src.ch01.challenge.html#src.ch01.challenge.c2_name_generator.name_generator">[docs]</a><span class="k">def</span> <span class="nf">name_generator</span><span class="p">(</span><span class="n">folderpath</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Wrap generate_name, split_names, and build_name_list.</span>
+
+<span class="sd">    Passes given **folderpath** through :func:`build_name_list` to get the</span>
+<span class="sd">    names in a :py:obj:`list`, then :func:`split_names` to split them into a</span>
+<span class="sd">    :py:obj:`dict`, and finally through :func:`generate_name` to make the</span>
+<span class="sd">    actual name.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">         folderpath (str): Path to folder with name files.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        String with pseudo-random name.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">generate_name</span><span class="p">(</span><span class="n">split_names</span><span class="p">(</span><span class="n">build_name_list</span><span class="p">(</span><span class="n">folderpath</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../src.ch01.challenge.html#src.ch01.challenge.c2_name_generator.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Demonstrate name generator.&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;This is a random name generator.</span><span class="se">\n</span><span class="s1">&#39;</span>
+          <span class="s1">&#39;Similar to a character from a certain American detective</span><span class="se">\n</span><span class="s1">&#39;</span>
+          <span class="s1">&#39;comedy-drama television series.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;c2files&#39;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Generated name: {name_generator(folder)}&#39;</span><span class="p">,</span>
+          <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>  <span class="c1"># Red output</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  
+    
+  
+<h3>Navigation</h3>
+<ul>
+  <li><a href="../../../../index.html">Overview</a>
+    <ul>
+      <li><a href="../../../index.html">Module code</a>
+        
+          
+          </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jose A. Lerma III.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
+    </div>
+
+  </body>
+</html>
