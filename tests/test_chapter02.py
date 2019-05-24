@@ -1,4 +1,5 @@
 """Test Chapter 2."""
+import os
 import unittest
 import src.ch02.p1_cleanup_dictionary as cleanup_dictionary
 from tests import random_string
@@ -22,6 +23,14 @@ class TestCleanupDictionary(unittest.TestCase):
         self.assertEqual(len(clean_list), 10)
         for element in clean_list:
             self.assertEqual(len(element), 5)
+
+    def test_cleanup_dict(self):
+        """Test that it removes single letter words from a dictionary file."""
+        dict_file = os.path.abspath('tests/data/ch02/dictionary.txt')
+        clean_dict = cleanup_dictionary.cleanup_dict(dict_file)
+        self.assertEqual(len(clean_dict), 52)  # 78 words - 26 letters
+        for element in clean_dict:
+            self.assertGreater(len(element), 1)
 
 
 if __name__ == '__main__':
