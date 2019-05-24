@@ -1,6 +1,6 @@
 """Remove single letter words from a word dictionary."""
 from src.ch01.challenge.c2_name_generator import read_from_file
-from src.ch02 import DICTIONARY_FILE_PATH
+from src.ch02 import DICTIONARY_FILE_PATH, CLEANUP_LIST_ERROR
 
 
 def cleanup_list(word_list: list) -> list:
@@ -14,7 +14,12 @@ def cleanup_list(word_list: list) -> list:
     Returns:
         List with words as elements excluding single letter words.
 
+    Raises:
+        IndexError: If **word_list** is empty.
+
     """
+    if not word_list:
+        raise IndexError(CLEANUP_LIST_ERROR)
     return [word for word in word_list if len(word) > 1]
 
 
