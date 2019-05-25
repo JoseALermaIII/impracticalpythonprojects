@@ -9,7 +9,7 @@ def recursive_ispalindrome(word: str) -> bool:
         word (str): String to check palindrome-ness.
 
     Returns:
-        :py:obj:`True` is the word is a palindrome, :py:obj:`False` otherwise.
+        :py:obj:`True` if the word is a palindrome, :py:obj:`False` otherwise.
 
     Raises:
         TypeError: If **word** is not a string.
