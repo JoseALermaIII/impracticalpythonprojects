@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src.ch02 package &#8212; impracticalpythonprojects 0.9.0 documentation</title>
+    <link rel="stylesheet" href="_static/flask.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="src.ch01.practice package" href="src.ch01.practice.html" />
+  <script>DOCUMENTATION_OPTIONS.URL_ROOT = './';</script>
+   
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="src.ch01.practice.html" title="src.ch01.practice package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.9.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="src.html" accesskey="U">src package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="src-ch02-package">
+<h1>src.ch02 package<a class="headerlink" href="#src-ch02-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-src.ch02.p1_cleanup_dictionary">
+<span id="src-ch02-p1-cleanup-dictionary-module"></span><h2>src.ch02.p1_cleanup_dictionary module<a class="headerlink" href="#module-src.ch02.p1_cleanup_dictionary" title="Permalink to this headline">¶</a></h2>
+<p>Remove single letter words from a word dictionary.</p>
+<dl class="function">
+<dt id="src.ch02.p1_cleanup_dictionary.cleanup_dict">
+<code class="descclassname">src.ch02.p1_cleanup_dictionary.</code><code class="descname">cleanup_dict</code><span class="sig-paren">(</span><em>filepath: str</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch02/p1_cleanup_dictionary.html#cleanup_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch02.p1_cleanup_dictionary.cleanup_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrap read_from_file and cleanup_list.</p>
+<p>Passes given <strong>filepath</strong> through
+<a class="reference internal" href="src.ch01.challenge.html#src.ch01.challenge.c2_name_generator.read_from_file" title="src.ch01.challenge.c2_name_generator.read_from_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">read_from_file()</span></code></a>
+to get a list of words, then <a class="reference internal" href="#src.ch02.p1_cleanup_dictionary.cleanup_list" title="src.ch02.p1_cleanup_dictionary.cleanup_list"><code class="xref py py-func docutils literal notranslate"><span class="pre">cleanup_list()</span></code></a> to remove single letter
+words.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filepath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – String with path to word dictionary file.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List with words as elements excluding single letter words.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch02.p1_cleanup_dictionary.cleanup_list">
+<code class="descclassname">src.ch02.p1_cleanup_dictionary.</code><code class="descname">cleanup_list</code><span class="sig-paren">(</span><em>word_list: list</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch02/p1_cleanup_dictionary.html#cleanup_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch02.p1_cleanup_dictionary.cleanup_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cleanup word list.</p>
+<p>Remove single letter words from a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> of words.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>word_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – List with words as elements.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List with words as elements excluding single letter words.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#IndexError" title="(in Python v3.7)"><strong>IndexError</strong></a> – If <strong>word_list</strong> is empty.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch02.p1_cleanup_dictionary.main">
+<code class="descclassname">src.ch02.p1_cleanup_dictionary.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch02/p1_cleanup_dictionary.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch02.p1_cleanup_dictionary.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Demonstrate cleanup dictionary.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.ch02">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.ch02" title="Permalink to this headline">¶</a></h2>
+<p>Chapter 2.</p>
+<dl class="attribute">
+<dt id="src.ch02.DICTIONARY_FILE_PATH">
+<code class="descclassname">src.ch02.</code><code class="descname">DICTIONARY_FILE_PATH</code><a class="headerlink" href="#src.ch02.DICTIONARY_FILE_PATH" title="Permalink to this definition">¶</a></dt>
+<dd><p>String with path to Ubuntu 18.04.2’s
+American English dictionary file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.ch02.CLEANUP_LIST_ERROR">
+<code class="descclassname">src.ch02.</code><code class="descname">CLEANUP_LIST_ERROR</code><a class="headerlink" href="#src.ch02.CLEANUP_LIST_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd><p>String with <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#IndexError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">IndexError</span></code></a> for Cleanup
+Dictionary <a class="reference internal" href="#src.ch02.p1_cleanup_dictionary.cleanup_list" title="src.ch02.p1_cleanup_dictionary.cleanup_list"><code class="xref py py-func docutils literal notranslate"><span class="pre">cleanup_list()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  
+    
+  
+
+  <h3>Contents</h3>
+  <ul>
+<li><a class="reference internal" href="#">src.ch02 package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-src.ch02.p1_cleanup_dictionary">src.ch02.p1_cleanup_dictionary module</a></li>
+<li><a class="reference internal" href="#module-src.ch02">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<h3>Navigation</h3>
+<ul>
+  <li><a href="index.html">Overview</a>
+    <ul>
+      <li><a href="modules.html">src</a>
+        <ul>
+      <li><a href="src.html">src package</a>
+        <ul>
+          <li>Previous: <a href="src.ch01.practice.html" title="previous chapter">src.ch01.practice package</a>
+          </ul>
+      </li></ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jose A. Lerma III.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
+    </div>
+
+  </body>
+</html>
