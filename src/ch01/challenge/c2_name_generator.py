@@ -151,7 +151,7 @@ def generate_name(name_dict: dict) -> str:
     Use names in dictionary to generate a random name.
 
     Args:
-        name_dict: Dictionary from split_names.
+        name_dict: Dictionary from :func:`split_names`.
 
     Returns:
         String with a random name.

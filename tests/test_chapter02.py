@@ -10,7 +10,7 @@ from src.ch02 import CLEANUP_LIST_ERROR, RECURSIVE_ISPALINDROME_ERROR
 class TestCleanupDictionary(unittest.TestCase):
     """Test Cleanup Dictionary."""
 
-    def test_bad_type(self):
+    def test_bad_index(self):
         """Test that it raises an error if word_list is empty."""
         with self.assertRaises(IndexError) as err:
             cleanup_dictionary.cleanup_list([])
