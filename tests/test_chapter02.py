@@ -1,5 +1,6 @@
 """Test Chapter 2."""
 import os
+import string
 import unittest
 import src.ch02.p1_cleanup_dictionary as cleanup_dictionary
 import src.ch02.c1_recursive_palindrome as recursive_palindrome
@@ -42,6 +43,13 @@ class TestRecursivePalindrome(unittest.TestCase):
         with self.assertRaises(TypeError) as err:
             recursive_palindrome.recursive_ispalindrome(5)
             self.assertEqual(RECURSIVE_ISPALINDROME_ERROR, err.exception)
+
+    def test_recursive_ispalindrome(self):
+        """Test that it can identify a pseudo-random palindrome."""
+        random_string_ = random_string(10, string.ascii_lowercase)
+        random_palindrome = random_string_ + random_string_[::-1]
+        self.assertTrue(
+            recursive_palindrome.recursive_ispalindrome(random_palindrome))
 
 
 if __name__ == '__main__':
