@@ -2,7 +2,8 @@ impracticalpythonprojects
 =========================
 
 Example implementations of the practice and challenge projects in
-`Impractical Python Projects`_.
+`Impractical Python Projects`_. Alternative answers to practice projects and
+supporting files can be found at the `official GitHub page`_.
 
 It's a fantastic intermediate level book that has truly impractical (but fun)
 projects. It's a great way to get tricked into learning new conventions,
@@ -16,7 +17,10 @@ Bonus content includes Google style docstrings (such wow), main functions (so
 standard), pip requirements files (so helpful), and test files (**not** punny
 at all).
 
-.. _Impractical Python Projects: https://nostarch.com/impracticalpythonprojects
+.. _Impractical Python Projects:
+    https://nostarch.com/impracticalpythonprojects
+.. _official GitHub page:
+    https://github.com/rlvaugh/Impractical_Python_Projects
 .. _python-tutorials: https://github.com/JoseALermaIII/python-tutorials
 
 License
