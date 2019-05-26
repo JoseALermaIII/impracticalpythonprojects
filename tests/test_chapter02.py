@@ -2,8 +2,9 @@
 import os
 import unittest
 import src.ch02.p1_cleanup_dictionary as cleanup_dictionary
+import src.ch02.c1_recursive_palindrome as recursive_palindrome
 from tests import random_string
-from src.ch02 import CLEANUP_LIST_ERROR
+from src.ch02 import CLEANUP_LIST_ERROR, RECURSIVE_ISPALINDROME_ERROR
 
 
 class TestCleanupDictionary(unittest.TestCase):
@@ -31,6 +32,16 @@ class TestCleanupDictionary(unittest.TestCase):
         self.assertEqual(len(clean_dict), 52)  # 78 words - 26 letters
         for element in clean_dict:
             self.assertGreater(len(element), 1)
+
+
+class TestRecursivePalindrome(unittest.TestCase):
+    """Test Recursive Palindrome tester."""
+
+    def test_bad_type(self):
+        """Test that it raises an error if word is not a string."""
+        with self.assertRaises(TypeError) as err:
+            recursive_palindrome.recursive_ispalindrome(5)
+            self.assertEqual(RECURSIVE_ISPALINDROME_ERROR, err.exception)
 
 
 if __name__ == '__main__':
