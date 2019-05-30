@@ -25,7 +25,7 @@ def get_digrams(word: str) -> set:
     if not isinstance(word, str):
         raise TypeError(GET_DIGRAMS_ERROR)
     # Generate all possible permutations of the word.
-    # Crawl each permutation by pairs and add to digrams set.
+    return set(''.join(i) for i in permutations(word, 2))
 
 
 def count_digrams(digrams: set, dict_list: list) -> dict:
