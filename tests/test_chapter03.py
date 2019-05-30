@@ -17,6 +17,13 @@ class TestDigramCounter(unittest.TestCase):
             digram_counter.count_digrams(set(), 7)
             self.assertEqual(COUNT_DIGRAMS_ERROR, err.exception)
 
+    def test_get_digrams(self):
+        """Test that it can make a set of digrams."""
+        digrams = {'ol', 'vo', 'ov', 'oo', 'vl', 'lo', 'vv', 'lv'}
+        test_word = 'volvo'
+        test_digrams = digram_counter.get_digrams(test_word)
+        self.assertSetEqual(digrams, test_digrams)
+
 
 if __name__ == '__main__':
     unittest.main()
