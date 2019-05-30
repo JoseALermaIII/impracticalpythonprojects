@@ -24,6 +24,14 @@ class TestDigramCounter(unittest.TestCase):
         test_digrams = digram_counter.get_digrams(test_word)
         self.assertSetEqual(digrams, test_digrams)
 
+    def test_count_digrams(self):
+        """Test that it can count digrams in a word list."""
+        word_list = ['tom', 'morrow', 'moon', 'light']
+        digrams = {'to', 'mo', 'on', 'gh', 'li', 'bo'}
+        digram_count = {'mo': 2, 'gh': 1, 'li': 1, 'to': 1, 'on': 1, 'bo': 0}
+        test_count = digram_counter.count_digrams(digrams, word_list)
+        self.assertDictEqual(digram_count, test_count)
+
 
 if __name__ == '__main__':
     unittest.main()
