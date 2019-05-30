@@ -16,7 +16,7 @@ def get_digrams(word: str) -> set:
         word (str): String to get digrams of.
 
     Returns:
-        Set of all possible digrams of the given word.
+        :py:obj:`set` of all possible digrams of the given word.
 
     Raises:
         TypeError: If **word** isn't a string.
