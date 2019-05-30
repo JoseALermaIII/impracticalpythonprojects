@@ -87,7 +87,7 @@ def main():
     """Demonstrate the digram counter."""
     print('I\'m a digram counter.\nIf you don\'t know what I can be used '
           'for, then you don\'t need me.\nSeriously, though, I can be used '
-          'for cryptographic frequency analysis, which probably makes even '
+          'for cryptographic frequency analysis - which\nprobably makes even '
           'less sense...\n')
     word = 'volvo'
     print(f'Analyzing: {word}\n')
