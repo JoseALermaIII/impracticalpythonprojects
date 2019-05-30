@@ -2,10 +2,10 @@
 
 Attributes:
     GET_DIGRAMS_ERROR (str): String with :py:exc:`TypeError` for
-        :py:func:`~src.ch03.p1_digram.counter.get_digrams`.
+        :py:func:`~p1_digram_counter.get_digrams`.
 
     COUNT_DIGRAMS_ERROR (str): String with :py:exc:`TypeError` for
-        :py:func:`~src.ch03.p1_digram.counter.count_digrams`.
+        :py:func:`~p1_digram_counter.count_digrams`.
 
 """
 
