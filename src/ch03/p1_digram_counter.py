@@ -43,7 +43,7 @@ def count_digrams(digrams: set, dict_list: list) -> dict:
 
     Raises:
         TypeError: If **digrams** isn't a set or if **dict_list** isn't a
-        list.
+            list.
 
     """
     if not all([isinstance(digrams, set), isinstance(dict_list, list)]):
