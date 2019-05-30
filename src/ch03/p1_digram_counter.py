@@ -46,10 +46,19 @@ def count_digrams(digrams: set, dict_list: list) -> dict:
         list.
 
     """
+    if not all([isinstance(digrams, set), isinstance(dict_list, list)]):
+        raise TypeError(COUNT_DIGRAMS_ERROR)
     # Initialize Counter with the digram set.
+    digram_count = Counter(digrams)
+    digram_count.subtract(digrams)  # Set values to `0`
     # Iterate through each digram in the set.
-    # For each digram, iterate through dict_list to find the digram.
-    # If found, increment counter.
+    for digram in digrams:
+        # For each digram, iterate through dict_list to find the digram.
+        for word in dict_list:
+            if digram in word:
+                # If found, increment counter.
+                digram_count[digram] += 1
+    return digram_count
 
 
 def digram_counter(word: str, dict_file: str = DICTIONARY_FILE_PATH) -> dict:
