@@ -67,7 +67,7 @@ def digram_counter(word: str, dict_file: str = DICTIONARY_FILE_PATH) -> dict:
     Send **word** through :func:`get_digrams` to get a set of digrams which
     is then passed through :func:`count_digrams` along with the list made by
     passing **dict_file** through
-    :py:func:`~src.ch02.p1_cleanup_dictionary.read_from_file`.
+    :py:func:`~src.ch01.challenge.c2_name_generator.read_from_file`.
 
     Args:
         word (str): Word to get digrams of.
