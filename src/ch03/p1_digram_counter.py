@@ -4,7 +4,7 @@ from collections import Counter
 from src.ch01.practice.p2_poor_bar_chart import print_bar_chart
 from src.ch02.p1_cleanup_dictionary import read_from_file
 from src.ch02 import DICTIONARY_FILE_PATH
-from src.ch03 import GET_DIGRAM_ERROR, COUNT_DIGRAMS_ERROR
+from src.ch03 import GET_DIGRAMS_ERROR, COUNT_DIGRAMS_ERROR
 
 
 def get_digrams(word: str) -> set:
@@ -22,6 +22,8 @@ def get_digrams(word: str) -> set:
         TypeError: If **word** isn't a string.
 
     """
+    if not isinstance(word, str):
+        raise TypeError(GET_DIGRAMS_ERROR)
     # Generate all possible permutations of the word.
     # Crawl each permutation by pairs and add to digrams set.
 
