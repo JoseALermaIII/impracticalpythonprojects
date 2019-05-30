@@ -8,6 +8,7 @@ Subpackages
 
     src.ch01
     src.ch02
+    src.ch03
 
 Module contents
 ---------------
