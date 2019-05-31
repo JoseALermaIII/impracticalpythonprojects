@@ -1,4 +1,5 @@
 """Generate phrase anagrams from a word or phrase."""
+from collections import defaultdict
 from string import ascii_lowercase
 
 
@@ -49,6 +50,28 @@ def get_id(word: str) -> int:
     for letter in word:
         product *= letter_id[letter]
     return product
+
+
+def get_anagram_dict(word_list: list) -> dict:
+    """Get an anagram dictionary from word_list.
+
+    Get the ID of each word in **word list** and add it to a dictionary with
+    the ID as the key.
+
+    Args:
+        word_list (list): List of words to make into anagram dictionary.
+
+    Returns:
+        :py:class:`~collections.defaultdict` of :py:obj:`list` with an ID
+        (:py:obj:`int`) as the key and words whose product of letters equal
+        that ID as values.
+
+    """
+    anagram_dict = defaultdict(list)
+    # Find the product of each letter for each word in a dictionary.
+    for word in word_list:
+        anagram_dict[get_id(word)].append(word)
+    return anagram_dict
 
 
 def anagram_generator(word: str) -> list:
