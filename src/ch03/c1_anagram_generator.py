@@ -1,6 +1,8 @@
 """Generate phrase anagrams from a word or phrase."""
 from collections import defaultdict
 from string import ascii_lowercase
+from src.ch02 import DICTIONARY_FILE_PATH
+from src.ch02.p1_cleanup_dictionary import read_from_file
 
 
 def get_primes(n: int = 26, max_prime: int = 101) -> list:
@@ -69,6 +71,7 @@ def get_anagram_dict(word_list: list) -> dict:
     """
     anagram_dict = defaultdict(list)
     # Find the product of each letter for each word in a dictionary.
+    # TODO: Use dictionary path and read_from_file instead.
     for word in word_list:
         anagram_dict[get_id(word)].append(word)
     return anagram_dict
