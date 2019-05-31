@@ -1,4 +1,5 @@
 """Generate phrase anagrams from a word or phrase."""
+from string import ascii_lowercase
 
 
 def get_primes(n: int = 26, max_prime: int = 101) -> list:
@@ -24,6 +25,30 @@ def get_primes(n: int = 26, max_prime: int = 101) -> list:
             if all(num % i != 0 for i in range(3, int(num**.5) + 1, 2)):
                 primes.append(num)
     return primes
+
+
+def get_id(word: str) -> int:
+    """Get ID number of word.
+
+    Assign a unique prime number to each letter in
+    :py:obj:`~string.ascii_lowercase`. The product of each letter in **word**
+    is its ID number.
+
+    Args:
+        word (str): Word to get ID of.
+
+    Returns:
+        :py:obj:`int` representing ID of **word**.
+
+    """
+    # Assign each ASCII lowercase letter a prime number.
+    primes = get_primes()
+    letter_id = dict(zip(ascii_lowercase, primes))
+    # Find the product of each letter in the word.
+    product = 1
+    for letter in word:
+        product *= letter_id[letter]
+    return product
 
 
 def anagram_generator(word: str) -> list:
