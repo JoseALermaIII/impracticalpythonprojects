@@ -74,6 +74,23 @@ def get_anagram_dict(word_list: list) -> dict:
     return anagram_dict
 
 
+def find_anagrams(word: str, anagram_dict: dict) -> list:
+    """Find anagrams of word.
+
+    Find all anagrams of a given word using anagram dictionary.
+
+    Args:
+        word (str): Word to find anagrams of.
+        anagram_dict: Dictionary from :func:`get_anagram_dict`.
+
+    Returns:
+        :py:obj:`list` of :py:obj:`str` with all anagrams of **word**.
+
+    """
+    # An anagram will have the same ID in an anagram dictionary.
+    pass
+
+
 def anagram_generator(word: str) -> list:
     """Generate phrase anagrams.
 
