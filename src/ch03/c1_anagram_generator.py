@@ -71,7 +71,6 @@ def get_anagram_dict(word_list: list) -> dict:
     """
     anagram_dict = defaultdict(list)
     # Find the product of each letter for each word in a dictionary.
-    # TODO: Use dictionary path and read_from_file instead.
     for word in word_list:
         anagram_dict[get_id(word)].append(word)
     return anagram_dict
