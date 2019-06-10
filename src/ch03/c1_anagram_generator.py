@@ -89,8 +89,12 @@ def find_anagrams(word: str, anagram_dict: dict) -> list:
         :py:obj:`list` of :py:obj:`str` with all anagrams of **word**.
 
     """
-    # An anagram will have the same ID in an anagram dictionary.
-    pass
+    # An anagram will have the same or lower ID in an anagram dictionary.
+    anagrams = []
+    id_num = get_id(word)
+    for i in range(1, id_num + 1):
+        anagrams.extend(anagram_dict[i])
+    return sorted(anagrams)
 
 
 def anagram_generator(word: str) -> list:
