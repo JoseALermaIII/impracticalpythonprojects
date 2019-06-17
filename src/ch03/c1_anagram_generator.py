@@ -5,28 +5,41 @@ from src.ch02 import DICTIONARY_FILE_PATH
 from src.ch02.p1_cleanup_dictionary import read_from_file
 
 
-def get_primes(n: int = 26, max_prime: int = 101) -> list:
+def get_primes(n: int = 26, min_prime: int = 2, max_prime: int = 101) -> list:
     """Get list of primes.
 
-    Given a number and maximum prime number, return a list of prime numbers.
+    Given a number minimum and maximum prime number, return a list of prime
+    numbers.
 
     Args:
         n (int): Number of prime numbers to return. Defaults to ``26``.
+        min_prime (int): Smallest prime number to return. Defaults to ``2``.
         max_prime (int): Largest prime number to return. Defaults to ``101``.
 
     Returns:
-        :py:obj:`list` of **n** prime numbers with **max_prime** as the
-        largest prime number in the list.
+        :py:obj:`list` of **n** prime numbers with **min_prime** as the
+        smallest prime number and **max_prime** as the largest prime number
+        in the list.
 
     """
-    primes = [2]
+    primes = []
+    if min_prime <= 3:
+        # If min_prime includes ``2``, skip it during calculations.
+        min_prime, primes = 3, [2]
+    elif min_prime % 2 == 0:
+        # If min_prime is even, make exclusive odd.
+        min_prime += 1
+
     while len(primes) < n:
-        # Skip 2 and iterate over odd numbers.
-        for num in range(3, max_prime + 1, 2):
-            #  If num can't be divided by all odd numbers from 3 to sqrt(num),
-            #  it's a prime.
+        # Iterate over odd numbers.
+        for num in range(min_prime, max_prime + 1, 2):
+            #  If num can't be divided by all odd numbers from min_prime to
+            #  sqrt(num), it's a prime.
             if all(num % i != 0 for i in range(3, int(num**.5) + 1, 2)):
                 primes.append(num)
+            if len(primes) == n:
+                # Stop as soon as we have enough primes.
+                break
     return primes
 
 
