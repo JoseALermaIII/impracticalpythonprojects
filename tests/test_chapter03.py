@@ -1,9 +1,12 @@
 """Test Chapter 3."""
 import os
 import unittest
+from string import ascii_lowercase
 import src.ch03.p1_digram_counter as digram_counter
 import src.ch03.c1_anagram_generator as anagram_generator
 from src.ch03 import GET_DIGRAMS_ERROR, COUNT_DIGRAMS_ERROR
+from tests import random_string
+from tests.data.ch03.ch03 import LETTER_PRIME_DICT
 
 
 class TestDigramCounter(unittest.TestCase):
@@ -76,6 +79,20 @@ class TestAnagramGenerator(unittest.TestCase):
         primes = [61, 67]
         test_primes = anagram_generator.get_primes(n=2, min_prime=60)
         self.assertListEqual(primes, test_primes)
+
+    def test_get_id(self):
+        """Test that it can convert a word to an ID."""
+        # Test a random letter.
+        test_letter = random_string(1, ascii_lowercase)
+        test_letter_id = anagram_generator.get_id(test_letter)
+        self.assertEqual(LETTER_PRIME_DICT[test_letter], test_letter_id)
+        # Test a random string.
+        test_string = random_string(30, ascii_lowercase)
+        test_string_id = anagram_generator.get_id(test_string)
+        actual_id = 1
+        for letter in test_string:
+            actual_id *= LETTER_PRIME_DICT[letter]
+        self.assertEqual(actual_id, test_string_id)
 
 
 if __name__ == '__main__':
