@@ -5,14 +5,15 @@ from src.ch02 import DICTIONARY_FILE_PATH
 from src.ch02.p1_cleanup_dictionary import read_from_file
 
 
-def get_primes(n: int = 26, min_prime: int = 2, max_prime: int = 101) -> list:
+def get_primes(length: int = 26, min_prime: int = 2,
+               max_prime: int = 101) -> list:
     """Get list of primes.
 
     Given a number minimum and maximum prime number, return a list of prime
     numbers.
 
     Args:
-        n (int): Number of prime numbers to return. Defaults to ``26``.
+        length (int): Number of prime numbers to return. Defaults to ``26``.
         min_prime (int): Smallest prime number to return. Defaults to ``2``.
         max_prime (int): Largest prime number to return. Defaults to ``101``.
 
@@ -30,14 +31,14 @@ def get_primes(n: int = 26, min_prime: int = 2, max_prime: int = 101) -> list:
         # If min_prime is even, make exclusive odd.
         min_prime += 1
 
-    while len(primes) < n:
+    while len(primes) < length:
         # Iterate over odd numbers.
         for num in range(min_prime, max_prime + 1, 2):
             #  If num can't be divided by all odd numbers from min_prime to
             #  sqrt(num), it's a prime.
             if all(num % i != 0 for i in range(3, int(num**.5) + 1, 2)):
                 primes.append(num)
-            if len(primes) == n:
+            if len(primes) == length:
                 # Stop as soon as we have enough primes.
                 break
     return primes
