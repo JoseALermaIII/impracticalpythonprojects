@@ -2,6 +2,7 @@
 import os
 import unittest
 import src.ch03.p1_digram_counter as digram_counter
+import src.ch03.c1_anagram_generator as anagram_generator
 from src.ch03 import GET_DIGRAMS_ERROR, COUNT_DIGRAMS_ERROR
 
 
@@ -43,6 +44,18 @@ class TestDigramCounter(unittest.TestCase):
                  'bd': 0, 'cr': 0, 'rb': 0, 'cb': 0, 'rc': 0}
         test_count = digram_counter.digram_counter(word, test_dict_path)
         self.assertDictEqual(count, test_count)
+
+
+class TestAnagramGenerator(unittest.TestCase):
+    """Test Anagram Generator."""
+
+    def test_get_primes(self):
+        """Test that it can make a list of primes."""
+        # Test default primes.
+        primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53,
+                  59, 61, 67, 71, 73, 79, 83, 89, 97, 101]
+        test_primes = anagram_generator.get_primes()
+        self.assertListEqual(primes, test_primes)
 
 
 if __name__ == '__main__':
