@@ -56,6 +56,26 @@ class TestAnagramGenerator(unittest.TestCase):
                   59, 61, 67, 71, 73, 79, 83, 89, 97, 101]
         test_primes = anagram_generator.get_primes()
         self.assertListEqual(primes, test_primes)
+        # Test single prime.
+        primes = [2]
+        test_primes = anagram_generator.get_primes(n=1)
+        self.assertListEqual(primes, test_primes)
+        # Test capped primes.
+        primes = [2, 3, 3]
+        test_primes = anagram_generator.get_primes(n=3, max_prime=3)
+        self.assertListEqual(primes, test_primes)
+        # Test prime range.
+        primes = [23, 29, 31]
+        test_primes = anagram_generator.get_primes(n=3, min_prime=23)
+        self.assertListEqual(primes, test_primes)
+        # Test even min_prime.
+        primes = [23, 29, 31]
+        test_primes = anagram_generator.get_primes(n=3, min_prime=22)
+        self.assertListEqual(primes, test_primes)
+        # Test even min_prime near two odd primes.
+        primes = [61, 67]
+        test_primes = anagram_generator.get_primes(n=2, min_prime=60)
+        self.assertListEqual(primes, test_primes)
 
 
 if __name__ == '__main__':
