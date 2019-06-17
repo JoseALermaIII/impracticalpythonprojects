@@ -94,6 +94,24 @@ class TestAnagramGenerator(unittest.TestCase):
             actual_id *= LETTER_PRIME_DICT[letter]
         self.assertEqual(actual_id, test_string_id)
 
+    def test_get_anagram_dict(self):
+        """Test that it can make an anagram dictionary."""
+        # Test a single element list.
+        dictionary = {3715217: ['test']}
+        test_list = ['test']
+        test_dict = anagram_generator.get_anagram_dict(test_list)
+        self.assertDictEqual(dictionary, test_dict)
+        # Test a multiple element list with same ID.
+        dictionary = {3715217: ['test', 'sett']}
+        test_list = ['test', 'sett']
+        test_dict = anagram_generator.get_anagram_dict(test_list)
+        self.assertDictEqual(dictionary, test_dict)
+        # Test a multiple element list with different IDs.
+        dictionary = {3715217: ['sett', 'test'], 451: ['me'], 131387: ['pls']}
+        test_list = ['sett', 'test', 'me', 'pls']
+        test_dict = anagram_generator.get_anagram_dict(test_list)
+        self.assertDictEqual(dictionary, test_dict)
+
 
 if __name__ == '__main__':
     unittest.main()
