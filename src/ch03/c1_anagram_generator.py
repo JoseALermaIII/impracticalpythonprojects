@@ -77,23 +77,30 @@ def get_anagram_dict(word_list: list) -> dict:
 
 
 def find_anagrams(word: str, anagram_dict: dict) -> list:
-    """Find anagrams of word.
+    """Find anagrams in word.
 
-    Find all anagrams of a given word using anagram dictionary.
+    Find all anagrams in a given word (or phrase) using anagram dictionary.
 
     Args:
         word (str): Word to find anagrams of.
         anagram_dict: Dictionary from :func:`get_anagram_dict`.
 
     Returns:
-        :py:obj:`list` of :py:obj:`str` with all anagrams of **word**.
+        :py:obj:`list` of :py:obj:`str` with all anagrams in **word**.
 
     """
-    # An anagram will have the same or lower ID in an anagram dictionary.
+    if ' ' in word:
+        # If word is a phrase with spaces, remove spaces.
+        word.replace(' ', '')
+
     anagrams = []
     id_num = get_id(word)
-    for i in range(1, id_num + 1):
-        anagrams.extend(anagram_dict[i])
+    keys = list(anagram_dict.keys())  # Make keys indexable. Python3.6 only?
+    # If an anagram is IN the word, the modulo of the anagram's ID and the
+    # word's ID will be 0.
+    for key in keys:
+        if id_num % key == 0:
+            anagrams.extend(anagram_dict[key])
     return sorted(anagrams)
 
 
