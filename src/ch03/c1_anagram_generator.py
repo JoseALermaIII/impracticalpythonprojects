@@ -20,7 +20,7 @@ def get_primes(n: int = 26, max_prime: int = 101) -> list:
 
     """
     primes = [2]
-    while len(primes) <= n:
+    while len(primes) < n:
         # Skip 2 and iterate over odd numbers.
         for num in range(3, max_prime + 1, 2):
             #  If num can't be divided by all odd numbers from 3 to sqrt(num),
