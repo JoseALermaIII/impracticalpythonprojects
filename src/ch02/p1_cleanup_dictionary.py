@@ -11,7 +11,9 @@ from string import ascii_lowercase
 from src.ch01.challenge.c2_name_generator import read_from_file
 from src.ch02 import DICTIONARY_FILE_PATH, CLEANUP_LIST_ERROR
 
-APPROVED_WORDS = ['i', 'a', 'me', 'an', 'qi']
+APPROVED_WORDS = ['i', 'a', 'me', 'an', 'qi', 'at', 'to', 'as', 'am', 'ad',
+                  'be', 'by', 'go', 'he', 'hi', 'if', 'in', 'is', 'it', 'my',
+                  'no', 'of', 'oh', 'ox', 'so', 'up', 'us', 'we']
 
 
 def cleanup_list(word_list: list) -> list:
