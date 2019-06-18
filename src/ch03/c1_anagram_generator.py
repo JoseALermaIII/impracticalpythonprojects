@@ -9,7 +9,7 @@ def get_primes(length: int = 26, min_prime: int = 2,
                max_prime: int = 101) -> list:
     """Get list of primes.
 
-    Given a number minimum and maximum prime number, return a list of prime
+    Given a length, minimum, and maximum prime number, return a list of prime
     numbers.
 
     Args:
@@ -18,7 +18,7 @@ def get_primes(length: int = 26, min_prime: int = 2,
         max_prime (int): Largest prime number to return. Defaults to ``101``.
 
     Returns:
-        :py:obj:`list` of **n** prime numbers with **min_prime** as the
+        :py:obj:`list` of **length** prime numbers with **min_prime** as the
         smallest prime number and **max_prime** as the largest prime number
         in the list.
 
