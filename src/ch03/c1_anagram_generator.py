@@ -103,6 +103,8 @@ def find_anagrams(word: str, anagram_dict: dict) -> list:
         :py:obj:`list` of :py:obj:`str` with all anagrams in **word**.
 
     """
+    if not word.islower():
+        word = word.lower()
     if ' ' in word:
         # If word is a phrase with spaces, remove spaces.
         word.replace(' ', '')
