@@ -106,7 +106,6 @@ def find_anagrams(word: str, anagram_dict: dict) -> list:
     if ' ' in word:
         # If word is a phrase with spaces, remove spaces.
         word.replace(' ', '')
-
     anagrams = []
     id_num = get_id(word)
     keys = list(anagram_dict.keys())  # Make keys indexable. Python3.6 only?
@@ -115,6 +114,7 @@ def find_anagrams(word: str, anagram_dict: dict) -> list:
     for key in keys:
         if id_num % key == 0:
             anagrams.extend(anagram_dict[key])
+    anagrams.remove(word)  # Remove duplicate
     return sorted(anagrams)
 
 
