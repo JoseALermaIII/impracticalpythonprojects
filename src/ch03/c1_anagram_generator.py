@@ -116,7 +116,9 @@ def find_anagrams(word: str, anagram_dict: dict) -> list:
     for key in keys:
         if id_num % key == 0:
             anagrams.extend(anagram_dict[key])
-    anagrams.remove(word)  # Remove duplicate
+    # Remove duplicate
+    if word in anagrams:
+        anagrams.remove(word)
     return sorted(anagrams)
 
 
