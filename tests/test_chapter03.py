@@ -123,6 +123,20 @@ class TestAnagramGenerator(unittest.TestCase):
         anagrams = []
         test_list = anagram_generator.find_anagrams('see', anagram_dict)
         self.assertListEqual(anagrams, test_list)
+        # Test a word with anagrams.
+        anagrams = ['set', 'tet']
+        test_list = anagram_generator.find_anagrams('test', anagram_dict)
+        self.assertListEqual(anagrams, test_list)
+        # Test a phrase.
+        phrase = 'tip tap'
+        anagrams = ['a', 'apt', 'at', 'i', 'it', 'pap', 'pat', 'patti', 'pip',
+                    'pit', 'pita', 'pitt', 'tap', 'tat', 'tia', 'tip', 'tit']
+        test_list = anagram_generator.find_anagrams(phrase, anagram_dict)
+        self.assertListEqual(anagrams, test_list)
+        # Test that it ignores uppercase.
+        anagrams = ['joe', 'so']
+        test_list = anagram_generator.find_anagrams('Jose', anagram_dict)
+        self.assertListEqual(anagrams, test_list)
 
 
 if __name__ == '__main__':
