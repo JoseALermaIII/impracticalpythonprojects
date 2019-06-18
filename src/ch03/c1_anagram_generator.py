@@ -107,7 +107,7 @@ def find_anagrams(word: str, anagram_dict: dict) -> list:
         word = word.lower()
     if ' ' in word:
         # If word is a phrase with spaces, remove spaces.
-        word.replace(' ', '')
+        word = ''.join(word.split())
     anagrams = []
     id_num = get_id(word)
     keys = list(anagram_dict.keys())  # Make keys indexable. Python3.6 only?
