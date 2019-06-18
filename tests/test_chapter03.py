@@ -2,6 +2,8 @@
 import os
 import unittest
 from string import ascii_lowercase
+from src.ch02 import DICTIONARY_FILE_PATH
+from src.ch02.p1_cleanup_dictionary import cleanup_dict, cleanup_list_more
 import src.ch03.p1_digram_counter as digram_counter
 import src.ch03.c1_anagram_generator as anagram_generator
 from src.ch03 import GET_DIGRAMS_ERROR, COUNT_DIGRAMS_ERROR
@@ -111,6 +113,16 @@ class TestAnagramGenerator(unittest.TestCase):
         test_list = ['sett', 'test', 'me', 'pls']
         test_dict = anagram_generator.get_anagram_dict(test_list)
         self.assertDictEqual(dictionary, test_dict)
+
+    def test_find_anagrams(self):
+        """Test that it can find anagrams with a word or phrase."""
+        word_list = cleanup_dict(DICTIONARY_FILE_PATH)
+        word_list = cleanup_list_more(word_list)
+        anagram_dict = anagram_generator.get_anagram_dict(word_list)
+        # Test a word without anagrams.
+        anagrams = []
+        test_list = anagram_generator.find_anagrams('see', anagram_dict)
+        self.assertListEqual(anagrams, test_list)
 
 
 if __name__ == '__main__':
