@@ -142,6 +142,13 @@ def main():
     print('I can find all phrase anagrams given a word or phrase.\n'
           'I\'m fun at parties.')
     # Print first 500 results.
+    word = 'see shells'
+    print(f'\nAnalyzing: {word}\n')
+    anagram_phrases = anagram_generator(word)
+    for i in range(len(anagram_phrases)):
+        if i > 500:
+            break
+        print(anagram_phrases[i])
 
 
 if __name__ == '__main__':
