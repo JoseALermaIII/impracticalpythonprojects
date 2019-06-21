@@ -115,6 +115,27 @@ def split(a_list: list, parts: int) -> list:
                         min(i + 1, remainder)] for i in range(parts)))
 
 
+def extend_anagram_dict(word_list: list, dictionary: dict):
+    """Extend an anagram dictionary.
+
+    Adds words from given word list to a given anagram dictionary.
+
+    Args:
+        word_list (list): List of words to add to anagram dictionary.
+        dictionary (dict): Anagram dictionary to add words to.
+
+    Returns:
+        None. If words in **word_list** are in **dictionary** they are not
+        added. Otherwise, they are added.
+
+    """
+    new_anagram_dict = get_anagram_dict(word_list)
+    for key, value in new_anagram_dict.items():
+        for element in value:
+            if element not in dictionary[key]:
+                dictionary[key].extend(value)
+
+
 def find_anagrams(word: str, anagram_dict: dict) -> list:
     """Find anagrams in word.
 
