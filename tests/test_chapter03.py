@@ -121,10 +121,10 @@ class TestAnagramGenerator(unittest.TestCase):
         anagram_dict = anagram_generator.get_anagram_dict(word_list)
         # Test a word without anagrams.
         anagrams = []
-        test_list = anagram_generator.find_anagrams('see', anagram_dict)
+        test_list = anagram_generator.find_anagrams('ttr', anagram_dict)
         self.assertListEqual(anagrams, test_list)
         # Test a word with anagrams.
-        anagrams = ['set', 'tet']
+        anagrams = ['set', 'test', 'tet']
         test_list = anagram_generator.find_anagrams('test', anagram_dict)
         self.assertListEqual(anagrams, test_list)
         # Test a phrase.
@@ -134,7 +134,7 @@ class TestAnagramGenerator(unittest.TestCase):
         test_list = anagram_generator.find_anagrams(phrase, anagram_dict)
         self.assertListEqual(anagrams, test_list)
         # Test that it ignores uppercase.
-        anagrams = ['joe', 'so']
+        anagrams = ['joe', 'jose', 'so']
         test_list = anagram_generator.find_anagrams('Jose', anagram_dict)
         self.assertListEqual(anagrams, test_list)
 
