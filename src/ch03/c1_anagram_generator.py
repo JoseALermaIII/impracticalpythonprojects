@@ -1,6 +1,8 @@
 """Generate phrase anagrams from a word or phrase."""
 from collections import defaultdict
+from os import cpu_count
 from string import ascii_lowercase
+from threading import Thread
 from src.ch02 import DICTIONARY_FILE_PATH
 from src.ch02.p1_cleanup_dictionary import read_from_file
 
@@ -134,6 +136,34 @@ def extend_anagram_dict(word_list: list, dictionary: dict):
         for element in value:
             if element not in dictionary[key]:
                 dictionary[key].extend(value)
+
+
+def multi_get_anagram_dict(word_list: list) -> dict:
+    """Multithreaded get anagram dictionary.
+
+    Uses :py:meth:`os.cpu_count()` and :py:class:`threading.Thread` to use
+    all CPUs to make an anagram dictionary with the intent of being more
+    efficient than :py:func:`~src.ch03.c1_anagram_generator.get_anagram_dict`.
+
+    Args:
+        word_list (list): List of words to make into anagram dictionary.
+
+    Returns:
+        :py:class:`~collections.defaultdict` of :py:obj:`list` with an ID
+        (:py:obj:`int`) as the key and words whose product of letters equal
+        that ID as values.
+
+    """
+    super_dict = defaultdict(list)
+    divisions = split(word_list, cpu_count())
+    threads = []
+    for division in divisions:
+        thread = Thread(target=extend_anagram_dict, args=(division, super_dict))
+        threads.append(thread)
+        thread.start()
+    for thread in threads:
+        thread.join()
+    return super_dict
 
 
 def find_anagrams(word: str, anagram_dict: dict) -> list:
