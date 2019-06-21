@@ -113,6 +113,27 @@ class TestAnagramGenerator(unittest.TestCase):
         test_dict = anagram_generator.get_anagram_dict(test_list)
         self.assertDictEqual(dictionary, test_dict)
 
+    def test_split(self):
+        """Test that it can split a list."""
+        # Test that it can split an even list in half.
+        test_list = ['test', 'split', 'a', 'list']
+        test_split = anagram_generator.split(test_list, 2)
+        split = [['test', 'split'], ['a', 'list']]
+        self.assertListEqual(split, test_split)
+        # Test that it can split an even list in thirds.
+        test_split = anagram_generator.split(test_list, 3)
+        split = [['test', 'split'], ['a'], ['list']]
+        self.assertListEqual(split, test_split)
+        # Test that it can split an odd list in half.
+        test_list = ['test', 'split', 'an', 'odd', 'list']
+        test_split = anagram_generator.split(test_list, 2)
+        split = [['test', 'split', 'an'], ['odd', 'list']]
+        self.assertListEqual(split, test_split)
+        # Test that it can split an odd list in thirds.
+        test_split = anagram_generator.split(test_list, 3)
+        split = [['test', 'split'], ['an', 'odd'], ['list']]
+        self.assertListEqual(split, test_split)
+
     def test_find_anagrams(self):
         """Test that it can find anagrams with a word or phrase."""
         dict_file = os.path.abspath('tests/data/ch03/dictionary.txt')
