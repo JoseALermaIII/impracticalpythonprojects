@@ -134,6 +134,23 @@ class TestAnagramGenerator(unittest.TestCase):
         split = [['test', 'split'], ['an', 'odd'], ['list']]
         self.assertListEqual(split, test_split)
 
+    def test_extend_anagram_dict(self):
+        """Test that it can extend a dictionary of lists."""
+        # Test that it ignores duplicates.
+        test_dict = {31439812226410: ['a', 'dictionary'], 271229869: ['of', 'lists']}
+        test_list = ['dictionary', 'lists']
+        answer_dict = {271229869: ['of', 'lists'],
+                       31439812226410: ['a', 'dictionary']}
+        anagram_generator.extend_anagram_dict(test_list, test_dict)
+        self.assertDictEqual(answer_dict, test_dict)
+        # Test that it extends a dictionary.
+        test_dict = {736483: ['emit'], 9670579: ['slow']}
+        test_list = ['item', 'mite', 'time', 'lows', 'owls']
+        answer_dict = {736483: ['emit', 'item', 'mite', 'time'],
+                       9670579: ['slow', 'lows', 'owls']}
+        anagram_generator.extend_anagram_dict(test_list, test_dict)
+        self.assertDictEqual(answer_dict, test_dict)
+
     def test_find_anagrams(self):
         """Test that it can find anagrams with a word or phrase."""
         dict_file = os.path.abspath('tests/data/ch03/dictionary.txt')
