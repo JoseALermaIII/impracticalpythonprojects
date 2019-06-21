@@ -90,6 +90,31 @@ def get_anagram_dict(word_list: list) -> dict:
     return anagram_dict
 
 
+def split(a_list: list, parts: int) -> list:
+    """Split a list into parts.
+
+    Split given list into given number of parts.
+
+    Args:
+        a_list (list): List to split.
+        parts (int): Number of parts to split list into.
+
+    Returns:
+        List of lists with **a_list** split into **parts**.
+
+    Example:
+        >>> import src.ch03.c1_anagram_generator.split as split
+        >>> some_list = ['this', 'is', 'a', 'list']
+        >>> split_list = split(some_list, 2)
+        >>> print(split_list)
+        [['this', 'is'], ['a', 'list']]
+
+    """
+    quotient, remainder = divmod(len(a_list), parts)
+    return list((a_list[i * quotient + min(i, remainder):(i + 1) * quotient +
+                        min(i + 1, remainder)] for i in range(parts)))
+
+
 def find_anagrams(word: str, anagram_dict: dict) -> list:
     """Find anagrams in word.
 
