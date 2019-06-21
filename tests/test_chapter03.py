@@ -151,6 +151,24 @@ class TestAnagramGenerator(unittest.TestCase):
         anagram_generator.extend_anagram_dict(test_list, test_dict)
         self.assertDictEqual(answer_dict, test_dict)
 
+    def test_multi_get_anagram_dict(self):
+        """Test that it can also make an anagram dictionary."""
+        # Test a single element list.
+        dictionary = {3715217: ['test']}
+        test_list = ['test']
+        test_dict = anagram_generator.multi_get_anagram_dict(test_list)
+        self.assertDictEqual(dictionary, test_dict)
+        # Test a multiple element list with same ID.
+        dictionary = {3715217: ['test', 'sett']}
+        test_list = ['test', 'sett']
+        test_dict = anagram_generator.multi_get_anagram_dict(test_list)
+        self.assertDictEqual(dictionary, test_dict)
+        # Test a multiple element list with different IDs.
+        dictionary = {3715217: ['sett', 'test'], 451: ['me'], 131387: ['pls']}
+        test_list = ['sett', 'test', 'me', 'pls']
+        test_dict = anagram_generator.multi_get_anagram_dict(test_list)
+        self.assertDictEqual(dictionary, test_dict)
+
     def test_find_anagrams(self):
         """Test that it can find anagrams with a word or phrase."""
         dict_file = os.path.abspath('tests/data/ch03/dictionary.txt')
