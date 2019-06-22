@@ -5,7 +5,7 @@ from string import ascii_lowercase
 from sys import setrecursionlimit
 from threading import Thread
 from src.ch02 import DICTIONARY_FILE_PATH
-from src.ch02.p1_cleanup_dictionary import read_from_file
+from src.ch02.p1_cleanup_dictionary import cleanup_dict, cleanup_list_more
 
 setrecursionlimit(9000)  # Default is 1000
 
@@ -282,10 +282,14 @@ def anagram_generator(word: str) -> list:
         :py:obj:`list` of phrase anagrams of **word**.
 
     """
-    # Given a word, build a list of anagrams.
-    # For each anagram in the list, build a phrase anagram by getting the
-    # anagram's anagrams.
-    pass
+    phrases, phrase = [], []
+    dictionary = cleanup_list_more(cleanup_dict(DICTIONARY_FILE_PATH))
+    anagram_dict = multi_get_anagram_dict(dictionary)
+    # Build anagram dictionary specific to word.
+    new_anagram_dict = remove_unusable_words(anagram_dict, list(word.replace(' ', '')))
+    # Recursively find phrases using new_anagram_dict.
+    find_anagram_phrases(phrases, word, new_anagram_dict, phrase)
+    return phrases
 
 
 def main():
