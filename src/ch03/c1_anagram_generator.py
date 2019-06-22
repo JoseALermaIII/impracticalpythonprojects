@@ -144,7 +144,7 @@ def extend_anagram_dict(word_list: list, dictionary: dict):
 def multi_get_anagram_dict(word_list: list) -> dict:
     """Multithreaded get anagram dictionary.
 
-    Uses :py:meth:`os.cpu_count` and :py:class:`threading.Thread` to use
+    Uses :py:func:`os.cpu_count` and :py:class:`threading.Thread` to use
     all CPUs to make an anagram dictionary with the intent of being more
     efficient than :py:func:`~src.ch03.c1_anagram_generator.get_anagram_dict`.
 
