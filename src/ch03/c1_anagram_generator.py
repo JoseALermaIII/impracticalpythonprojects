@@ -170,7 +170,8 @@ def multi_get_anagram_dict(word_list: list) -> dict:
     divisions = split(word_list, cpu_count())
     threads = []
     for division in divisions:
-        thread = Thread(target=extend_anagram_dict, args=(division, super_dict))
+        thread = Thread(target=extend_anagram_dict,
+                        args=(division, super_dict))
         threads.append(thread)
         thread.start()
     for thread in threads:
@@ -234,7 +235,8 @@ def remove_unusable_words(anagram_dict: dict, usable_letters: list) -> dict:
     return new_anagram_dict
 
 
-def find_anagram_phrases(phrases: list, word: str, anagram_dict: dict, phrase: list) -> None:
+def find_anagram_phrases(phrases: list, word: str, anagram_dict: dict,
+                         phrase: list) -> None:
     """Find anagram phrases.
 
     Recursively finds anagram phrases of **word** by removing unusable words
@@ -286,7 +288,8 @@ def anagram_generator(word: str) -> list:
     dictionary = cleanup_list_more(cleanup_dict(DICTIONARY_FILE_PATH))
     anagram_dict = multi_get_anagram_dict(dictionary)
     # Build anagram dictionary specific to word.
-    new_anagram_dict = remove_unusable_words(anagram_dict, list(word.replace(' ', '')))
+    new_anagram_dict = remove_unusable_words(anagram_dict,
+                                             list(word.replace(' ', '')))
     # Recursively find phrases using new_anagram_dict.
     find_anagram_phrases(phrases, word, new_anagram_dict, phrase)
     return phrases
