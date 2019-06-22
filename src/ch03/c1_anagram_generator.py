@@ -204,6 +204,33 @@ def find_anagrams(word: str, anagram_dict: dict) -> list:
     return sorted(anagrams)
 
 
+def remove_unusable_words(anagram_dict: dict, usable_letters: list) -> dict:
+    """Remove unusable words from anagram dictionary.
+
+    Creates new anagram dictionary by including only IDs that can be IN
+    **usable_letters**.
+
+    Args:
+        anagram_dict (dict): Anagram dictionary to prune.
+        usable_letters (list): List of letters that must be used.
+
+    Returns:
+        :py:class:`~collections.defaultdict` of :py:obj:`list` with an ID
+        (:py:obj:`int`) as the key and words whose product of letters equal
+        that ID as values.
+
+    """
+    new_word = ''.join(usable_letters)
+    new_anagram_dict = defaultdict(list)
+    id_num = get_id(new_word)
+    keys = list(anagram_dict.keys())  # Make keys indexable. Python3.6 only?
+    # If anagram can be IN new_word, add to new_anagram_dict.
+    for key in keys:
+        if id_num % key == 0:
+            new_anagram_dict[key] = anagram_dict[key]
+    return new_anagram_dict
+
+
 def anagram_generator(word: str) -> list:
     """Generate phrase anagrams.
 
