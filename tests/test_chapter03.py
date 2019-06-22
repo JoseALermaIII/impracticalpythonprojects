@@ -194,6 +194,12 @@ class TestAnagramGenerator(unittest.TestCase):
         test_list = anagram_generator.find_anagrams('Jose', anagram_dict)
         self.assertListEqual(anagrams, test_list)
 
+    def test_remove_unusable_words(self):
+        """Test that it can prune an anagram dictionary."""
+        dictionary = {3715217: ['sett', 'test'], 451: ['me'], 131387: ['pls']}
+        test_dict = anagram_generator.remove_unusable_words(dictionary, list('test'))
+        self.assertDictEqual({3715217: ['sett', 'test']}, test_dict)
+
 
 if __name__ == '__main__':
     unittest.main()
