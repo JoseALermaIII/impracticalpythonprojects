@@ -270,6 +270,7 @@ def find_anagram_phrases(phrases: list, word: str, anagram_dict: dict,
         new_phrase = phrase[:]
         new_phrase.append(anagram)
         find_anagram_phrases(phrases, word, new_anagram_dict, new_phrase)
+    return None
 
 
 def anagram_generator(word: str) -> list:
