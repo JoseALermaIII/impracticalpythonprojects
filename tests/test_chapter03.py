@@ -200,6 +200,20 @@ class TestAnagramGenerator(unittest.TestCase):
         test_dict = anagram_generator.remove_unusable_words(dictionary, list('test'))
         self.assertDictEqual({3715217: ['sett', 'test']}, test_dict)
 
+    def test_find_anagram_phrases(self):
+        """Test that it can find anagram phrases."""
+        dict_file = os.path.abspath('tests/data/ch03/dictionary.txt')
+        word_list = cleanup_dict(dict_file)
+        word_list = cleanup_list_more(word_list)
+        anagram_dict = anagram_generator.get_anagram_dict(word_list)
+        # Test a word without anagrams.
+        phrases, phrase = [], []
+        anagram_generator.find_anagram_phrases(phrases, 'ttr', anagram_dict, phrase)
+        self.assertListEqual([], phrases)
+        # Test a phrase with four anagram phrases.
+        anagram_generator.find_anagram_phrases(phrases, 'a cat', anagram_dict, phrase)
+        self.assertListEqual(['a act', 'a cat', 'act a', 'cat a'], phrases)
+
 
 if __name__ == '__main__':
     unittest.main()
