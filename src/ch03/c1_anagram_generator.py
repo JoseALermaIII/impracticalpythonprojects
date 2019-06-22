@@ -1,10 +1,13 @@
 """Generate phrase anagrams from a word or phrase."""
-from collections import defaultdict
+from collections import defaultdict, Counter
 from os import cpu_count
 from string import ascii_lowercase
+from sys import setrecursionlimit
 from threading import Thread
 from src.ch02 import DICTIONARY_FILE_PATH
 from src.ch02.p1_cleanup_dictionary import read_from_file
+
+setrecursionlimit(9000)  # Default is 1000
 
 
 def get_primes(length: int = 26, min_prime: int = 2,
@@ -229,6 +232,42 @@ def remove_unusable_words(anagram_dict: dict, usable_letters: list) -> dict:
         if id_num % key == 0:
             new_anagram_dict[key] = anagram_dict[key]
     return new_anagram_dict
+
+
+def find_anagram_phrases(phrases: list, word: str, anagram_dict: dict, phrase: list) -> None:
+    """Find anagram phrases.
+
+    Recursively finds anagram phrases of **word** by removing unusable words
+    from the **anagram_dict**, finding remaining anagrams given the
+    **phrase**, then adding any found anagram phrases to **phrases**.
+
+    Args:
+        phrases (list): List of anagram phrases.
+        word (str): Current word to find anagram phrases of.
+        anagram_dict (dict): Current anagram dictionary to find anagrams with.
+        phrase (list): Current anagram phrase candidate.
+
+    Returns:
+        None. **phrases** is updated with any found anagram phrases.
+
+    """
+    letters = Counter(word.replace(' ', ''))
+    letters.subtract(''.join(phrase))
+    letters_left = list(letters.elements())
+
+    new_anagram_dict = remove_unusable_words(anagram_dict, letters_left)
+    # Once the length is equal, we have an anagram phrase.
+    if len(word.replace(' ', '')) == len(''.join(phrase)):
+        if Counter(word.replace(' ', '')) == Counter(''.join(phrase)):
+            # Add to phrases
+            phrases.append(' '.join(phrase))
+        return None
+    # Find new anagrams and recurse.
+    anagrams = find_anagrams(''.join(letters_left), anagram_dict)
+    for anagram in anagrams:
+        new_phrase = phrase[:]
+        new_phrase.append(anagram)
+        find_anagram_phrases(phrases, word, new_anagram_dict, new_phrase)
 
 
 def anagram_generator(word: str) -> list:
