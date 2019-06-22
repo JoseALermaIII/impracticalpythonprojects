@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>src.ch02 package &#8212; impracticalpythonprojects 0.11.0 documentation</title>
+    <title>src.ch02 package &#8212; impracticalpythonprojects 0.12.0 documentation</title>
     <link rel="stylesheet" href="_static/flask.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -35,7 +35,7 @@
         <li class="right" >
           <a href="src.ch01.practice.html" title="src.ch01.practice package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.11.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.12.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="src.html" accesskey="U">src package</a> &#187;</li> 
       </ul>
@@ -80,7 +80,20 @@
 </div>
 <div class="section" id="module-src.ch02.p1_cleanup_dictionary">
 <span id="src-ch02-p1-cleanup-dictionary-module"></span><h2>src.ch02.p1_cleanup_dictionary module<a class="headerlink" href="#module-src.ch02.p1_cleanup_dictionary" title="Permalink to this headline">¶</a></h2>
-<p>Remove single letter words from a word dictionary.</p>
+<p>Cleanup word dictionary.</p>
+<p>Various functions for cleaning up a word dictionary.</p>
+<dl class="attribute">
+<dt id="src.ch02.p1_cleanup_dictionary.APPROVED_WORDS">
+<code class="descclassname">src.ch02.p1_cleanup_dictionary.</code><code class="descname">APPROVED_WORDS</code><a class="headerlink" href="#src.ch02.p1_cleanup_dictionary.APPROVED_WORDS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Words that should always appear in a word
+dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="function">
 <dt id="src.ch02.p1_cleanup_dictionary.cleanup_dict">
 <code class="descclassname">src.ch02.p1_cleanup_dictionary.</code><code class="descname">cleanup_dict</code><span class="sig-paren">(</span><em>filepath: str</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch02/p1_cleanup_dictionary.html#cleanup_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch02.p1_cleanup_dictionary.cleanup_dict" title="Permalink to this definition">¶</a></dt>
@@ -110,6 +123,28 @@ words.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>List with words as elements excluding single letter words.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#IndexError" title="(in Python v3.7)"><strong>IndexError</strong></a> – If <strong>word_list</strong> is empty.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch02.p1_cleanup_dictionary.cleanup_list_more">
+<code class="descclassname">src.ch02.p1_cleanup_dictionary.</code><code class="descname">cleanup_list_more</code><span class="sig-paren">(</span><em>word_list: list</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch02/p1_cleanup_dictionary.html#cleanup_list_more"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch02.p1_cleanup_dictionary.cleanup_list_more" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cleanup word list even more.</p>
+<p>First, remove words with apostrophes, double letter words, duplicates,
+and words with letters not in <a class="reference external" href="https://docs.python.org/3/library/string.html#string.ascii_lowercase" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">string.ascii_lowercase</span></code></a> from a
+<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> of words. Then, add <a class="reference internal" href="#src.ch02.p1_cleanup_dictionary.APPROVED_WORDS" title="src.ch02.p1_cleanup_dictionary.APPROVED_WORDS"><code class="xref py py-const docutils literal notranslate"><span class="pre">APPROVED_WORDS</span></code></a> back into
+list. Finally, sort list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>word_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – List with words as elements.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Sorted list with words as elements excluding cleaned words and
+<a class="reference internal" href="#src.ch02.p1_cleanup_dictionary.APPROVED_WORDS" title="src.ch02.p1_cleanup_dictionary.APPROVED_WORDS"><code class="xref py py-const docutils literal notranslate"><span class="pre">APPROVED_WORDS</span></code></a> added.</p>
 </dd>
 <dt class="field-odd">Raises</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#IndexError" title="(in Python v3.7)"><strong>IndexError</strong></a> – If <strong>word_list</strong> is empty.</p>

@@ -1,0 +1,399 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src.ch03.c1_anagram_generator &#8212; impracticalpythonprojects 0.12.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/flask.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <script>DOCUMENTATION_OPTIONS.URL_ROOT = '../../../';</script>
+   
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">impracticalpythonprojects 0.12.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for src.ch03.c1_anagram_generator</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Generate phrase anagrams from a word or phrase.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span><span class="p">,</span> <span class="n">Counter</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">cpu_count</span>
+<span class="kn">from</span> <span class="nn">string</span> <span class="k">import</span> <span class="n">ascii_lowercase</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="k">import</span> <span class="n">setrecursionlimit</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="k">import</span> <span class="n">Thread</span>
+<span class="kn">from</span> <span class="nn">src.ch02</span> <span class="k">import</span> <span class="n">DICTIONARY_FILE_PATH</span>
+<span class="kn">from</span> <span class="nn">src.ch02.p1_cleanup_dictionary</span> <span class="k">import</span> <span class="n">cleanup_dict</span><span class="p">,</span> <span class="n">cleanup_list_more</span>
+
+<span class="n">setrecursionlimit</span><span class="p">(</span><span class="mi">9000</span><span class="p">)</span>  <span class="c1"># Default is 1000</span>
+
+
+<div class="viewcode-block" id="get_primes"><a class="viewcode-back" href="../../../src.ch03.html#src.ch03.c1_anagram_generator.get_primes">[docs]</a><span class="k">def</span> <span class="nf">get_primes</span><span class="p">(</span><span class="n">length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">26</span><span class="p">,</span> <span class="n">min_prime</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+               <span class="n">max_prime</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">101</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get list of primes.</span>
+
+<span class="sd">    Given a length, minimum, and maximum prime number, return a list of prime</span>
+<span class="sd">    numbers.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        length (int): Number of prime numbers to return. Defaults to ``26``.</span>
+<span class="sd">        min_prime (int): Smallest prime number to return. Defaults to ``2``.</span>
+<span class="sd">        max_prime (int): Largest prime number to return. Defaults to ``101``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        :py:obj:`list` of **length** prime numbers with **min_prime** as the</span>
+<span class="sd">        smallest prime number and **max_prime** as the largest prime number</span>
+<span class="sd">        in the list.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">primes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">min_prime</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="c1"># If min_prime includes ``2``, skip it during calculations.</span>
+        <span class="n">min_prime</span><span class="p">,</span> <span class="n">primes</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">min_prime</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># If min_prime is even, make exclusive odd.</span>
+        <span class="n">min_prime</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">primes</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">:</span>
+        <span class="c1"># Iterate over odd numbers.</span>
+        <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_prime</span><span class="p">,</span> <span class="n">max_prime</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="c1">#  If num can&#39;t be divided by all odd numbers from min_prime to</span>
+            <span class="c1">#  sqrt(num), it&#39;s a prime.</span>
+            <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">num</span> <span class="o">%</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">num</span><span class="o">**.</span><span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
+                <span class="n">primes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">primes</span><span class="p">)</span> <span class="o">==</span> <span class="n">length</span><span class="p">:</span>
+                <span class="c1"># Stop as soon as we have enough primes.</span>
+                <span class="k">break</span>
+    <span class="k">return</span> <span class="n">primes</span></div>
+
+
+<div class="viewcode-block" id="get_id"><a class="viewcode-back" href="../../../src.ch03.html#src.ch03.c1_anagram_generator.get_id">[docs]</a><span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="n">word</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get ID number of word.</span>
+
+<span class="sd">    Assign a unique prime number to each letter in</span>
+<span class="sd">    :py:obj:`~string.ascii_lowercase`. The product of each letter in **word**</span>
+<span class="sd">    is its ID number.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        word (str): Word to get ID of.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        :py:obj:`int` representing ID of **word**.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Assign each ASCII lowercase letter a prime number.</span>
+    <span class="n">primes</span> <span class="o">=</span> <span class="n">get_primes</span><span class="p">()</span>
+    <span class="n">letter_id</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">ascii_lowercase</span><span class="p">,</span> <span class="n">primes</span><span class="p">))</span>
+    <span class="c1"># Find the product of each letter in the word.</span>
+    <span class="n">product</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">letter</span> <span class="ow">in</span> <span class="n">word</span><span class="p">:</span>
+        <span class="n">product</span> <span class="o">*=</span> <span class="n">letter_id</span><span class="p">[</span><span class="n">letter</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">product</span></div>
+
+
+<div class="viewcode-block" id="get_anagram_dict"><a class="viewcode-back" href="../../../src.ch03.html#src.ch03.c1_anagram_generator.get_anagram_dict">[docs]</a><span class="k">def</span> <span class="nf">get_anagram_dict</span><span class="p">(</span><span class="n">word_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get an anagram dictionary from word_list.</span>
+
+<span class="sd">    Get the ID of each word in **word list** and add it to a dictionary with</span>
+<span class="sd">    the ID as the key.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        word_list (list): List of words to make into anagram dictionary.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        :py:class:`~collections.defaultdict` of :py:obj:`list` with an ID</span>
+<span class="sd">        (:py:obj:`int`) as the key and words whose product of letters equal</span>
+<span class="sd">        that ID as values.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">anagram_dict</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+    <span class="c1"># Find the product of each letter for each word in a dictionary.</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">word_list</span><span class="p">:</span>
+        <span class="n">anagram_dict</span><span class="p">[</span><span class="n">get_id</span><span class="p">(</span><span class="n">word</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">anagram_dict</span></div>
+
+
+<div class="viewcode-block" id="split"><a class="viewcode-back" href="../../../src.ch03.html#src.ch03.c1_anagram_generator.split">[docs]</a><span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="n">a_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">parts</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Split a list into parts.</span>
+
+<span class="sd">    Split given list into given number of parts.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a_list (list): List to split.</span>
+<span class="sd">        parts (int): Number of parts to split list into.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of lists with **a_list** split into **parts**.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; import src.ch03.c1_anagram_generator.split as split</span>
+<span class="sd">        &gt;&gt;&gt; some_list = [&#39;this&#39;, &#39;is&#39;, &#39;a&#39;, &#39;list&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; split_list = split(some_list, 2)</span>
+<span class="sd">        &gt;&gt;&gt; print(split_list)</span>
+<span class="sd">        [[&#39;this&#39;, &#39;is&#39;], [&#39;a&#39;, &#39;list&#39;]]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">quotient</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a_list</span><span class="p">),</span> <span class="n">parts</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">((</span><span class="n">a_list</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">quotient</span> <span class="o">+</span> <span class="nb">min</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">remainder</span><span class="p">):(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">quotient</span> <span class="o">+</span>
+                        <span class="nb">min</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">remainder</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">parts</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="extend_anagram_dict"><a class="viewcode-back" href="../../../src.ch03.html#src.ch03.c1_anagram_generator.extend_anagram_dict">[docs]</a><span class="k">def</span> <span class="nf">extend_anagram_dict</span><span class="p">(</span><span class="n">word_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Extend an anagram dictionary.</span>
+
+<span class="sd">    Adds words from given word list to a given anagram dictionary.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        word_list (list): List of words to add to anagram dictionary.</span>
+<span class="sd">        dictionary (dict): Anagram dictionary to add words to.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None. If words in **word_list** are in **dictionary** they are not</span>
+<span class="sd">        added. Otherwise, they are added.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">new_anagram_dict</span> <span class="o">=</span> <span class="n">get_anagram_dict</span><span class="p">(</span><span class="n">word_list</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">new_anagram_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">element</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
+                <span class="n">dictionary</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="multi_get_anagram_dict"><a class="viewcode-back" href="../../../src.ch03.html#src.ch03.c1_anagram_generator.multi_get_anagram_dict">[docs]</a><span class="k">def</span> <span class="nf">multi_get_anagram_dict</span><span class="p">(</span><span class="n">word_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Multithreaded get anagram dictionary.</span>
+
+<span class="sd">    Uses :py:func:`os.cpu_count` and :py:class:`threading.Thread` to use</span>
+<span class="sd">    all CPUs to make an anagram dictionary with the intent of being more</span>
+<span class="sd">    efficient than :py:func:`~src.ch03.c1_anagram_generator.get_anagram_dict`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        word_list (list): List of words to make into anagram dictionary.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        :py:class:`~collections.defaultdict` of :py:obj:`list` with an ID</span>
+<span class="sd">        (:py:obj:`int`) as the key and words whose product of letters equal</span>
+<span class="sd">        that ID as values.</span>
+
+<span class="sd">    Warning:</span>
+<span class="sd">        Avoids race conditions by heavily relying on CPython&#39;s</span>
+<span class="sd">        `Global Interpreter Lock`_. More info about `Thread Objects`_.</span>
+
+<span class="sd">    .. _Global Interpreter Lock:</span>
+<span class="sd">        https://docs.python.org/3/glossary.html#term-global-interpreter-lock</span>
+<span class="sd">    .. _Thread Objects:</span>
+<span class="sd">        https://docs.python.org/3/library/threading.html#thread-objects</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">super_dict</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">divisions</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">word_list</span><span class="p">,</span> <span class="n">cpu_count</span><span class="p">())</span>
+    <span class="n">threads</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">division</span> <span class="ow">in</span> <span class="n">divisions</span><span class="p">:</span>
+        <span class="n">thread</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">extend_anagram_dict</span><span class="p">,</span>
+                        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">division</span><span class="p">,</span> <span class="n">super_dict</span><span class="p">))</span>
+        <span class="n">threads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">thread</span><span class="p">)</span>
+        <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">thread</span> <span class="ow">in</span> <span class="n">threads</span><span class="p">:</span>
+        <span class="n">thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">super_dict</span></div>
+
+
+<div class="viewcode-block" id="find_anagrams"><a class="viewcode-back" href="../../../src.ch03.html#src.ch03.c1_anagram_generator.find_anagrams">[docs]</a><span class="k">def</span> <span class="nf">find_anagrams</span><span class="p">(</span><span class="n">word</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">anagram_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Find anagrams in word.</span>
+
+<span class="sd">    Find all anagrams in a given word (or phrase) using anagram dictionary.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        word (str): Word to find anagrams of.</span>
+<span class="sd">        anagram_dict: Dictionary from :func:`get_anagram_dict`.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        :py:obj:`list` of :py:obj:`str` with all anagrams in **word**.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">word</span><span class="o">.</span><span class="n">islower</span><span class="p">():</span>
+        <span class="n">word</span> <span class="o">=</span> <span class="n">word</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">word</span><span class="p">:</span>
+        <span class="c1"># If word is a phrase with spaces, remove spaces.</span>
+        <span class="n">word</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="n">anagrams</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">id_num</span> <span class="o">=</span> <span class="n">get_id</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">anagram_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>  <span class="c1"># Make keys indexable. Python3.6 only?</span>
+    <span class="c1"># If an anagram is IN the word, the modulo of the anagram&#39;s ID and the</span>
+    <span class="c1"># word&#39;s ID will be 0.</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">id_num</span> <span class="o">%</span> <span class="n">key</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">anagrams</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">anagram_dict</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">anagrams</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="remove_unusable_words"><a class="viewcode-back" href="../../../src.ch03.html#src.ch03.c1_anagram_generator.remove_unusable_words">[docs]</a><span class="k">def</span> <span class="nf">remove_unusable_words</span><span class="p">(</span><span class="n">anagram_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">usable_letters</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Remove unusable words from anagram dictionary.</span>
+
+<span class="sd">    Creates new anagram dictionary by including only IDs that can be IN</span>
+<span class="sd">    **usable_letters**.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        anagram_dict (dict): Anagram dictionary to prune.</span>
+<span class="sd">        usable_letters (list): List of letters that must be used.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        :py:class:`~collections.defaultdict` of :py:obj:`list` with an ID</span>
+<span class="sd">        (:py:obj:`int`) as the key and words whose product of letters equal</span>
+<span class="sd">        that ID as values.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">new_word</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">usable_letters</span><span class="p">)</span>
+    <span class="n">new_anagram_dict</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">id_num</span> <span class="o">=</span> <span class="n">get_id</span><span class="p">(</span><span class="n">new_word</span><span class="p">)</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">anagram_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>  <span class="c1"># Make keys indexable. Python3.6 only?</span>
+    <span class="c1"># If anagram can be IN new_word, add to new_anagram_dict.</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">id_num</span> <span class="o">%</span> <span class="n">key</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">new_anagram_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">anagram_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">new_anagram_dict</span></div>
+
+
+<div class="viewcode-block" id="find_anagram_phrases"><a class="viewcode-back" href="../../../src.ch03.html#src.ch03.c1_anagram_generator.find_anagram_phrases">[docs]</a><span class="k">def</span> <span class="nf">find_anagram_phrases</span><span class="p">(</span><span class="n">phrases</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">word</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">anagram_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+                         <span class="n">phrase</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Find anagram phrases.</span>
+
+<span class="sd">    Recursively finds anagram phrases of **word** by removing unusable words</span>
+<span class="sd">    from the **anagram_dict**, finding remaining anagrams given the</span>
+<span class="sd">    **phrase**, then adding any found anagram phrases to **phrases**.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        phrases (list): List of anagram phrases.</span>
+<span class="sd">        word (str): Current word to find anagram phrases of.</span>
+<span class="sd">        anagram_dict (dict): Current anagram dictionary to find anagrams with.</span>
+<span class="sd">        phrase (list): Current anagram phrase candidate.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None. **phrases** is updated with any found anagram phrases.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">letters</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+    <span class="n">letters</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">phrase</span><span class="p">))</span>
+    <span class="n">letters_left</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">letters</span><span class="o">.</span><span class="n">elements</span><span class="p">())</span>
+
+    <span class="n">new_anagram_dict</span> <span class="o">=</span> <span class="n">remove_unusable_words</span><span class="p">(</span><span class="n">anagram_dict</span><span class="p">,</span> <span class="n">letters_left</span><span class="p">)</span>
+    <span class="c1"># Once the length is equal, we have an anagram phrase.</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">phrase</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">Counter</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span> <span class="o">==</span> <span class="n">Counter</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">phrase</span><span class="p">)):</span>
+            <span class="c1"># Add to phrases</span>
+            <span class="n">phrases</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">phrase</span><span class="p">))</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="c1"># Find new anagrams and recurse.</span>
+    <span class="n">anagrams</span> <span class="o">=</span> <span class="n">find_anagrams</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">letters_left</span><span class="p">),</span> <span class="n">anagram_dict</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">anagram</span> <span class="ow">in</span> <span class="n">anagrams</span><span class="p">:</span>
+        <span class="n">new_phrase</span> <span class="o">=</span> <span class="n">phrase</span><span class="p">[:]</span>
+        <span class="n">new_phrase</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">anagram</span><span class="p">)</span>
+        <span class="n">find_anagram_phrases</span><span class="p">(</span><span class="n">phrases</span><span class="p">,</span> <span class="n">word</span><span class="p">,</span> <span class="n">new_anagram_dict</span><span class="p">,</span> <span class="n">new_phrase</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="anagram_generator"><a class="viewcode-back" href="../../../src.ch03.html#src.ch03.c1_anagram_generator.anagram_generator">[docs]</a><span class="k">def</span> <span class="nf">anagram_generator</span><span class="p">(</span><span class="n">word</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Generate phrase anagrams.</span>
+
+<span class="sd">    Make phrase anagrams from a given word or phrase.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        word (str): Word to get phrase anagrams of.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        :py:obj:`list` of phrase anagrams of **word**.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">phrases</span><span class="p">,</span> <span class="n">phrase</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">dictionary</span> <span class="o">=</span> <span class="n">cleanup_list_more</span><span class="p">(</span><span class="n">cleanup_dict</span><span class="p">(</span><span class="n">DICTIONARY_FILE_PATH</span><span class="p">))</span>
+    <span class="n">anagram_dict</span> <span class="o">=</span> <span class="n">multi_get_anagram_dict</span><span class="p">(</span><span class="n">dictionary</span><span class="p">)</span>
+    <span class="c1"># Build anagram dictionary specific to word.</span>
+    <span class="n">new_anagram_dict</span> <span class="o">=</span> <span class="n">remove_unusable_words</span><span class="p">(</span><span class="n">anagram_dict</span><span class="p">,</span>
+                                             <span class="nb">list</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)))</span>
+    <span class="c1"># Recursively find phrases using new_anagram_dict.</span>
+    <span class="n">find_anagram_phrases</span><span class="p">(</span><span class="n">phrases</span><span class="p">,</span> <span class="n">word</span><span class="p">,</span> <span class="n">new_anagram_dict</span><span class="p">,</span> <span class="n">phrase</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">phrases</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../src.ch03.html#src.ch03.c1_anagram_generator.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Demonstrate the Anagram Generator.&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;I can find all phrase anagrams given a word or phrase.</span><span class="se">\n</span><span class="s1">&#39;</span>
+          <span class="s1">&#39;I</span><span class="se">\&#39;</span><span class="s1">m fun at parties.&#39;</span><span class="p">)</span>
+    <span class="c1"># Print first 500 results.</span>
+    <span class="n">word</span> <span class="o">=</span> <span class="s1">&#39;see shells&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Analyzing: </span><span class="si">{word}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">anagram_phrases</span> <span class="o">=</span> <span class="n">anagram_generator</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">phrase</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">anagram_phrases</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">500</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">phrase</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  
+    
+  
+<h3>Navigation</h3>
+<ul>
+  <li><a href="../../../index.html">Overview</a>
+    <ul>
+      <li><a href="../../index.html">Module code</a>
+        
+          
+          </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jose A. Lerma III.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
+    </div>
+
+  </body>
+</html>
