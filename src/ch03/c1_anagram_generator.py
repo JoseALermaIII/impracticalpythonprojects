@@ -304,10 +304,10 @@ def main():
     word = 'see shells'
     print(f'\nAnalyzing: {word}\n')
     anagram_phrases = anagram_generator(word)
-    for i in range(len(anagram_phrases)):
+    for i, phrase in enumerate(anagram_phrases):
         if i > 500:
             break
-        print(anagram_phrases[i])
+        print(phrase)
 
 
 if __name__ == '__main__':
