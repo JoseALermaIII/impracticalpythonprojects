@@ -153,6 +153,15 @@ def multi_get_anagram_dict(word_list: list) -> dict:
         (:py:obj:`int`) as the key and words whose product of letters equal
         that ID as values.
 
+    Warning:
+        Avoids race conditions by heavily relying on CPython's
+        `Global Interpreter Lock`_. More info about `Thread Objects`_.
+
+    .. _Global Interpreter Lock:
+        https://docs.python.org/3/glossary.html#term-global-interpreter-lock
+    .. _Thread Objects:
+        https://docs.python.org/3/library/threading.html#thread-objects
+
     """
     super_dict = defaultdict(list)
     divisions = split(word_list, cpu_count())
