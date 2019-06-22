@@ -26,6 +26,44 @@ class TestCleanupDictionary(unittest.TestCase):
         for element in clean_list:
             self.assertEqual(len(element), 5)
 
+    def test_cleanup_list_more(self):
+        """Test cleanup list more."""
+        # Test that it adds approved words.
+        approved_words = cleanup_dictionary.APPROVED_WORDS
+        test_list = ['test', 'pls']
+        dictionary = test_list + approved_words
+        dictionary.sort()
+        clean_list = cleanup_dictionary.cleanup_list_more(test_list)
+        self.assertListEqual(dictionary, clean_list)
+        # Test that it skips double letter words.
+        dictionary = ['test', 'pls']
+        dictionary += approved_words
+        dictionary.sort()
+        test_list = ['test', 'es', 'pls']
+        clean_list = cleanup_dictionary.cleanup_list_more(test_list)
+        self.assertListEqual(dictionary, clean_list)
+        # Test that it skips words with letters not in string.ascii_lowercase.
+        dictionary = ['test']
+        dictionary += approved_words
+        dictionary.sort()
+        test_list = ['test', 'mí']
+        clean_list = cleanup_dictionary.cleanup_list_more(test_list)
+        self.assertListEqual(dictionary, clean_list)
+        # Test that it skips words with apostrophes.
+        dictionary = ['test']
+        dictionary += approved_words
+        dictionary.sort()
+        test_list = ['test', "me's"]
+        clean_list = cleanup_dictionary.cleanup_list_more(test_list)
+        self.assertListEqual(dictionary, clean_list)
+        # Test that it removes duplicates.
+        dictionary = ['test']
+        dictionary += approved_words
+        dictionary.sort()
+        test_list = ['test', 'test']
+        clean_list = cleanup_dictionary.cleanup_list_more(test_list)
+        self.assertListEqual(dictionary, clean_list)
+
     def test_cleanup_dict(self):
         """Test that it removes single letter words from a dictionary file."""
         dict_file = os.path.abspath('tests/data/ch02/dictionary.txt')
