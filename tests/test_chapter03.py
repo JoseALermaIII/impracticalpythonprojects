@@ -1,6 +1,6 @@
 """Test Chapter 3."""
 import os
-import unittest
+import unittest.mock
 from string import ascii_lowercase
 from src.ch02.p1_cleanup_dictionary import cleanup_dict, cleanup_list_more
 import src.ch03.p1_digram_counter as digram_counter
@@ -213,6 +213,13 @@ class TestAnagramGenerator(unittest.TestCase):
         # Test a phrase with four anagram phrases.
         anagram_generator.find_anagram_phrases(phrases, 'a cat', anagram_dict, phrase)
         self.assertListEqual(['a act', 'a cat', 'act a', 'cat a'], phrases)
+
+    @unittest.mock.patch('src.ch03.c1_anagram_generator.DICTIONARY_FILE_PATH', 'tests/data/ch03/dictionary.txt')
+    def test_anagram_generator(self):
+        """Test that it can also find anagram phrases."""
+        phrases = ['a act', 'a cat', 'act a', 'cat a']
+        test_phrases = anagram_generator.anagram_generator('a cat')
+        self.assertListEqual(phrases, test_phrases)
 
 
 if __name__ == '__main__':
