@@ -1,7 +1,7 @@
 """Hack route cipher sent by Abraham Lincoln."""
 
 
-def get_factors(integer):
+def get_factors(integer: int) -> list:
     """Get factors of integer.
 
     Calculate factors of a given integer.
