@@ -41,6 +41,20 @@ class TestHackLincoln(unittest.TestCase):
         test_keys = hack_lincoln.keygen(4)
         self.assertListEqual(keys, test_keys)
 
+    def test_decode_route(self):
+        """Test decode_route."""
+        message = "this is supposed to be a super secret message stop"
+        # Test a two column key.
+        ciphertext = "be to supposed is this a super secret message stop"
+        keys = [-1, 2]
+        test_message = hack_lincoln.decode_route(keys, ciphertext.split())
+        self.assertListEqual(message.split(), test_message)
+        # Test a five column key.
+        ciphertext = "this is to supposed a be super secret stop message"
+        keys = [1, -2, -3, 4, -5]
+        test_message = hack_lincoln.decode_route(keys, ciphertext.split())
+        self.assertListEqual(message.split(), test_message)
+
 
 if __name__ == '__main__':
     unittest.main()
