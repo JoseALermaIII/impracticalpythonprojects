@@ -1,5 +1,6 @@
 """Hack route cipher sent by Abraham Lincoln."""
 from itertools import permutations
+from src.ch03.c1_anagram_generator import split
 
 
 def get_factors(integer: int) -> list:
@@ -49,6 +50,31 @@ def keygen(length: int) -> list:
     for perm in perms:
         result.append([sign * key for sign, key in zip(perm, master_key)])
     return result
+
+
+def decode_route(keys: list, cipherlist: list) -> list:
+    """Decode route cipher.
+
+    Decode **cipherlist** encoded with a route cipher using **keys**.
+
+    Args:
+        keys (list): List of signed, integer keys.
+        cipherlist (list): List of strings representing encoded message.
+
+    Returns:
+        List of strings representing plaintext message.
+
+    """
+    message = []
+    split_list = split(cipherlist, len(keys))
+    for key in keys:
+        if key < 0:
+            # If negative, reverse direction
+            message.extend(reversed(split_list[0]))
+        else:
+            message.extend(split_list[0])
+        del split_list[0]
+    return message
 
 
 def main():
