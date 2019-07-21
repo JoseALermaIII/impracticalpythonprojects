@@ -21,7 +21,7 @@ def get_factors(integer: int) -> list:
             result.append(i)
             # If you have one factor, the other is integer / factor
             result.append(integer // i)
-    return list(set(result))  # Eliminate perfect squares
+    return sorted(list(set(result)))  # Eliminate perfect squares
 
 
 def keygen(length: int) -> list:

@@ -17,7 +17,7 @@ class TestHackLincoln(unittest.TestCase):
         test_factors = hack_lincoln.get_factors(4)
         self.assertListEqual(factors, test_factors)
         # Test non-prime, non-perfect square
-        factors = [32, 1, 2, 4, 8, 16]
+        factors = [1, 2, 4, 8, 16, 32]
         test_factors = hack_lincoln.get_factors(32)
         self.assertListEqual(factors, test_factors)
 
