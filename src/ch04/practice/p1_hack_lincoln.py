@@ -1,5 +1,5 @@
 """Hack route cipher sent by Abraham Lincoln."""
-from itertools import permutations
+from itertools import combinations
 from src.ch03.c1_anagram_generator import split
 
 
@@ -46,7 +46,7 @@ def keygen(length: int) -> list:
     result = []
     master_key = range(1, length + 1)
     # Get all possible combinations of direction (pos/neg) of length
-    perms = set(permutations([-1, 1] * length, length))  # Remove repeats
+    perms = set(combinations([-1, 1] * length, length))  # Remove repeats
     for perm in perms:
         result.append([sign * key for sign, key in zip(perm, master_key)])
     return result

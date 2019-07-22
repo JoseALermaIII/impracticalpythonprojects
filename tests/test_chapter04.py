@@ -29,11 +29,11 @@ class TestHackLincoln(unittest.TestCase):
         self.assertListEqual(keys, test_keys)
         # Test odd key length
         keys = [[1, 2, -3], [-1, 2, 3], [-1, -2, 3], [1, -2, -3],
-                [-1, -2, -3], [-1, 2, -3], [1, -2, 3], [1, 2, 3]]
+                [1, -2, 3], [-1, -2, -3], [-1, 2, -3], [1, 2, 3]]
         test_keys = hack_lincoln.keygen(3)
         self.assertListEqual(keys, test_keys)
         # Test big key length
-        keys = [[-1, -2, 3, 4], [-1, 2, -3, 4], [-1, -2, 3, -4],
+        keys = [[-1, 2, -3, 4], [-1, -2, 3, 4], [-1, -2, 3, -4],
                 [-1, 2, 3, -4], [-1, -2, -3, -4], [1, -2, -3, 4],
                 [1, -2, 3, 4], [1, 2, -3, 4], [1, 2, 3, 4], [1, -2, 3, -4],
                 [1, -2, -3, -4], [1, 2, -3, -4], [-1, -2, -3, 4],
