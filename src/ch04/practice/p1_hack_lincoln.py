@@ -64,6 +64,9 @@ def decode_route(keys: list, cipherlist: list) -> list:
     Returns:
         List of strings representing plaintext message.
 
+    Note:
+        Assumes vertical encoding route.
+
     """
     message = []
     split_list = split(cipherlist, len(keys))
