@@ -109,6 +109,17 @@ def hack_route(ciphertext: str) -> None:
 
 def main():
     """Demonstrate hack of Lincoln's route cipher."""
+    print('I can do a brute-force hack of a route cipher sent by '
+          'Abraham Lincoln,\nand I do a better job than he did in that dumb '
+          'zombie movie.')
+    print('\nNote: I only hack the route cipher. I leave the '
+          'word-transposition\ncipher to you and your biochemical brain.\n')
     ciphertext = """THIS OFF DETAINED ASCERTAIN WAYLAND CORRESPONDENTS OF AT
     WHY AND IF FILLS IT YOU GET THEY NEPTUNE THE TRIBUNE PLEASE ARE THEM CAN 
     UP"""
+    print(f'Hacking: {ciphertext}\n')
+    hack_route(ciphertext)
+
+
+if __name__ == '__main__':
+    main()
