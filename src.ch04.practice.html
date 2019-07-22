@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src.ch04.practice package &#8212; impracticalpythonprojects 0.13.0 documentation</title>
+    <link rel="stylesheet" href="_static/flask.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="src.ch04 package" href="src.ch04.html" />
+  <script>DOCUMENTATION_OPTIONS.URL_ROOT = './';</script>
+   
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="src.ch04.html" title="src.ch04 package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.13.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="src.html" >src package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="src.ch04.html" accesskey="U">src.ch04 package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="src-ch04-practice-package">
+<h1>src.ch04.practice package<a class="headerlink" href="#src-ch04-practice-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-src.ch04.practice.p1_hack_lincoln">
+<span id="src-ch04-practice-p1-hack-lincoln-module"></span><h2>src.ch04.practice.p1_hack_lincoln module<a class="headerlink" href="#module-src.ch04.practice.p1_hack_lincoln" title="Permalink to this headline">¶</a></h2>
+<p>Hack route cipher sent by Abraham Lincoln.</p>
+<dl class="function">
+<dt id="src.ch04.practice.p1_hack_lincoln.decode_route">
+<code class="descclassname">src.ch04.practice.p1_hack_lincoln.</code><code class="descname">decode_route</code><span class="sig-paren">(</span><em>keys: list</em>, <em>cipherlist: list</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch04/practice/p1_hack_lincoln.html#decode_route"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.practice.p1_hack_lincoln.decode_route" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode route cipher.</p>
+<p>Decode <strong>cipherlist</strong> encoded with a route cipher using <strong>keys</strong>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keys</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – List of signed, integer keys.</p></li>
+<li><p><strong>cipherlist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – List of strings representing encoded message.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of strings representing plaintext message.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Assumes vertical encoding route.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch04.practice.p1_hack_lincoln.get_factors">
+<code class="descclassname">src.ch04.practice.p1_hack_lincoln.</code><code class="descname">get_factors</code><span class="sig-paren">(</span><em>integer: int</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch04/practice/p1_hack_lincoln.html#get_factors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.practice.p1_hack_lincoln.get_factors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get factors of integer.</p>
+<p>Calculate factors of a given integer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>integer</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number to get factors of.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of integer factors of <strong>integer</strong>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch04.practice.p1_hack_lincoln.hack_route">
+<code class="descclassname">src.ch04.practice.p1_hack_lincoln.</code><code class="descname">hack_route</code><span class="sig-paren">(</span><em>ciphertext: str</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/src/ch04/practice/p1_hack_lincoln.html#hack_route"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.practice.p1_hack_lincoln.hack_route" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hack route cipher.</p>
+<p>Hack route cipher by using <a class="reference internal" href="#src.ch04.practice.p1_hack_lincoln.get_factors" title="src.ch04.practice.p1_hack_lincoln.get_factors"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_factors()</span></code></a> to find all possible key
+lengths. Then use <a class="reference internal" href="#src.ch04.practice.p1_hack_lincoln.keygen" title="src.ch04.practice.p1_hack_lincoln.keygen"><code class="xref py py-func docutils literal notranslate"><span class="pre">keygen()</span></code></a> to generate all possible keys and pass
+each one through <a class="reference internal" href="#src.ch04.practice.p1_hack_lincoln.decode_route" title="src.ch04.practice.p1_hack_lincoln.decode_route"><code class="xref py py-func docutils literal notranslate"><span class="pre">decode_route()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ciphertext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Message encoded with route cipher.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None. Prints all possible decoded messages.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch04.practice.p1_hack_lincoln.keygen">
+<code class="descclassname">src.ch04.practice.p1_hack_lincoln.</code><code class="descname">keygen</code><span class="sig-paren">(</span><em>length: int</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch04/practice/p1_hack_lincoln.html#keygen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.practice.p1_hack_lincoln.keygen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate all possible route cipher keys.</p>
+<p>Generates a list of all possible route cipher keys of <strong>length</strong>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Length of route cipher key.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of lists of integers representing all possible route cipher keys
+of <strong>length</strong>.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">src.ch04.practice.p1_hack_lincoln</span> <span class="k">import</span> <span class="n">keygen</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">keygen</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">[[-1, 2], [1, -2], [1, 2], [-1, -2]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch04.practice.p1_hack_lincoln.main">
+<code class="descclassname">src.ch04.practice.p1_hack_lincoln.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch04/practice/p1_hack_lincoln.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.practice.p1_hack_lincoln.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Demonstrate hack of Lincoln’s route cipher.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.ch04.practice">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.ch04.practice" title="Permalink to this headline">¶</a></h2>
+<p>Chapter 4 Practice Projects.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  
+    
+  
+
+  <h3>Contents</h3>
+  <ul>
+<li><a class="reference internal" href="#">src.ch04.practice package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-src.ch04.practice.p1_hack_lincoln">src.ch04.practice.p1_hack_lincoln module</a></li>
+<li><a class="reference internal" href="#module-src.ch04.practice">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<h3>Navigation</h3>
+<ul>
+  <li><a href="index.html">Overview</a>
+    <ul>
+      <li><a href="modules.html">src</a>
+        <ul>
+      <li><a href="src.html">src package</a>
+        <ul>
+      <li><a href="src.ch04.html">src.ch04 package</a>
+        <ul>
+          <li>Previous: <a href="src.ch04.html" title="previous chapter">src.ch04 package</a>
+          </ul>
+      </li></ul>
+      </li></ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jose A. Lerma III.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
+    </div>
+
+  </body>
+</html>
