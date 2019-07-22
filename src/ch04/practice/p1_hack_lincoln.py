@@ -77,6 +77,36 @@ def decode_route(keys: list, cipherlist: list) -> list:
     return message
 
 
+def hack_route(ciphertext: str) -> None:
+    """Hack route cipher.
+
+    Hack route cipher by using :func:`get_factors` to find all possible key
+    lengths. Then use :func:`keygen` to generate all possible keys and pass
+    each one through :func:`decode_route`.
+
+    Args:
+        ciphertext (str): Message encoded with route cipher.
+
+    Returns:
+        None. Prints all possible decoded messages.
+
+    """
+    cipherlist = ciphertext.split()
+    # Get all possible key lengths.
+    factors = get_factors(len(cipherlist))
+    for factor in factors:
+        # Get all possible keys.
+        if any([factor == 1, factor == len(cipherlist)]):
+            # Key length of 1 is the full cipherlist and key length of
+            # cipherlist length is one word per column.
+            continue
+        keys = keygen(factor)
+        for key in keys:
+            # Use each key to decode route cipher.
+            message = ' '.join(decode_route(key, cipherlist))
+            print(f'Key: {key}\nDecoded message: {message}\n')
+
+
 def main():
     """Demonstrate hack of Lincoln's route cipher."""
     ciphertext = """THIS OFF DETAINED ASCERTAIN WAYLAND CORRESPONDENTS OF AT
