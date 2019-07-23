@@ -3,6 +3,7 @@ import os
 import unittest.mock
 from io import StringIO
 import src.ch04.practice.p1_hack_lincoln as hack_lincoln
+import src.ch04.practice.p2_identify_cipher as identify_cipher
 
 
 class TestHackLincoln(unittest.TestCase):
@@ -65,6 +66,26 @@ class TestHackLincoln(unittest.TestCase):
         ciphertext = "this is to supposed a be super secret stop message"
         hack_lincoln.hack_route(ciphertext)
         self.assertEqual(mock_stdout.getvalue(), file_data)
+
+
+class TestIdentifyCipher(unittest.TestCase):
+    """Test Identify Cipher."""
+
+    def test_is_transposition(self):
+        """Test is_transposition."""
+        # Test a letter transposition cipher.
+        # Used key of 11 in Al Sweigart's Cracking Codes with Python
+        # transpositionEncrypt.py
+        ciphertext = """ok  oxt th hnltso iehtaeeehhrpcie  n  ru 
+        ikgmnbtmetfcsh iiwye ik tsngo  tv s te  sfheuelr fbhoe pvaatauou s 
+        eyietcerdisn gn"""
+        self.assertTrue(identify_cipher.is_transposition(ciphertext, 0.8))
+        # Test a letter substitution cipher.
+        # Used key of FRSDBTVXANQJWLYUPGCEKZIOHM in Al Sweigart's
+        # Cracking Codes with Python simpleSubCipher.py
+        ciphertext = """ylb eiy rksqjb wh cxyb exgbb tykg cxke exb dyyg tazb cao uasq ku
+        ceasqc cbzbl bavxe jfh exbw cegfavxe lalb ebl f rav tfe xbl"""
+        self.assertFalse(identify_cipher.is_transposition(ciphertext, 0.35))
 
 
 if __name__ == '__main__':
