@@ -18,6 +18,20 @@ def is_transposition(ciphertext: str, threshold: float) -> bool:
         :py:obj:`False` otherwise.
 
     """
+    most_freq = 'etaoinshrdlu'
+    # Convert most frequent English letters into a Counter.
+    english_freq = Counter(most_freq)
+    # Identify most frequent letters in ciphertext and convert into Counter.
+    ciphertext_freq = Counter([i[0] for i in
+                               Counter(ciphertext.replace(' ', ''))
+                               .most_common(len(most_freq))])
+    # Find letters that they have in common.
+    intersection = english_freq & ciphertext_freq
+    # Count letters they had in common.
+    count = len(intersection.keys())
+
+    if count / len(most_freq) >= threshold:
+        return True
     return False
 
 
