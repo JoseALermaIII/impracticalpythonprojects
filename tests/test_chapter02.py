@@ -46,7 +46,7 @@ class TestCleanupDictionary(unittest.TestCase):
         dictionary = ['test']
         dictionary += approved_words
         dictionary.sort()
-        test_list = ['test', 'mí']
+        test_list = ['test', 'mís']
         clean_list = cleanup_dictionary.cleanup_list_more(test_list)
         self.assertListEqual(dictionary, clean_list)
         # Test that it skips words with apostrophes.
