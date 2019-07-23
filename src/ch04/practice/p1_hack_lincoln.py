@@ -46,9 +46,9 @@ def keygen(length: int) -> list:
     result = []
     master_key = range(1, length + 1)
     # Get all possible combinations of direction (pos/neg) of length
-    perms = set(combinations([-1, 1] * length, length))  # Remove repeats
-    for perm in perms:
-        result.append([sign * key for sign, key in zip(perm, master_key)])
+    combs = set(combinations([-1, 1] * length, length))  # Remove repeats
+    for comb in combs:
+        result.append([sign * key for sign, key in zip(comb, master_key)])
     return result
 
 
