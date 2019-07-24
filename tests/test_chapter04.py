@@ -86,6 +86,12 @@ class TestIdentifyCipher(unittest.TestCase):
         ciphertext = """ylb eiy rksqjb wh cxyb exgbb tykg cxke exb dyyg tazb cao uasq ku
         ceasqc cbzbl bavxe jfh exbw cegfavxe lalb ebl f rav tfe xbl"""
         self.assertFalse(identify_cipher.identify_cipher(ciphertext, 0.35))
+        # Test blank line.
+        ciphertext = ' '
+        self.assertTrue(identify_cipher.identify_cipher(ciphertext, 0.0))
+        # Test 12 most frequent English letters.
+        ciphertext = 'etaoinshrdlu'
+        self.assertTrue(identify_cipher.identify_cipher(ciphertext, 1))
 
     def test_is_transposition(self):
         """Test that it can also identify a letter transposition cipher."""
