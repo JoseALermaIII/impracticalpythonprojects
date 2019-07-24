@@ -96,6 +96,14 @@ class TestIdentifyCipher(unittest.TestCase):
                 eyietcerdisn gn"""
         self.assertTrue(identify_cipher.is_transposition(ciphertext))
 
+    def test_is_substitution(self):
+        """Test that it can also identify a letter substitution cipher."""
+        # Used key of FRSDBTVXANQJWLYUPGCEKZIOHM in Al Sweigart's
+        # Cracking Codes with Python simpleSubCipher.py
+        ciphertext = """ylb eiy rksqjb wh cxyb exgbb tykg cxke exb dyyg tazb cao uasq ku
+                ceasqc cbzbl bavxe jfh exbw cegfavxe lalb ebl f rav tfe xbl"""
+        self.assertTrue(identify_cipher.is_substitution(ciphertext))
+
 
 if __name__ == '__main__':
     unittest.main()
