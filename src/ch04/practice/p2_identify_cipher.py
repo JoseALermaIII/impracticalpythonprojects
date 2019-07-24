@@ -51,6 +51,22 @@ def is_transposition(ciphertext: str) -> bool:
     return identify_cipher(ciphertext, 0.75)
 
 
+def is_substitution(ciphertext: str) -> bool:
+    """Identify letter substitution cipher.
+
+    Wrapper for :func:`identify_cipher`. **threshold** defaults to ``0.45``.
+
+    Args:
+        ciphertext (str): Encrypted message to identify.
+
+    Returns:
+        :py:obj:`True` if the **ciphertext** is a letter substitution cipher.
+        :py:obj:`False` otherwise.
+
+    """
+    return not identify_cipher(ciphertext, 0.45)
+
+
 def main():
     """Demonstrate the cipher identifier."""
 
