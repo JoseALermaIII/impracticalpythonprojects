@@ -12,6 +12,14 @@ src.ch04.practice.p1\_hack\_lincoln module
     :undoc-members:
     :show-inheritance:
 
+src.ch04.practice.p2\_identify\_cipher module
+---------------------------------------------
+
+.. automodule:: src.ch04.practice.p2_identify_cipher
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

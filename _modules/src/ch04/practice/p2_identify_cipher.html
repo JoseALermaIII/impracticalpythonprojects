@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src.ch04.practice.p2_identify_cipher &#8212; impracticalpythonprojects 0.14.0 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/flask.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <script>DOCUMENTATION_OPTIONS.URL_ROOT = '../../../../';</script>
+   
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">impracticalpythonprojects 0.14.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for src.ch04.practice.p2_identify_cipher</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Identify letter transposition or substitution cipher.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Counter</span>
+
+
+<div class="viewcode-block" id="identify_cipher"><a class="viewcode-back" href="../../../../src.ch04.practice.html#src.ch04.practice.p2_identify_cipher.identify_cipher">[docs]</a><span class="k">def</span> <span class="nf">identify_cipher</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Identify letter transposition or substitution cipher.</span>
+
+<span class="sd">    Compare most frequent letters in **ciphertext** with the most frequent</span>
+<span class="sd">    letters in the English alphabet. If above **threshold**, it is a letter</span>
+<span class="sd">    transposition cipher. If not, it is a letter substitution cipher.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ciphertext (str): Encrypted message to identify.</span>
+<span class="sd">        threshold (float): Percent match in decimal form.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        :py:obj:`True` if the **ciphertext** is a letter transposition cipher.</span>
+<span class="sd">        :py:obj:`False` otherwise.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">most_freq</span> <span class="o">=</span> <span class="s1">&#39;etaoinshrdlu&#39;</span>
+    <span class="c1"># Convert most frequent English letters into a Counter.</span>
+    <span class="n">english_freq</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">most_freq</span><span class="p">)</span>
+    <span class="c1"># Identify most frequent letters in ciphertext and convert into Counter.</span>
+    <span class="n">ciphertext_freq</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">([</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span>
+                               <span class="n">Counter</span><span class="p">(</span><span class="n">ciphertext</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+                               <span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">most_freq</span><span class="p">))])</span>
+    <span class="c1"># Find letters that they have in common.</span>
+    <span class="n">intersection</span> <span class="o">=</span> <span class="n">english_freq</span> <span class="o">&amp;</span> <span class="n">ciphertext_freq</span>
+    <span class="c1"># Count letters they had in common.</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">intersection</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="k">if</span> <span class="n">count</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">most_freq</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="is_transposition"><a class="viewcode-back" href="../../../../src.ch04.practice.html#src.ch04.practice.p2_identify_cipher.is_transposition">[docs]</a><span class="k">def</span> <span class="nf">is_transposition</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Identify letter transposition cipher.</span>
+
+<span class="sd">    Wrapper for :func:`identify_cipher`. **threshold** defaults to ``0.75``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ciphertext (str): Encrypted message to identify.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        :py:obj:`True` if the **ciphertext** is a letter transposition cipher.</span>
+<span class="sd">        :py:obj:`False` otherwise.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">identify_cipher</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="is_substitution"><a class="viewcode-back" href="../../../../src.ch04.practice.html#src.ch04.practice.p2_identify_cipher.is_substitution">[docs]</a><span class="k">def</span> <span class="nf">is_substitution</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Identify letter substitution cipher.</span>
+
+<span class="sd">    Wrapper for :func:`identify_cipher`. **threshold** defaults to ``0.45``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ciphertext (str): Encrypted message to identify.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        :py:obj:`True` if the **ciphertext** is a letter substitution cipher.</span>
+<span class="sd">        :py:obj:`False` otherwise.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="ow">not</span> <span class="n">identify_cipher</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../src.ch04.practice.html#src.ch04.practice.p2_identify_cipher.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Demonstrate the cipher identifier.&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;I can tell the difference between a letter transposition cipher &#39;</span>
+          <span class="s1">&#39;and a letter</span><span class="se">\n</span><span class="s1">substitution cipher - like those used in decoder &#39;</span>
+          <span class="s1">&#39;rings. Sorry-not-sorry that</span><span class="se">\n</span><span class="s1">you collected all those box tops.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Used key of XCTJYGPIUWMQBDESOLKZNHFRVA in Al Sweigart&#39;s</span>
+    <span class="c1"># Cracking Codes with Python simpleSubCipher.py</span>
+    <span class="n">ciphertext</span> <span class="o">=</span> <span class="s1">&#39;ziy yxpqy ixk qxdjyj cnz ziy dykz uk ybszv&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Testing cipher: </span><span class="si">{ciphertext}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">is_substitution</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;I hereby decree that this is a pitiable attempt at a &#39;</span>
+              <span class="s1">&#39;substitution cipher.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No idea what this is - must be a user error.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  
+    
+  
+<h3>Navigation</h3>
+<ul>
+  <li><a href="../../../../index.html">Overview</a>
+    <ul>
+      <li><a href="../../../index.html">Module code</a>
+        
+          
+          </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jose A. Lerma III.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
+    </div>
+
+  </body>
+</html>
