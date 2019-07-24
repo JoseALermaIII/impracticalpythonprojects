@@ -2,8 +2,8 @@
 from collections import Counter
 
 
-def is_transposition(ciphertext: str, threshold: float) -> bool:
-    """Identify letter transposition cipher.
+def identify_cipher(ciphertext: str, threshold: float) -> bool:
+    """Identify letter transposition or substitution cipher.
 
     Compare most frequent letters in **ciphertext** with the most frequent
     letters in the English alphabet. If above **threshold**, it is a letter

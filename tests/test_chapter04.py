@@ -71,21 +71,21 @@ class TestHackLincoln(unittest.TestCase):
 class TestIdentifyCipher(unittest.TestCase):
     """Test Identify Cipher."""
 
-    def test_is_transposition(self):
-        """Test is_transposition."""
+    def test_identify_cipher(self):
+        """Test identify_cipher."""
         # Test a letter transposition cipher.
         # Used key of 11 in Al Sweigart's Cracking Codes with Python
         # transpositionEncrypt.py
         ciphertext = """ok  oxt th hnltso iehtaeeehhrpcie  n  ru 
         ikgmnbtmetfcsh iiwye ik tsngo  tv s te  sfheuelr fbhoe pvaatauou s 
         eyietcerdisn gn"""
-        self.assertTrue(identify_cipher.is_transposition(ciphertext, 0.8))
+        self.assertTrue(identify_cipher.identify_cipher(ciphertext, 0.8))
         # Test a letter substitution cipher.
         # Used key of FRSDBTVXANQJWLYUPGCEKZIOHM in Al Sweigart's
         # Cracking Codes with Python simpleSubCipher.py
         ciphertext = """ylb eiy rksqjb wh cxyb exgbb tykg cxke exb dyyg tazb cao uasq ku
         ceasqc cbzbl bavxe jfh exbw cegfavxe lalb ebl f rav tfe xbl"""
-        self.assertFalse(identify_cipher.is_transposition(ciphertext, 0.35))
+        self.assertFalse(identify_cipher.identify_cipher(ciphertext, 0.35))
 
 
 if __name__ == '__main__':
