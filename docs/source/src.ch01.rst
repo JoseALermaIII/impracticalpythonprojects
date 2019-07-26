@@ -6,13 +6,13 @@ Subpackages
 
 .. toctree::
 
-    src.ch01.challenge
-    src.ch01.practice
+   src.ch01.challenge
+   src.ch01.practice
 
 Module contents
 ---------------
 
 .. automodule:: src.ch01
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:

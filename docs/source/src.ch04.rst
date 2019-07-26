@@ -6,12 +6,12 @@ Subpackages
 
 .. toctree::
 
-    src.ch04.practice
+   src.ch04.practice
 
 Module contents
 ---------------
 
 .. automodule:: src.ch04
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
