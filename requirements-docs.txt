@@ -1,2 +1,2 @@
-Sphinx==2.0.1
+Sphinx==2.1.2
 Pallets-Sphinx-Themes==1.1.4
