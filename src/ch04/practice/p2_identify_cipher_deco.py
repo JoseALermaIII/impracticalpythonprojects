@@ -101,7 +101,8 @@ def is_transposition(ciphertext: str) -> bool:
 def is_substitution(ciphertext: str) -> bool:
     """Identify letter substitution cipher.
 
-    Wrapper for :func:`identify_cipher`. **threshold** defaults to ``0.45``.
+    Empty function to wrap with :func:`identify_cipher` using
+    :func:`_identify_cipher`. **threshold** defaults to ``0.45``.
 
     Args:
         ciphertext (str): Encrypted message to identify.
