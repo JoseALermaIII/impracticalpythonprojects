@@ -1,5 +1,11 @@
 # pylint: disable=all
-"""Identify letter transposition or substitution cipher using decorator."""
+"""Identify letter transposition or substitution cipher using decorator.
+
+Note:
+    **Not** part of the book, I was just curious about decorators and decided
+    to tinker with them a bit.
+
+"""
 from collections import Counter
 from functools import wraps
 
