@@ -20,6 +20,14 @@ src.ch04.practice.p2\_identify\_cipher module
    :undoc-members:
    :show-inheritance:
 
+src.ch04.practice.p2\_identify\_cipher\_deco module
+---------------------------------------------------
+
+.. automodule:: src.ch04.practice.p2_identify_cipher_deco
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 Module contents
 ---------------

@@ -55,6 +55,10 @@ intersphinx_mapping = {
     'python': ('https://docs.python.org/3/', None),
 }
 
+# Default options for autodoc directives.
+autodoc_default_options = {
+    'private-members': True,
+}
 
 # -- Options for HTML output -------------------------------------------------
 
