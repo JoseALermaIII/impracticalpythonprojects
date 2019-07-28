@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>src.ch03 package &#8212; impracticalpythonprojects 0.14.0 documentation</title>
+    <title>src.ch03 package &#8212; impracticalpythonprojects 0.15.0 documentation</title>
     <link rel="stylesheet" href="_static/flask.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -35,7 +35,7 @@
         <li class="right" >
           <a href="src.ch02.html" title="src.ch02 package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.14.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.15.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="src.html" accesskey="U">src package</a> &#187;</li> 
       </ul>
@@ -56,7 +56,7 @@
 <p>Generate phrase anagrams from a word or phrase.</p>
 <dl class="function">
 <dt id="src.ch03.c1_anagram_generator.anagram_generator">
-<code class="descclassname">src.ch03.c1_anagram_generator.</code><code class="descname">anagram_generator</code><span class="sig-paren">(</span><em>word: str</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#anagram_generator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.anagram_generator" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.ch03.c1_anagram_generator.</code><code class="sig-name descname">anagram_generator</code><span class="sig-paren">(</span><em class="sig-param">word: str</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#anagram_generator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.anagram_generator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate phrase anagrams.</p>
 <p>Make phrase anagrams from a given word or phrase.</p>
 <dl class="field-list simple">
@@ -71,7 +71,7 @@
 
 <dl class="function">
 <dt id="src.ch03.c1_anagram_generator.extend_anagram_dict">
-<code class="descclassname">src.ch03.c1_anagram_generator.</code><code class="descname">extend_anagram_dict</code><span class="sig-paren">(</span><em>word_list: list</em>, <em>dictionary: dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#extend_anagram_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.extend_anagram_dict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.ch03.c1_anagram_generator.</code><code class="sig-name descname">extend_anagram_dict</code><span class="sig-paren">(</span><em class="sig-param">word_list: list</em>, <em class="sig-param">dictionary: dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#extend_anagram_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.extend_anagram_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extend an anagram dictionary.</p>
 <p>Adds words from given word list to a given anagram dictionary.</p>
 <dl class="field-list simple">
@@ -90,7 +90,7 @@ added. Otherwise, they are added.</p>
 
 <dl class="function">
 <dt id="src.ch03.c1_anagram_generator.find_anagram_phrases">
-<code class="descclassname">src.ch03.c1_anagram_generator.</code><code class="descname">find_anagram_phrases</code><span class="sig-paren">(</span><em>phrases: list</em>, <em>word: str</em>, <em>anagram_dict: dict</em>, <em>phrase: list</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#find_anagram_phrases"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.find_anagram_phrases" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.ch03.c1_anagram_generator.</code><code class="sig-name descname">find_anagram_phrases</code><span class="sig-paren">(</span><em class="sig-param">phrases: list</em>, <em class="sig-param">word: str</em>, <em class="sig-param">anagram_dict: dict</em>, <em class="sig-param">phrase: list</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#find_anagram_phrases"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.find_anagram_phrases" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find anagram phrases.</p>
 <p>Recursively finds anagram phrases of <strong>word</strong> by removing unusable words
 from the <strong>anagram_dict</strong>, finding remaining anagrams given the
@@ -112,7 +112,7 @@ from the <strong>anagram_dict</strong>, finding remaining anagrams given the
 
 <dl class="function">
 <dt id="src.ch03.c1_anagram_generator.find_anagrams">
-<code class="descclassname">src.ch03.c1_anagram_generator.</code><code class="descname">find_anagrams</code><span class="sig-paren">(</span><em>word: str</em>, <em>anagram_dict: dict</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#find_anagrams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.find_anagrams" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.ch03.c1_anagram_generator.</code><code class="sig-name descname">find_anagrams</code><span class="sig-paren">(</span><em class="sig-param">word: str</em>, <em class="sig-param">anagram_dict: dict</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#find_anagrams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.find_anagrams" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find anagrams in word.</p>
 <p>Find all anagrams in a given word (or phrase) using anagram dictionary.</p>
 <dl class="field-list simple">
@@ -130,7 +130,7 @@ from the <strong>anagram_dict</strong>, finding remaining anagrams given the
 
 <dl class="function">
 <dt id="src.ch03.c1_anagram_generator.get_anagram_dict">
-<code class="descclassname">src.ch03.c1_anagram_generator.</code><code class="descname">get_anagram_dict</code><span class="sig-paren">(</span><em>word_list: list</em><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#get_anagram_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.get_anagram_dict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.ch03.c1_anagram_generator.</code><code class="sig-name descname">get_anagram_dict</code><span class="sig-paren">(</span><em class="sig-param">word_list: list</em><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#get_anagram_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.get_anagram_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get an anagram dictionary from word_list.</p>
 <p>Get the ID of each word in <strong>word list</strong> and add it to a dictionary with
 the ID as the key.</p>
@@ -148,7 +148,7 @@ that ID as values.</p>
 
 <dl class="function">
 <dt id="src.ch03.c1_anagram_generator.get_id">
-<code class="descclassname">src.ch03.c1_anagram_generator.</code><code class="descname">get_id</code><span class="sig-paren">(</span><em>word: str</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#get_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.get_id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.ch03.c1_anagram_generator.</code><code class="sig-name descname">get_id</code><span class="sig-paren">(</span><em class="sig-param">word: str</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#get_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.get_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get ID number of word.</p>
 <p>Assign a unique prime number to each letter in
 <a class="reference external" href="https://docs.python.org/3/library/string.html#string.ascii_lowercase" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ascii_lowercase</span></code></a>. The product of each letter in <strong>word</strong>
@@ -165,7 +165,7 @@ is its ID number.</p>
 
 <dl class="function">
 <dt id="src.ch03.c1_anagram_generator.get_primes">
-<code class="descclassname">src.ch03.c1_anagram_generator.</code><code class="descname">get_primes</code><span class="sig-paren">(</span><em>length: int = 26</em>, <em>min_prime: int = 2</em>, <em>max_prime: int = 101</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#get_primes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.get_primes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.ch03.c1_anagram_generator.</code><code class="sig-name descname">get_primes</code><span class="sig-paren">(</span><em class="sig-param">length: int = 26</em>, <em class="sig-param">min_prime: int = 2</em>, <em class="sig-param">max_prime: int = 101</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#get_primes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.get_primes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get list of primes.</p>
 <p>Given a length, minimum, and maximum prime number, return a list of prime
 numbers.</p>
@@ -187,13 +187,13 @@ in the list.</p>
 
 <dl class="function">
 <dt id="src.ch03.c1_anagram_generator.main">
-<code class="descclassname">src.ch03.c1_anagram_generator.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.main" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.ch03.c1_anagram_generator.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.main" title="Permalink to this definition">¶</a></dt>
 <dd><p>Demonstrate the Anagram Generator.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.ch03.c1_anagram_generator.multi_get_anagram_dict">
-<code class="descclassname">src.ch03.c1_anagram_generator.</code><code class="descname">multi_get_anagram_dict</code><span class="sig-paren">(</span><em>word_list: list</em><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#multi_get_anagram_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.multi_get_anagram_dict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.ch03.c1_anagram_generator.</code><code class="sig-name descname">multi_get_anagram_dict</code><span class="sig-paren">(</span><em class="sig-param">word_list: list</em><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#multi_get_anagram_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.multi_get_anagram_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Multithreaded get anagram dictionary.</p>
 <p>Uses <a class="reference external" href="https://docs.python.org/3/library/os.html#os.cpu_count" title="(in Python v3.7)"><code class="xref py py-func docutils literal notranslate"><span class="pre">os.cpu_count()</span></code></a> and <a class="reference external" href="https://docs.python.org/3/library/threading.html#threading.Thread" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">threading.Thread</span></code></a> to use
 all CPUs to make an anagram dictionary with the intent of being more
@@ -217,7 +217,7 @@ that ID as values.</p>
 
 <dl class="function">
 <dt id="src.ch03.c1_anagram_generator.remove_unusable_words">
-<code class="descclassname">src.ch03.c1_anagram_generator.</code><code class="descname">remove_unusable_words</code><span class="sig-paren">(</span><em>anagram_dict: dict</em>, <em>usable_letters: list</em><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#remove_unusable_words"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.remove_unusable_words" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.ch03.c1_anagram_generator.</code><code class="sig-name descname">remove_unusable_words</code><span class="sig-paren">(</span><em class="sig-param">anagram_dict: dict</em>, <em class="sig-param">usable_letters: list</em><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#remove_unusable_words"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.remove_unusable_words" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove unusable words from anagram dictionary.</p>
 <p>Creates new anagram dictionary by including only IDs that can be IN
 <strong>usable_letters</strong>.</p>
@@ -238,7 +238,7 @@ that ID as values.</p>
 
 <dl class="function">
 <dt id="src.ch03.c1_anagram_generator.split">
-<code class="descclassname">src.ch03.c1_anagram_generator.</code><code class="descname">split</code><span class="sig-paren">(</span><em>a_list: list</em>, <em>parts: int</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.split" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.ch03.c1_anagram_generator.</code><code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param">a_list: list</em>, <em class="sig-param">parts: int</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch03/c1_anagram_generator.html#split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.c1_anagram_generator.split" title="Permalink to this definition">¶</a></dt>
 <dd><p>Split a list into parts.</p>
 <p>Split given list into given number of parts.</p>
 <dl class="field-list simple">
@@ -268,7 +268,7 @@ that ID as values.</p>
 <p>Counts the occurrence of all possible digrams of a word in a dictionary.</p>
 <dl class="function">
 <dt id="src.ch03.p1_digram_counter.count_digrams">
-<code class="descclassname">src.ch03.p1_digram_counter.</code><code class="descname">count_digrams</code><span class="sig-paren">(</span><em>digrams: set</em>, <em>dict_list: list</em><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="_modules/src/ch03/p1_digram_counter.html#count_digrams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.p1_digram_counter.count_digrams" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.ch03.p1_digram_counter.</code><code class="sig-name descname">count_digrams</code><span class="sig-paren">(</span><em class="sig-param">digrams: set</em>, <em class="sig-param">dict_list: list</em><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="_modules/src/ch03/p1_digram_counter.html#count_digrams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.p1_digram_counter.count_digrams" title="Permalink to this definition">¶</a></dt>
 <dd><p>Count digrams in word dictionary.</p>
 <p>Count frequency of each digram in the set in a word dictionary list.</p>
 <dl class="field-list simple">
@@ -291,7 +291,7 @@ counts as values.</p>
 
 <dl class="function">
 <dt id="src.ch03.p1_digram_counter.digram_counter">
-<code class="descclassname">src.ch03.p1_digram_counter.</code><code class="descname">digram_counter</code><span class="sig-paren">(</span><em>word: str</em>, <em>dict_file: str = '/usr/share/dict/american-english'</em><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="_modules/src/ch03/p1_digram_counter.html#digram_counter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.p1_digram_counter.digram_counter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.ch03.p1_digram_counter.</code><code class="sig-name descname">digram_counter</code><span class="sig-paren">(</span><em class="sig-param">word: str</em>, <em class="sig-param">dict_file: str = '/usr/share/dict/american-english'</em><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="_modules/src/ch03/p1_digram_counter.html#digram_counter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.p1_digram_counter.digram_counter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrap get_digrams, count_digrams, and read_from_file.</p>
 <p>Send <strong>word</strong> through <a class="reference internal" href="#src.ch03.p1_digram_counter.get_digrams" title="src.ch03.p1_digram_counter.get_digrams"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_digrams()</span></code></a> to get a set of digrams which
 is then passed through <a class="reference internal" href="#src.ch03.p1_digram_counter.count_digrams" title="src.ch03.p1_digram_counter.count_digrams"><code class="xref py py-func docutils literal notranslate"><span class="pre">count_digrams()</span></code></a> along with the list made by
@@ -315,7 +315,7 @@ counts as values.</p>
 
 <dl class="function">
 <dt id="src.ch03.p1_digram_counter.get_digrams">
-<code class="descclassname">src.ch03.p1_digram_counter.</code><code class="descname">get_digrams</code><span class="sig-paren">(</span><em>word: str</em><span class="sig-paren">)</span> &#x2192; set<a class="reference internal" href="_modules/src/ch03/p1_digram_counter.html#get_digrams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.p1_digram_counter.get_digrams" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.ch03.p1_digram_counter.</code><code class="sig-name descname">get_digrams</code><span class="sig-paren">(</span><em class="sig-param">word: str</em><span class="sig-paren">)</span> &#x2192; set<a class="reference internal" href="_modules/src/ch03/p1_digram_counter.html#get_digrams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.p1_digram_counter.get_digrams" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a set of digrams given a word.</p>
 <p>Generate all possible digrams of a given word.</p>
 <dl class="field-list simple">
@@ -333,7 +333,7 @@ counts as values.</p>
 
 <dl class="function">
 <dt id="src.ch03.p1_digram_counter.main">
-<code class="descclassname">src.ch03.p1_digram_counter.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch03/p1_digram_counter.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.p1_digram_counter.main" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.ch03.p1_digram_counter.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch03/p1_digram_counter.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch03.p1_digram_counter.main" title="Permalink to this definition">¶</a></dt>
 <dd><p>Demonstrate the digram counter.</p>
 </dd></dl>
 
@@ -343,7 +343,7 @@ counts as values.</p>
 <p>Chapter 3.</p>
 <dl class="attribute">
 <dt id="src.ch03.GET_DIGRAMS_ERROR">
-<code class="descclassname">src.ch03.</code><code class="descname">GET_DIGRAMS_ERROR</code><a class="headerlink" href="#src.ch03.GET_DIGRAMS_ERROR" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.ch03.</code><code class="sig-name descname">GET_DIGRAMS_ERROR</code><a class="headerlink" href="#src.ch03.GET_DIGRAMS_ERROR" title="Permalink to this definition">¶</a></dt>
 <dd><p>String with <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code></a> for
 <a class="reference internal" href="#src.ch03.p1_digram_counter.get_digrams" title="src.ch03.p1_digram_counter.get_digrams"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_digrams()</span></code></a>.</p>
 <dl class="field-list simple">
@@ -355,7 +355,7 @@ counts as values.</p>
 
 <dl class="attribute">
 <dt id="src.ch03.COUNT_DIGRAMS_ERROR">
-<code class="descclassname">src.ch03.</code><code class="descname">COUNT_DIGRAMS_ERROR</code><a class="headerlink" href="#src.ch03.COUNT_DIGRAMS_ERROR" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.ch03.</code><code class="sig-name descname">COUNT_DIGRAMS_ERROR</code><a class="headerlink" href="#src.ch03.COUNT_DIGRAMS_ERROR" title="Permalink to this definition">¶</a></dt>
 <dd><p>String with <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code></a> for
 <a class="reference internal" href="#src.ch03.p1_digram_counter.count_digrams" title="src.ch03.p1_digram_counter.count_digrams"><code class="xref py py-func docutils literal notranslate"><span class="pre">count_digrams()</span></code></a>.</p>
 <dl class="field-list simple">
@@ -405,10 +405,10 @@ counts as values.</p>
   </li>
 </ul>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -421,7 +421,7 @@ counts as values.</p>
   
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, Jose A. Lerma III.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
     </div>
 
   </body>
