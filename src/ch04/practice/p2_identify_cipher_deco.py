@@ -84,7 +84,8 @@ def _identify_cipher(func):
 def is_transposition(ciphertext: str) -> bool:
     """Identify letter transposition cipher.
 
-    Wrapper for :func:`identify_cipher`. **threshold** defaults to ``0.75``.
+    Empty function to wrap with :func:`identify_cipher` using
+    :func:`_identify_cipher`. **threshold** defaults to ``0.75``.
 
     Args:
         ciphertext (str): Encrypted message to identify.
