@@ -137,6 +137,27 @@ class TestIdentifyCipherDeco(unittest.TestCase):
         ciphertext = 'etaoinshrdlu'
         self.assertTrue(identify_cipher_deco.identify_cipher(ciphertext, 1))
 
+    def test_identify_cipher_deco(self):
+        """Test _identify_cipher."""
+        func = unittest.mock.Mock
+        func.__name__ = 'is_transposition'
+        deco_func = identify_cipher_deco._identify_cipher(func)
+        # Test letter transposition cipher.
+        # Used key of 11 in Al Sweigart's Cracking Codes with Python
+        # transpositionEncrypt.py
+        ciphertext = """ok  oxt th hnltso iehtaeeehhrpcie  n  ru
+                        ikgmnbtmetfcsh iiwye ik tsngo  tv s te  sfheuelr fbhoe pvaatauou s
+                        eyietcerdisn gn"""
+        self.assertTrue(deco_func(ciphertext))
+        # Test letter substitution cipher.
+        # Used key of FRSDBTVXANQJWLYUPGCEKZIOHM in Al Sweigart's
+        # Cracking Codes with Python simpleSubCipher.py
+        func.__name__ = 'is_substitution'
+        deco_func = identify_cipher_deco._identify_cipher(func)
+        ciphertext = """ylb eiy rksqjb wh cxyb exgbb tykg cxke exb dyyg tazb cao uasq ku
+                        ceasqc cbzbl bavxe jfh exbw cegfavxe lalb ebl f rav tfe xbl"""
+        self.assertTrue(deco_func(ciphertext))
+
     def test_is_transposition(self):
         """Test that it can also identify a letter transposition cipher."""
         # Used key of 11 in Al Sweigart's Cracking Codes with Python
