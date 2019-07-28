@@ -62,6 +62,9 @@ def _identify_cipher(func):
         Whatever the output of :func:`identify_cipher` would be given the
         decorated function's input.
 
+    Warning:
+        Not intended to be used outside this module.
+
     .. _blog on GitHub:
         https://github.com/GrahamDumpleton/wrapt/tree/develop/blog
 
