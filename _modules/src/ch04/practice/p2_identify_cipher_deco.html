@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>src.ch04.practice.p2_identify_cipher_deco &#8212; impracticalpythonprojects 0.15.0 documentation</title>
+    <title>src.ch04.practice.p2_identify_cipher_deco &#8212; impracticalpythonprojects 0.16.0 documentation</title>
     <link rel="stylesheet" href="../../../../_static/flask.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
@@ -27,7 +27,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">impracticalpythonprojects 0.15.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">impracticalpythonprojects 0.16.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -83,49 +83,52 @@
     <span class="k">return</span> <span class="kc">False</span></div>
 
 
-<div class="viewcode-block" id="_identify_cipher"><a class="viewcode-back" href="../../../../src.ch04.practice.html#src.ch04.practice.p2_identify_cipher_deco._identify_cipher">[docs]</a><span class="k">def</span> <span class="nf">_identify_cipher</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Decorate function with identify_cipher.</span>
+<div class="viewcode-block" id="identify"><a class="viewcode-back" href="../../../../src.ch04.practice.html#src.ch04.practice.p2_identify_cipher_deco.identify">[docs]</a><span class="k">def</span> <span class="nf">identify</span><span class="p">(</span><span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Make decorator for identify_cipher.</span>
 
-<span class="sd">    Replaces decorated function, **func**, with :func:`identify_cipher`. A</span>
-<span class="sd">    bit like going around the world to cross the street, but at import time</span>
-<span class="sd">    instead of runtime, so it doesn&#39;t matter.</span>
+<span class="sd">    Decorator factory to replace a decorated function with</span>
+<span class="sd">    :func:`identify_cipher`. A bit like going around the world to reach the</span>
+<span class="sd">    teleporter across the street, but at import time instead of runtime, so</span>
+<span class="sd">    it doesn&#39;t matter.</span>
 
 <span class="sd">    Luciano Ramalho&#39;s book *Fluent Python* appropriately calls decorators</span>
 <span class="sd">    &quot;syntactic sugar&quot; when it isn&#39;t used in classes. It also references the</span>
 <span class="sd">    ``wrapt`` module&#39;s `blog on GitHub`_ for a deeper explanation of</span>
 <span class="sd">    decorators.</span>
 
+<span class="sd">    Not sure what a decorator factory would be called...syntactic caramel?</span>
+
 <span class="sd">    Args:</span>
-<span class="sd">        func (function): Function to replace with :func:`identify_cipher`.</span>
+<span class="sd">        threshold (float): Percent match in decimal form.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Whatever the output of :func:`identify_cipher` would be given the</span>
 <span class="sd">        decorated function&#39;s input.</span>
 
-<span class="sd">    Warning:</span>
-<span class="sd">        Not intended to be used outside this module.</span>
-
 <span class="sd">    .. _blog on GitHub:</span>
 <span class="sd">        https://github.com/GrahamDumpleton/wrapt/tree/develop/blog</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>  <span class="c1"># Copy name and docstring of func.</span>
-    <span class="k">def</span> <span class="nf">_wrapper</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;is_substitution&#39;</span><span class="p">:</span>
-            <span class="c1"># If identifying substitution cipher, apply threshold of 0.45</span>
-            <span class="c1"># and invert output.</span>
-            <span class="k">return</span> <span class="ow">not</span> <span class="n">identify_cipher</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">)</span>
-        <span class="c1"># If identifying transposition cipher, apply threshold of 0.75</span>
-        <span class="k">return</span> <span class="n">identify_cipher</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">_wrapper</span></div>
+    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Decorate function with identify_cipher.&quot;&quot;&quot;</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>  <span class="c1"># Copy name and docstring of func.</span>
+        <span class="k">def</span> <span class="nf">_wrapper</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">threshold</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>
+                <span class="c1"># If identifying substitution cipher, apply threshold of 0.45</span>
+                <span class="c1"># and invert output.</span>
+                <span class="k">return</span> <span class="ow">not</span> <span class="n">identify_cipher</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+            <span class="c1"># If identifying transposition cipher, apply threshold of 0.75</span>
+            <span class="k">return</span> <span class="n">identify_cipher</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_wrapper</span>
+    <span class="k">return</span> <span class="n">decorator</span></div>
 
 
-<div class="viewcode-block" id="is_transposition"><a class="viewcode-back" href="../../../../src.ch04.practice.html#src.ch04.practice.p2_identify_cipher_deco.is_transposition">[docs]</a><span class="nd">@_identify_cipher</span>
+<div class="viewcode-block" id="is_transposition"><a class="viewcode-back" href="../../../../src.ch04.practice.html#src.ch04.practice.p2_identify_cipher_deco.is_transposition">[docs]</a><span class="nd">@identify</span><span class="p">(</span><span class="n">threshold</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">is_transposition</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Identify letter transposition cipher.</span>
 
 <span class="sd">    Empty function to wrap with :func:`identify_cipher` using</span>
-<span class="sd">    :func:`_identify_cipher`. **threshold** defaults to ``0.75``.</span>
+<span class="sd">    :func:`identify`. **threshold** defaults to ``0.75``.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        ciphertext (str): Encrypted message to identify.</span>
@@ -137,12 +140,12 @@
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="is_substitution"><a class="viewcode-back" href="../../../../src.ch04.practice.html#src.ch04.practice.p2_identify_cipher_deco.is_substitution">[docs]</a><span class="nd">@_identify_cipher</span>
+<div class="viewcode-block" id="is_substitution"><a class="viewcode-back" href="../../../../src.ch04.practice.html#src.ch04.practice.p2_identify_cipher_deco.is_substitution">[docs]</a><span class="nd">@identify</span><span class="p">(</span><span class="n">threshold</span><span class="o">=</span><span class="mf">0.45</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">is_substitution</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Identify letter substitution cipher.</span>
 
 <span class="sd">    Empty function to wrap with :func:`identify_cipher` using</span>
-<span class="sd">    :func:`_identify_cipher`. **threshold** defaults to ``0.45``.</span>
+<span class="sd">    :func:`identify`. **threshold** defaults to ``0.45``.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        ciphertext (str): Encrypted message to identify.</span>
