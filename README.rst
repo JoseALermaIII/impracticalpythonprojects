@@ -4,6 +4,9 @@ impracticalpythonprojects
 .. image:: https://travis-ci.com/JoseALermaIII/impracticalpythonprojects.svg?branch=master
    :target: https://travis-ci.com/JoseALermaIII/impracticalpythonprojects
    :alt: Travis CI build status
+.. image:: https://coveralls.io/repos/github/JoseALermaIII/impracticalpythonprojects/badge.svg?branch=master
+   :target: https://coveralls.io/github/JoseALermaIII/impracticalpythonprojects?branch=master
+   :alt: Coveralls coverage status
 
 Example implementations of the practice and challenge projects in
 `Impractical Python Projects`_. Alternative answers to practice projects and
