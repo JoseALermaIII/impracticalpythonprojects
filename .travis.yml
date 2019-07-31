@@ -1,0 +1,52 @@
+# Testing and deployment using Travis CI, GMBH.
+#
+# Necessary? No. Free (for open source projects) and convenient? Yes.
+# They had me at Comic Sans.
+#
+# https://travis-ci.com/JoseALermaIII
+dist: bionic  # required for Python >= 3.7
+language: python
+cache:
+  directories:
+    - $HOME/.cache/pip  # Don't delete pip install
+    - .tox  # Don't delete tox virtualenvs
+# Tox testing matrix
+#
+# Used so we don't have to manually install python versions.
+#
+# For each supported version of python test:
+# * python unit tests specified in ./tests
+# * pylint checks for ./src specified in ./.pylintrc
+# * pydocstyle checks for ./src specified in ./tox.ini
+matrix:
+  include:
+    - name: "3.7 Unit Tests"
+	  python: 3.7
+	  env: TOXENV=py37
+	- name: "3.7 pylint Check"
+	  python: 3.7
+	  env: TOXENV=lint
+	- name: "3.7 pydocstyle Check"
+	  python: 3.7
+	  env: TOXENV=pydocstyle
+
+	- name: "3.6 Unit Tests"
+	  python: 3.6
+	  env: TOXENV=py36
+	- name: "3.6 pylint Check"
+	  python: 3.6
+	  env: TOXENV=lint
+	- name: "3.6 pydocstyle Check"
+	  python: 3.6
+	  env: TOXENV=pydocstyle
+# Dependencies specified in requirements file.
+install:
+  - pip install -r requirements-dev.txt
+  - pip install coveralls
+# Run each test in matrix
+script:
+  - tox -e $TOXENV
+  - tox -e coverage
+# Update coveralls coverage
+after_success:
+  - coveralls
