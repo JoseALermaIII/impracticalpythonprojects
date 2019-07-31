@@ -1,6 +1,10 @@
 impracticalpythonprojects
 =========================
 
+.. image:: https://travis-ci.com/JoseALermaIII/impracticalpythonprojects.svg?branch=master
+   :target: https://travis-ci.com/JoseALermaIII/impracticalpythonprojects
+   :alt: Travis CI build status
+
 Example implementations of the practice and challenge projects in
 `Impractical Python Projects`_. Alternative answers to practice projects and
 supporting files can be found at the `official GitHub page`_.
