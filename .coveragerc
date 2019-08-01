@@ -1,0 +1,6 @@
+# .coveragerc for coverage.py
+[run]
+omit = tests/*
+
+[report]
+show_missing = True
