@@ -20,16 +20,6 @@ cache:
 # * pydocstyle checks for ./src specified in ./tox.ini
 matrix:
   include:
-    - name: "3.7 Unit Tests"
-      python: 3.7
-      env: TOXENV=py37
-    - name: "3.7 pylint Check"
-      python: 3.7
-      env: TOXENV=lint
-    - name: "3.7 pydocstyle Check"
-      python: 3.7
-      env: TOXENV=pydocstyle
-
     - name: "3.6 Unit Tests"
       python: 3.6
       env: TOXENV=py36
@@ -38,6 +28,16 @@ matrix:
       env: TOXENV=lint
     - name: "3.6 pydocstyle Check"
       python: 3.6
+      env: TOXENV=pydocstyle
+
+    - name: "3.7 Unit Tests"
+      python: 3.7
+      env: TOXENV=py37
+    - name: "3.7 pylint Check"
+      python: 3.7
+      env: TOXENV=lint
+    - name: "3.7 pydocstyle Check"
+      python: 3.7
       env: TOXENV=pydocstyle
 # Dependencies specified in requirements file.
 install:
