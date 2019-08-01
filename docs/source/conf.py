@@ -40,6 +40,7 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.intersphinx',
     'pallets_sphinx_themes',
+    'sphinx.ext.imgconverter',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
