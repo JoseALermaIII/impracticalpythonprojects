@@ -196,8 +196,10 @@ class TestNameGenerator(unittest.TestCase):
     @unittest.mock.patch('src.ch01.challenge.c2_name_generator.random')
     def test_name_generator(self, random):
         """Test that name_generator can output a name."""
+        # Use predictable seed
+        self.random = Random(555)
         random.choice._mock_side_effect = self.random.choice
-        self.assertEqual(name_generator.name_generator('tests/data/ch01/names'), 'Sam Smith')
+        self.assertEqual(name_generator.name_generator('tests/data/ch01/names'), 'Sally Smith Sampson')
 
 
 if __name__ == '__main__':
