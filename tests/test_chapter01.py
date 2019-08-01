@@ -197,7 +197,7 @@ class TestNameGenerator(unittest.TestCase):
     def test_name_generator(self, random):
         """Test that name_generator can output a name."""
         # Use predictable seed
-        self.random = Random(555)
+        self.random.seed(555)
         random.choice._mock_side_effect = self.random.choice
         self.assertEqual(name_generator.name_generator('tests/data/ch01/names'), 'Sally Smith Sampson')
 
