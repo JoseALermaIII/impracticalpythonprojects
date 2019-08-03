@@ -29,6 +29,13 @@ def get_keys() -> list:
         route direction.
 
     """
+    cols = int(input('How many columns? '))
+    keys = []
+    while len(keys) < cols:
+        key = int(input('Enter a signed integer key: '))
+        keys.append(key)
+    print(f'\nThis is the route cipher key: {keys}\n')
+    return keys
 
 
 def main():
