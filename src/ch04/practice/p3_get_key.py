@@ -49,6 +49,12 @@ def get_keys() -> list:
 
 def main():
     """Demonstrate getting route cipher keys from the user."""
+    print('I can get a route cipher key from you and even turn it into a '
+          'dictionary.\nHey, I have my niche!')
+    print('\nFirst, the route cipher key:')
+    keys = get_keys()
+    print('Next, this is the same key as a dictionary: ')
+    print(key_to_dict(keys))
 
 
 if __name__ == '__main__':
