@@ -79,6 +79,7 @@ def add_name_to_key(name: str, dictionary: dict, key: str) -> None:
     # Check for repeat names while adding.
     if name not in dictionary[key]:
         dictionary[key].append(name)
+    dictionary[key].sort()  # Sort for test consistency.
 
 
 def split_names(name_list: list) -> dict:
