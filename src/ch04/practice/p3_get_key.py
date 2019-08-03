@@ -18,8 +18,8 @@ def key_to_dict(keys: list) -> dict:
     """
 
 
-def get_key() -> list:
-    """Get route cipher key from user.
+def get_keys() -> list:
+    """Get route cipher keys from user.
 
     User only has to enter positive/negative integers. Each gets added to a
     list and returned when the user has no other keys to add.
