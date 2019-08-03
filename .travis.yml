@@ -7,6 +7,11 @@
 dist: bionic  # required for Python >= 3.7
 language: python
 cache: pip  # Don't delete pip install
+# Branch safelist
+branches:
+  only:
+    - master
+    - debug
 # Tox testing matrix
 #
 # Used so we don't have to manually install python versions.
