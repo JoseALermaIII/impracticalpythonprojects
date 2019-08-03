@@ -6,10 +6,7 @@
 # https://travis-ci.com/JoseALermaIII
 dist: bionic  # required for Python >= 3.7
 language: python
-cache:
-  directories:
-    - $HOME/.cache/pip  # Don't delete pip install
-    - .tox  # Don't delete tox virtualenvs
+cache: pip  # Don't delete pip install
 # Tox testing matrix
 #
 # Used so we don't have to manually install python versions.
