@@ -8,4 +8,4 @@ Jose A. Lerma III
 
 """
 
-__version__ = '0.17.2'
+__version__ = '0.17.3'
