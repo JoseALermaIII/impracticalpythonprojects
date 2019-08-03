@@ -50,6 +50,7 @@ def build_name_list(folderpath: str) -> list:
         raise IndexError(BUILD_LIST_ERROR)
     for file in files:
         name_list.extend(read_from_file(folderpath + file))
+    name_list.sort()  # Sort for test consistency.
     return name_list
 
 
