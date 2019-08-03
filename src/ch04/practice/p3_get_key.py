@@ -16,6 +16,15 @@ def key_to_dict(keys: list) -> dict:
         Integers keys and ``up``/``down`` as values.
 
     """
+    dictionary = dict()
+    for key in keys:
+        if key < 0:
+            # Negative key is 'down'
+            dictionary[abs(key)] = 'down'
+        else:
+            # Positive key is 'up'
+            dictionary[key] = 'up'
+    return dictionary
 
 
 def get_keys() -> list:
