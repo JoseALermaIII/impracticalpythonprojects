@@ -199,7 +199,7 @@ class TestNameGenerator(unittest.TestCase):
         # Use predictable seed
         self.random.seed(555)
         random.choice._mock_side_effect = self.random.choice
-        self.assertEqual(name_generator.name_generator('tests/data/ch01/names'), 'Sally Smith Sampson')
+        self.assertEqual(name_generator.name_generator('tests/data/ch01/names'), 'Sally Schmidt Smith')
 
 
 if __name__ == '__main__':
