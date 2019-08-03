@@ -159,7 +159,7 @@ class TestNameGenerator(unittest.TestCase):
         test_name_list = name_generator.build_name_list('tests/data/ch01/names')
         name_list = ['Sally Smith', 'Sam Smith Schmidt "The Squid" Sampson IV',
                      'Tadd Todd Thomas Sr.']
-        self.assertCountEqual(test_name_list, name_list)
+        self.assertListEqual(test_name_list, name_list)
 
     def test_add_name_to_key(self):
         """Test that add_name_to_key can add strings to a dictionary key."""
@@ -176,9 +176,9 @@ class TestNameGenerator(unittest.TestCase):
         name_list = name_generator.build_name_list('tests/data/ch01/names')
         test_dict = name_generator.split_names(name_list)
         name_dict = {'first': ['Sally', 'Sam', 'Tadd'],
-                     'middle': ['"The Squid"', 'Smith', 'Schmidt', 'Todd'],
-                     'last': ['Smith', 'Sampson', 'Thomas']}
-        self.assertCountEqual(test_dict, name_dict)
+                     'middle': ['"The Squid"', 'Schmidt', 'Smith', 'Todd'],
+                     'last': ['Sampson', 'Smith', 'Thomas']}
+        self.assertDictEqual(test_dict, name_dict)
 
     @unittest.mock.patch('src.ch01.challenge.c2_name_generator.random')
     def test_generate_name(self, random):
