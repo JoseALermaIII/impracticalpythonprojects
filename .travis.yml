@@ -19,8 +19,9 @@ git:
 #
 # Used so we don't have to manually install python versions.
 #
-# For each supported version of python test:
+# For each supported version of python, test:
 # * python unit tests specified in ./tests
+# For python 3.7, test:
 # * pylint checks for ./src specified in ./.pylintrc
 # * pydocstyle checks for ./src specified in ./tox.ini
 matrix:
