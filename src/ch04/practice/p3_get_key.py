@@ -1,4 +1,9 @@
-"""Get route cipher key from user and store as dictionary."""
+"""Get route cipher key from user and store as dictionary.
+
+Note:
+    Assumes vertical cipher routes.
+
+"""
 
 
 def key_to_dict(keys: list) -> dict:
