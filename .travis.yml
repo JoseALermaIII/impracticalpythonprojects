@@ -46,6 +46,6 @@ install:
 script:
   - tox -e $TOXENV
 # Update coveralls coverage
-after_script:
+after_success:
   - tox -e coverage
   - coveralls
