@@ -12,6 +12,9 @@ branches:
   only:
     - master
     - debug
+# Limit number of commits to clone
+git:
+  depth: 3
 # Tox testing matrix
 #
 # Used so we don't have to manually install python versions.
