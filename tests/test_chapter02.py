@@ -76,6 +76,17 @@ class TestCleanupDictionary(unittest.TestCase):
         for element in clean_dict:
             self.assertGreater(len(element), 1)
 
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    @unittest.mock.patch('src.ch02.p1_cleanup_dictionary.DICTIONARY_FILE_PATH', 'tests/data/ch02/dictionary.txt')
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        cleanup_dictionary.main()
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch02/main/cleanup_dictionary.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
 
 class TestRecursivePalindrome(unittest.TestCase):
     """Test Recursive Palindrome tester."""
