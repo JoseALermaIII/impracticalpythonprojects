@@ -84,7 +84,8 @@ class TestBarChart(unittest.TestCase):
         test_dict = bar_chart.freq_analysis(test_string)
         bar_chart.print_bar_chart(test_dict)
         # Test printed output.
-        with open(os.path.normpath('tests/data/ch01/poor_bar_chart.txt'), 'r') as file:
+        with open(os.path.normpath('tests/data/ch01/poor_bar_chart_func.txt'),
+                  'r') as file:
             file_data = ''.join(file.readlines())
         self.assertEqual(mock_stdout.getvalue(), file_data)
 
