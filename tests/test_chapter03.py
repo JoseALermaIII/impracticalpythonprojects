@@ -234,6 +234,17 @@ class TestAnagramGenerator(unittest.TestCase):
         test_phrases = anagram_generator.anagram_generator('a cat')
         self.assertListEqual(phrases, test_phrases)
 
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    @unittest.mock.patch('src.ch03.c1_anagram_generator.DICTIONARY_FILE_PATH', 'tests/data/ch03/dictionary.txt')
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        anagram_generator.main()
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch03/main/anagram_generator.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
 
 if __name__ == '__main__':
     unittest.main()
