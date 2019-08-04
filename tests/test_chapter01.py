@@ -227,6 +227,23 @@ class TestNameGenerator(unittest.TestCase):
         random.choice._mock_side_effect = self.random.choice
         self.assertEqual(name_generator.name_generator('tests/data/ch01/names'), 'Sally Schmidt Smith')
 
+    @unittest.mock.patch('src.ch01.challenge.c2_name_generator.random')
+    @unittest.mock.patch('sys.stderr', new_callable=StringIO)
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout, mock_stderr, random):
+        """Test demo main function."""
+        # Use predictable seed
+        self.random.seed(560)
+        random.choice._mock_side_effect = self.random.choice
+        name_generator.main()
+        # Test sys.stdout output.
+        with open(os.path.normpath('tests/data/ch01/main/name_generator.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+        # Test sys.stderr output.
+        self.assertEqual(mock_stderr.getvalue(), 'Generated name: Ari Pacino\n')
+
 
 if __name__ == '__main__':
     unittest.main()
