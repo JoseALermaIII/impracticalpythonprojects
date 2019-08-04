@@ -19,22 +19,19 @@ from tests.data.ch01.ch01 import EMPTY_LETTER_DICT
 class TestPigLatin(unittest.TestCase):
     """Test Pig Latin encoder."""
 
-    def test_consonant(self):
-        """Test that it can encode a word starting with a consonant."""
-        self.assertEqual(pig_latin.encode('test'), 'esttay')
-
-    def test_vowel(self):
-        """Test that it can encode a word starting with a vowel."""
-        self.assertEqual(pig_latin.encode('opportunity'), 'opportunityway')
-
     def test_bad_type(self):
         """Test that it raises an error if word is not a string."""
         with self.assertRaises(TypeError) as err:
             pig_latin.encode(2)
             self.assertEqual(ENCODE_ERROR, err.exception)
 
-    def test_upper_to_lower(self):
-        """Test that it converts uppercase to lowercase."""
+    def test_pig_latin(self):
+        """Test pig_latin."""
+        # Test that it can encode a word starting with a consonant.
+        self.assertEqual(pig_latin.encode('test'), 'esttay')
+        # Test that it can encode a word starting with a vowel.
+        self.assertEqual(pig_latin.encode('opportunity'), 'opportunityway')
+        # Test that it converts uppercase to lowercase.
         self.assertEqual(pig_latin.encode('Jose'), 'osejay')
 
     @unittest.mock.patch('sys.stdout', new_callable=StringIO)
