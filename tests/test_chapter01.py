@@ -1,8 +1,8 @@
 """Test Chapter 1."""
-import io
 import os
 import string
 import unittest.mock
+from io import StringIO
 from random import Random
 from tests import random_string
 import src.ch01.practice.p1_pig_latin as pig_latin
@@ -77,7 +77,7 @@ class TestBarChart(unittest.TestCase):
         for key in analysis.keys():
             self.assertTrue(key.islower())
 
-    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
     def test_print_bar_chart(self, mock_stdout):
         """Test that it properly prints a dictionary."""
         test_string = "Peter Piper picked a peck of pickled peppers."
