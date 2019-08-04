@@ -1,0 +1,9 @@
+I can get a route cipher key from you and even turn it into a dictionary.
+Hey, I have my niche!
+
+First, the route cipher key:
+
+This is the route cipher key: [1, -2, -3, 4, -5]
+
+Next, this is the same key as a dictionary:
+{1: 'up', 2: 'down', 3: 'down', 4: 'up', 5: 'down'}
