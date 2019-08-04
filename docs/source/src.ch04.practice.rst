@@ -36,6 +36,14 @@ src.ch04.practice.p3\_get\_keys module
    :undoc-members:
    :show-inheritance:
 
+src.ch04.practice.p4\_generate\_keys module
+-------------------------------------------
+
+.. automodule:: src.ch04.practice.p4_generate_keys
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 Module contents
 ---------------
