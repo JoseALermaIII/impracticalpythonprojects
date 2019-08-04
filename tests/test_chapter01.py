@@ -88,6 +88,16 @@ class TestBarChart(unittest.TestCase):
             file_data = ''.join(file.readlines())
         self.assertEqual(mock_stdout.getvalue(), file_data)
 
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        bar_chart.main()
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch01/main/poor_bar_chart.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
 
 class TestForeignChart(unittest.TestCase):
     """Test Foreign Bar Chart."""
