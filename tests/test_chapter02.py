@@ -17,6 +17,9 @@ class TestCleanupDictionary(unittest.TestCase):
         with self.assertRaises(IndexError) as err:
             cleanup_dictionary.cleanup_list([])
             self.assertEqual(CLEANUP_LIST_ERROR, err.exception)
+        with self.assertRaises(IndexError) as err:
+            cleanup_dictionary.cleanup_list_more([])
+            self.assertEqual(CLEANUP_LIST_ERROR, err.exception)
 
     def test_cleanup_list(self):
         """Test that it removes single letter words from a list of words."""
