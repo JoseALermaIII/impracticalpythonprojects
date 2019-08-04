@@ -36,15 +36,12 @@ def freq_analysis(sentence: str) -> dict:
     #  Add each letter to a list with collections.defaultdict
     output = defaultdict(list)
 
-    for i in sentence:
-        if not i.isalpha():
+    for letter in sentence:
+        if not letter.isalpha():
             continue
-
-        if i.isupper():
-            i = i.lower()
-
-        output[i].append(i)
-
+        if letter.isupper():
+            letter = letter.lower()
+        output[letter].append(letter)
     return output
 
 
