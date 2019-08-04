@@ -7,12 +7,21 @@
 dist: bionic  # required for Python >= 3.7
 language: python
 cache: pip  # Don't delete pip install
+# Branch safelist
+branches:
+  only:
+    - master
+    - debug
+# Limit number of commits to clone
+git:
+  depth: 3
 # Tox testing matrix
 #
 # Used so we don't have to manually install python versions.
 #
-# For each supported version of python test:
+# For each supported version of python, test:
 # * python unit tests specified in ./tests
+# For python 3.7, test:
 # * pylint checks for ./src specified in ./.pylintrc
 # * pydocstyle checks for ./src specified in ./tox.ini
 matrix:
@@ -20,16 +29,16 @@ matrix:
     - name: "3.6 Unit Tests"
       python: 3.6
       env: TOXENV=py36
-    - name: "3.6 pylint Check"
-      python: 3.6
-      env: TOXENV=lint
-    - name: "3.6 pydocstyle Check"
-      python: 3.6
-      env: TOXENV=pydocstyle
 
     - name: "3.7 Unit Tests"
       python: 3.7
       env: TOXENV=py37
+    - name: "3.7 pylint Check"
+      python: 3.7
+      env: TOXENV=lint
+    - name: "3.7 pydocstyle Check"
+      python: 3.7
+      env: TOXENV=pydocstyle
 # Dependencies specified in requirements file.
 install:
   - pip install -r requirements-dev.txt
@@ -38,6 +47,6 @@ install:
 script:
   - tox -e $TOXENV
 # Update coveralls coverage
-after_script:
+after_success:
   - tox -e coverage
   - coveralls
