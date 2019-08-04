@@ -65,10 +65,6 @@ def print_bar_chart(freq_dict: dict) -> None:
     """
     if not isinstance(freq_dict, dict):
         raise TypeError(PRINT_BAR_CHART_ERROR)
-
-    if pprint.isrecursive(freq_dict):
-        return pprint.pprint(pprint.saferepr(freq_dict))
-
     return pprint.pprint(freq_dict)
 
 
