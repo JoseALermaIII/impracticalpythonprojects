@@ -5,6 +5,7 @@ from io import StringIO
 import src.ch04.practice.p1_hack_lincoln as hack_lincoln
 import src.ch04.practice.p2_identify_cipher as identify_cipher
 import src.ch04.practice.p2_identify_cipher_deco as identify_cipher_deco
+import src.ch04.practice.p3_get_keys as get_keys
 
 
 class TestHackLincoln(unittest.TestCase):
@@ -171,6 +172,33 @@ class TestIdentifyCipherDeco(unittest.TestCase):
         ciphertext = """ylb eiy rksqjb wh cxyb exgbb tykg cxke exb dyyg tazb cao uasq ku
                 ceasqc cbzbl bavxe jfh exbw cegfavxe lalb ebl f rav tfe xbl"""
         self.assertTrue(identify_cipher_deco.is_substitution(ciphertext))
+
+
+class TestGetKeys(unittest.TestCase):
+    """Test Get Keys."""
+
+    def test_key_to_dict(self):
+        """Test key_to_dict."""
+        # Test even key.
+        key = [1, -2, -3, 4]
+        answer = {1: 'up', 2: 'down', 3: 'down', 4: 'up'}
+        test_dict = get_keys.key_to_dict(key)
+        self.assertDictEqual(answer, test_dict)
+        # Test odd key.
+        key = [1, -2, -3, 4, -5]
+        answer = {1: 'up', 2: 'down', 3: 'down', 4: 'up', 5: 'down'}
+        test_dict = get_keys.key_to_dict(key)
+        self.assertDictEqual(answer, test_dict)
+        # Test positive key.
+        key = [1, 2, 3, 4]
+        answer = {1: 'up', 2: 'up', 3: 'up', 4: 'up'}
+        test_dict = get_keys.key_to_dict(key)
+        self.assertDictEqual(answer, test_dict)
+        # Test negative key.
+        key = [-1, -2, -3, -4]
+        answer = {1: 'down', 2: 'down', 3: 'down', 4: 'down'}
+        test_dict = get_keys.key_to_dict(key)
+        self.assertDictEqual(answer, test_dict)
 
 
 if __name__ == '__main__':
