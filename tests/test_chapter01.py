@@ -136,6 +136,16 @@ class TestForeignChart(unittest.TestCase):
         test_dict = foreign_chart.add_keys_to_dict(random_dict)
         self.assertDictEqual(test_dict, EMPTY_LETTER_DICT)
 
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        foreign_chart.main()
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch01/main/foreign_chart.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
 
 class TestNameGenerator(unittest.TestCase):
     """Test Name Generator."""
