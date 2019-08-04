@@ -254,6 +254,16 @@ class TestGenerateKeys(unittest.TestCase):
         test_keys = generate_keys.generate_keys(4)
         self.assertListEqual(keys, test_keys)
 
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        generate_keys.main()
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch04/generate_keys_main.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
 
 if __name__ == '__main__':
     unittest.main()
