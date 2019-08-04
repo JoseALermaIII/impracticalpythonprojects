@@ -1,0 +1,7 @@
+I can find all phrase anagrams given a word or phrase.
+I'm fun at parties.
+
+Analyzing: see shells
+
+heels less
+less heels
