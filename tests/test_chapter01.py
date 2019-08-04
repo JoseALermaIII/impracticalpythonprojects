@@ -155,12 +155,17 @@ class TestNameGenerator(unittest.TestCase):
             test_dict = {'blank': []}
             name_generator.add_name_to_key(4, test_dict, 'blank')
             self.assertEqual(ADD_NAME_TO_KEY_ERROR, err.exception)
+        with self.assertRaises(TypeError) as err:
+            test_dict = {'blank': []}
             name_generator.add_name_to_key('First', test_dict, 5)
             self.assertEqual(ADD_NAME_TO_KEY_ERROR, err.exception)
+        with self.assertRaises(TypeError) as err:
             name_generator.add_name_to_key('First', 6, 'blank')
             self.assertEqual(ADD_NAME_TO_KEY_ERROR, err.exception)
+        with self.assertRaises(TypeError) as err:
             name_generator.split_names(7)
             self.assertEqual(SPLIT_NAME_LIST_ERROR, err.exception)
+        with self.assertRaises(ValueError) as err:
             test_list = []
             name_generator.split_names(test_list)
             self.assertEqual(SPLIT_NAME_EMPTY_ERROR, err.exception)
