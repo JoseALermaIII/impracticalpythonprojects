@@ -22,6 +22,7 @@ g
 gecko
 gopher
 h
+heels
 hemoglobin
 hermit
 i
@@ -37,6 +38,7 @@ kangaroo
 kilometer
 l
 lemon
+less
 lime
 m
 mesolithic
