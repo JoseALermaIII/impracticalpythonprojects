@@ -128,7 +128,7 @@ def main(ciphertext: str = None) -> None:
             substitution cipher to demonstrate.
 
     Returns:
-        None. Identifies **ciphertext**'s cipher.
+        :py:obj:`None`. Identifies **ciphertext**'s cipher.
 
     """
     print('I can tell the difference between a letter transposition cipher '
