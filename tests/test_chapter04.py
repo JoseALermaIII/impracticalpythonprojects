@@ -216,6 +216,19 @@ class TestGetKeys(unittest.TestCase):
             file_data = ''.join(file.readlines())
         self.assertEqual(mock_stdout.getvalue(), file_data)
 
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        # Mock user input.
+        with unittest.mock.patch('builtins.input',
+                                 side_effect=[5, 1, -2, -3, 4, -5]):
+            get_keys.main()
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch04/get_keys_main.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
 
 if __name__ == '__main__':
     unittest.main()
