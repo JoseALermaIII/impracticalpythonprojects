@@ -1,7 +1,8 @@
 """Test Chapter 2."""
 import os
 import string
-import unittest
+import unittest.mock
+from io import StringIO
 import src.ch02.p1_cleanup_dictionary as cleanup_dictionary
 import src.ch02.c1_recursive_palindrome as recursive_palindrome
 from tests import random_string
@@ -92,6 +93,19 @@ class TestRecursivePalindrome(unittest.TestCase):
         not_palindrome = 'cat'
         self.assertFalse(
             recursive_palindrome.recursive_ispalindrome(not_palindrome))
+
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        # Test hard-coded word.
+        recursive_palindrome.main()
+        # Test inputted word.
+        recursive_palindrome.main('cat')
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch02/main/recursive_palindrome.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
 
 
 if __name__ == '__main__':
