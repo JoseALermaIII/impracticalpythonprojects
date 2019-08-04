@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>src.ch04.practice package &#8212; impracticalpythonprojects 0.18.0 documentation</title>
+    <title>src.ch04.practice package &#8212; impracticalpythonprojects 0.19.0 documentation</title>
     <link rel="stylesheet" href="_static/flask.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -31,7 +31,7 @@
         <li class="right" >
           <a href="src.ch04.html" title="src.ch04 package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.18.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.19.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="src.html" >src package</a> &#187;</li>
           <li class="nav-item nav-item-3"><a href="src.ch04.html" accesskey="U">src.ch04 package</a> &#187;</li> 
@@ -337,6 +337,34 @@ where the column numbers are keys and the route direction as
 </dd></dl>
 
 </div>
+<div class="section" id="module-src.ch04.practice.p4_generate_keys">
+<span id="src-ch04-practice-p4-generate-keys-module"></span><h2>src.ch04.practice.p4_generate_keys module<a class="headerlink" href="#module-src.ch04.practice.p4_generate_keys" title="Permalink to this headline">¶</a></h2>
+<p>Generate route cipher keys for brute-forcing a route cipher.</p>
+<p>Already implemented with <a class="reference internal" href="#src.ch04.practice.p1_hack_lincoln.keygen" title="src.ch04.practice.p1_hack_lincoln.keygen"><code class="xref py py-func docutils literal notranslate"><span class="pre">keygen()</span></code></a>,
+but this version will return a list of tuples.</p>
+<dl class="function">
+<dt id="src.ch04.practice.p4_generate_keys.generate_keys">
+<code class="sig-prename descclassname">src.ch04.practice.p4_generate_keys.</code><code class="sig-name descname">generate_keys</code><span class="sig-paren">(</span><em class="sig-param">length: int</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch04/practice/p4_generate_keys.html#generate_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.practice.p4_generate_keys.generate_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate all possible route cipher keys.</p>
+<p>Generates a list of all possible route cipher keys of <strong>length</strong>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Length of route cipher key.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of tuples of integers representing all possible route cipher
+keys of <strong>length</strong>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch04.practice.p4_generate_keys.main">
+<code class="sig-prename descclassname">src.ch04.practice.p4_generate_keys.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch04/practice/p4_generate_keys.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.practice.p4_generate_keys.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Demonstrate the key generator.</p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-src.ch04.practice">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.ch04.practice" title="Permalink to this headline">¶</a></h2>
 <p>Chapter 4 Practice Projects.</p>
@@ -362,6 +390,7 @@ where the column numbers are keys and the route direction as
 <li><a class="reference internal" href="#module-src.ch04.practice.p2_identify_cipher">src.ch04.practice.p2_identify_cipher module</a></li>
 <li><a class="reference internal" href="#module-src.ch04.practice.p2_identify_cipher_deco">src.ch04.practice.p2_identify_cipher_deco module</a></li>
 <li><a class="reference internal" href="#module-src.ch04.practice.p3_get_keys">src.ch04.practice.p3_get_keys module</a></li>
+<li><a class="reference internal" href="#module-src.ch04.practice.p4_generate_keys">src.ch04.practice.p4_generate_keys module</a></li>
 <li><a class="reference internal" href="#module-src.ch04.practice">Module contents</a></li>
 </ul>
 </li>
