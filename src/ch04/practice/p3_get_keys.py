@@ -58,7 +58,7 @@ def main():
           'dictionary.\nHey, I have my niche!')
     print('\nFirst, the route cipher key:')
     keys = get_keys()
-    print('Next, this is the same key as a dictionary: ')
+    print('Next, this is the same key as a dictionary:')
     print(key_to_dict(keys))
 
 
