@@ -30,20 +30,20 @@ class TestHackLincoln(unittest.TestCase):
     def test_keygen(self):
         """Test keygen."""
         # Test small key length
-        keys = [[-1, 2], [1, -2], [1, 2], [-1, -2]]
+        keys = [[-1, -2], [-1, 2], [1, -2], [1, 2]]
         test_keys = hack_lincoln.keygen(2)
         self.assertListEqual(keys, test_keys)
         # Test odd key length
-        keys = [[1, 2, -3], [-1, 2, 3], [-1, -2, 3], [1, -2, -3],
-                [1, -2, 3], [-1, -2, -3], [-1, 2, -3], [1, 2, 3]]
+        keys = [[-1, -2, -3], [-1, -2, 3], [-1, 2, -3], [-1, 2, 3],
+                [1, -2, -3], [1, -2, 3], [1, 2, -3], [1, 2, 3]]
         test_keys = hack_lincoln.keygen(3)
         self.assertListEqual(keys, test_keys)
         # Test big key length
-        keys = [[-1, 2, -3, 4], [-1, -2, 3, 4], [-1, -2, 3, -4],
-                [-1, 2, 3, -4], [-1, -2, -3, -4], [1, -2, -3, 4],
-                [1, -2, 3, 4], [1, 2, -3, 4], [1, 2, 3, 4], [1, -2, 3, -4],
-                [1, -2, -3, -4], [1, 2, -3, -4], [-1, -2, -3, 4],
-                [1, 2, 3, -4], [-1, 2, 3, 4], [-1, 2, -3, -4]]
+        keys = [[-1, -2, -3, -4], [-1, -2, -3, 4], [-1, -2, 3, -4],
+                [-1, -2, 3, 4], [-1, 2, -3, -4], [-1, 2, -3, 4],
+                [-1, 2, 3, -4], [-1, 2, 3, 4], [1, -2, -3, -4],
+                [1, -2, -3, 4], [1, -2, 3, -4], [1, -2, 3, 4],
+                [1, 2, -3, -4], [1, 2, -3, 4], [1, 2, 3, -4], [1, 2, 3, 4]]
         test_keys = hack_lincoln.keygen(4)
         self.assertListEqual(keys, test_keys)
 

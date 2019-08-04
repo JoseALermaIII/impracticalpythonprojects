@@ -40,7 +40,7 @@ def keygen(length: int) -> list:
     Example:
         >>> from src.ch04.practice.p1_hack_lincoln import keygen
         >>> keygen(2)
-        [[-1, 2], [1, -2], [1, 2], [-1, -2]]
+        [[-1, -2], [-1, 2], [1, -2], [1, 2]]
 
     """
     result = []
@@ -49,6 +49,7 @@ def keygen(length: int) -> list:
     combs = set(combinations([-1, 1] * length, length))  # Remove repeats
     for comb in combs:
         result.append([sign * key for sign, key in zip(comb, master_key)])
+    result.sort()  # Sort for test consistency.
     return result
 
 
