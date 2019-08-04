@@ -135,28 +135,6 @@ class TestIdentifyCipher(unittest.TestCase):
 class TestIdentifyCipherDeco(unittest.TestCase):
     """Test Identify Cipher Deco."""
 
-    def test_identify_cipher(self):
-        """Test identify_cipher."""
-        # Test a letter transposition cipher.
-        # Used key of 11 in Al Sweigart's Cracking Codes with Python
-        # transpositionEncrypt.py
-        ciphertext = """ok  oxt th hnltso iehtaeeehhrpcie  n  ru 
-        ikgmnbtmetfcsh iiwye ik tsngo  tv s te  sfheuelr fbhoe pvaatauou s 
-        eyietcerdisn gn"""
-        self.assertTrue(identify_cipher_deco.identify_cipher(ciphertext, 0.8))
-        # Test a letter substitution cipher.
-        # Used key of FRSDBTVXANQJWLYUPGCEKZIOHM in Al Sweigart's
-        # Cracking Codes with Python simpleSubCipher.py
-        ciphertext = """ylb eiy rksqjb wh cxyb exgbb tykg cxke exb dyyg tazb cao uasq ku
-        ceasqc cbzbl bavxe jfh exbw cegfavxe lalb ebl f rav tfe xbl"""
-        self.assertFalse(identify_cipher_deco.identify_cipher(ciphertext, 0.35))
-        # Test blank line.
-        ciphertext = ' '
-        self.assertTrue(identify_cipher_deco.identify_cipher(ciphertext, 0.0))
-        # Test 12 most frequent English letters.
-        ciphertext = 'etaoinshrdlu'
-        self.assertTrue(identify_cipher_deco.identify_cipher(ciphertext, 1))
-
     def test_identify(self):
         """Test identify."""
         deco_func = identify_cipher_deco.identify(threshold=0.8)
