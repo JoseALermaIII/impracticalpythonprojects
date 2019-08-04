@@ -29,19 +29,31 @@ def recursive_ispalindrome(word: str) -> bool:
     return False
 
 
-def main():
-    """Demonstrate the recursive palindrome tester."""
+def main(word: str = None) -> None:
+    """Demonstrate the recursive palindrome tester.
+
+    This is only supposed to be a demo, but coverage necessitates
+    excessiveness.
+
+    Args:
+        word (str): Word to test if it is a palindrome.
+
+    Returns:
+        :py:obj:`None`. Identifies **word** as a palindrome.
+
+    """
     print('I\'m a recursive palindrome tester.\n'
           'I basically call on myself repeatedly to check if a string is a '
           'palindrome.\n'
           'Incidentally, my favorite food is Random Access Memory.\n')
-    palindrome = 'rotor'
-    print(f'Analyzing: {palindrome}\n')
+    if word is None:
+        word = 'rotor'
+    print(f'Analyzing: {word}\n')
 
-    if recursive_ispalindrome(palindrome):
-        print(f'I do declare that "{palindrome}" is a palindrome!')
+    if recursive_ispalindrome(word):
+        print(f'I do declare that "{word}" is a palindrome!\n')
     else:
-        print(f'I\'m afraid that "{palindrome}" isn\'t a palindrome 😞')
+        print(f'I\'m afraid that "{word}" isn\'t a palindrome 😞')
 
 
 if __name__ == '__main__':
