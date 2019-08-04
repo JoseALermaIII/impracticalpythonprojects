@@ -113,6 +113,24 @@ class TestIdentifyCipher(unittest.TestCase):
                 ceasqc cbzbl bavxe jfh exbw cegfavxe lalb ebl f rav tfe xbl"""
         self.assertTrue(identify_cipher.is_substitution(ciphertext))
 
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        # Test hard-coded cipher.
+        identify_cipher_deco.main()
+        # Test inputted cipher.
+        # Used key of 11 in Al Sweigart's Cracking Codes with Python
+        # transpositionEncrypt.py
+        ciphertext = """ok  oxt th hnltso iehtaeeehhrpcie  n  ru
+                        ikgmnbtmetfcsh iiwye ik tsngo  tv s te  sfheuelr fbhoe pvaatauou s
+                        eyietcerdisn gn"""
+        identify_cipher_deco.main(ciphertext)
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch04/main/identify_cipher_deco.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
 
 class TestIdentifyCipherDeco(unittest.TestCase):
     """Test Identify Cipher Deco."""
@@ -173,24 +191,6 @@ class TestIdentifyCipherDeco(unittest.TestCase):
         ciphertext = """ylb eiy rksqjb wh cxyb exgbb tykg cxke exb dyyg tazb cao uasq ku
                 ceasqc cbzbl bavxe jfh exbw cegfavxe lalb ebl f rav tfe xbl"""
         self.assertTrue(identify_cipher_deco.is_substitution(ciphertext))
-
-    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
-    def test_main(self, mock_stdout):
-        """Test demo main function."""
-        # Test hard-coded cipher.
-        identify_cipher_deco.main()
-        # Test inputted cipher.
-        # Used key of 11 in Al Sweigart's Cracking Codes with Python
-        # transpositionEncrypt.py
-        ciphertext = """ok  oxt th hnltso iehtaeeehhrpcie  n  ru
-                        ikgmnbtmetfcsh iiwye ik tsngo  tv s te  sfheuelr fbhoe pvaatauou s
-                        eyietcerdisn gn"""
-        identify_cipher_deco.main(ciphertext)
-        # Test printed output.
-        with open(os.path.normpath('tests/data/ch04/main/identify_cipher_deco.txt'),
-                  'r') as file:
-            file_data = ''.join(file.readlines())
-        self.assertEqual(mock_stdout.getvalue(), file_data)
 
 
 class TestGetKeys(unittest.TestCase):

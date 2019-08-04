@@ -117,38 +117,5 @@ def is_substitution(ciphertext: str) -> bool:
     """
 
 
-def main(ciphertext: str = None) -> None:
-    """Demonstrate the cipher identifier.
-
-    This is only supposed to be a demo, but coverage necessitates
-    excessiveness.
-
-    Args:
-        ciphertext (str): Encrypted letter transposition or letter
-            substitution cipher to demonstrate.
-
-    Returns:
-        :py:obj:`None`. Identifies **ciphertext**'s cipher.
-
-    """
-    print('I can tell the difference between a letter transposition cipher '
-          'and a letter\nsubstitution cipher - like those used in decoder '
-          'rings. Sorry-not-sorry that\nyou collected all those box tops.\n')
-
-    if ciphertext is None:
-        # Used key of XCTJYGPIUWMQBDESOLKZNHFRVA in Al Sweigart's
-        # Cracking Codes with Python simpleSubCipher.py
-        ciphertext = 'ziy yxpqy ixk qxdjyj cnz ziy dykz uk ybszv'
-
-    print(f'Testing cipher: {ciphertext}\n')
-
-    if is_substitution(ciphertext):
-        print('I hereby decree that this is a pitiable attempt at a '
-              'substitution cipher.\n')
-    else:
-        print('Hmm, I declare this is a pathetic attempt at a transposition '
-              'cipher.\n')
-
-
 if __name__ == '__main__':
     main()
