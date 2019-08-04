@@ -64,7 +64,8 @@ class TestHackLincoln(unittest.TestCase):
     @unittest.mock.patch('sys.stdout', new_callable=StringIO)
     def test_hack_route(self, mock_stdout):
         """Test hack_route."""
-        with open(os.path.normpath('tests/data/ch04/hack_lincoln.txt'), 'r') as file:
+        with open(os.path.normpath('tests/data/ch04/hack_lincoln_func.txt'),
+                  'r') as file:
             file_data = ''.join(file.readlines())
         ciphertext = "this is to supposed a be super secret stop message"
         hack_lincoln.hack_route(ciphertext)
