@@ -1,0 +1,33 @@
+Este es un gráfico de barras asequible para idiomas extranjeros.
+
+Analizando: Sally vende conchas al lado del orilla del mar.
+
+defaultdict(<class 'list'>,
+            {'a': ['a', 'a', 'a', 'a', 'a', 'a'],
+             'b': [],
+             'c': ['c', 'c'],
+             'd': ['d', 'd', 'd', 'd'],
+             'e': ['e', 'e', 'e', 'e'],
+             'f': [],
+             'g': [],
+             'h': ['h'],
+             'i': ['i'],
+             'j': [],
+             'k': [],
+             'l': ['l', 'l', 'l', 'l', 'l', 'l', 'l', 'l'],
+             'm': ['m'],
+             'n': ['n', 'n'],
+             'o': ['o', 'o', 'o'],
+             'p': [],
+             'q': [],
+             'r': ['r', 'r'],
+             's': ['s', 's'],
+             't': [],
+             'u': [],
+             'v': ['v'],
+             'w': [],
+             'x': [],
+             'y': ['y'],
+             'z': []})
+
+Si inclina su cabeza hacia la derecha, la letra "l" es la más frecuente.
