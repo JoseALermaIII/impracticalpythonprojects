@@ -1,0 +1,4 @@
+This is a random name generator.
+Similar to a character from a certain American detective
+comedy-drama television series.
+
