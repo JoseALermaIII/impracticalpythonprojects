@@ -70,6 +70,16 @@ class TestHackLincoln(unittest.TestCase):
         hack_lincoln.hack_route(ciphertext)
         self.assertEqual(mock_stdout.getvalue(), file_data)
 
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        hack_lincoln.main()
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch04/main/hack_lincoln.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
 
 class TestIdentifyCipher(unittest.TestCase):
     """Test Identify Cipher."""
