@@ -202,7 +202,7 @@ def main():
     print('This is a random name generator.\n'
           'Similar to a character from a certain American detective\n'
           'comedy-drama television series.\n')
-    folder = os.path.abspath('c2files')
+    folder = os.path.abspath('src/ch01/challenge/c2files')
 
     print(f'Generated name: {name_generator(folder)}',
           file=sys.stderr)  # Red output
