@@ -1,6 +1,7 @@
 """Test Chapter 3."""
 import os
 import unittest.mock
+from io import StringIO
 from string import ascii_lowercase
 from src.ch02.p1_cleanup_dictionary import cleanup_dict, cleanup_list_more
 import src.ch03.p1_digram_counter as digram_counter
@@ -50,6 +51,16 @@ class TestDigramCounter(unittest.TestCase):
                  'bd': 0, 'cr': 0, 'rb': 0, 'cb': 0, 'rc': 0}
         test_count = digram_counter.digram_counter(word, test_dict_path)
         self.assertDictEqual(count, test_count)
+
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        digram_counter.main()
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch03/main/digram_counter.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
 
 
 class TestAnagramGenerator(unittest.TestCase):
