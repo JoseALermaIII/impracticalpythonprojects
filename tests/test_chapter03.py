@@ -18,8 +18,10 @@ class TestDigramCounter(unittest.TestCase):
         with self.assertRaises(TypeError) as err:
             digram_counter.get_digrams(5)
             self.assertEqual(GET_DIGRAMS_ERROR, err.exception)
+        with self.assertRaises(TypeError) as err:
             digram_counter.count_digrams(6, [])
             self.assertEqual(COUNT_DIGRAMS_ERROR, err.exception)
+        with self.assertRaises(TypeError) as err:
             digram_counter.count_digrams(set(), 7)
             self.assertEqual(COUNT_DIGRAMS_ERROR, err.exception)
 
