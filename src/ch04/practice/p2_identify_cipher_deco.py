@@ -1,4 +1,4 @@
-# pylint: disable=all
+# pylint: disable=unused-argument
 """Identify letter transposition or substitution cipher using decorator.
 
 Note:
