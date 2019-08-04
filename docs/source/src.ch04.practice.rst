@@ -28,6 +28,14 @@ src.ch04.practice.p2\_identify\_cipher\_deco module
    :undoc-members:
    :show-inheritance:
 
+src.ch04.practice.p3\_get\_keys module
+--------------------------------------
+
+.. automodule:: src.ch04.practice.p3_get_keys
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 Module contents
 ---------------
