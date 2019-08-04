@@ -56,8 +56,7 @@ def print_bar_chart(freq_dict: dict) -> None:
             :func:`freq_analysis`.
 
     Returns:
-        :py:obj:`None`. If recursive, prints a recursive-safe string,
-        otherwise prints the dictionary.
+        :py:obj:`None`. Prints **freq_dict**.
 
     Raises:
         TypeError: If **freq_dict** is not a dictionary.
