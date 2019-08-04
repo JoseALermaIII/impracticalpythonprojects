@@ -225,7 +225,7 @@ class TestGetKeys(unittest.TestCase):
                                  side_effect=[5, 1, -2, -3, 4, -5]):
             get_keys.main()
         # Test printed output.
-        with open(os.path.normpath('tests/data/ch04/get_keys_main.txt'),
+        with open(os.path.normpath('tests/data/ch04/main/get_keys.txt'),
                   'r') as file:
             file_data = ''.join(file.readlines())
         self.assertEqual(mock_stdout.getvalue(), file_data)
@@ -259,7 +259,7 @@ class TestGenerateKeys(unittest.TestCase):
         """Test demo main function."""
         generate_keys.main()
         # Test printed output.
-        with open(os.path.normpath('tests/data/ch04/generate_keys_main.txt'),
+        with open(os.path.normpath('tests/data/ch04/main/generate_keys.txt'),
                   'r') as file:
             file_data = ''.join(file.readlines())
         self.assertEqual(mock_stdout.getvalue(), file_data)
