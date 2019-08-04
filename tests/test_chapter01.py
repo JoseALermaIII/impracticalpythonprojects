@@ -37,6 +37,19 @@ class TestPigLatin(unittest.TestCase):
         """Test that it converts uppercase to lowercase."""
         self.assertEqual(pig_latin.encode('Jose'), 'osejay')
 
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        # Mock user input.
+        with unittest.mock.patch('builtins.input',
+                                 side_effect=['computer', 'no']):
+            pig_latin.main()
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch01/main/pig_latin.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
 
 class TestBarChart(unittest.TestCase):
     """Test Poor Bar Chart."""
