@@ -200,6 +200,22 @@ class TestGetKeys(unittest.TestCase):
         test_dict = get_keys.key_to_dict(key)
         self.assertDictEqual(answer, test_dict)
 
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_get_keys(self, mock_stdout):
+        """Test get_keys."""
+        # Mock user input.
+        with unittest.mock.patch('builtins.input',
+                                 side_effect=[4, 1, -2, -3, 4]):
+            test_keys = get_keys.get_keys()
+        # Test return value.
+        answer = [1, -2, -3, 4]
+        self.assertListEqual(answer, test_keys)
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch04/get_keys_func.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
 
 if __name__ == '__main__':
     unittest.main()
