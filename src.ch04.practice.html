@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>src.ch04.practice package &#8212; impracticalpythonprojects 0.17.3 documentation</title>
+    <title>src.ch04.practice package &#8212; impracticalpythonprojects 0.18.0 documentation</title>
     <link rel="stylesheet" href="_static/flask.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -31,7 +31,7 @@
         <li class="right" >
           <a href="src.ch04.html" title="src.ch04 package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.17.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.18.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="src.html" >src package</a> &#187;</li>
           <li class="nav-item nav-item-3"><a href="src.ch04.html" accesskey="U">src.ch04 package</a> &#187;</li> 
@@ -291,6 +291,52 @@ transposition cipher. If not, it is a letter substitution cipher.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-src.ch04.practice.p3_get_keys">
+<span id="src-ch04-practice-p3-get-keys-module"></span><h2>src.ch04.practice.p3_get_keys module<a class="headerlink" href="#module-src.ch04.practice.p3_get_keys" title="Permalink to this headline">¶</a></h2>
+<p>Get route cipher key from user and store as dictionary.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Assumes vertical cipher routes.</p>
+</div>
+<dl class="function">
+<dt id="src.ch04.practice.p3_get_keys.get_keys">
+<code class="sig-prename descclassname">src.ch04.practice.p3_get_keys.</code><code class="sig-name descname">get_keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch04/practice/p3_get_keys.html#get_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.practice.p3_get_keys.get_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get route cipher keys from user.</p>
+<p>User only has to enter positive/negative integers. Each gets added to a
+list and returned when the user has no other keys to add.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List of integers as column numbers and positive/negative values as
+route direction.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch04.practice.p3_get_keys.key_to_dict">
+<code class="sig-prename descclassname">src.ch04.practice.p3_get_keys.</code><code class="sig-name descname">key_to_dict</code><span class="sig-paren">(</span><em class="sig-param">keys: list</em><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="_modules/src/ch04/practice/p3_get_keys.html#key_to_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.practice.p3_get_keys.key_to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert route cipher key to dictionary.</p>
+<p>Take a route cipher key in list format where integers are column numbers
+and positive/negative is the route direction and convert to a dictionary
+where the column numbers are keys and the route direction as
+<code class="docutils literal notranslate"><span class="pre">up</span></code>/<code class="docutils literal notranslate"><span class="pre">down</span></code> are the values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>keys</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – List of integers with direction as positive/negative.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Integers keys and <code class="docutils literal notranslate"><span class="pre">up</span></code>/<code class="docutils literal notranslate"><span class="pre">down</span></code> as values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch04.practice.p3_get_keys.main">
+<code class="sig-prename descclassname">src.ch04.practice.p3_get_keys.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch04/practice/p3_get_keys.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.practice.p3_get_keys.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Demonstrate getting route cipher keys from the user.</p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-src.ch04.practice">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.ch04.practice" title="Permalink to this headline">¶</a></h2>
 <p>Chapter 4 Practice Projects.</p>
@@ -315,6 +361,7 @@ transposition cipher. If not, it is a letter substitution cipher.</p>
 <li><a class="reference internal" href="#module-src.ch04.practice.p1_hack_lincoln">src.ch04.practice.p1_hack_lincoln module</a></li>
 <li><a class="reference internal" href="#module-src.ch04.practice.p2_identify_cipher">src.ch04.practice.p2_identify_cipher module</a></li>
 <li><a class="reference internal" href="#module-src.ch04.practice.p2_identify_cipher_deco">src.ch04.practice.p2_identify_cipher_deco module</a></li>
+<li><a class="reference internal" href="#module-src.ch04.practice.p3_get_keys">src.ch04.practice.p3_get_keys module</a></li>
 <li><a class="reference internal" href="#module-src.ch04.practice">Module contents</a></li>
 </ul>
 </li>
