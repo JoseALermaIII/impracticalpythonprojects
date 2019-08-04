@@ -118,7 +118,7 @@ def main():
     print('\nNote: I only hack the route cipher. I leave the '
           'word-transposition\ncipher to you and your biochemical brain.\n')
     ciphertext = """THIS OFF DETAINED ASCERTAIN WAYLAND CORRESPONDENTS OF AT
-    WHY AND IF FILLS IT YOU GET THEY NEPTUNE THE TRIBUNE PLEASE ARE THEM CAN 
+    WHY AND IF FILLS IT YOU GET THEY NEPTUNE THE TRIBUNE PLEASE ARE THEM CAN
     UP"""
     print(f'Hacking: {ciphertext}\n')
     hack_route(ciphertext)
