@@ -117,14 +117,14 @@ class TestIdentifyCipher(unittest.TestCase):
     def test_main(self, mock_stdout):
         """Test demo main function."""
         # Test hard-coded cipher.
-        identify_cipher_deco.main()
+        identify_cipher.main()
         # Test inputted cipher.
         # Used key of 11 in Al Sweigart's Cracking Codes with Python
         # transpositionEncrypt.py
         ciphertext = """ok  oxt th hnltso iehtaeeehhrpcie  n  ru
                         ikgmnbtmetfcsh iiwye ik tsngo  tv s te  sfheuelr fbhoe pvaatauou s
                         eyietcerdisn gn"""
-        identify_cipher_deco.main(ciphertext)
+        identify_cipher.main(ciphertext)
         # Test printed output.
         with open(os.path.normpath('tests/data/ch04/main/identify_cipher_deco.txt'),
                   'r') as file:
