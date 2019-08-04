@@ -6,6 +6,7 @@ import src.ch04.practice.p1_hack_lincoln as hack_lincoln
 import src.ch04.practice.p2_identify_cipher as identify_cipher
 import src.ch04.practice.p2_identify_cipher_deco as identify_cipher_deco
 import src.ch04.practice.p3_get_keys as get_keys
+import src.ch04.practice.p4_generate_keys as generate_keys
 
 
 class TestHackLincoln(unittest.TestCase):
@@ -228,6 +229,30 @@ class TestGetKeys(unittest.TestCase):
                   'r') as file:
             file_data = ''.join(file.readlines())
         self.assertEqual(mock_stdout.getvalue(), file_data)
+
+
+class TestGenerateKeys(unittest.TestCase):
+    """Test Generate Keys."""
+
+    def test_generate_keys(self):
+        """Test generate_keys."""
+        # Test small key length
+        keys = [(-1, 2), (1, -2), (1, 2), (-1, -2)]
+        test_keys = generate_keys.generate_keys(2)
+        self.assertListEqual(keys, test_keys)
+        # Test odd key length
+        keys = [(1, 2, -3), (-1, 2, 3), (-1, -2, 3), (1, -2, -3),
+                (1, -2, 3), (-1, -2, -3), (-1, 2, -3), (1, 2, 3)]
+        test_keys = generate_keys.generate_keys(3)
+        self.assertListEqual(keys, test_keys)
+        # Test big key length
+        keys = [(-1, 2, -3, 4), (-1, -2, 3, 4), (-1, -2, 3, -4),
+                (-1, 2, 3, -4), (-1, -2, -3, -4), (1, -2, -3, 4),
+                (1, -2, 3, 4), (1, 2, -3, 4), (1, 2, 3, 4), (1, -2, 3, -4),
+                (1, -2, -3, -4), (1, 2, -3, -4), (-1, -2, -3, 4),
+                (1, 2, 3, -4), (-1, 2, 3, 4), (-1, 2, -3, -4)]
+        test_keys = generate_keys.generate_keys(4)
+        self.assertListEqual(keys, test_keys)
 
 
 if __name__ == '__main__':
