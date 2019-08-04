@@ -4,3 +4,6 @@ omit = tests/*
 
 [report]
 show_missing = True
+# Exclude if __name__ == '__main__' only valid if tests for main() written.
+exclude_lines =
+    if __name__ == .__main__.:
