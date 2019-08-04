@@ -88,6 +88,10 @@ class TestRecursivePalindrome(unittest.TestCase):
         random_palindrome = random_string_ + random_string_[::-1]
         self.assertTrue(
             recursive_palindrome.recursive_ispalindrome(random_palindrome))
+        # Test a word that isn't a palindrome.
+        not_palindrome = 'cat'
+        self.assertFalse(
+            recursive_palindrome.recursive_ispalindrome(not_palindrome))
 
 
 if __name__ == '__main__':
