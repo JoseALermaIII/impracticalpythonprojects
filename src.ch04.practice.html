@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>src.ch04.practice package &#8212; impracticalpythonprojects 0.19.0 documentation</title>
+    <title>src.ch04.practice package &#8212; impracticalpythonprojects 0.20.0 documentation</title>
     <link rel="stylesheet" href="_static/flask.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -31,7 +31,7 @@
         <li class="right" >
           <a href="src.ch04.html" title="src.ch04 package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.19.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.20.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="src.html" >src package</a> &#187;</li>
           <li class="nav-item nav-item-3"><a href="src.ch04.html" accesskey="U">src.ch04 package</a> &#187;</li> 
@@ -122,7 +122,7 @@ of <strong>length</strong>.</p>
 <p class="rubric">Example</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">src.ch04.practice.p1_hack_lincoln</span> <span class="k">import</span> <span class="n">keygen</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">keygen</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="go">[[-1, 2], [1, -2], [1, 2], [-1, -2]]</span>
+<span class="go">[[-1, -2], [-1, 2], [1, -2], [1, 2]]</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -192,8 +192,19 @@ transposition cipher. If not, it is a letter substitution cipher.</p>
 
 <dl class="function">
 <dt id="src.ch04.practice.p2_identify_cipher.main">
-<code class="sig-prename descclassname">src.ch04.practice.p2_identify_cipher.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch04/practice/p2_identify_cipher.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.practice.p2_identify_cipher.main" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.ch04.practice.p2_identify_cipher.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><em class="sig-param">ciphertext: str = None</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/src/ch04/practice/p2_identify_cipher.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.practice.p2_identify_cipher.main" title="Permalink to this definition">¶</a></dt>
 <dd><p>Demonstrate the cipher identifier.</p>
+<p>This is only supposed to be a demo, but coverage necessitates
+excessiveness.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ciphertext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Encrypted letter transposition or letter
+substitution cipher to demonstrate.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>. Identifies <strong>ciphertext</strong>’s cipher.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -210,7 +221,7 @@ to tinker with them a bit.</p>
 <code class="sig-prename descclassname">src.ch04.practice.p2_identify_cipher_deco.</code><code class="sig-name descname">identify</code><span class="sig-paren">(</span><em class="sig-param">threshold: float = 0.5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch04/practice/p2_identify_cipher_deco.html#identify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.practice.p2_identify_cipher_deco.identify" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make decorator for identify_cipher.</p>
 <p>Decorator factory to replace a decorated function with
-<a class="reference internal" href="#src.ch04.practice.p2_identify_cipher_deco.identify_cipher" title="src.ch04.practice.p2_identify_cipher_deco.identify_cipher"><code class="xref py py-func docutils literal notranslate"><span class="pre">identify_cipher()</span></code></a>. A bit like going around the world to reach the
+<code class="xref py py-func docutils literal notranslate"><span class="pre">identify_cipher()</span></code>. A bit like going around the world to reach the
 teleporter across the street, but at import time instead of runtime, so
 it doesn’t matter.</p>
 <p>Luciano Ramalho’s book <em>Fluent Python</em> appropriately calls decorators
@@ -223,29 +234,8 @@ decorators.</p>
 <dd class="field-odd"><p><strong>threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Percent match in decimal form.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Whatever the output of <a class="reference internal" href="#src.ch04.practice.p2_identify_cipher_deco.identify_cipher" title="src.ch04.practice.p2_identify_cipher_deco.identify_cipher"><code class="xref py py-func docutils literal notranslate"><span class="pre">identify_cipher()</span></code></a> would be given the
+<dd class="field-even"><p>Whatever the output of <code class="xref py py-func docutils literal notranslate"><span class="pre">identify_cipher()</span></code> would be given the
 decorated function’s input.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="src.ch04.practice.p2_identify_cipher_deco.identify_cipher">
-<code class="sig-prename descclassname">src.ch04.practice.p2_identify_cipher_deco.</code><code class="sig-name descname">identify_cipher</code><span class="sig-paren">(</span><em class="sig-param">ciphertext: str</em>, <em class="sig-param">threshold: float</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/src/ch04/practice/p2_identify_cipher_deco.html#identify_cipher"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.practice.p2_identify_cipher_deco.identify_cipher" title="Permalink to this definition">¶</a></dt>
-<dd><p>Identify letter transposition or substitution cipher.</p>
-<p>Compare most frequent letters in <strong>ciphertext</strong> with the most frequent
-letters in the English alphabet. If above <strong>threshold</strong>, it is a letter
-transposition cipher. If not, it is a letter substitution cipher.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ciphertext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Encrypted message to identify.</p></li>
-<li><p><strong>threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Percent match in decimal form.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> if the <strong>ciphertext</strong> is a letter transposition cipher.
-<a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a> otherwise.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -254,7 +244,7 @@ transposition cipher. If not, it is a letter substitution cipher.</p>
 <dt id="src.ch04.practice.p2_identify_cipher_deco.is_substitution">
 <code class="sig-prename descclassname">src.ch04.practice.p2_identify_cipher_deco.</code><code class="sig-name descname">is_substitution</code><span class="sig-paren">(</span><em class="sig-param">ciphertext: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/src/ch04/practice/p2_identify_cipher_deco.html#is_substitution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.practice.p2_identify_cipher_deco.is_substitution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Identify letter substitution cipher.</p>
-<p>Empty function to wrap with <a class="reference internal" href="#src.ch04.practice.p2_identify_cipher_deco.identify_cipher" title="src.ch04.practice.p2_identify_cipher_deco.identify_cipher"><code class="xref py py-func docutils literal notranslate"><span class="pre">identify_cipher()</span></code></a> using
+<p>Empty function to wrap with <code class="xref py py-func docutils literal notranslate"><span class="pre">identify_cipher()</span></code> using
 <a class="reference internal" href="#src.ch04.practice.p2_identify_cipher_deco.identify" title="src.ch04.practice.p2_identify_cipher_deco.identify"><code class="xref py py-func docutils literal notranslate"><span class="pre">identify()</span></code></a>. <strong>threshold</strong> defaults to <code class="docutils literal notranslate"><span class="pre">0.45</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -271,7 +261,7 @@ transposition cipher. If not, it is a letter substitution cipher.</p>
 <dt id="src.ch04.practice.p2_identify_cipher_deco.is_transposition">
 <code class="sig-prename descclassname">src.ch04.practice.p2_identify_cipher_deco.</code><code class="sig-name descname">is_transposition</code><span class="sig-paren">(</span><em class="sig-param">ciphertext: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/src/ch04/practice/p2_identify_cipher_deco.html#is_transposition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.practice.p2_identify_cipher_deco.is_transposition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Identify letter transposition cipher.</p>
-<p>Empty function to wrap with <a class="reference internal" href="#src.ch04.practice.p2_identify_cipher_deco.identify_cipher" title="src.ch04.practice.p2_identify_cipher_deco.identify_cipher"><code class="xref py py-func docutils literal notranslate"><span class="pre">identify_cipher()</span></code></a> using
+<p>Empty function to wrap with <code class="xref py py-func docutils literal notranslate"><span class="pre">identify_cipher()</span></code> using
 <a class="reference internal" href="#src.ch04.practice.p2_identify_cipher_deco.identify" title="src.ch04.practice.p2_identify_cipher_deco.identify"><code class="xref py py-func docutils literal notranslate"><span class="pre">identify()</span></code></a>. <strong>threshold</strong> defaults to <code class="docutils literal notranslate"><span class="pre">0.75</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -282,12 +272,6 @@ transposition cipher. If not, it is a letter substitution cipher.</p>
 <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a> otherwise.</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="src.ch04.practice.p2_identify_cipher_deco.main">
-<code class="sig-prename descclassname">src.ch04.practice.p2_identify_cipher_deco.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch04/practice/p2_identify_cipher_deco.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.practice.p2_identify_cipher_deco.main" title="Permalink to this definition">¶</a></dt>
-<dd><p>Demonstrate the cipher identifier.</p>
 </dd></dl>
 
 </div>

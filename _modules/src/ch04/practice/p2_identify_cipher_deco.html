@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>src.ch04.practice.p2_identify_cipher_deco &#8212; impracticalpythonprojects 0.19.0 documentation</title>
+    <title>src.ch04.practice.p2_identify_cipher_deco &#8212; impracticalpythonprojects 0.20.0 documentation</title>
     <link rel="stylesheet" href="../../../../_static/flask.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
@@ -27,7 +27,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">impracticalpythonprojects 0.19.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">impracticalpythonprojects 0.20.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -38,7 +38,7 @@
           <div class="body" role="main">
             
   <h1>Source code for src.ch04.practice.p2_identify_cipher_deco</h1><div class="highlight"><pre>
-<span></span><span class="c1"># pylint: disable=all</span>
+<span></span><span class="c1"># pylint: disable=unused-argument</span>
 <span class="sd">&quot;&quot;&quot;Identify letter transposition or substitution cipher using decorator.</span>
 
 <span class="sd">Note:</span>
@@ -46,41 +46,8 @@
 <span class="sd">    to tinker with them a bit.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Counter</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">wraps</span>
-
-
-<div class="viewcode-block" id="identify_cipher"><a class="viewcode-back" href="../../../../src.ch04.practice.html#src.ch04.practice.p2_identify_cipher_deco.identify_cipher">[docs]</a><span class="k">def</span> <span class="nf">identify_cipher</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Identify letter transposition or substitution cipher.</span>
-
-<span class="sd">    Compare most frequent letters in **ciphertext** with the most frequent</span>
-<span class="sd">    letters in the English alphabet. If above **threshold**, it is a letter</span>
-<span class="sd">    transposition cipher. If not, it is a letter substitution cipher.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        ciphertext (str): Encrypted message to identify.</span>
-<span class="sd">        threshold (float): Percent match in decimal form.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        :py:obj:`True` if the **ciphertext** is a letter transposition cipher.</span>
-<span class="sd">        :py:obj:`False` otherwise.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">most_freq</span> <span class="o">=</span> <span class="s1">&#39;etaoinshrdlu&#39;</span>
-    <span class="c1"># Convert most frequent English letters into a Counter.</span>
-    <span class="n">english_freq</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">most_freq</span><span class="p">)</span>
-    <span class="c1"># Identify most frequent letters in ciphertext and convert into Counter.</span>
-    <span class="n">ciphertext_freq</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">([</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span>
-                               <span class="n">Counter</span><span class="p">(</span><span class="n">ciphertext</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
-                               <span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">most_freq</span><span class="p">))])</span>
-    <span class="c1"># Find letters that they have in common.</span>
-    <span class="n">intersection</span> <span class="o">=</span> <span class="n">english_freq</span> <span class="o">&amp;</span> <span class="n">ciphertext_freq</span>
-    <span class="c1"># Count letters they had in common.</span>
-    <span class="n">count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">intersection</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-
-    <span class="k">if</span> <span class="n">count</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">most_freq</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">True</span>
-    <span class="k">return</span> <span class="kc">False</span></div>
+<span class="kn">from</span> <span class="nn">src.ch04.practice.p2_identify_cipher</span> <span class="k">import</span> <span class="n">identify_cipher</span><span class="p">,</span> <span class="n">main</span>
 
 
 <div class="viewcode-block" id="identify"><a class="viewcode-back" href="../../../../src.ch04.practice.html#src.ch04.practice.p2_identify_cipher_deco.identify">[docs]</a><span class="k">def</span> <span class="nf">identify</span><span class="p">(</span><span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">):</span>
@@ -155,24 +122,6 @@
 <span class="sd">        :py:obj:`False` otherwise.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span></div>
-
-
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../src.ch04.practice.html#src.ch04.practice.p2_identify_cipher_deco.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Demonstrate the cipher identifier.&quot;&quot;&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;I can tell the difference between a letter transposition cipher &#39;</span>
-          <span class="s1">&#39;and a letter</span><span class="se">\n</span><span class="s1">substitution cipher - like those used in decoder &#39;</span>
-          <span class="s1">&#39;rings. Sorry-not-sorry that</span><span class="se">\n</span><span class="s1">you collected all those box tops.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-
-    <span class="c1"># Used key of XCTJYGPIUWMQBDESOLKZNHFRVA in Al Sweigart&#39;s</span>
-    <span class="c1"># Cracking Codes with Python simpleSubCipher.py</span>
-    <span class="n">ciphertext</span> <span class="o">=</span> <span class="s1">&#39;ziy yxpqy ixk qxdjyj cnz ziy dykz uk ybszv&#39;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Testing cipher: </span><span class="si">{ciphertext}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">is_substitution</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;I hereby decree that this is a pitiable attempt at a &#39;</span>
-              <span class="s1">&#39;substitution cipher.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No idea what this is - must be a user error.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>

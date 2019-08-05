@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>src.ch02.c1_recursive_palindrome &#8212; impracticalpythonprojects 0.19.0 documentation</title>
+    <title>src.ch02.c1_recursive_palindrome &#8212; impracticalpythonprojects 0.20.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/flask.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
@@ -27,7 +27,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">impracticalpythonprojects 0.19.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">impracticalpythonprojects 0.20.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -69,19 +69,31 @@
     <span class="k">return</span> <span class="kc">False</span></div>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../src.ch02.html#src.ch02.c1_recursive_palindrome.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Demonstrate the recursive palindrome tester.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../src.ch02.html#src.ch02.c1_recursive_palindrome.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">word</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Demonstrate the recursive palindrome tester.</span>
+
+<span class="sd">    This is only supposed to be a demo, but coverage necessitates</span>
+<span class="sd">    excessiveness.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        word (str): Word to test if it is a palindrome.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        :py:obj:`None`. Identifies **word** as a palindrome.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;I</span><span class="se">\&#39;</span><span class="s1">m a recursive palindrome tester.</span><span class="se">\n</span><span class="s1">&#39;</span>
           <span class="s1">&#39;I basically call on myself repeatedly to check if a string is a &#39;</span>
           <span class="s1">&#39;palindrome.</span><span class="se">\n</span><span class="s1">&#39;</span>
           <span class="s1">&#39;Incidentally, my favorite food is Random Access Memory.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">palindrome</span> <span class="o">=</span> <span class="s1">&#39;rotor&#39;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Analyzing: </span><span class="si">{palindrome}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">word</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">word</span> <span class="o">=</span> <span class="s1">&#39;rotor&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Analyzing: </span><span class="si">{word}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">recursive_ispalindrome</span><span class="p">(</span><span class="n">palindrome</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;I do declare that &quot;</span><span class="si">{palindrome}</span><span class="s1">&quot; is a palindrome!&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">recursive_ispalindrome</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;I do declare that &quot;</span><span class="si">{word}</span><span class="s1">&quot; is a palindrome!</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;I</span><span class="se">\&#39;</span><span class="s1">m afraid that &quot;</span><span class="si">{palindrome}</span><span class="s1">&quot; isn</span><span class="se">\&#39;</span><span class="s1">t a palindrome 😞&#39;</span><span class="p">)</span></div>
+        <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;I</span><span class="se">\&#39;</span><span class="s1">m afraid that &quot;</span><span class="si">{word}</span><span class="s1">&quot; isn</span><span class="se">\&#39;</span><span class="s1">t a palindrome 😞&#39;</span><span class="p">)</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>src.ch04.practice.p2_identify_cipher &#8212; impracticalpythonprojects 0.19.0 documentation</title>
+    <title>src.ch04.practice.p2_identify_cipher &#8212; impracticalpythonprojects 0.20.0 documentation</title>
     <link rel="stylesheet" href="../../../../_static/flask.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
@@ -27,7 +27,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">impracticalpythonprojects 0.19.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">impracticalpythonprojects 0.20.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -107,22 +107,37 @@
     <span class="k">return</span> <span class="ow">not</span> <span class="n">identify_cipher</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../src.ch04.practice.html#src.ch04.practice.p2_identify_cipher.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Demonstrate the cipher identifier.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../src.ch04.practice.html#src.ch04.practice.p2_identify_cipher.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Demonstrate the cipher identifier.</span>
+
+<span class="sd">    This is only supposed to be a demo, but coverage necessitates</span>
+<span class="sd">    excessiveness.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ciphertext (str): Encrypted letter transposition or letter</span>
+<span class="sd">            substitution cipher to demonstrate.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        :py:obj:`None`. Identifies **ciphertext**&#39;s cipher.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;I can tell the difference between a letter transposition cipher &#39;</span>
           <span class="s1">&#39;and a letter</span><span class="se">\n</span><span class="s1">substitution cipher - like those used in decoder &#39;</span>
           <span class="s1">&#39;rings. Sorry-not-sorry that</span><span class="se">\n</span><span class="s1">you collected all those box tops.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
-    <span class="c1"># Used key of XCTJYGPIUWMQBDESOLKZNHFRVA in Al Sweigart&#39;s</span>
-    <span class="c1"># Cracking Codes with Python simpleSubCipher.py</span>
-    <span class="n">ciphertext</span> <span class="o">=</span> <span class="s1">&#39;ziy yxpqy ixk qxdjyj cnz ziy dykz uk ybszv&#39;</span>
+    <span class="k">if</span> <span class="n">ciphertext</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Used key of XCTJYGPIUWMQBDESOLKZNHFRVA in Al Sweigart&#39;s</span>
+        <span class="c1"># Cracking Codes with Python simpleSubCipher.py</span>
+        <span class="n">ciphertext</span> <span class="o">=</span> <span class="s1">&#39;ziy yxpqy ixk qxdjyj cnz ziy dykz uk ybszv&#39;</span>
+
     <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Testing cipher: </span><span class="si">{ciphertext}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">is_substitution</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;I hereby decree that this is a pitiable attempt at a &#39;</span>
               <span class="s1">&#39;substitution cipher.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No idea what this is - must be a user error.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hmm, I declare this is a pathetic attempt at a transposition &#39;</span>
+              <span class="s1">&#39;cipher.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
