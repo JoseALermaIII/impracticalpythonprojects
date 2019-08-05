@@ -1,7 +1,8 @@
 """Test Chapter 2."""
 import os
 import string
-import unittest
+import unittest.mock
+from io import StringIO
 import src.ch02.p1_cleanup_dictionary as cleanup_dictionary
 import src.ch02.c1_recursive_palindrome as recursive_palindrome
 from tests import random_string
@@ -15,6 +16,9 @@ class TestCleanupDictionary(unittest.TestCase):
         """Test that it raises an error if word_list is empty."""
         with self.assertRaises(IndexError) as err:
             cleanup_dictionary.cleanup_list([])
+            self.assertEqual(CLEANUP_LIST_ERROR, err.exception)
+        with self.assertRaises(IndexError) as err:
+            cleanup_dictionary.cleanup_list_more([])
             self.assertEqual(CLEANUP_LIST_ERROR, err.exception)
 
     def test_cleanup_list(self):
@@ -72,6 +76,17 @@ class TestCleanupDictionary(unittest.TestCase):
         for element in clean_dict:
             self.assertGreater(len(element), 1)
 
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    @unittest.mock.patch('src.ch02.p1_cleanup_dictionary.DICTIONARY_FILE_PATH', 'tests/data/ch02/dictionary.txt')
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        cleanup_dictionary.main()
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch02/main/cleanup_dictionary.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
 
 class TestRecursivePalindrome(unittest.TestCase):
     """Test Recursive Palindrome tester."""
@@ -88,6 +103,23 @@ class TestRecursivePalindrome(unittest.TestCase):
         random_palindrome = random_string_ + random_string_[::-1]
         self.assertTrue(
             recursive_palindrome.recursive_ispalindrome(random_palindrome))
+        # Test a word that isn't a palindrome.
+        not_palindrome = 'cat'
+        self.assertFalse(
+            recursive_palindrome.recursive_ispalindrome(not_palindrome))
+
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        # Test hard-coded word.
+        recursive_palindrome.main()
+        # Test inputted word.
+        recursive_palindrome.main('cat')
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch02/main/recursive_palindrome.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
 
 
 if __name__ == '__main__':

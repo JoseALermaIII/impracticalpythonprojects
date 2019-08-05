@@ -1,6 +1,7 @@
 """Test Chapter 3."""
 import os
 import unittest.mock
+from io import StringIO
 from string import ascii_lowercase
 from src.ch02.p1_cleanup_dictionary import cleanup_dict, cleanup_list_more
 import src.ch03.p1_digram_counter as digram_counter
@@ -18,8 +19,10 @@ class TestDigramCounter(unittest.TestCase):
         with self.assertRaises(TypeError) as err:
             digram_counter.get_digrams(5)
             self.assertEqual(GET_DIGRAMS_ERROR, err.exception)
+        with self.assertRaises(TypeError) as err:
             digram_counter.count_digrams(6, [])
             self.assertEqual(COUNT_DIGRAMS_ERROR, err.exception)
+        with self.assertRaises(TypeError) as err:
             digram_counter.count_digrams(set(), 7)
             self.assertEqual(COUNT_DIGRAMS_ERROR, err.exception)
 
@@ -48,6 +51,16 @@ class TestDigramCounter(unittest.TestCase):
                  'bd': 0, 'cr': 0, 'rb': 0, 'cb': 0, 'rc': 0}
         test_count = digram_counter.digram_counter(word, test_dict_path)
         self.assertDictEqual(count, test_count)
+
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        digram_counter.main()
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch03/main/digram_counter.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
 
 
 class TestAnagramGenerator(unittest.TestCase):
@@ -220,6 +233,17 @@ class TestAnagramGenerator(unittest.TestCase):
         phrases = ['a act', 'a cat', 'act a', 'cat a']
         test_phrases = anagram_generator.anagram_generator('a cat')
         self.assertListEqual(phrases, test_phrases)
+
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    @unittest.mock.patch('src.ch03.c1_anagram_generator.DICTIONARY_FILE_PATH', 'tests/data/ch03/dictionary.txt')
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        anagram_generator.main()
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch03/main/anagram_generator.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,19 @@
+I'm a digram counter.
+If you don't know what I can be used for, then you don't need me.
+Seriously, though, I can be used for cryptographic frequency analysis - which
+probably makes even less sense...
+
+Analyzing: volvo
+
+In the Ubuntu default `american-english` dictionary, these are
+the digram counts for the above word:
+Counter({'lo': 3554,
+         'ol': 3376,
+         'oo': 2265,
+         'ov': 1223,
+         'vo': 603,
+         'lv': 260,
+         'vv': 21,
+         'vl': 12})
+
+The "lo" digram occurs 3554 times!

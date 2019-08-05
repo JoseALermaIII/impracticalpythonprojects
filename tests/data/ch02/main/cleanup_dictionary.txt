@@ -1,0 +1,6 @@
+I'm a word dictionary cleaner.
+I remove those annoying one letter words.
+
+Original word list had 78 words.
+Cleaned word list has 52 words.
+I cleaned up 26 words! Yay, me!

@@ -1,8 +1,8 @@
 """Test Chapter 1."""
-import io
 import os
 import string
 import unittest.mock
+from io import StringIO
 from random import Random
 from tests import random_string
 import src.ch01.practice.p1_pig_latin as pig_latin
@@ -19,23 +19,33 @@ from tests.data.ch01.ch01 import EMPTY_LETTER_DICT
 class TestPigLatin(unittest.TestCase):
     """Test Pig Latin encoder."""
 
-    def test_consonant(self):
-        """Test that it can encode a word starting with a consonant."""
-        self.assertEqual(pig_latin.encode('test'), 'esttay')
-
-    def test_vowel(self):
-        """Test that it can encode a word starting with a vowel."""
-        self.assertEqual(pig_latin.encode('opportunity'), 'opportunityway')
-
     def test_bad_type(self):
         """Test that it raises an error if word is not a string."""
         with self.assertRaises(TypeError) as err:
             pig_latin.encode(2)
             self.assertEqual(ENCODE_ERROR, err.exception)
 
-    def test_upper_to_lower(self):
-        """Test that it converts uppercase to lowercase."""
+    def test_pig_latin(self):
+        """Test pig_latin."""
+        # Test that it can encode a word starting with a consonant.
+        self.assertEqual(pig_latin.encode('test'), 'esttay')
+        # Test that it can encode a word starting with a vowel.
+        self.assertEqual(pig_latin.encode('opportunity'), 'opportunityway')
+        # Test that it converts uppercase to lowercase.
         self.assertEqual(pig_latin.encode('Jose'), 'osejay')
+
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        # Mock user input.
+        with unittest.mock.patch('builtins.input',
+                                 side_effect=['computer', 'no']):
+            pig_latin.main()
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch01/main/pig_latin.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
 
 
 class TestBarChart(unittest.TestCase):
@@ -77,15 +87,26 @@ class TestBarChart(unittest.TestCase):
         for key in analysis.keys():
             self.assertTrue(key.islower())
 
-    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
     def test_print_bar_chart(self, mock_stdout):
         """Test that it properly prints a dictionary."""
-        with open(os.path.normpath('tests/data/ch01/poor_bar_chart.txt'), 'r') as file:
-            file_data = ''.join(file.readlines())
-
         test_string = "Peter Piper picked a peck of pickled peppers."
         test_dict = bar_chart.freq_analysis(test_string)
         bar_chart.print_bar_chart(test_dict)
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch01/poor_bar_chart_func.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        bar_chart.main()
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch01/main/poor_bar_chart.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
         self.assertEqual(mock_stdout.getvalue(), file_data)
 
 
@@ -115,6 +136,16 @@ class TestForeignChart(unittest.TestCase):
         test_dict = foreign_chart.add_keys_to_dict(random_dict)
         self.assertDictEqual(test_dict, EMPTY_LETTER_DICT)
 
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        foreign_chart.main()
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch01/main/foreign_chart.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
 
 class TestNameGenerator(unittest.TestCase):
     """Test Name Generator."""
@@ -134,12 +165,17 @@ class TestNameGenerator(unittest.TestCase):
             test_dict = {'blank': []}
             name_generator.add_name_to_key(4, test_dict, 'blank')
             self.assertEqual(ADD_NAME_TO_KEY_ERROR, err.exception)
+        with self.assertRaises(TypeError) as err:
+            test_dict = {'blank': []}
             name_generator.add_name_to_key('First', test_dict, 5)
             self.assertEqual(ADD_NAME_TO_KEY_ERROR, err.exception)
+        with self.assertRaises(TypeError) as err:
             name_generator.add_name_to_key('First', 6, 'blank')
             self.assertEqual(ADD_NAME_TO_KEY_ERROR, err.exception)
+        with self.assertRaises(TypeError) as err:
             name_generator.split_names(7)
             self.assertEqual(SPLIT_NAME_LIST_ERROR, err.exception)
+        with self.assertRaises(ValueError) as err:
             test_list = []
             name_generator.split_names(test_list)
             self.assertEqual(SPLIT_NAME_EMPTY_ERROR, err.exception)
@@ -200,6 +236,23 @@ class TestNameGenerator(unittest.TestCase):
         self.random.seed(555)
         random.choice._mock_side_effect = self.random.choice
         self.assertEqual(name_generator.name_generator('tests/data/ch01/names'), 'Sally Schmidt Smith')
+
+    @unittest.mock.patch('src.ch01.challenge.c2_name_generator.random')
+    @unittest.mock.patch('sys.stderr', new_callable=StringIO)
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout, mock_stderr, random):
+        """Test demo main function."""
+        # Use predictable seed
+        self.random.seed(560)
+        random.choice._mock_side_effect = self.random.choice
+        name_generator.main()
+        # Test sys.stdout output.
+        with open(os.path.normpath('tests/data/ch01/main/name_generator.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+        # Test sys.stderr output.
+        self.assertEqual(mock_stderr.getvalue(), 'Generated name: Ari Pacino\n')
 
 
 if __name__ == '__main__':

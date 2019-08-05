@@ -1,0 +1,15 @@
+I'm a recursive palindrome tester.
+I basically call on myself repeatedly to check if a string is a palindrome.
+Incidentally, my favorite food is Random Access Memory.
+
+Analyzing: rotor
+
+I do declare that "rotor" is a palindrome!
+
+I'm a recursive palindrome tester.
+I basically call on myself repeatedly to check if a string is a palindrome.
+Incidentally, my favorite food is Random Access Memory.
+
+Analyzing: cat
+
+I'm afraid that "cat" isn't a palindrome 😞

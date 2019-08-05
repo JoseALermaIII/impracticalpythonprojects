@@ -1,0 +1,17 @@
+This is an Affordable Bar Chart.
+
+Analyzing: Sally sells seashells by the seashore.
+
+defaultdict(<class 'list'>,
+            {'a': ['a', 'a', 'a'],
+             'b': ['b'],
+             'e': ['e', 'e', 'e', 'e', 'e', 'e'],
+             'h': ['h', 'h', 'h'],
+             'l': ['l', 'l', 'l', 'l', 'l', 'l'],
+             'o': ['o'],
+             'r': ['r'],
+             's': ['s', 's', 's', 's', 's', 's', 's', 's'],
+             't': ['t'],
+             'y': ['y', 'y']})
+
+If you tilt your head to the right, the letter "s" is the most frequent, followed by "e" and "l".
