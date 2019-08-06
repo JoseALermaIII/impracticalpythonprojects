@@ -7,6 +7,7 @@ import src.ch04.practice.p2_identify_cipher as identify_cipher
 import src.ch04.practice.p2_identify_cipher_deco as identify_cipher_deco
 import src.ch04.practice.p3_get_keys as get_keys
 import src.ch04.practice.p4_generate_keys as generate_keys
+import src.ch04.practice.p5_hack_route as hack_route
 
 
 class TestHackLincoln(unittest.TestCase):
@@ -270,6 +271,25 @@ class TestGenerateKeys(unittest.TestCase):
                   'r') as file:
             file_data = ''.join(file.readlines())
         self.assertEqual(mock_stdout.getvalue(), file_data)
+
+
+class TestHackRoute(unittest.TestCase):
+    """Test Hack Route."""
+
+    def test_decode_route(self):
+        """Test decode_route."""
+        message = "this is supposed to be a super secret message stop"
+        # Test a two column key.
+        ciphertext = "be to supposed is this a super secret message stop"
+        keys = {1: 'down', 2: 'up'}
+        test_message = hack_route.decode_route(keys, ciphertext.split())
+        self.assertListEqual(message.split(), test_message)
+        # Test a five column key.
+        ciphertext = "this is to supposed a be super secret stop message"
+        keys = {1: 'up', 2: 'down', 3: 'down',
+                4: 'up', 5: 'down'}
+        test_message = hack_route.decode_route(keys, ciphertext.split())
+        self.assertListEqual(message.split(), test_message)
 
 
 if __name__ == '__main__':
