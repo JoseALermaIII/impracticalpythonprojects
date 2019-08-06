@@ -31,13 +31,12 @@ def decode_route(keys: dict, cipherlist: list) -> list:
     """
     message = []
     split_list = split(cipherlist, len(keys))
-    for value in keys.values():
+    for key, value in keys.items():
         if value == 'down':
             # If down, reverse direction
-            message.extend(reversed(split_list[0]))
+            message.extend(reversed(split_list[key - 1]))
         else:
-            message.extend(split_list[0])
-        del split_list[0]
+            message.extend(split_list[key - 1])
     return message
 
 
