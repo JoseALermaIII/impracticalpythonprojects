@@ -8,7 +8,7 @@ version will use the building blocks made in
 
 """
 from src.ch03.c1_anagram_generator import split
-from src.ch04.practice.p2_identify_cipher import is_transposition
+from src.ch04.practice.p2_identify_cipher import is_substitution
 from src.ch04.practice.p3_get_keys import key_to_dict
 from src.ch04.practice.p4_generate_keys import generate_keys
 
@@ -56,6 +56,19 @@ def hack_route(ciphertext: str, columns: int) -> None:
         :py:obj:`None`. Prints all possible decoded messages.
 
     """
+    if ciphertext.isupper():
+        # Most functions assume lowercase, despite cryptographic convention.
+        ciphertext = ciphertext.lower()
+    if is_substitution(ciphertext):
+        print('Hey, bub, I can\'t help you with substitution ciphers.')
+        return None
+    # Get all possible keys with given number of columns.
+    keys = generate_keys(columns)
+    # For each key, decode route cipher and print result.
+    for key in keys:
+        message = ' '.join(decode_route(key_to_dict(key), ciphertext.split()))
+        print(f'Key: {key}\nDecoded message: {message}\n')
+    return None
 
 
 def main():
