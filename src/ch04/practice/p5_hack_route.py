@@ -74,7 +74,7 @@ def hack_route(ciphertext: str, columns: int) -> None:
 def main():
     """Demonstrate the route cipher hacker."""
     # Four column route 'cyphertext' from book.
-    ciphertext = """REST TRANSPORT YOU GODWIN VILLAGE 
+    ciphertext = """REST TRANSPORT YOU GODWIN VILLAGE
                  ROANOKE WITH ARE YOUR IS JUST SUPPLIES FREE SNOW
                  HEADING TO GONE TO SOUTH FILLER"""
 
