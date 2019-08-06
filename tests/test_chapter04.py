@@ -291,6 +291,35 @@ class TestHackRoute(unittest.TestCase):
         test_message = hack_route.decode_route(keys, ciphertext.split())
         self.assertListEqual(message.split(), test_message)
 
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_hack_route(self, mock_stdout):
+        """Test hack_route."""
+        with open(os.path.normpath('tests/data/ch04/hack_route_func.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        ciphertext = "this is to supposed a be super secret stop message"
+        hack_route.hack_route(ciphertext, 5)
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+        # Test uppercase ciphertext
+        mock_stdout.truncate(0)  # Truncate StringIO to length 0.
+        mock_stdout.seek(0)  # Reset position to 0. Python 3.x only.
+        with open(os.path.normpath('tests/data/ch04/hack_route_func2.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        ciphertext = "BE TO SUPPOSED IS THIS A SUPER SECRET MESSAGE STOP"
+        hack_route.hack_route(ciphertext, 2)
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+        # Test substitution cipher.
+        # Used key of FRSDBTVXANQJWLYUPGCEKZIOHM in Al Sweigart's
+        # Cracking Codes with Python simpleSubCipher.py
+        mock_stdout.truncate(0)
+        mock_stdout.seek(0)
+        ciphertext = """ylb eiy rksqjb wh cxyb exgbb tykg cxke exb dyyg tazb cao uasq ku
+                ceasqc cbzbl bavxe jfh exbw cegfavxe lalb ebl f rav tfe xbl"""
+        hack_route.hack_route(ciphertext, 5)
+        output = 'Hey, bub, I can\'t help you with substitution ciphers.\n'
+        self.assertEqual(mock_stdout.getvalue(), output)
+
 
 if __name__ == '__main__':
     unittest.main()
