@@ -29,14 +29,19 @@ def decode_route(keys: dict, cipherlist: list) -> list:
         Assumes vertical encoding route.
 
     """
-    message = []
+    table, message = [], []
     split_list = split(cipherlist, len(keys))
+    # Build translation table.
     for key, value in keys.items():
         if value == 'down':
             # If down, reverse direction
-            message.extend(reversed(split_list[key - 1]))
-        else:
-            message.extend(split_list[key - 1])
+            split_list[key - 1].reverse()
+        table.append(split_list[key - 1])
+    # For each column in the table, copy the relevant row.
+    rows = len(split_list[0])
+    for row in range(rows):
+        for column in table:
+            message.append(column[row])
     return message
 
 

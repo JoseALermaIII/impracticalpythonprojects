@@ -280,12 +280,12 @@ class TestHackRoute(unittest.TestCase):
         """Test decode_route."""
         message = "this is supposed to be a super secret message stop"
         # Test a two column key.
-        ciphertext = "be to supposed is this a super secret message stop"
+        ciphertext = "message super be supposed this is to a secret stop"
         keys = {1: 'down', 2: 'up'}
         test_message = hack_route.decode_route(keys, ciphertext.split())
         self.assertListEqual(message.split(), test_message)
         # Test a five column key.
-        ciphertext = "this is to supposed a be super secret stop message"
+        ciphertext = "this a super is secret supposed to message stop be"
         keys = {1: 'up', 2: 'down', 3: 'down',
                 4: 'up', 5: 'down'}
         test_message = hack_route.decode_route(keys, ciphertext.split())
@@ -297,7 +297,7 @@ class TestHackRoute(unittest.TestCase):
         with open(os.path.normpath('tests/data/ch04/hack_route_func.txt'),
                   'r') as file:
             file_data = ''.join(file.readlines())
-        ciphertext = "this is to supposed a be super secret stop message"
+        ciphertext = "this a super is secret supposed to message stop be"
         hack_route.hack_route(ciphertext, 5)
         self.assertEqual(mock_stdout.getvalue(), file_data)
         # Test uppercase ciphertext
@@ -306,7 +306,7 @@ class TestHackRoute(unittest.TestCase):
         with open(os.path.normpath('tests/data/ch04/hack_route_func2.txt'),
                   'r') as file:
             file_data = ''.join(file.readlines())
-        ciphertext = "BE TO SUPPOSED IS THIS A SUPER SECRET MESSAGE STOP"
+        ciphertext = "MESSAGE SUPER BE SUPPOSED THIS IS TO A SECRET STOP"
         hack_route.hack_route(ciphertext, 2)
         self.assertEqual(mock_stdout.getvalue(), file_data)
         # Test substitution cipher.
