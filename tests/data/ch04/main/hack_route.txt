@@ -1,0 +1,59 @@
+There's more than one way to hack a route cipher! I can also do a brute-force
+hack of a route cipher. Although, you'll have to tell me how many columns to
+use.
+
+Note: I only hack the route cipher. I leave the word-transposition cipher to
+you and your biochemical brain.
+
+Hacking: REST TRANSPORT YOU GODWIN VILLAGE
+                 ROANOKE WITH ARE YOUR IS JUST SUPPLIES FREE SNOW
+                 HEADING TO GONE TO SOUTH FILLER
+
+Key: (-1, 2, -3, 4)
+Decoded message: village roanoke heading to godwin with snow gone you are free to transport your supplies south rest is just filler
+
+Key: (-1, -2, 3, 4)
+Decoded message: village is just to godwin your supplies gone you are free to transport with snow south rest roanoke heading filler
+
+Key: (-1, -2, 3, -4)
+Decoded message: village is just filler godwin your supplies south you are free to transport with snow gone rest roanoke heading to
+
+Key: (-1, 2, 3, -4)
+Decoded message: village roanoke just filler godwin with supplies south you are free to transport your snow gone rest is heading to
+
+Key: (-1, -2, -3, -4)
+Decoded message: village is heading filler godwin your snow south you are free to transport with supplies gone rest roanoke just to
+
+Key: (1, -2, -3, 4)
+Decoded message: rest is heading to transport your snow gone you are free to godwin with supplies south village roanoke just filler
+
+Key: (1, -2, 3, 4)
+Decoded message: rest is just to transport your supplies gone you are free to godwin with snow south village roanoke heading filler
+
+Key: (1, 2, -3, 4)
+Decoded message: rest roanoke heading to transport with snow gone you are free to godwin your supplies south village is just filler
+
+Key: (1, 2, 3, 4)
+Decoded message: rest roanoke just to transport with supplies gone you are free to godwin your snow south village is heading filler
+
+Key: (1, -2, 3, -4)
+Decoded message: rest is just filler transport your supplies south you are free to godwin with snow gone village roanoke heading to
+
+Key: (1, -2, -3, -4)
+Decoded message: rest is heading filler transport your snow south you are free to godwin with supplies gone village roanoke just to
+
+Key: (1, 2, -3, -4)
+Decoded message: rest roanoke heading filler transport with snow south you are free to godwin your supplies gone village is just to
+
+Key: (-1, -2, -3, 4)
+Decoded message: village is heading to godwin your snow gone you are free to transport with supplies south rest roanoke just filler
+
+Key: (1, 2, 3, -4)
+Decoded message: rest roanoke just filler transport with supplies south you are free to godwin your snow gone village is heading to
+
+Key: (-1, 2, 3, 4)
+Decoded message: village roanoke just to godwin with supplies gone you are free to transport your snow south rest is heading filler
+
+Key: (-1, 2, -3, -4)
+Decoded message: village roanoke heading filler godwin with snow south you are free to transport your supplies gone rest is just to
+
