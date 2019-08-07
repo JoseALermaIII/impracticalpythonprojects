@@ -69,15 +69,20 @@ def decode_route(keys: list, cipherlist: list) -> list:
         Assumes vertical encoding route.
 
     """
-    message = []
+    table, message = [], []
     split_list = split(cipherlist, len(keys))
+    rows = len(split_list[0])
+    # Build translation table.
     for key in keys:
         if key < 0:
             # If negative, reverse direction
-            message.extend(reversed(split_list[0]))
-        else:
-            message.extend(split_list[0])
+            split_list[0].reverse()
+        table.append(split_list[0])
         del split_list[0]
+    # For each column in the table, copy the relevant row.
+    for row in range(rows):
+        for column in table:
+            message.append(column[row])
     return message
 
 
