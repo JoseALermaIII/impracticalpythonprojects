@@ -320,6 +320,16 @@ class TestHackRoute(unittest.TestCase):
         output = 'Hey, bub, I can\'t help you with substitution ciphers.\n'
         self.assertEqual(mock_stdout.getvalue(), output)
 
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        hack_route.main()
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch04/main/hack_route.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
 
 if __name__ == '__main__':
     unittest.main()
