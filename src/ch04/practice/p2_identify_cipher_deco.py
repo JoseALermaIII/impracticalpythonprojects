@@ -14,9 +14,9 @@ def identify(threshold: float = 0.5):
     """Make decorator for identify_cipher.
 
     Decorator factory to replace a decorated function with
-    :func:`identify_cipher`. A bit like going around the world to reach the
-    teleporter across the street, but at import time instead of runtime, so
-    it doesn't matter.
+    :func:`~src.ch04.practice.p2_identify_cipher.identify_cipher`. A bit like
+    going around the world to reach the teleporter across the street, but at
+    import time instead of runtime, so it doesn't matter.
 
     Luciano Ramalho's book *Fluent Python* appropriately calls decorators
     "syntactic sugar" when it isn't used in classes. It also references the
@@ -54,7 +54,8 @@ def identify(threshold: float = 0.5):
 def is_transposition(ciphertext: str) -> bool:
     """Identify letter transposition cipher.
 
-    Empty function to wrap with :func:`identify_cipher` using
+    Empty function to wrap with
+    :func:`~src.ch04.practice.p2_identify_cipher.identify_cipher` using
     :func:`identify`. **threshold** defaults to ``0.75``.
 
     Args:
@@ -71,7 +72,8 @@ def is_transposition(ciphertext: str) -> bool:
 def is_substitution(ciphertext: str) -> bool:
     """Identify letter substitution cipher.
 
-    Empty function to wrap with :func:`identify_cipher` using
+    Empty function to wrap with
+    :func:`~src.ch04.practice.p2_identify_cipher.identify_cipher` using
     :func:`identify`. **threshold** defaults to ``0.45``.
 
     Args:
