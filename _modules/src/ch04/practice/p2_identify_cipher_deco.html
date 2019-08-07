@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>src.ch04.practice.p2_identify_cipher_deco &#8212; impracticalpythonprojects 0.20.1 documentation</title>
+    <title>src.ch04.practice.p2_identify_cipher_deco &#8212; impracticalpythonprojects 0.21.1 documentation</title>
     <link rel="stylesheet" href="../../../../_static/flask.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
@@ -27,7 +27,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">impracticalpythonprojects 0.20.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">impracticalpythonprojects 0.21.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -54,12 +54,12 @@
     <span class="sd">&quot;&quot;&quot;Make decorator for identify_cipher.</span>
 
 <span class="sd">    Decorator factory to replace a decorated function with</span>
-<span class="sd">    :func:`identify_cipher`. A bit like going around the world to reach the</span>
-<span class="sd">    teleporter across the street, but at import time instead of runtime, so</span>
-<span class="sd">    it doesn&#39;t matter.</span>
+<span class="sd">    :func:`~src.ch04.practice.p2_identify_cipher.identify_cipher`. A bit like</span>
+<span class="sd">    going around the world to reach the teleporter across the street, but at</span>
+<span class="sd">    import time instead of runtime, so it doesn&#39;t matter.</span>
 
 <span class="sd">    Luciano Ramalho&#39;s book *Fluent Python* appropriately calls decorators</span>
-<span class="sd">    &quot;syntactic sugar&quot; when it isn&#39;t used in classes. It also references the</span>
+<span class="sd">    &quot;syntactic sugar&quot; when they aren&#39;t used in classes. It also references the</span>
 <span class="sd">    ``wrapt`` module&#39;s `blog on GitHub`_ for a deeper explanation of</span>
 <span class="sd">    decorators.</span>
 
@@ -94,7 +94,8 @@
 <span class="k">def</span> <span class="nf">is_transposition</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Identify letter transposition cipher.</span>
 
-<span class="sd">    Empty function to wrap with :func:`identify_cipher` using</span>
+<span class="sd">    Empty function to wrap with</span>
+<span class="sd">    :func:`~src.ch04.practice.p2_identify_cipher.identify_cipher` using</span>
 <span class="sd">    :func:`identify`. **threshold** defaults to ``0.75``.</span>
 
 <span class="sd">    Args:</span>
@@ -111,7 +112,8 @@
 <span class="k">def</span> <span class="nf">is_substitution</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Identify letter substitution cipher.</span>
 
-<span class="sd">    Empty function to wrap with :func:`identify_cipher` using</span>
+<span class="sd">    Empty function to wrap with</span>
+<span class="sd">    :func:`~src.ch04.practice.p2_identify_cipher.identify_cipher` using</span>
 <span class="sd">    :func:`identify`. **threshold** defaults to ``0.45``.</span>
 
 <span class="sd">    Args:</span>

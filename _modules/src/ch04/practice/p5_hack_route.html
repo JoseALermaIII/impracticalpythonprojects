@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src.ch04.practice.p5_hack_route &#8212; impracticalpythonprojects 0.21.1 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/flask.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <script>DOCUMENTATION_OPTIONS.URL_ROOT = '../../../../';</script>
+   
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">impracticalpythonprojects 0.21.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for src.ch04.practice.p5_hack_route</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Another way to hack a route cipher.</span>
+
+<span class="sd">Already implemented in :py:mod:`~src.ch04.practice.p1_hack_lincoln`, but this</span>
+<span class="sd">version will use the building blocks made in</span>
+<span class="sd">:py:mod:`~src.ch04.practice.p2_identify_cipher`,</span>
+<span class="sd">:py:mod:`~src.ch04.practice.p3_get_keys`, and</span>
+<span class="sd">:py:mod:`~src.ch04.practice.p4_generate_keys`.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">src.ch03.c1_anagram_generator</span> <span class="k">import</span> <span class="n">split</span>
+<span class="kn">from</span> <span class="nn">src.ch04.practice.p2_identify_cipher</span> <span class="k">import</span> <span class="n">is_substitution</span>
+<span class="kn">from</span> <span class="nn">src.ch04.practice.p3_get_keys</span> <span class="k">import</span> <span class="n">key_to_dict</span>
+<span class="kn">from</span> <span class="nn">src.ch04.practice.p4_generate_keys</span> <span class="k">import</span> <span class="n">generate_keys</span>
+
+
+<div class="viewcode-block" id="decode_route"><a class="viewcode-back" href="../../../../src.ch04.practice.html#src.ch04.practice.p5_hack_route.decode_route">[docs]</a><span class="k">def</span> <span class="nf">decode_route</span><span class="p">(</span><span class="n">keys</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">cipherlist</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Decode route cipher.</span>
+
+<span class="sd">    Decode **cipherlist** encoded with a route cipher using **keys**.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        keys (dict): ``up``/``down`` dictionary with column numbers as keys.</span>
+<span class="sd">        cipherlist (list): List of strings representing encoded message.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of strings representing plaintext message.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Assumes vertical encoding route.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">table</span><span class="p">,</span> <span class="n">message</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">split_list</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">cipherlist</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">))</span>
+    <span class="c1"># Build translation table.</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">keys</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;down&#39;</span><span class="p">:</span>
+            <span class="c1"># If down, reverse direction</span>
+            <span class="n">split_list</span><span class="p">[</span><span class="n">key</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">split_list</span><span class="p">[</span><span class="n">key</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="c1"># For each column in the table, copy the relevant row.</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">split_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">table</span><span class="p">:</span>
+            <span class="n">message</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">column</span><span class="p">[</span><span class="n">row</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">message</span></div>
+
+
+<div class="viewcode-block" id="hack_route"><a class="viewcode-back" href="../../../../src.ch04.practice.html#src.ch04.practice.p5_hack_route.hack_route">[docs]</a><span class="k">def</span> <span class="nf">hack_route</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Hack route cipher using brute-force attack.</span>
+
+<span class="sd">    Determine if **ciphertext** is a transposition cipher. If so, use</span>
+<span class="sd">    **columns** to generate all possible keys. Convert each key to an</span>
+<span class="sd">    ``up``/``down`` dictionary for each route to take, then print the</span>
+<span class="sd">    result of each key.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ciphertext (str): Route cipher encoded string to hack.</span>
+<span class="sd">        columns (int): Number route cipher columns.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        :py:obj:`None`. Prints all possible decoded messages.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">ciphertext</span><span class="o">.</span><span class="n">isupper</span><span class="p">():</span>
+        <span class="c1"># Most functions assume lowercase, despite cryptographic convention.</span>
+        <span class="n">ciphertext</span> <span class="o">=</span> <span class="n">ciphertext</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">is_substitution</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hey, bub, I can</span><span class="se">\&#39;</span><span class="s1">t help you with substitution ciphers.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="c1"># Get all possible keys with given number of columns.</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="n">generate_keys</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
+    <span class="c1"># For each key, decode route cipher and print result.</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">decode_route</span><span class="p">(</span><span class="n">key_to_dict</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">ciphertext</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Key: </span><span class="si">{key}</span><span class="se">\n</span><span class="s1">Decoded message: </span><span class="si">{message}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../src.ch04.practice.html#src.ch04.practice.p5_hack_route.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Demonstrate the route cipher hacker.&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There</span><span class="se">\&#39;</span><span class="s1">s more than one way to hack a route cipher! I can also do a &#39;</span>
+          <span class="s1">&#39;brute-force</span><span class="se">\n</span><span class="s1">hack of a route cipher. Although, you</span><span class="se">\&#39;</span><span class="s1">ll have to &#39;</span>
+          <span class="s1">&#39;tell me how many columns to</span><span class="se">\n</span><span class="s1">use.&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Note: I only hack the route cipher. I leave the &#39;</span>
+          <span class="s1">&#39;word-transposition cipher to</span><span class="se">\n</span><span class="s1">you and your biochemical brain.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="c1"># Four column route &#39;cyphertext&#39; from book.</span>
+    <span class="n">ciphertext</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;REST TRANSPORT YOU GODWIN VILLAGE</span>
+<span class="s2">                 ROANOKE WITH ARE YOUR IS JUST SUPPLIES FREE SNOW</span>
+<span class="s2">                 HEADING TO GONE TO SOUTH FILLER&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Hacking: </span><span class="si">{ciphertext}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">hack_route</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  
+    
+  
+<h3>Navigation</h3>
+<ul>
+  <li><a href="../../../../index.html">Overview</a>
+    <ul>
+      <li><a href="../../../index.html">Module code</a>
+        
+          
+          </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jose A. Lerma III.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+    </div>
+
+  </body>
+</html>

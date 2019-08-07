@@ -44,6 +44,14 @@ src.ch04.practice.p4\_generate\_keys module
    :undoc-members:
    :show-inheritance:
 
+src.ch04.practice.p5\_hack\_route module
+----------------------------------------
+
+.. automodule:: src.ch04.practice.p5_hack_route
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 Module contents
 ---------------
