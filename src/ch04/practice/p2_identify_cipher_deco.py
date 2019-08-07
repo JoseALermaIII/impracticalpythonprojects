@@ -19,7 +19,7 @@ def identify(threshold: float = 0.5):
     import time instead of runtime, so it doesn't matter.
 
     Luciano Ramalho's book *Fluent Python* appropriately calls decorators
-    "syntactic sugar" when it isn't used in classes. It also references the
+    "syntactic sugar" when they aren't used in classes. It also references the
     ``wrapt`` module's `blog on GitHub`_ for a deeper explanation of
     decorators.
 
