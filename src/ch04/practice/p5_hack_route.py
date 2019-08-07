@@ -78,10 +78,17 @@ def hack_route(ciphertext: str, columns: int) -> None:
 
 def main():
     """Demonstrate the route cipher hacker."""
+    print('There\'s more than one way to hack a route cipher! I can also do a '
+          'brute-force\nhack of a route cipher. Although, you\'ll have to '
+          'tell me how many columns to\nuse.')
+    print('\nNote: I only hack the route cipher. I leave the '
+          'word-transposition cipher to\nyou and your biochemical brain.\n')
     # Four column route 'cyphertext' from book.
     ciphertext = """REST TRANSPORT YOU GODWIN VILLAGE
                  ROANOKE WITH ARE YOUR IS JUST SUPPLIES FREE SNOW
                  HEADING TO GONE TO SOUTH FILLER"""
+    print(f'Hacking: {ciphertext}\n')
+    hack_route(ciphertext, 4)
 
 
 if __name__ == '__main__':
