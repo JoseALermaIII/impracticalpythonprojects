@@ -8,6 +8,7 @@ import src.ch04.practice.p2_identify_cipher_deco as identify_cipher_deco
 import src.ch04.practice.p3_get_keys as get_keys
 import src.ch04.practice.p4_generate_keys as generate_keys
 import src.ch04.practice.p5_hack_route as hack_route
+import src.ch04.challenge.c1_encode_route as encode_route
 
 
 class TestHackLincoln(unittest.TestCase):
@@ -329,6 +330,21 @@ class TestHackRoute(unittest.TestCase):
                   'r') as file:
             file_data = ''.join(file.readlines())
         self.assertEqual(mock_stdout.getvalue(), file_data)
+
+
+class TestEncodeRoute(unittest.TestCase):
+    """Test Encode Route."""
+
+    def test_format_plaintext(self):
+        """Test format_plaintext."""
+        # Check that it converts uppercase to lowercase.
+        plaintext = 'This is only a TEST'
+        cleantext = encode_route.format_plaintext(plaintext)
+        self.assertEqual('this is only a test'.split(), cleantext)
+        # Check that it removes punctuation.
+        plaintext = 'So, hi. How are you? I\'m fine; thanks.'
+        cleantext = encode_route.format_plaintext(plaintext)
+        self.assertEqual('so hi how are you im fine thanks'.split(), cleantext)
 
 
 if __name__ == '__main__':
