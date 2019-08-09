@@ -346,6 +346,15 @@ class TestEncodeRoute(unittest.TestCase):
         cleantext = encode_route.format_plaintext(plaintext)
         self.assertEqual('so hi how are you im fine thanks'.split(), cleantext)
 
+    def test_replace_words(self):
+        """Test replace_words."""
+        plaintext = 'my birthday is april 29'
+        cleantext = ' '.join(encode_route.replace_words(plaintext.split()))
+        self.assertEqual('my birthday is clayton add', cleantext)
+        plaintext = 'cry me a river'
+        cleantext = ' '.join(encode_route.replace_words(plaintext.split()))
+        self.assertEqual('cry me a hickory', cleantext)
+
 
 if __name__ == '__main__':
     unittest.main()
