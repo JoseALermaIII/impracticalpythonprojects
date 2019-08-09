@@ -1,4 +1,5 @@
 """Encode a route cipher and replace code words."""
+from string import punctuation
 
 
 def format_plaintext(plaintext: str) -> list:
@@ -14,6 +15,12 @@ def format_plaintext(plaintext: str) -> list:
         List of strings of each word in plaintext message.
 
     """
+    if not plaintext.islower():
+        plaintext = plaintext.lower()
+    for mark in punctuation:
+        if mark in plaintext:
+            plaintext = plaintext.replace(mark, '')
+    return plaintext.split()
 
 
 def replace_words(plainlist: list) -> list:
