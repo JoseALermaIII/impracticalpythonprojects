@@ -35,7 +35,7 @@ def replace_words(plainlist: list) -> list:
         Same list, but with sensitive words replaced with code words.
 
     """
-    CODE_WORDS = {'batteries': 'hounds', 'vicksburg': 'odor',
+    code_words = {'batteries': 'hounds', 'vicksburg': 'odor',
                   'april': 'clayton', '16': 'sweet', 'grand': 'tree',
                   'gulf': 'owl', 'forts': 'bailey', 'river': 'hickory',
                   '25': 'multiply', '29': 'add', 'admiral': 'hermes',
