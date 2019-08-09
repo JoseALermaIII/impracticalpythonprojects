@@ -40,6 +40,12 @@ def replace_words(plainlist: list) -> list:
                   'gulf': 'owl', 'forts': 'bailey', 'river': 'hickory',
                   '25': 'multiply', '29': 'add', 'admiral': 'hermes',
                   'porter': 'langford'}
+    for word in code_words:
+        while word in plainlist:
+            index = plainlist.index(word)
+            plainlist.insert(index, code_words[word])
+            plainlist.remove(word)
+    return plainlist
 
 
 def encode_route(plaintext: str, key: list, rows: int) -> list:
