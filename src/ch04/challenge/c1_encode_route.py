@@ -1,5 +1,4 @@
 """Encode a route cipher and replace code words."""
-from src.ch04.practice.p3_get_keys import key_to_dict
 
 
 def format_plaintext(plaintext: str) -> list:
@@ -36,17 +35,19 @@ def replace_words(plainlist: list) -> list:
                   'porter': 'langford'}
 
 
-def encode_route(plaintext: str, key: dict) -> list:
+def encode_route(plaintext: str, key: list, rows: int) -> list:
     """Encode plaintext message with route cipher.
 
     Clean **plaintext** with :func:`format_plaintext', replace sensitive
-    intel with :func:`replace_words`, then encrypt with a route cipher
+    intel with :func:`replace_words`, fill with dummy words until **key**
+    and **rows** are factors, then encrypt with a route cipher
     using **key**.
 
     Args:
         plaintext (str): Plaintext message to encode with route cipher.
-        key (dict): ``up``/``down`` dictionary with integers as column
-            numbers.
+        key (list): List of positive/negative integers representing cipher
+            route.
+        rows (int): Number of rows to use in the route cipher table.
 
     Returns:
         List of strings of transposed words.
