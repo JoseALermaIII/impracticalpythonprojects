@@ -361,6 +361,23 @@ class TestEncodeRoute(unittest.TestCase):
         cleantext = ' '.join(encode_route.replace_words(plaintext.split()))
         self.assertEqual('cry me a hickory', cleantext)
 
+    @unittest.mock.patch('src.ch04.challenge.c1_encode_route.choice')
+    @unittest.mock.patch('src.ch04.challenge.c1_encode_route.DICTIONARY_FILE_PATH', 'tests/data/ch04/dictionary.txt')
+    def test_fill_dummy(self, mock_choice):
+        """Test fill_dummy."""
+        mock_choice._mock_side_effect = self.random.choice
+        # Test default dummy_word list.
+        plaintext = 'this is a'
+        testlist = encode_route.fill_dummy(plaintext.split(), [3, 6])
+        answerlist = ['this', 'is', 'a', 'full', 'filler', 'fuller']
+        self.assertListEqual(answerlist, testlist)
+        # Test custom dummy_word list.
+        plaintext = 'what is the'
+        dummylist = ['matter', 'matters', 'mattered', 'mattering']
+        testlist = encode_route.fill_dummy(plaintext.split(), [2, 4], dummylist)
+        answerlist = ['what', 'is', 'the', 'mattering']
+        self.assertListEqual(answerlist, testlist)
+
 
 if __name__ == '__main__':
     unittest.main()
