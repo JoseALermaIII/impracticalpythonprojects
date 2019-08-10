@@ -2,6 +2,7 @@
 import os
 import unittest.mock
 from io import StringIO
+from random import Random
 import src.ch04.practice.p1_hack_lincoln as hack_lincoln
 import src.ch04.practice.p2_identify_cipher as identify_cipher
 import src.ch04.practice.p2_identify_cipher_deco as identify_cipher_deco
@@ -334,6 +335,11 @@ class TestHackRoute(unittest.TestCase):
 
 class TestEncodeRoute(unittest.TestCase):
     """Test Encode Route."""
+
+    @classmethod
+    def setUpClass(cls):
+        """Configure attributes for use in this class only."""
+        cls.random = Random(361)
 
     def test_format_plaintext(self):
         """Test format_plaintext."""
