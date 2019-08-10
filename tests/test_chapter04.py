@@ -339,7 +339,7 @@ class TestEncodeRoute(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """Configure attributes for use in this class only."""
-        cls.random = Random(361)
+        cls.random = Random()
 
     def test_format_plaintext(self):
         """Test format_plaintext."""
@@ -369,6 +369,7 @@ class TestEncodeRoute(unittest.TestCase):
     def test_fill_dummy(self, mock_choice):
         """Test fill_dummy."""
         mock_choice._mock_side_effect = self.random.choice
+        self.random.seed(361)  # Set seed here for test consistency.
         # Test default dummy_word list.
         plaintext = 'this is a'
         testlist = encode_route.fill_dummy(plaintext.split(), [3, 6])
