@@ -360,6 +360,9 @@ class TestEncodeRoute(unittest.TestCase):
         plaintext = 'cry me a river'
         cleantext = ' '.join(encode_route.replace_words(plaintext.split()))
         self.assertEqual('cry me a hickory', cleantext)
+        plaintext = 'nothing to replace here'
+        cleantext = ' '.join(encode_route.replace_words(plaintext.split()))
+        self.assertEqual(plaintext, cleantext)
 
     @unittest.mock.patch('src.ch04.challenge.c1_encode_route.choice')
     @unittest.mock.patch('src.ch04.challenge.c1_encode_route.DICTIONARY_FILE_PATH', 'tests/data/ch04/dictionary.txt')
