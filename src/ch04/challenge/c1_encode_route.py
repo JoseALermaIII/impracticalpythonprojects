@@ -1,5 +1,8 @@
 """Encode a route cipher and replace code words."""
 from string import punctuation
+from random import choice
+from src.ch02.p1_cleanup_dictionary import cleanup_dict, DICTIONARY_FILE_PATH
+from src.ch04.practice.p1_hack_lincoln import get_factors
 
 
 def format_plaintext(plaintext: str) -> list:
@@ -45,6 +48,33 @@ def replace_words(plainlist: list) -> list:
             index = plainlist.index(word)
             plainlist.insert(index, code_words[word])
             plainlist.remove(word)
+    return plainlist
+
+
+def fill_dummy(plainlist: list, factors: list,
+               dummy_words: list = None) -> list:
+    """Fill a plainlist with dummy words.
+
+    Adds pseudorandom dummy words to the end until the factors of the length of
+    **plainlist** includes **factors**.
+
+    Args:
+        plainlist (list): List of words of plaintext message.
+        factors (list): List of integers that must be factors of the length of
+            **plainlist**.
+        dummy_words (list): List of dummy words to use as filler. If not
+            provided, defaults to :const:`~src.ch02.DICTIONARY_FILE_PATH`
+            using :func:`~src.ch02.p1_cleanup_dictionary.cleanup_dict`.
+
+    Returns:
+        Same list as **plainlist**, but with dummy words added.
+
+    """
+    if dummy_words is None:
+        dummy_words = cleanup_dict(DICTIONARY_FILE_PATH)
+    for factor in factors:
+        while factor not in get_factors(len(plainlist)):
+            plainlist.append(choice(dummy_words).lower())
     return plainlist
 
 
