@@ -6,6 +6,7 @@ Subpackages
 
 .. toctree::
 
+   src.ch04.challenge
    src.ch04.practice
 
 Module contents
