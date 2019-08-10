@@ -81,10 +81,10 @@ def fill_dummy(plainlist: list, factors: list,
 def encode_route(plaintext: str, key: list, rows: int) -> list:
     """Encode plaintext message with route cipher.
 
-    Clean **plaintext** with :func:`format_plaintext', replace sensitive
-    intel with :func:`replace_words`, fill with dummy words until **key**
-    and **rows** are factors, then encrypt with a route cipher
-    using **key**.
+    Clean **plaintext** with :func:`format_plaintext`, replace sensitive
+    intel with :func:`replace_words`, fill with dummy words using
+    :func:`fill_dummy` until **key** and **rows** are factors, then encrypt
+    with a route cipher using **key**.
 
     Args:
         plaintext (str): Plaintext message to encode with route cipher.
