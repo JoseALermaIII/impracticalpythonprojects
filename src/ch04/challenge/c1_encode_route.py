@@ -96,13 +96,22 @@ def encode_route(plaintext: str, keys: list, rows: int) -> list:
         List of strings of transposed words.
 
     """
-    # TODO: Prep plaintext message.
-
-    # TODO: Add dummy words until message length is divisible evenly.
-
-    # TODO: Build translation table.
-
-    # TODO: For each column in the table, copy the relevant row, per the key.
+    # Prep plaintext message.
+    plainlist = replace_words(format_plaintext(plaintext))
+    # Add dummy words until message length is divisible evenly.
+    plainlist = fill_dummy(plainlist, [len(keys), rows])
+    split_list = split(plainlist, rows)
+    # Build translation table.
+    #  Convert rows to columns in new list of lists.
+    table = list(map(list, zip(*split_list)))
+    # For each column in the table, follow the route, per the key.
+    message = []
+    for key in keys:
+        if key < 0:
+            # If negative, reverse direction
+            table[abs(key) - 1].reverse()
+        message.extend(table[abs(key) - 1])
+    return message
 
 
 def main():
