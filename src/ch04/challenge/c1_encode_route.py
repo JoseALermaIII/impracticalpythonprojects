@@ -2,7 +2,7 @@
 from string import punctuation
 from random import choice
 from src.ch02.p1_cleanup_dictionary import cleanup_dict, DICTIONARY_FILE_PATH
-from src.ch04.practice.p1_hack_lincoln import get_factors
+from src.ch04.practice.p1_hack_lincoln import get_factors, split
 
 
 def format_plaintext(plaintext: str) -> list:
@@ -78,17 +78,17 @@ def fill_dummy(plainlist: list, factors: list,
     return plainlist
 
 
-def encode_route(plaintext: str, key: list, rows: int) -> list:
+def encode_route(plaintext: str, keys: list, rows: int) -> list:
     """Encode plaintext message with route cipher.
 
     Clean **plaintext** with :func:`format_plaintext`, replace sensitive
     intel with :func:`replace_words`, fill with dummy words using
-    :func:`fill_dummy` until **key** and **rows** are factors, then encrypt
-    with a route cipher using **key**.
+    :func:`fill_dummy` until **keys** and **rows** are factors, then encrypt
+    with a route cipher using **keys**.
 
     Args:
         plaintext (str): Plaintext message to encode with route cipher.
-        key (list): List of positive/negative integers representing cipher
+        keys (list): List of positive/negative integers representing cipher
             route.
         rows (int): Number of rows to use in the route cipher table.
 
