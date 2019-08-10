@@ -382,6 +382,26 @@ class TestEncodeRoute(unittest.TestCase):
         answerlist = ['what', 'is', 'the', 'mattering']
         self.assertListEqual(answerlist, testlist)
 
+    @unittest.mock.patch('src.ch04.challenge.c1_encode_route.choice')
+    @unittest.mock.patch('src.ch04.challenge.c1_encode_route.DICTIONARY_FILE_PATH', 'tests/data/ch04/dictionary.txt')
+    def test_encode_route(self, mock_choice):
+        """Test encode_route."""
+        mock_choice._mock_side_effect = self.random.choice
+        self.random.seed(211)
+        plaintext = 'This is supposed to be a super secret message.'
+        # Test 2 x 5 route table.
+        keys = [1, -2, 3, -4, 5]
+        cipherlist = encode_route.encode_route(plaintext, keys, 2)
+        answerlist = ['this', 'a', 'super', 'is', 'supposed', 'secret',
+                      'message', 'to', 'be', 'full']
+        self.assertListEqual(answerlist, cipherlist)
+        # Test 5 x 2 route table.
+        keys = [1, -2]
+        cipherlist = encode_route.encode_route(plaintext, keys, 5)
+        answerlist = ['this', 'supposed', 'be', 'super', 'message',
+                      'filled', 'secret', 'a', 'to', 'is']
+        self.assertListEqual(answerlist, cipherlist)
+
 
 if __name__ == '__main__':
     unittest.main()
