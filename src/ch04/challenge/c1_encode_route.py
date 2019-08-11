@@ -26,23 +26,27 @@ def format_plaintext(plaintext: str) -> list:
     return plaintext.split()
 
 
-def replace_words(plainlist: list) -> list:
+def replace_words(plainlist: list, code_words: dict = None) -> list:
     """Replace sensitive words with code words.
 
     Replace words that shouldn't be transmitted with code words.
 
     Args:
         plainlist (list): List of strings of each word in plaintext message.
+        code_words (dict): Dictionary of sensitive words and their code words.
+            If not provided, defaults to the book's code words. Use lowercase
+            strings in dictionary.
 
     Returns:
         Same list, but with sensitive words replaced with code words.
 
     """
-    code_words = {'batteries': 'hounds', 'vicksburg': 'odor',
-                  'april': 'clayton', '16': 'sweet', 'grand': 'tree',
-                  'gulf': 'owl', 'forts': 'bailey', 'river': 'hickory',
-                  '25': 'multiply', '29': 'add', 'admiral': 'hermes',
-                  'porter': 'langford'}
+    if code_words is None:
+        code_words = {'batteries': 'hounds', 'vicksburg': 'odor',
+                      'april': 'clayton', '16': 'sweet', 'grand': 'tree',
+                      'gulf': 'owl', 'forts': 'bailey', 'river': 'hickory',
+                      '25': 'multiply', '29': 'add', 'admiral': 'hermes',
+                      'porter': 'langford'}
     for word in code_words:
         while word in plainlist:
             index = plainlist.index(word)
