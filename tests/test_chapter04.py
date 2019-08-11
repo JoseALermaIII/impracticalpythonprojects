@@ -354,6 +354,7 @@ class TestEncodeRoute(unittest.TestCase):
 
     def test_replace_words(self):
         """Test replace_words."""
+        # Test default dictionary.
         plaintext = 'my birthday is april 29'
         cleantext = ' '.join(encode_route.replace_words(plaintext.split()))
         self.assertEqual('my birthday is clayton add', cleantext)
@@ -363,6 +364,19 @@ class TestEncodeRoute(unittest.TestCase):
         plaintext = 'nothing to replace here'
         cleantext = ' '.join(encode_route.replace_words(plaintext.split()))
         self.assertEqual(plaintext, cleantext)
+        # Test custom dictionary.
+        plaintext = """My birthday is noon tomorrow We're going to a venue by
+            the corner of floormart to celebrate. Don't bring a cheap gift -
+            like beer"""
+        code_words = {'noon': 'april', 'tomorrow': '29', 'venue': 'river',
+                      'corner': 'gulf', 'floormart': 'mexico',
+                      'beer': 'batteries'}
+        cleantext = ' '.join(encode_route.replace_words(plaintext.split(),
+                                                        code_words))
+        answertext = ('My birthday is april 29 We\'re going to a river by '
+                      'the gulf of mexico to celebrate. Don\'t bring a cheap gift - '
+                      'like batteries')
+        self.assertEqual(answertext, cleantext)
 
     @unittest.mock.patch('src.ch04.challenge.c1_encode_route.choice')
     @unittest.mock.patch('src.ch04.challenge.c1_encode_route.DICTIONARY_FILE_PATH', 'tests/data/ch04/dictionary.txt')
