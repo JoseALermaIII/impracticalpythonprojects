@@ -402,6 +402,20 @@ class TestEncodeRoute(unittest.TestCase):
                       'filled', 'secret', 'a', 'to', 'is']
         self.assertListEqual(answerlist, cipherlist)
 
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    @unittest.mock.patch('src.ch04.challenge.c1_encode_route.choice')
+    @unittest.mock.patch('src.ch04.challenge.c1_encode_route.DICTIONARY_FILE_PATH', 'tests/data/ch04/dictionary.txt')
+    def test_main(self, mock_choice, mock_stdout):
+        """Test demo main function."""
+        mock_choice._mock_side_effect = self.random.choice
+        self.random.seed(555)
+        encode_route.main()
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch04/main/encode_route.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
 
 if __name__ == '__main__':
     unittest.main()
