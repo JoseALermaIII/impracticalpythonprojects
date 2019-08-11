@@ -95,6 +95,9 @@ def encode_route(plaintext: str, keys: list, rows: int) -> list:
     Returns:
         List of strings of transposed words.
 
+    Note:
+        Assumes vertical encoding routes.
+
     """
     # Prep plaintext message.
     plainlist = replace_words(format_plaintext(plaintext))
