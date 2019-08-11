@@ -116,11 +116,19 @@ def encode_route(plaintext: str, keys: list, rows: int) -> list:
 
 def main():
     """Demonstrate the route cipher encoder."""
+    print('There are two others that can hack a route cipher, but I\'m the '
+          'only one\nthat can encode a route cipher.\nI can even '
+          'automatically replace sensitive intel with code words and fill '
+          'extra\nrows with dummy words.\n\nI bet I can encode a cipher the '
+          'other two can\'t hack. ;-)\n')
     plaintext = """We will run the batteries at Vicksburg the night of April
-                    16 and proceed to Grand Gulf where we will reduce the
-                    forts. Be prepared to cross the river on April 25 or
-                    29. Admiral Porter."""
+        16 and proceed to Grand Gulf where we will reduce the
+        forts. Be prepared to cross the river on April 25 or
+        29. Admiral Porter."""
     key = [-1, 3, -2, 6, 5, -4]
+    print(f'Encoding: {plaintext}\nWith key: {key} and using 7 rows.\n')
+    print('Encrypted message:')
+    print(' '.join(encode_route(plaintext, key, 7)))
 
 
 if __name__ == '__main__':
