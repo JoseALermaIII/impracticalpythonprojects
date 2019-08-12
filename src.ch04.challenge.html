@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src.ch04.challenge package &#8212; impracticalpythonprojects 0.22.0 documentation</title>
+    <link rel="stylesheet" href="_static/flask.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="src.ch04.practice package" href="src.ch04.practice.html" />
+    <link rel="prev" title="src.ch04 package" href="src.ch04.html" />
+  <script>DOCUMENTATION_OPTIONS.URL_ROOT = './';</script>
+   
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="src.ch04.practice.html" title="src.ch04.practice package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="src.ch04.html" title="src.ch04 package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.22.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="src.html" >src package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="src.ch04.html" accesskey="U">src.ch04 package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="src-ch04-challenge-package">
+<h1>src.ch04.challenge package<a class="headerlink" href="#src-ch04-challenge-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-src.ch04.challenge.c1_encode_route">
+<span id="src-ch04-challenge-c1-encode-route-module"></span><h2>src.ch04.challenge.c1_encode_route module<a class="headerlink" href="#module-src.ch04.challenge.c1_encode_route" title="Permalink to this headline">¶</a></h2>
+<p>Encode a route cipher and replace code words.</p>
+<dl class="function">
+<dt id="src.ch04.challenge.c1_encode_route.encode_route">
+<code class="sig-prename descclassname">src.ch04.challenge.c1_encode_route.</code><code class="sig-name descname">encode_route</code><span class="sig-paren">(</span><em class="sig-param">plaintext: str</em>, <em class="sig-param">keys: list</em>, <em class="sig-param">rows: int</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch04/challenge/c1_encode_route.html#encode_route"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.challenge.c1_encode_route.encode_route" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode plaintext message with route cipher.</p>
+<p>Clean <strong>plaintext</strong> with <a class="reference internal" href="#src.ch04.challenge.c1_encode_route.format_plaintext" title="src.ch04.challenge.c1_encode_route.format_plaintext"><code class="xref py py-func docutils literal notranslate"><span class="pre">format_plaintext()</span></code></a>, replace sensitive
+intel with <a class="reference internal" href="#src.ch04.challenge.c1_encode_route.replace_words" title="src.ch04.challenge.c1_encode_route.replace_words"><code class="xref py py-func docutils literal notranslate"><span class="pre">replace_words()</span></code></a>, fill with dummy words using
+<a class="reference internal" href="#src.ch04.challenge.c1_encode_route.fill_dummy" title="src.ch04.challenge.c1_encode_route.fill_dummy"><code class="xref py py-func docutils literal notranslate"><span class="pre">fill_dummy()</span></code></a> until <strong>keys</strong> and <strong>rows</strong> are factors, then encrypt
+with a route cipher using <strong>keys</strong>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plaintext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Plaintext message to encode with route cipher.</p></li>
+<li><p><strong>keys</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – List of positive/negative integers representing cipher
+route.</p></li>
+<li><p><strong>rows</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of rows to use in the route cipher table.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of strings of transposed words.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Assumes vertical encoding routes.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch04.challenge.c1_encode_route.fill_dummy">
+<code class="sig-prename descclassname">src.ch04.challenge.c1_encode_route.</code><code class="sig-name descname">fill_dummy</code><span class="sig-paren">(</span><em class="sig-param">plainlist: list</em>, <em class="sig-param">factors: list</em>, <em class="sig-param">dummy_words: list = None</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch04/challenge/c1_encode_route.html#fill_dummy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.challenge.c1_encode_route.fill_dummy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill a plainlist with dummy words.</p>
+<p>Adds pseudorandom dummy words to the end until the factors of the length of
+<strong>plainlist</strong> includes <strong>factors</strong>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plainlist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – List of words of plaintext message.</p></li>
+<li><p><strong>factors</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – List of integers that must be factors of the length of
+<strong>plainlist</strong>.</p></li>
+<li><p><strong>dummy_words</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – List of dummy words to use as filler. If not
+provided, defaults to <a class="reference internal" href="src.ch02.html#src.ch02.DICTIONARY_FILE_PATH" title="src.ch02.DICTIONARY_FILE_PATH"><code class="xref py py-const docutils literal notranslate"><span class="pre">DICTIONARY_FILE_PATH</span></code></a>
+using <a class="reference internal" href="src.ch02.html#src.ch02.p1_cleanup_dictionary.cleanup_dict" title="src.ch02.p1_cleanup_dictionary.cleanup_dict"><code class="xref py py-func docutils literal notranslate"><span class="pre">cleanup_dict()</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Same list as <strong>plainlist</strong>, but with dummy words added.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch04.challenge.c1_encode_route.format_plaintext">
+<code class="sig-prename descclassname">src.ch04.challenge.c1_encode_route.</code><code class="sig-name descname">format_plaintext</code><span class="sig-paren">(</span><em class="sig-param">plaintext: str</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch04/challenge/c1_encode_route.html#format_plaintext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.challenge.c1_encode_route.format_plaintext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format plaintext message for encoding.</p>
+<p>Prepare <strong>plaintext</strong> for route cipher encoding. Convert to lowercase,
+remove punctuation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>plaintext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Plaintext message to format.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of strings of each word in plaintext message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch04.challenge.c1_encode_route.main">
+<code class="sig-prename descclassname">src.ch04.challenge.c1_encode_route.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch04/challenge/c1_encode_route.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.challenge.c1_encode_route.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Demonstrate the route cipher encoder.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch04.challenge.c1_encode_route.replace_words">
+<code class="sig-prename descclassname">src.ch04.challenge.c1_encode_route.</code><code class="sig-name descname">replace_words</code><span class="sig-paren">(</span><em class="sig-param">plainlist: list</em>, <em class="sig-param">code_words: dict = None</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch04/challenge/c1_encode_route.html#replace_words"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.challenge.c1_encode_route.replace_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace sensitive words with code words.</p>
+<p>Replace words that shouldn’t be transmitted with code words.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plainlist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – List of strings of each word in plaintext message.</p></li>
+<li><p><strong>code_words</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Dictionary of sensitive words and their code words.
+If not provided, defaults to the book’s code words. Use lowercase
+strings in dictionary.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Same list, but with sensitive words replaced with code words.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.ch04.challenge">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.ch04.challenge" title="Permalink to this headline">¶</a></h2>
+<p>Chapter 4 Challenge Projects.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  
+    
+  
+
+  <h3>Contents</h3>
+  <ul>
+<li><a class="reference internal" href="#">src.ch04.challenge package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-src.ch04.challenge.c1_encode_route">src.ch04.challenge.c1_encode_route module</a></li>
+<li><a class="reference internal" href="#module-src.ch04.challenge">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<h3>Navigation</h3>
+<ul>
+  <li><a href="index.html">Overview</a>
+    <ul>
+      <li><a href="modules.html">src</a>
+        <ul>
+      <li><a href="src.html">src package</a>
+        <ul>
+      <li><a href="src.ch04.html">src.ch04 package</a>
+        <ul>
+          <li>Previous: <a href="src.ch04.html" title="previous chapter">src.ch04 package</a>
+          <li>Next: <a href="src.ch04.practice.html" title="next chapter">src.ch04.practice package</a></ul>
+      </li></ul>
+      </li></ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jose A. Lerma III.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+    </div>
+
+  </body>
+</html>

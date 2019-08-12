@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src.ch04.challenge.c1_encode_route &#8212; impracticalpythonprojects 0.22.0 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/flask.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <script>DOCUMENTATION_OPTIONS.URL_ROOT = '../../../../';</script>
+   
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">impracticalpythonprojects 0.22.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for src.ch04.challenge.c1_encode_route</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Encode a route cipher and replace code words.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">string</span> <span class="k">import</span> <span class="n">punctuation</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">choice</span>
+<span class="kn">from</span> <span class="nn">src.ch02.p1_cleanup_dictionary</span> <span class="k">import</span> <span class="n">cleanup_dict</span><span class="p">,</span> <span class="n">DICTIONARY_FILE_PATH</span>
+<span class="kn">from</span> <span class="nn">src.ch04.practice.p1_hack_lincoln</span> <span class="k">import</span> <span class="n">get_factors</span><span class="p">,</span> <span class="n">split</span>
+
+
+<div class="viewcode-block" id="format_plaintext"><a class="viewcode-back" href="../../../../src.ch04.challenge.html#src.ch04.challenge.c1_encode_route.format_plaintext">[docs]</a><span class="k">def</span> <span class="nf">format_plaintext</span><span class="p">(</span><span class="n">plaintext</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Format plaintext message for encoding.</span>
+
+<span class="sd">    Prepare **plaintext** for route cipher encoding. Convert to lowercase,</span>
+<span class="sd">    remove punctuation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        plaintext (str): Plaintext message to format.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of strings of each word in plaintext message.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">plaintext</span><span class="o">.</span><span class="n">islower</span><span class="p">():</span>
+        <span class="n">plaintext</span> <span class="o">=</span> <span class="n">plaintext</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">mark</span> <span class="ow">in</span> <span class="n">punctuation</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mark</span> <span class="ow">in</span> <span class="n">plaintext</span><span class="p">:</span>
+            <span class="n">plaintext</span> <span class="o">=</span> <span class="n">plaintext</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">mark</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">plaintext</span><span class="o">.</span><span class="n">split</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="replace_words"><a class="viewcode-back" href="../../../../src.ch04.challenge.html#src.ch04.challenge.c1_encode_route.replace_words">[docs]</a><span class="k">def</span> <span class="nf">replace_words</span><span class="p">(</span><span class="n">plainlist</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">code_words</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Replace sensitive words with code words.</span>
+
+<span class="sd">    Replace words that shouldn&#39;t be transmitted with code words.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        plainlist (list): List of strings of each word in plaintext message.</span>
+<span class="sd">        code_words (dict): Dictionary of sensitive words and their code words.</span>
+<span class="sd">            If not provided, defaults to the book&#39;s code words. Use lowercase</span>
+<span class="sd">            strings in dictionary.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Same list, but with sensitive words replaced with code words.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">code_words</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">code_words</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;batteries&#39;</span><span class="p">:</span> <span class="s1">&#39;hounds&#39;</span><span class="p">,</span> <span class="s1">&#39;vicksburg&#39;</span><span class="p">:</span> <span class="s1">&#39;odor&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;april&#39;</span><span class="p">:</span> <span class="s1">&#39;clayton&#39;</span><span class="p">,</span> <span class="s1">&#39;16&#39;</span><span class="p">:</span> <span class="s1">&#39;sweet&#39;</span><span class="p">,</span> <span class="s1">&#39;grand&#39;</span><span class="p">:</span> <span class="s1">&#39;tree&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;gulf&#39;</span><span class="p">:</span> <span class="s1">&#39;owl&#39;</span><span class="p">,</span> <span class="s1">&#39;forts&#39;</span><span class="p">:</span> <span class="s1">&#39;bailey&#39;</span><span class="p">,</span> <span class="s1">&#39;river&#39;</span><span class="p">:</span> <span class="s1">&#39;hickory&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;25&#39;</span><span class="p">:</span> <span class="s1">&#39;multiply&#39;</span><span class="p">,</span> <span class="s1">&#39;29&#39;</span><span class="p">:</span> <span class="s1">&#39;add&#39;</span><span class="p">,</span> <span class="s1">&#39;admiral&#39;</span><span class="p">:</span> <span class="s1">&#39;hermes&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;porter&#39;</span><span class="p">:</span> <span class="s1">&#39;langford&#39;</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">code_words</span><span class="p">:</span>
+        <span class="k">while</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">plainlist</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">plainlist</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+            <span class="n">plainlist</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">code_words</span><span class="p">[</span><span class="n">word</span><span class="p">])</span>
+            <span class="n">plainlist</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">plainlist</span></div>
+
+
+<div class="viewcode-block" id="fill_dummy"><a class="viewcode-back" href="../../../../src.ch04.challenge.html#src.ch04.challenge.c1_encode_route.fill_dummy">[docs]</a><span class="k">def</span> <span class="nf">fill_dummy</span><span class="p">(</span><span class="n">plainlist</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">factors</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+               <span class="n">dummy_words</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Fill a plainlist with dummy words.</span>
+
+<span class="sd">    Adds pseudorandom dummy words to the end until the factors of the length of</span>
+<span class="sd">    **plainlist** includes **factors**.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        plainlist (list): List of words of plaintext message.</span>
+<span class="sd">        factors (list): List of integers that must be factors of the length of</span>
+<span class="sd">            **plainlist**.</span>
+<span class="sd">        dummy_words (list): List of dummy words to use as filler. If not</span>
+<span class="sd">            provided, defaults to :const:`~src.ch02.DICTIONARY_FILE_PATH`</span>
+<span class="sd">            using :func:`~src.ch02.p1_cleanup_dictionary.cleanup_dict`.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Same list as **plainlist**, but with dummy words added.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">dummy_words</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dummy_words</span> <span class="o">=</span> <span class="n">cleanup_dict</span><span class="p">(</span><span class="n">DICTIONARY_FILE_PATH</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">factor</span> <span class="ow">in</span> <span class="n">factors</span><span class="p">:</span>
+        <span class="k">while</span> <span class="n">factor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">get_factors</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">plainlist</span><span class="p">)):</span>
+            <span class="n">plainlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">choice</span><span class="p">(</span><span class="n">dummy_words</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">plainlist</span></div>
+
+
+<div class="viewcode-block" id="encode_route"><a class="viewcode-back" href="../../../../src.ch04.challenge.html#src.ch04.challenge.c1_encode_route.encode_route">[docs]</a><span class="k">def</span> <span class="nf">encode_route</span><span class="p">(</span><span class="n">plaintext</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">rows</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Encode plaintext message with route cipher.</span>
+
+<span class="sd">    Clean **plaintext** with :func:`format_plaintext`, replace sensitive</span>
+<span class="sd">    intel with :func:`replace_words`, fill with dummy words using</span>
+<span class="sd">    :func:`fill_dummy` until **keys** and **rows** are factors, then encrypt</span>
+<span class="sd">    with a route cipher using **keys**.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        plaintext (str): Plaintext message to encode with route cipher.</span>
+<span class="sd">        keys (list): List of positive/negative integers representing cipher</span>
+<span class="sd">            route.</span>
+<span class="sd">        rows (int): Number of rows to use in the route cipher table.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of strings of transposed words.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Assumes vertical encoding routes.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Prep plaintext message.</span>
+    <span class="n">plainlist</span> <span class="o">=</span> <span class="n">replace_words</span><span class="p">(</span><span class="n">format_plaintext</span><span class="p">(</span><span class="n">plaintext</span><span class="p">))</span>
+    <span class="c1"># Add dummy words until message length is divisible evenly.</span>
+    <span class="n">plainlist</span> <span class="o">=</span> <span class="n">fill_dummy</span><span class="p">(</span><span class="n">plainlist</span><span class="p">,</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">),</span> <span class="n">rows</span><span class="p">])</span>
+    <span class="n">split_list</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">plainlist</span><span class="p">,</span> <span class="n">rows</span><span class="p">)</span>
+    <span class="c1"># Build translation table.</span>
+    <span class="c1">#  Convert rows to columns in new list of lists.</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">split_list</span><span class="p">)))</span>
+    <span class="c1"># For each column in the table, follow the route, per the key.</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># If negative, reverse direction</span>
+            <span class="n">table</span><span class="p">[</span><span class="nb">abs</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+        <span class="n">message</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="nb">abs</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">message</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../src.ch04.challenge.html#src.ch04.challenge.c1_encode_route.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Demonstrate the route cipher encoder.&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There are two others that can hack a route cipher, but I</span><span class="se">\&#39;</span><span class="s1">m the &#39;</span>
+          <span class="s1">&#39;only one</span><span class="se">\n</span><span class="s1">that can encode a route cipher.</span><span class="se">\n</span><span class="s1">I can even &#39;</span>
+          <span class="s1">&#39;automatically replace sensitive intel with code words and fill &#39;</span>
+          <span class="s1">&#39;extra</span><span class="se">\n</span><span class="s1">rows with dummy words.</span><span class="se">\n\n</span><span class="s1">I bet I can encode a cipher the &#39;</span>
+          <span class="s1">&#39;other two can</span><span class="se">\&#39;</span><span class="s1">t hack. ;-)</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plaintext</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;We will run the batteries at Vicksburg the night of April</span>
+<span class="s2">        16 and proceed to Grand Gulf where we will reduce the</span>
+<span class="s2">        forts. Be prepared to cross the river on April 25 or</span>
+<span class="s2">        29. Admiral Porter.&quot;&quot;&quot;</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Encoding: </span><span class="si">{plaintext}</span><span class="se">\n</span><span class="s1">With key: </span><span class="si">{key}</span><span class="s1"> and using 7 rows.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Encrypted message:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">encode_route</span><span class="p">(</span><span class="n">plaintext</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="mi">7</span><span class="p">)))</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  
+    
+  
+<h3>Navigation</h3>
+<ul>
+  <li><a href="../../../../index.html">Overview</a>
+    <ul>
+      <li><a href="../../../index.html">Module code</a>
+        
+          
+          </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jose A. Lerma III.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+    </div>
+
+  </body>
+</html>
