@@ -38,6 +38,8 @@ def encode_rail(plaintext: str) -> str:
         transmission.
 
     """
+    ciphertext = split_rails(''.join(format_plaintext(plaintext)))
+    return ' '.join(ciphertext[i:i + 5] for i in range(0, len(ciphertext), 5))
 
 
 def main():
