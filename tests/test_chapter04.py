@@ -445,6 +445,15 @@ class TestEncodeRail(unittest.TestCase):
         ciphertext = 'tileeghssnytsmsaeioats'
         self.assertEqual(testtext, ciphertext)
 
+    def test_encode_rail(self):
+        """Test encode_rail."""
+        message = ('The Eagle landed in the Sea of Tranquility on July 20, '
+                   '1969.')
+        testtext = encode_rail.encode_rail(message)
+        ciphertext = ('talet etqin y9heg eaddn hsafr nulto jl216 elnie oaiyu '
+                      '09')
+        self.assertEqual(testtext, ciphertext)
+
 
 if __name__ == '__main__':
     unittest.main()
