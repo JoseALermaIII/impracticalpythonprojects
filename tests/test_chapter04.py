@@ -10,6 +10,7 @@ import src.ch04.practice.p3_get_keys as get_keys
 import src.ch04.practice.p4_generate_keys as generate_keys
 import src.ch04.practice.p5_hack_route as hack_route
 import src.ch04.challenge.c1_encode_route as encode_route
+import src.ch04.challenge.c2_encode_rail as encode_rail
 
 
 class TestHackLincoln(unittest.TestCase):
@@ -429,6 +430,20 @@ class TestEncodeRoute(unittest.TestCase):
                   'r') as file:
             file_data = ''.join(file.readlines())
         self.assertEqual(mock_stdout.getvalue(), file_data)
+
+
+class TestEncodeRail(unittest.TestCase):
+    """Test Encode Rail."""
+
+    def test_split_rails(self):
+        """Test split_rails."""
+        # t . . . i . . . l . . . e . . . e . . . g .
+        # . h . s . s . n . y . t . s . m . s . a . e
+        # . . i . . . o . . . a . . . t . . . s . . .
+        plaintext = 'thisisonlyatestmessage'
+        testtext = encode_rail.split_rails(plaintext)
+        ciphertext = 'tileeghssnytsmsaeioats'
+        self.assertEqual(testtext, ciphertext)
 
 
 if __name__ == '__main__':
