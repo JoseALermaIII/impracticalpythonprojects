@@ -5,10 +5,9 @@ from src.ch04.challenge.c1_encode_route import format_plaintext
 def split_rails(plaintext: str) -> str:
     """Split plaintext into 3 rails for encryption.
 
-     Calculate the letter 'cycle' (C) by dividing the total number of letters
-     (T) by 4, then for each cycle, split the rails where the top rail is
-     every 4n letter, the middle rail is every (4n ± 1) letter, and the bottom
-     rail is every 4(n + 2) letter. After splitting, concatenate each rail and
+     Split the rails where the top rail is every 4th letter, the middle rail
+     is every other letter starting at 1, and the bottom rail is every 4th
+     letter starting at 2. After splitting, concatenate each rail and
      return the result.
 
     Args:
