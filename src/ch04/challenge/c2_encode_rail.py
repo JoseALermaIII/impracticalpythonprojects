@@ -17,6 +17,10 @@ def split_rails(plaintext: str) -> str:
         String with message encrypted using 3 rail fence cipher.
 
     """
+    top = plaintext[::4]
+    middle = plaintext[1::2]
+    bottom = plaintext[2::4]
+    return top + middle + bottom
 
 
 def encode_rail(plaintext: str) -> str:
