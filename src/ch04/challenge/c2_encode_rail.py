@@ -5,10 +5,10 @@ from src.ch04.challenge.c1_encode_route import format_plaintext
 def split_rails(plaintext: str) -> str:
     """Split plaintext into 3 rails for encryption.
 
-     Split the rails where the top rail is every 4th letter, the middle rail
-     is every other letter starting at 1, and the bottom rail is every 4th
-     letter starting at 2. After splitting, concatenate each rail and
-     return the result.
+    Split the rails where the top rail is every 4th letter, the middle rail
+    is every other letter starting at 1, and the bottom rail is every 4th
+    letter starting at 2. After splitting, concatenate each rail and
+    return the result.
 
     Args:
         plaintext (str): Plain text message without spaces or punctuation.
