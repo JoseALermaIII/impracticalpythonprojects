@@ -449,9 +449,14 @@ class TestEncodeRail(unittest.TestCase):
         """Test encode_rail."""
         message = ('The Eagle landed in the Sea of Tranquility on July 20, '
                    '1969.')
+        # Test default split.
         testtext = encode_rail.encode_rail(message)
         ciphertext = ('talet etqin y9heg eaddn hsafr nulto jl216 elnie oaiyu '
                       '09')
+        self.assertEqual(testtext, ciphertext)
+        # Test custom split.
+        testtext = encode_rail.encode_rail(message, 8)
+        ciphertext = 'taletetq iny9hege addnhsaf rnultojl 216elnie oaiyu09'
         self.assertEqual(testtext, ciphertext)
 
 
