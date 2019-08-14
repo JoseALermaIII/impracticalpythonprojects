@@ -23,7 +23,7 @@ def split_rails(plaintext: str) -> str:
     return top + middle + bottom
 
 
-def encode_rail(plaintext: str) -> str:
+def encode_rail(plaintext: str, split: int = 5) -> str:
     """Encode rail fence cipher.
 
     Encode **plaintext** with a 3-rail fence cipher. Scrub the plaintext with
@@ -31,15 +31,18 @@ def encode_rail(plaintext: str) -> str:
     it with :func:`split_rails`.
 
     Args:
-        plaintext: Message to encrypt with 3-rail fence cipher.
+        plaintext (str): Message to encrypt with 3-rail fence cipher.
+        split (int): How many letter segments to split message into. Defaults
+            to ``5``.
 
     Returns:
-        String of 5-letter chunks of encrypted message for easier
+        String with encrypted message split into **split** chunks for easier
         transmission.
 
     """
     ciphertext = split_rails(''.join(format_plaintext(plaintext)))
-    return ' '.join(ciphertext[i:i + 5] for i in range(0, len(ciphertext), 5))
+    return ' '.join(ciphertext[i:i + split] for i in
+                    range(0, len(ciphertext), split))
 
 
 def main():
