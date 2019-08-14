@@ -459,6 +459,16 @@ class TestEncodeRail(unittest.TestCase):
         ciphertext = 'taletetq iny9hege addnhsaf rnultojl 216elnie oaiyu09'
         self.assertEqual(testtext, ciphertext)
 
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        encode_rail.main()
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch04/main/encode_rail.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
 
 if __name__ == '__main__':
     unittest.main()
