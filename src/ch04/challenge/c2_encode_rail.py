@@ -47,6 +47,14 @@ def encode_rail(plaintext: str, split: int = 5) -> str:
 
 def main():
     """Demonstrate 3-rail fence cipher encoder."""
+    print('I can encode a message using a 3-rail fence cipher. Don\'t get '
+          'too\nexcited - it\'s trivial to brute-force; however, one can '
+          'dream... one\ncan dream...')
+
+    message = ('There is a fresh batch of cookies in the cereal box above\n'
+               'the refrigerator. Keep them away from Debbie!')
+    print(f'\nEncoding:\n{message}')
+    print(f'\nEncrypted message:\n{encode_rail(message, 6)}')
 
 
 if __name__ == '__main__':
