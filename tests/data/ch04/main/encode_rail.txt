@@ -1,0 +1,10 @@
+I can encode a message using a 3-rail fence cipher. Don't get too
+excited - it's trivial to brute-force; however, one can dream... one
+can dream...
+
+Encoding:
+There is a fresh batch of cookies in the cereal box above
+the refrigerator. Keep them away from Debbie!
+
+Encrypted message:
+tefhcc incaxv errrpm ymbhri arsbth fokeit eeeloa oehrfi eaoket eaafod biesea ooshrb btegte hwree
