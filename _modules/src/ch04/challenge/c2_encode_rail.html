@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src.ch04.challenge.c2_encode_rail &#8212; impracticalpythonprojects 0.23.0 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/flask.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <script>DOCUMENTATION_OPTIONS.URL_ROOT = '../../../../';</script>
+   
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">impracticalpythonprojects 0.23.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for src.ch04.challenge.c2_encode_rail</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Encode message with a 3-rail fence cipher.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">src.ch04.challenge.c1_encode_route</span> <span class="k">import</span> <span class="n">format_plaintext</span>
+
+
+<div class="viewcode-block" id="split_rails"><a class="viewcode-back" href="../../../../src.ch04.challenge.html#src.ch04.challenge.c2_encode_rail.split_rails">[docs]</a><span class="k">def</span> <span class="nf">split_rails</span><span class="p">(</span><span class="n">plaintext</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Split plaintext into 3 rails for encryption.</span>
+
+<span class="sd">    Split the rails where the top rail is every 4th letter, the middle rail</span>
+<span class="sd">    is every other letter starting at 1, and the bottom rail is every 4th</span>
+<span class="sd">    letter starting at 2. After splitting, concatenate each rail and</span>
+<span class="sd">    return the result.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        plaintext (str): Plain text message without spaces or punctuation.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        String with message encrypted using 3 rail fence cipher.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="n">plaintext</span><span class="p">[::</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">middle</span> <span class="o">=</span> <span class="n">plaintext</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">bottom</span> <span class="o">=</span> <span class="n">plaintext</span><span class="p">[</span><span class="mi">2</span><span class="p">::</span><span class="mi">4</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">top</span> <span class="o">+</span> <span class="n">middle</span> <span class="o">+</span> <span class="n">bottom</span></div>
+
+
+<div class="viewcode-block" id="encode_rail"><a class="viewcode-back" href="../../../../src.ch04.challenge.html#src.ch04.challenge.c2_encode_rail.encode_rail">[docs]</a><span class="k">def</span> <span class="nf">encode_rail</span><span class="p">(</span><span class="n">plaintext</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">split</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Encode rail fence cipher.</span>
+
+<span class="sd">    Encode **plaintext** with a 3-rail fence cipher. Scrub the plaintext with</span>
+<span class="sd">    :func:`~src.ch04.challenge.c1_encode_route.format_plaintext`, then encrypt</span>
+<span class="sd">    it with :func:`split_rails`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        plaintext (str): Message to encrypt with 3-rail fence cipher.</span>
+<span class="sd">        split (int): How many letter segments to split message into. Defaults</span>
+<span class="sd">            to ``5``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        String with encrypted message split into **split** chunks for easier</span>
+<span class="sd">        transmission.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ciphertext</span> <span class="o">=</span> <span class="n">split_rails</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">format_plaintext</span><span class="p">(</span><span class="n">plaintext</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="n">split</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span>
+                    <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">),</span> <span class="n">split</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../src.ch04.challenge.html#src.ch04.challenge.c2_encode_rail.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Demonstrate 3-rail fence cipher encoder.&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;I can encode a message using a 3-rail fence cipher. Don</span><span class="se">\&#39;</span><span class="s1">t get &#39;</span>
+          <span class="s1">&#39;too</span><span class="se">\n</span><span class="s1">excited - it</span><span class="se">\&#39;</span><span class="s1">s trivial to brute-force; however, one can &#39;</span>
+          <span class="s1">&#39;dream... one</span><span class="se">\n</span><span class="s1">can dream...&#39;</span><span class="p">)</span>
+
+    <span class="n">message</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;There is a fresh batch of cookies in the cereal box above</span><span class="se">\n</span><span class="s1">&#39;</span>
+               <span class="s1">&#39;the refrigerator. Keep them away from Debbie!&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Encoding:</span><span class="se">\n</span><span class="si">{message}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Encrypted message:</span><span class="se">\n</span><span class="s1">{encode_rail(message, 6)}&#39;</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  
+    
+  
+<h3>Navigation</h3>
+<ul>
+  <li><a href="../../../../index.html">Overview</a>
+    <ul>
+      <li><a href="../../../index.html">Module code</a>
+        
+          
+          </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jose A. Lerma III.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+    </div>
+
+  </body>
+</html>

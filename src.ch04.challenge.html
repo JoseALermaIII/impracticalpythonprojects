@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>src.ch04.challenge package &#8212; impracticalpythonprojects 0.22.0 documentation</title>
+    <title>src.ch04.challenge package &#8212; impracticalpythonprojects 0.23.0 documentation</title>
     <link rel="stylesheet" href="_static/flask.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -35,7 +35,7 @@
         <li class="right" >
           <a href="src.ch04.html" title="src.ch04 package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.22.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.23.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="src.html" >src package</a> &#187;</li>
           <li class="nav-item nav-item-3"><a href="src.ch04.html" accesskey="U">src.ch04 package</a> &#187;</li> 
@@ -148,6 +148,56 @@ strings in dictionary.</p></li>
 </dd></dl>
 
 </div>
+<div class="section" id="module-src.ch04.challenge.c2_encode_rail">
+<span id="src-ch04-challenge-c2-encode-rail-module"></span><h2>src.ch04.challenge.c2_encode_rail module<a class="headerlink" href="#module-src.ch04.challenge.c2_encode_rail" title="Permalink to this headline">¶</a></h2>
+<p>Encode message with a 3-rail fence cipher.</p>
+<dl class="function">
+<dt id="src.ch04.challenge.c2_encode_rail.encode_rail">
+<code class="sig-prename descclassname">src.ch04.challenge.c2_encode_rail.</code><code class="sig-name descname">encode_rail</code><span class="sig-paren">(</span><em class="sig-param">plaintext: str</em>, <em class="sig-param">split: int = 5</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/src/ch04/challenge/c2_encode_rail.html#encode_rail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.challenge.c2_encode_rail.encode_rail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode rail fence cipher.</p>
+<p>Encode <strong>plaintext</strong> with a 3-rail fence cipher. Scrub the plaintext with
+<a class="reference internal" href="#src.ch04.challenge.c1_encode_route.format_plaintext" title="src.ch04.challenge.c1_encode_route.format_plaintext"><code class="xref py py-func docutils literal notranslate"><span class="pre">format_plaintext()</span></code></a>, then encrypt
+it with <a class="reference internal" href="#src.ch04.challenge.c2_encode_rail.split_rails" title="src.ch04.challenge.c2_encode_rail.split_rails"><code class="xref py py-func docutils literal notranslate"><span class="pre">split_rails()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plaintext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Message to encrypt with 3-rail fence cipher.</p></li>
+<li><p><strong>split</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – How many letter segments to split message into. Defaults
+to <code class="docutils literal notranslate"><span class="pre">5</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>String with encrypted message split into <strong>split</strong> chunks for easier
+transmission.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch04.challenge.c2_encode_rail.main">
+<code class="sig-prename descclassname">src.ch04.challenge.c2_encode_rail.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch04/challenge/c2_encode_rail.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.challenge.c2_encode_rail.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Demonstrate 3-rail fence cipher encoder.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch04.challenge.c2_encode_rail.split_rails">
+<code class="sig-prename descclassname">src.ch04.challenge.c2_encode_rail.</code><code class="sig-name descname">split_rails</code><span class="sig-paren">(</span><em class="sig-param">plaintext: str</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/src/ch04/challenge/c2_encode_rail.html#split_rails"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch04.challenge.c2_encode_rail.split_rails" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split plaintext into 3 rails for encryption.</p>
+<p>Split the rails where the top rail is every 4th letter, the middle rail
+is every other letter starting at 1, and the bottom rail is every 4th
+letter starting at 2. After splitting, concatenate each rail and
+return the result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>plaintext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Plain text message without spaces or punctuation.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>String with message encrypted using 3 rail fence cipher.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="module-src.ch04.challenge">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.ch04.challenge" title="Permalink to this headline">¶</a></h2>
 <p>Chapter 4 Challenge Projects.</p>
@@ -170,6 +220,7 @@ strings in dictionary.</p></li>
 <li><a class="reference internal" href="#">src.ch04.challenge package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-src.ch04.challenge.c1_encode_route">src.ch04.challenge.c1_encode_route module</a></li>
+<li><a class="reference internal" href="#module-src.ch04.challenge.c2_encode_rail">src.ch04.challenge.c2_encode_rail module</a></li>
 <li><a class="reference internal" href="#module-src.ch04.challenge">Module contents</a></li>
 </ul>
 </li>
