@@ -12,6 +12,14 @@ src.ch04.challenge.c1\_encode\_route module
    :undoc-members:
    :show-inheritance:
 
+src.ch04.challenge.c2\_encode\_rail module
+------------------------------------------
+
+.. automodule:: src.ch04.challenge.c2_encode_rail
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 Module contents
 ---------------
