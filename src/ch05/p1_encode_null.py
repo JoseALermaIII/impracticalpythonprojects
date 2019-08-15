@@ -24,6 +24,33 @@ def encode_null(message: str, name_list: list) -> list:
         is *not* provided.
 
     """
+    message = ''.join(format_plaintext(message))
+    cipherlist = []
+    for letter in message:
+        for name in name_list:
+            if all([len(name) > 2, name not in cipherlist]):
+                # Even numbered name, use second letter.
+                if len(cipherlist) % 2 == 0 and \
+                        name[1].lower() == letter:
+                    cipherlist.append(name)
+                    break
+                # Odd numbered name, use third letter.
+                elif len(cipherlist) % 2 != 0 and \
+                        name[2].lower() == letter:
+                    cipherlist.append(name)
+                    break
+            if name == name_list[-1]:
+                if len(cipherlist) % 2 == 0:
+                    place = 'second'
+                else:
+                    place = 'third'
+                raise IndexError(f'Missing name with {place} letter of: '
+                                 f'{letter}')
+    # Insert unused last names near beginning of list.
+    cipherlist.insert(0, name_list[0])
+    cipherlist.insert(4, 'Scrooge')
+    cipherlist.insert(7, 'Nero')
+    return cipherlist
 
 
 def main():
