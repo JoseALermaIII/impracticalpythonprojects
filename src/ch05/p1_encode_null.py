@@ -23,6 +23,10 @@ def encode_null(message: str, name_list: list) -> list:
         List of last names with **message** embedded as described. Context
         is *not* provided.
 
+    Raises:
+        :py:exc:`IndexError` if the list of names doesn't have a name with
+        the needed letter.
+
     """
     message = ''.join(format_plaintext(message))
     cipherlist = []
