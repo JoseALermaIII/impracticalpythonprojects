@@ -51,7 +51,10 @@ def encode_null(message: str, name_list: list) -> list:
                 raise IndexError(f'Missing name with {place} letter of: '
                                  f'{letter}')
     # Insert unused last names near beginning of list.
-    cipherlist.insert(0, name_list[0])
+    for name in name_list:
+        if name not in cipherlist:
+            cipherlist.insert(0, name)
+            break
     cipherlist.insert(4, 'Scrooge')
     cipherlist.insert(7, 'Nero')
     return cipherlist
