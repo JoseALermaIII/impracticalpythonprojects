@@ -16,10 +16,10 @@ class TestCleanupDictionary(unittest.TestCase):
         """Test that it raises an error if word_list is empty."""
         with self.assertRaises(IndexError) as err:
             cleanup_dictionary.cleanup_list([])
-            self.assertEqual(CLEANUP_LIST_ERROR, err.exception)
+        self.assertEqual(CLEANUP_LIST_ERROR, str(err.exception))
         with self.assertRaises(IndexError) as err:
             cleanup_dictionary.cleanup_list_more([])
-            self.assertEqual(CLEANUP_LIST_ERROR, err.exception)
+        self.assertEqual(CLEANUP_LIST_ERROR, str(err.exception))
 
     def test_cleanup_list(self):
         """Test that it removes single letter words from a list of words."""
@@ -95,7 +95,7 @@ class TestRecursivePalindrome(unittest.TestCase):
         """Test that it raises an error if word is not a string."""
         with self.assertRaises(TypeError) as err:
             recursive_palindrome.recursive_ispalindrome(5)
-            self.assertEqual(RECURSIVE_ISPALINDROME_ERROR, err.exception)
+        self.assertEqual(RECURSIVE_ISPALINDROME_ERROR, str(err.exception))
 
     def test_recursive_ispalindrome(self):
         """Test that it can identify a pseudo-random palindrome."""

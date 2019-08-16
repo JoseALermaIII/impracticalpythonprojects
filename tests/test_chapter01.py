@@ -23,7 +23,7 @@ class TestPigLatin(unittest.TestCase):
         """Test that it raises an error if word is not a string."""
         with self.assertRaises(TypeError) as err:
             pig_latin.encode(2)
-            self.assertEqual(ENCODE_ERROR, err.exception)
+        self.assertEqual(ENCODE_ERROR, str(err.exception))
 
     def test_pig_latin(self):
         """Test pig_latin."""
@@ -56,10 +56,10 @@ class TestBarChart(unittest.TestCase):
         if freq_dict is not a dictionary."""
         with self.assertRaises(TypeError) as err:
             bar_chart.freq_analysis(3)
-            self.assertEqual(FREQ_ANALYSIS_ERROR, err.exception)
+        self.assertEqual(FREQ_ANALYSIS_ERROR, str(err.exception))
         with self.assertRaises(TypeError) as err:
             bar_chart.print_bar_chart(4)
-            self.assertEqual(PRINT_BAR_CHART_ERROR, err.exception)
+        self.assertEqual(PRINT_BAR_CHART_ERROR, str(err.exception))
 
     def test_freq_analysis(self):
         """Test that it performs a proper frequency analysis."""
@@ -118,10 +118,10 @@ class TestForeignChart(unittest.TestCase):
         if dictionary is not a dictionary."""
         with self.assertRaises(TypeError) as err:
             foreign_chart.foreign_freq_analysis(3)
-            self.assertEqual(FREQ_ANALYSIS_ERROR, err.exception)
+        self.assertEqual(FREQ_ANALYSIS_ERROR, str(err.exception))
         with self.assertRaises(TypeError) as err:
             foreign_chart.add_keys_to_dict(4)
-            self.assertEqual(ADD_KEYS_ERROR, err.exception)
+        self.assertEqual(ADD_KEYS_ERROR, str(err.exception))
 
     def test_add_keys_to_dict(self):
         """Test add_keys_to_dict function."""
@@ -160,28 +160,29 @@ class TestNameGenerator(unittest.TestCase):
         with self.assertRaises(IndexError) as err:
             os.makedirs('tests/data/ch01/empty', exist_ok=True)
             name_generator.build_name_list('tests/data/ch01/empty')
-            self.assertEqual(BUILD_LIST_ERROR, err.exception)
+        self.assertEqual(BUILD_LIST_ERROR, str(err.exception))
         with self.assertRaises(TypeError) as err:
             test_dict = {'blank': []}
             name_generator.add_name_to_key(4, test_dict, 'blank')
-            self.assertEqual(ADD_NAME_TO_KEY_ERROR, err.exception)
+        self.assertEqual(ADD_NAME_TO_KEY_ERROR, str(err.exception))
         with self.assertRaises(TypeError) as err:
             test_dict = {'blank': []}
             name_generator.add_name_to_key('First', test_dict, 5)
-            self.assertEqual(ADD_NAME_TO_KEY_ERROR, err.exception)
+        self.assertEqual(ADD_NAME_TO_KEY_ERROR, str(err.exception))
         with self.assertRaises(TypeError) as err:
             name_generator.add_name_to_key('First', 6, 'blank')
-            self.assertEqual(ADD_NAME_TO_KEY_ERROR, err.exception)
+        self.assertEqual(ADD_NAME_TO_KEY_ERROR, str(err.exception))
         with self.assertRaises(TypeError) as err:
             name_generator.split_names(7)
-            self.assertEqual(SPLIT_NAME_LIST_ERROR, err.exception)
+        self.assertEqual(SPLIT_NAME_LIST_ERROR, str(err.exception))
         with self.assertRaises(ValueError) as err:
             test_list = []
             name_generator.split_names(test_list)
-            self.assertEqual(SPLIT_NAME_EMPTY_ERROR, err.exception)
+        self.assertEqual(SPLIT_NAME_EMPTY_ERROR, str(err.exception))
         with self.assertRaises(KeyError) as err:
             name_generator.generate_name(test_dict)
-            self.assertEqual(GENERATE_NAME_ERROR, err.exception)
+        # FIXME: Why doesn't GENERATE_NAME_ERROR work?
+        self.assertEqual("'Dictionary needs three keys.'", str(err.exception))
 
     def test_read_from_file(self):
         """Test that read_from_file can read names from a file."""
