@@ -61,9 +61,26 @@ def encode_null(message: str, name_list: list) -> list:
 
 
 def main():
-    """Demonstrate null cipher encoder."""
+    """Demonstrate null cipher encoder.
+
+    Note:
+        The website `bestwordlist.com`_ helped with the missing names.
+
+    .. _bestwordlist.com: https://www.bestwordlist.com
+
+    """
     message = 'Say the word and we riot'
-    folder = os.path.abspath('src/ch01/challenge/c2files')
+    # Build last names from Chapter 1 name generator.
+    folder = os.path.abspath('../../src/ch01/challenge/c2files/')
+    last_names = split_names(build_name_list(folder))['last']
+    # Add missing names for message.
+    last_names.extend(['Asher', 'Dwiles', 'Stone'])
+    # Output encrypted message with context.
+    print('Hi Mom,\n\nPlease send me stamps, labels, and stationery to write '
+          'thank you cards for the\nfollowing families:\n')
+    for name in encode_null(message, last_names):
+        print(name)
+    print('\nThanks so much for everything.\n\nLuv ya\' lots,\n\nJohn Doe')
 
 
 if __name__ == '__main__':
