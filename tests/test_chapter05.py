@@ -13,12 +13,12 @@ class TestEncodeNull(unittest.TestCase):
         message = 'Test msg'
         # Test that it raises an IndexError for the second letter.
         name_list = ['Fill', 'Fuller', 'Filling', 'Filler']
-        with self.assertRaises(IndexError) as err:
+        with self.assertRaises(ValueError) as err:
             encode_null.encode_null(message, name_list)
         self.assertEqual('Missing name with second letter of: t', str(err.exception))
         # Test that it raises an IndexError for the third letter.
         name_list = ['Fill', 'Fuller', 'Stout', 'Filler']
-        with self.assertRaises(IndexError) as err:
+        with self.assertRaises(ValueError) as err:
             encode_null.encode_null(message, name_list)
         self.assertEqual('Missing name with third letter of: e', str(err.exception))
         # Test that it encodes a cipherlist.

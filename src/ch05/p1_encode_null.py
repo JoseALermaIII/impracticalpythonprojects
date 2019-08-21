@@ -24,7 +24,7 @@ def encode_null(message: str, name_list: list) -> list:
         is *not* provided.
 
     Raises:
-        IndexError: if the list of names doesn't have a name with the needed
+        ValueError: if the list of names doesn't have a name with the needed
             letter.
 
     """
@@ -48,7 +48,7 @@ def encode_null(message: str, name_list: list) -> list:
                     place = 'second'
                 else:
                     place = 'third'
-                raise IndexError(f'Missing name with {place} letter of: '
+                raise ValueError(f'Missing name with {place} letter of: '
                                  f'{letter}')
     # Insert unused last names near beginning of list.
     for name in name_list:
