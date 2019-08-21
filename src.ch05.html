@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src.ch05 package &#8212; impracticalpythonprojects 0.24.0 documentation</title>
+    <link rel="stylesheet" href="_static/flask.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="src.ch04.practice package" href="src.ch04.practice.html" />
+  <script>DOCUMENTATION_OPTIONS.URL_ROOT = './';</script>
+   
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="src.ch04.practice.html" title="src.ch04.practice package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.24.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="src.html" accesskey="U">src package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="src-ch05-package">
+<h1>src.ch05 package<a class="headerlink" href="#src-ch05-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-src.ch05.p1_encode_null">
+<span id="src-ch05-p1-encode-null-module"></span><h2>src.ch05.p1_encode_null module<a class="headerlink" href="#module-src.ch05.p1_encode_null" title="Permalink to this headline">¶</a></h2>
+<p>Encode a message in a list using a null cipher.</p>
+<dl class="function">
+<dt id="src.ch05.p1_encode_null.encode_null">
+<code class="sig-prename descclassname">src.ch05.p1_encode_null.</code><code class="sig-name descname">encode_null</code><span class="sig-paren">(</span><em class="sig-param">message: str</em>, <em class="sig-param">name_list: list</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch05/p1_encode_null.html#encode_null"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch05.p1_encode_null.encode_null" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode plaintext message with null cipher.</p>
+<p>Embed <strong>message</strong> in a list of last names using <strong>name_list</strong>. First name
+in cipherlist shouldn’t be used, then use second letter in second name of
+cipherlist, then third letter in third name of cipherlist, and repeat
+until <strong>message</strong> is embedded in cipherlist. Lastly, insert two unused
+last names near the start of the list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Message to encrypt with null cipher. Spaces and
+punctuation are okay, but will be removed.</p></li>
+<li><p><strong>name_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – List of last names to build cipherlist. The
+more the merrier.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of last names with <strong>message</strong> embedded as described. Context
+is <em>not</em> provided.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – if the list of names doesn’t have a name with the needed
+    letter.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch05.p1_encode_null.main">
+<code class="sig-prename descclassname">src.ch05.p1_encode_null.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch05/p1_encode_null.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch05.p1_encode_null.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Demonstrate null cipher encoder.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The website <a class="reference external" href="https://www.bestwordlist.com">bestwordlist.com</a> helped with the missing names.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.ch05">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.ch05" title="Permalink to this headline">¶</a></h2>
+<p>Chapter 5.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  
+    
+  
+
+  <h3>Contents</h3>
+  <ul>
+<li><a class="reference internal" href="#">src.ch05 package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-src.ch05.p1_encode_null">src.ch05.p1_encode_null module</a></li>
+<li><a class="reference internal" href="#module-src.ch05">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<h3>Navigation</h3>
+<ul>
+  <li><a href="index.html">Overview</a>
+    <ul>
+      <li><a href="modules.html">src</a>
+        <ul>
+      <li><a href="src.html">src package</a>
+        <ul>
+          <li>Previous: <a href="src.ch04.practice.html" title="previous chapter">src.ch04.practice package</a>
+          </ul>
+      </li></ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jose A. Lerma III.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+    </div>
+
+  </body>
+</html>
