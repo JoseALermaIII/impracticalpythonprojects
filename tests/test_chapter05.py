@@ -11,22 +11,21 @@ class TestEncodeNull(unittest.TestCase):
     def test_encode_null(self):
         """Test encode_null."""
         message = 'Test msg'
-        # Test that it raises an IndexError for the second letter.
-        name_list = ['Fill', 'Fuller', 'Filling', 'Filler']
+        # Test that it raises an ValueError for the second letter.
+        word_list = ['Fill', 'Fuller', 'Filling', 'Filler']
         with self.assertRaises(ValueError) as err:
-            encode_null.encode_null(message, name_list)
-        self.assertEqual('Missing name with second letter of: t', str(err.exception))
-        # Test that it raises an IndexError for the third letter.
-        name_list = ['Fill', 'Fuller', 'Stout', 'Filler']
+            encode_null.encode_null(message, word_list)
+        self.assertEqual('Missing word with second letter of: t', str(err.exception))
+        # Test that it raises an ValueError for the third letter.
+        word_list = ['Fill', 'Fuller', 'Stout', 'Filler']
         with self.assertRaises(ValueError) as err:
-            encode_null.encode_null(message, name_list)
-        self.assertEqual('Missing name with third letter of: e', str(err.exception))
+            encode_null.encode_null(message, word_list)
+        self.assertEqual('Missing word with third letter of: e', str(err.exception))
         # Test that it encodes a cipherlist.
-        name_list = ['Loki', 'Sampson', 'Lemon', 'Stout', 'Ruth',
+        word_list = ['Loki', 'Sampson', 'Lemon', 'Stout', 'Ruth',
                      'Egg', 'Vest', 'Lisa', 'Lee', 'Tsar', 'Smoke']
-        testlist = encode_null.encode_null(message, name_list)
-        answerlist = ['Loki', 'Stout', 'Lee', 'Tsar', 'Scrooge',
-                      'Ruth', 'Smoke', 'Nero', 'Vest', 'Egg']
+        testlist = encode_null.encode_null(message, word_list)
+        answerlist = ['Stout', 'Lee', 'Tsar', 'Ruth', 'Smoke', 'Vest', 'Egg']
         self.assertListEqual(testlist, answerlist)
 
     @unittest.mock.patch('src.ch05.p1_encode_null.split_names')
