@@ -4,23 +4,22 @@ from src.ch01.challenge.c2_name_generator import build_name_list, split_names
 from src.ch04.challenge.c1_encode_route import format_plaintext
 
 
-def encode_null(message: str, name_list: list) -> list:
+def encode_null(message: str, word_list: list) -> list:
     """Encode plaintext message with null cipher.
 
-    Embed **message** in a list of last names using **name_list**. First name
-    in cipherlist shouldn't be used, then use second letter in second name of
-    cipherlist, then third letter in third name of cipherlist, and repeat
-    until **message** is embedded in cipherlist. Lastly, insert two unused
-    last names near the start of the list.
+    Embed **message** in a list of words using **word_list**. Use second
+    letter in first word of cipherlist, then third letter in second word of
+    cipherlist, and repeat until **message** is embedded in cipherlist.
 
     Args:
         message (str): Message to encrypt with null cipher. Spaces and
-            punctuation are okay, but will be removed.
-        name_list (list): List of last names to build cipherlist. The
+            punctuation are okay, but will be removed. Uppercase converted
+            to lowercase.
+        word_list (list): List of words to build cipherlist. The
              more the merrier.
 
     Returns:
-        List of last names with **message** embedded as described. Context
+        List of words with **message** embedded as described. Context
         is *not* provided.
 
     Raises:
@@ -31,32 +30,25 @@ def encode_null(message: str, name_list: list) -> list:
     message = ''.join(format_plaintext(message))
     cipherlist = []
     for letter in message:
-        for name in name_list:
-            if all([len(name) > 2, name not in cipherlist]):
-                # Even numbered name, use second letter.
+        for word in word_list:
+            if all([len(word) > 2, word not in cipherlist]):
+                # Even numbered word, use second letter.
                 if len(cipherlist) % 2 == 0 and \
-                        name[1].lower() == letter:
-                    cipherlist.append(name)
+                        word[1].lower() == letter:
+                    cipherlist.append(word)
                     break
-                # Odd numbered name, use third letter.
+                # Odd numbered word, use third letter.
                 elif len(cipherlist) % 2 != 0 and \
-                        name[2].lower() == letter:
-                    cipherlist.append(name)
+                        word[2].lower() == letter:
+                    cipherlist.append(word)
                     break
-            if name == name_list[-1]:
+            if word == word_list[-1]:
                 if len(cipherlist) % 2 == 0:
                     place = 'second'
                 else:
                     place = 'third'
-                raise ValueError(f'Missing name with {place} letter of: '
+                raise ValueError(f'Missing word with {place} letter of: '
                                  f'{letter}')
-    # Insert unused last names near beginning of list.
-    for name in name_list:
-        if name not in cipherlist:
-            cipherlist.insert(0, name)
-            break
-    cipherlist.insert(4, 'Scrooge')
-    cipherlist.insert(7, 'Nero')
     return cipherlist
 
 
