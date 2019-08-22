@@ -55,7 +55,11 @@ def encode_null(message: str, word_list: list) -> list:
 def main():
     """Demonstrate null cipher encoder.
 
-    Note:
+    Encode a message in a list of last names. First last name in list
+    isn't used and some unused last names are added near the beginning
+    of the list.
+
+    Tip:
         The website `bestwordlist.com`_ helped with the missing names.
 
     .. _bestwordlist.com: https://www.bestwordlist.com
@@ -67,11 +71,19 @@ def main():
     last_names = split_names(build_name_list(folder))['last']
     # Add missing names for message.
     last_names.extend(['Asher', 'Dwiles', 'Stone'])
+    # Insert unused last names near beginning of cipherlist.
+    cipherlist = encode_null(message, last_names)
+    for name in last_names:
+        if name not in cipherlist:
+            cipherlist.insert(0, name)
+            break
+    cipherlist.insert(4, 'Scrooge')
+    cipherlist.insert(7, 'Nero')
+
     # Output encrypted message with context.
     print('Hi Mom,\n\nPlease send me stamps, labels, and stationery to write '
           'thank you cards for the\nfollowing families:\n')
-    for name in encode_null(message, last_names):
-        print(name)
+    print(*cipherlist, sep='\n')
     print('\nThanks so much for everything.\n\nLuv ya\' lots,\n\nJohn Doe')
 
 
