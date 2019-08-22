@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>src.ch05 package &#8212; impracticalpythonprojects 0.24.0 documentation</title>
+    <title>src.ch05 package &#8212; impracticalpythonprojects 0.25.0 documentation</title>
     <link rel="stylesheet" href="_static/flask.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -31,7 +31,7 @@
         <li class="right" >
           <a href="src.ch04.practice.html" title="src.ch04.practice package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.24.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.25.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="src.html" accesskey="U">src package</a> &#187;</li> 
       </ul>
@@ -52,24 +52,23 @@
 <p>Encode a message in a list using a null cipher.</p>
 <dl class="function">
 <dt id="src.ch05.p1_encode_null.encode_null">
-<code class="sig-prename descclassname">src.ch05.p1_encode_null.</code><code class="sig-name descname">encode_null</code><span class="sig-paren">(</span><em class="sig-param">message: str</em>, <em class="sig-param">name_list: list</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch05/p1_encode_null.html#encode_null"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch05.p1_encode_null.encode_null" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.ch05.p1_encode_null.</code><code class="sig-name descname">encode_null</code><span class="sig-paren">(</span><em class="sig-param">message: str</em>, <em class="sig-param">word_list: list</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch05/p1_encode_null.html#encode_null"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch05.p1_encode_null.encode_null" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode plaintext message with null cipher.</p>
-<p>Embed <strong>message</strong> in a list of last names using <strong>name_list</strong>. First name
-in cipherlist shouldn’t be used, then use second letter in second name of
-cipherlist, then third letter in third name of cipherlist, and repeat
-until <strong>message</strong> is embedded in cipherlist. Lastly, insert two unused
-last names near the start of the list.</p>
+<p>Embed <strong>message</strong> in a list of words using <strong>word_list</strong>. Use second
+letter in first word of cipherlist, then third letter in second word of
+cipherlist, and repeat until <strong>message</strong> is embedded in cipherlist.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Message to encrypt with null cipher. Spaces and
-punctuation are okay, but will be removed.</p></li>
-<li><p><strong>name_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – List of last names to build cipherlist. The
+punctuation are okay, but will be removed. Uppercase converted
+to lowercase.</p></li>
+<li><p><strong>word_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – List of words to build cipherlist. The
 more the merrier.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>List of last names with <strong>message</strong> embedded as described. Context
+<dd class="field-even"><p>List of words with <strong>message</strong> embedded as described. Context
 is <em>not</em> provided.</p>
 </dd>
 <dt class="field-odd">Raises</dt>
@@ -83,8 +82,11 @@ is <em>not</em> provided.</p>
 <dt id="src.ch05.p1_encode_null.main">
 <code class="sig-prename descclassname">src.ch05.p1_encode_null.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch05/p1_encode_null.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch05.p1_encode_null.main" title="Permalink to this definition">¶</a></dt>
 <dd><p>Demonstrate null cipher encoder.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<p>Encode a message in a list of last names. First last name in list
+isn’t used and some unused last names are added near the beginning
+of the list.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>The website <a class="reference external" href="https://www.bestwordlist.com">bestwordlist.com</a> helped with the missing names.</p>
 </div>
 </dd></dl>

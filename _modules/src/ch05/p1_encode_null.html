@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>src.ch05.p1_encode_null &#8212; impracticalpythonprojects 0.24.0 documentation</title>
+    <title>src.ch05.p1_encode_null &#8212; impracticalpythonprojects 0.25.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/flask.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
@@ -27,7 +27,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">impracticalpythonprojects 0.24.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">impracticalpythonprojects 0.25.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -44,23 +44,22 @@
 <span class="kn">from</span> <span class="nn">src.ch04.challenge.c1_encode_route</span> <span class="k">import</span> <span class="n">format_plaintext</span>
 
 
-<div class="viewcode-block" id="encode_null"><a class="viewcode-back" href="../../../src.ch05.html#src.ch05.p1_encode_null.encode_null">[docs]</a><span class="k">def</span> <span class="nf">encode_null</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<div class="viewcode-block" id="encode_null"><a class="viewcode-back" href="../../../src.ch05.html#src.ch05.p1_encode_null.encode_null">[docs]</a><span class="k">def</span> <span class="nf">encode_null</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">word_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Encode plaintext message with null cipher.</span>
 
-<span class="sd">    Embed **message** in a list of last names using **name_list**. First name</span>
-<span class="sd">    in cipherlist shouldn&#39;t be used, then use second letter in second name of</span>
-<span class="sd">    cipherlist, then third letter in third name of cipherlist, and repeat</span>
-<span class="sd">    until **message** is embedded in cipherlist. Lastly, insert two unused</span>
-<span class="sd">    last names near the start of the list.</span>
+<span class="sd">    Embed **message** in a list of words using **word_list**. Use second</span>
+<span class="sd">    letter in first word of cipherlist, then third letter in second word of</span>
+<span class="sd">    cipherlist, and repeat until **message** is embedded in cipherlist.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        message (str): Message to encrypt with null cipher. Spaces and</span>
-<span class="sd">            punctuation are okay, but will be removed.</span>
-<span class="sd">        name_list (list): List of last names to build cipherlist. The</span>
+<span class="sd">            punctuation are okay, but will be removed. Uppercase converted</span>
+<span class="sd">            to lowercase.</span>
+<span class="sd">        word_list (list): List of words to build cipherlist. The</span>
 <span class="sd">             more the merrier.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        List of last names with **message** embedded as described. Context</span>
+<span class="sd">        List of words with **message** embedded as described. Context</span>
 <span class="sd">        is *not* provided.</span>
 
 <span class="sd">    Raises:</span>
@@ -71,39 +70,36 @@
     <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">format_plaintext</span><span class="p">(</span><span class="n">message</span><span class="p">))</span>
     <span class="n">cipherlist</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">letter</span> <span class="ow">in</span> <span class="n">message</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">name_list</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cipherlist</span><span class="p">]):</span>
-                <span class="c1"># Even numbered name, use second letter.</span>
+        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">word_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cipherlist</span><span class="p">]):</span>
+                <span class="c1"># Even numbered word, use second letter.</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cipherlist</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> \
-                        <span class="n">name</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">letter</span><span class="p">:</span>
-                    <span class="n">cipherlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                        <span class="n">word</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">letter</span><span class="p">:</span>
+                    <span class="n">cipherlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
                     <span class="k">break</span>
-                <span class="c1"># Odd numbered name, use third letter.</span>
+                <span class="c1"># Odd numbered word, use third letter.</span>
                 <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">cipherlist</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> \
-                        <span class="n">name</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">letter</span><span class="p">:</span>
-                    <span class="n">cipherlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                        <span class="n">word</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">letter</span><span class="p">:</span>
+                    <span class="n">cipherlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
                     <span class="k">break</span>
-            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="n">name_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">word</span> <span class="o">==</span> <span class="n">word_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cipherlist</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="n">place</span> <span class="o">=</span> <span class="s1">&#39;second&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">place</span> <span class="o">=</span> <span class="s1">&#39;third&#39;</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Missing name with </span><span class="si">{place}</span><span class="s1"> letter of: &#39;</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Missing word with </span><span class="si">{place}</span><span class="s1"> letter of: &#39;</span>
                                  <span class="n">f</span><span class="s1">&#39;</span><span class="si">{letter}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="c1"># Insert unused last names near beginning of list.</span>
-    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">name_list</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cipherlist</span><span class="p">:</span>
-            <span class="n">cipherlist</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-            <span class="k">break</span>
-    <span class="n">cipherlist</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;Scrooge&#39;</span><span class="p">)</span>
-    <span class="n">cipherlist</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;Nero&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">cipherlist</span></div>
 
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../src.ch05.html#src.ch05.p1_encode_null.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Demonstrate null cipher encoder.</span>
 
-<span class="sd">    Note:</span>
+<span class="sd">    Encode a message in a list of last names. First last name in list</span>
+<span class="sd">    isn&#39;t used and some unused last names are added near the beginning</span>
+<span class="sd">    of the list.</span>
+
+<span class="sd">    Tip:</span>
 <span class="sd">        The website `bestwordlist.com`_ helped with the missing names.</span>
 
 <span class="sd">    .. _bestwordlist.com: https://www.bestwordlist.com</span>
@@ -115,11 +111,19 @@
     <span class="n">last_names</span> <span class="o">=</span> <span class="n">split_names</span><span class="p">(</span><span class="n">build_name_list</span><span class="p">(</span><span class="n">folder</span><span class="p">))[</span><span class="s1">&#39;last&#39;</span><span class="p">]</span>
     <span class="c1"># Add missing names for message.</span>
     <span class="n">last_names</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;Asher&#39;</span><span class="p">,</span> <span class="s1">&#39;Dwiles&#39;</span><span class="p">,</span> <span class="s1">&#39;Stone&#39;</span><span class="p">])</span>
+    <span class="c1"># Insert unused last names near beginning of cipherlist.</span>
+    <span class="n">cipherlist</span> <span class="o">=</span> <span class="n">encode_null</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">last_names</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">last_names</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cipherlist</span><span class="p">:</span>
+            <span class="n">cipherlist</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">break</span>
+    <span class="n">cipherlist</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;Scrooge&#39;</span><span class="p">)</span>
+    <span class="n">cipherlist</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;Nero&#39;</span><span class="p">)</span>
+
     <span class="c1"># Output encrypted message with context.</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hi Mom,</span><span class="se">\n\n</span><span class="s1">Please send me stamps, labels, and stationery to write &#39;</span>
           <span class="s1">&#39;thank you cards for the</span><span class="se">\n</span><span class="s1">following families:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">encode_null</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">last_names</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="o">*</span><span class="n">cipherlist</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Thanks so much for everything.</span><span class="se">\n\n</span><span class="s1">Luv ya</span><span class="se">\&#39;</span><span class="s1"> lots,</span><span class="se">\n\n</span><span class="s1">John Doe&#39;</span><span class="p">)</span></div>
 
 
