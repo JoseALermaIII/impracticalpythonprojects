@@ -19,6 +19,12 @@ def decode_null(place: int, ciphertext: str) -> str:
         **ciphertext**.
 
     """
+    plaintext = []
+    clean_text = format_plaintext(ciphertext)
+    for i, word in enumerate(clean_text):
+        if i % place == 0:
+            plaintext.append(word[place - 1])
+    return ''.join(plaintext)
 
 
 def main():
