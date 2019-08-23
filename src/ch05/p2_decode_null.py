@@ -34,7 +34,22 @@ def decode_null(place: int, ciphertext: str) -> str:
 
 
 def main():
-    """Demonstrate null cipher decoder."""
+    """Demonstrate null cipher decoder.
+
+    Tip:
+        The website `bestwordlist.com`_ helped a metric ton.
+
+    .. _bestwordlist.com: https://www.bestwordlist.com
+
+    """
+    print('I can decode a sequential null cipher. Don\'t be gettin\' fancy '
+          'by\nskipping words or I\'ll give you such a pinch!\n')
+    ciphertext = ('Amino acids are not actors, but are mere blips in the dark '
+                  'afterlife.')
+    interval = 4
+    print(f'Analyzing: {ciphertext}')
+    print(f'Using every {interval}th word and letter.\n')
+    print(f'Result: {decode_null(interval, ciphertext)}')
 
 
 if __name__ == '__main__':
