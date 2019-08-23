@@ -9,7 +9,7 @@ def decode_null(place: int, ciphertext: str) -> str:
     **place** letter.
 
     Args:
-        place (int): Which letter of every other word to form a string.
+        place (int): nth letter of every nth word to form a string.
         ciphertext (str): String with null cipher encoded message. Spaces
             and punctuation are okay, but will be removed. Uppercase
             converted to lowercase.
