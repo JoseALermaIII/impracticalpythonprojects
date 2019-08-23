@@ -3,6 +3,7 @@ import os
 import unittest.mock
 from io import StringIO
 import src.ch05.p1_encode_null as encode_null
+import src.ch05.p2_decode_null as decode_null
 
 
 class TestEncodeNull(unittest.TestCase):
@@ -47,6 +48,29 @@ class TestEncodeNull(unittest.TestCase):
                   'r') as file:
             file_data = ''.join(file.readlines())
         self.assertEqual(mock_stdout.getvalue(), file_data)
+
+
+class TestDecodeNull(unittest.TestCase):
+    """Test Decode Null."""
+
+    def test_decode_null(self):
+        """Test decode_null."""
+        # Test place == 1
+        plaintext = 'word'
+        ciphertext = 'why obviously reclusive day'
+        test_string = decode_null.decode_null(1, ciphertext)
+        self.assertEqual(plaintext, test_string)
+        # Test place == 2
+        plaintext = 'hello'
+        ciphertext = 'The plain eel cannot plot the place of wool'
+        test_string = decode_null.decode_null(2, ciphertext)
+        self.assertEqual(plaintext, test_string)
+        # Test place == 3
+        plaintext = 'john'
+        ciphertext = ('Baja California runs amok with the aching of the '
+                      'bandersnatches')
+        test_string = decode_null.decode_null(3, ciphertext)
+        self.assertEqual(plaintext, test_string)
 
 
 if __name__ == '__main__':
