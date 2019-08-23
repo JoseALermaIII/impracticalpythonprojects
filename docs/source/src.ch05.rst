@@ -12,6 +12,14 @@ src.ch05.p1\_encode\_null module
    :undoc-members:
    :show-inheritance:
 
+src.ch05.p2\_decode\_null module
+--------------------------------
+
+.. automodule:: src.ch05.p2_decode_null
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 Module contents
 ---------------
