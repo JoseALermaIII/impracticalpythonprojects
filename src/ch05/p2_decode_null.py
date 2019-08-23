@@ -18,6 +18,12 @@ def decode_null(place: int, ciphertext: str) -> str:
         String containing **place** letter of every **place** word in
         **ciphertext**.
 
+    Example:
+        >>> from src.ch05.p2_decode_null import decode_null
+        >>> ciphertext = 'national aeronautics space administration'
+        >>> decode_null(1, ciphertext)
+        'nasa'
+
     """
     plaintext = []
     clean_text = format_plaintext(ciphertext)
