@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>src.ch05 package &#8212; impracticalpythonprojects 0.25.0 documentation</title>
+    <title>src.ch05 package &#8212; impracticalpythonprojects 0.26.0 documentation</title>
     <link rel="stylesheet" href="_static/flask.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -31,7 +31,7 @@
         <li class="right" >
           <a href="src.ch04.practice.html" title="src.ch04.practice package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.25.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.26.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="src.html" accesskey="U">src package</a> &#187;</li> 
       </ul>
@@ -92,6 +92,49 @@ of the list.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-src.ch05.p2_decode_null">
+<span id="src-ch05-p2-decode-null-module"></span><h2>src.ch05.p2_decode_null module<a class="headerlink" href="#module-src.ch05.p2_decode_null" title="Permalink to this headline">¶</a></h2>
+<p>Decode plaintext message from null cipher.</p>
+<dl class="function">
+<dt id="src.ch05.p2_decode_null.decode_null">
+<code class="sig-prename descclassname">src.ch05.p2_decode_null.</code><code class="sig-name descname">decode_null</code><span class="sig-paren">(</span><em class="sig-param">interval: int</em>, <em class="sig-param">ciphertext: str</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/src/ch05/p2_decode_null.html#decode_null"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch05.p2_decode_null.decode_null" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode message from null cipher.</p>
+<p>For every word specified by <strong>interval</strong> in <strong>ciphertext</strong>, generate a
+string using each <strong>interval</strong> letter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interval</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – nth letter of every nth word to form a string.</p></li>
+<li><p><strong>ciphertext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – String with null cipher encoded message. Spaces
+and punctuation are okay, but will be removed. Uppercase
+converted to lowercase.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>String containing nth letter of every nth word in
+<strong>ciphertext</strong>.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">src.ch05.p2_decode_null</span> <span class="k">import</span> <span class="n">decode_null</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ciphertext</span> <span class="o">=</span> <span class="s1">&#39;national aeronautics space administration&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">decode_null</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ciphertext</span><span class="p">)</span>
+<span class="go">&#39;nasa&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch05.p2_decode_null.main">
+<code class="sig-prename descclassname">src.ch05.p2_decode_null.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch05/p2_decode_null.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch05.p2_decode_null.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Demonstrate null cipher decoder.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The website <a class="reference external" href="https://www.bestwordlist.com">bestwordlist.com</a> helped a metric ton.</p>
+</div>
+</dd></dl>
+
+</div>
 <div class="section" id="module-src.ch05">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.ch05" title="Permalink to this headline">¶</a></h2>
 <p>Chapter 5.</p>
@@ -114,6 +157,7 @@ of the list.</p>
 <li><a class="reference internal" href="#">src.ch05 package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-src.ch05.p1_encode_null">src.ch05.p1_encode_null module</a></li>
+<li><a class="reference internal" href="#module-src.ch05.p2_decode_null">src.ch05.p2_decode_null module</a></li>
 <li><a class="reference internal" href="#module-src.ch05">Module contents</a></li>
 </ul>
 </li>
