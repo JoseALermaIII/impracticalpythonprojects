@@ -2,20 +2,20 @@
 from src.ch04.challenge.c1_encode_route import format_plaintext
 
 
-def decode_null(place: int, ciphertext: str) -> str:
+def decode_null(interval: int, ciphertext: str) -> str:
     """Decode message from null cipher.
 
-    For every **place** word in **ciphertext**, generate a string using each
-    **place** letter.
+    For every word specified by **interval** in **ciphertext**, generate a
+    string using each **interval** letter.
 
     Args:
-        place (int): nth letter of every nth word to form a string.
+        interval (int): nth letter of every nth word to form a string.
         ciphertext (str): String with null cipher encoded message. Spaces
             and punctuation are okay, but will be removed. Uppercase
             converted to lowercase.
 
     Returns:
-        String containing **place** letter of every **place** word in
+        String containing nth letter of every nth word in
         **ciphertext**.
 
     Example:
@@ -28,8 +28,8 @@ def decode_null(place: int, ciphertext: str) -> str:
     plaintext = []
     clean_text = format_plaintext(ciphertext)
     for i, word in enumerate(clean_text):
-        if i % place == 0:
-            plaintext.append(word[place - 1])
+        if i % interval == 0:
+            plaintext.append(word[interval - 1])
     return ''.join(plaintext)
 
 
