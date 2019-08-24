@@ -72,6 +72,16 @@ class TestDecodeNull(unittest.TestCase):
         test_string = decode_null.decode_null(3, ciphertext)
         self.assertEqual(plaintext, test_string)
 
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout):
+        """Test demo main function."""
+        decode_null.main()
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch05/main/decode_null.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
 
 if __name__ == '__main__':
     unittest.main()
