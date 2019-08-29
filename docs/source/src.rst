@@ -11,6 +11,7 @@ Subpackages
    src.ch03
    src.ch04
    src.ch05
+   src.ch06
 
 Module contents
 ---------------
