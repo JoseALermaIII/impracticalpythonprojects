@@ -16,7 +16,7 @@ import docx
 from docx.shared import RGBColor, Pt
 
 
-def get_text(file_path: str, remove_blank: bool = True) -> list:
+def get_text(file_path: str, skip_blank: bool = True) -> list:
     """Get text from a docx file.
 
     Loads paragraphs from the given docx file into a list. Optionally skips
@@ -24,7 +24,7 @@ def get_text(file_path: str, remove_blank: bool = True) -> list:
 
     Args:
         file_path (str): Absolute path to a .docx file to load.
-        remove_blank (bool): Whether or not to skip blank lines. Defaults
+        skip_blank (bool): Whether or not to skip blank lines. Defaults
             to :py:obj:`True`.
     Returns:
         Each paragraph in the docx file in a list of strings.
