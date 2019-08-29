@@ -16,3 +16,6 @@ htmlcov/
 __pycache__
 venv*/
 build/
+
+# LibreOffice
+.~lock.*
