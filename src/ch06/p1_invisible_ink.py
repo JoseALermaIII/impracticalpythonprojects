@@ -35,7 +35,7 @@ def get_text(file_path: str, skip_blank: bool = True) -> list:
     for paragraph in doc.paragraphs:
         if all([skip_blank, len(paragraph.text) == 0]):
             continue
-        paragraphs.append(paragraph)
+        paragraphs.append(paragraph.text)
     return paragraphs
 
 
