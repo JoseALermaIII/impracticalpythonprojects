@@ -11,20 +11,12 @@ class TestInvisibleInk(unittest.TestCase):
     def test_get_text(self):
         """Test get_text."""
         testfile = os.path.normpath('tests/data/ch06/fake.docx')
-        # Test that it does skip blanks.
-        paragraphs = invisible_ink.get_text(testfile)
-        blanklines = 0
-        for paragraph in paragraphs:
-            if len(paragraph.text) == 0:
-                blanklines += 1
-        self.assertEqual(blanklines, 0)
         # Test that it doesn't skip blanks.
         paragraphs = invisible_ink.get_text(testfile, skip_blank=False)
-        blanklines = 0
-        for paragraph in paragraphs:
-            if len(paragraph.text) == 0:
-                blanklines += 1
-        self.assertEqual(blanklines, 4)
+        self.assertEqual(paragraphs.count(''), 4)
+        # Test that it does skip blanks.
+        paragraphs = invisible_ink.get_text(testfile)
+        self.assertEqual(paragraphs.count(''), 0)
 
 
 if __name__ == '__main__':
