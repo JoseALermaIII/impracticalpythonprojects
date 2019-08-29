@@ -30,6 +30,13 @@ def get_text(file_path: str, skip_blank: bool = True) -> list:
         Each paragraph in the docx file in a list of strings.
 
     """
+    paragraphs = []
+    doc = docx.Document(file_path)
+    for paragraph in doc.paragraphs:
+        if all([skip_blank, len(paragraph.text) == 0]):
+            continue
+        paragraphs.append(paragraph)
+    return paragraphs
 
 
 def check_length(plaintext: list, ciphertext: list) -> int:
