@@ -95,7 +95,7 @@ def write_invisible(plaintext: list, ciphertext: list,
     Raises:
         ValueError: If the number of blank lines in **plaintext** aren't
             enough to embed **ciphertext** based on output of
-            :func:`check_length`.
+            :func:`check_blanks`.
 
     """
 
