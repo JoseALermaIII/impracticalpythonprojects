@@ -29,6 +29,9 @@ def get_text(file_path: str, skip_blank: bool = True) -> list:
     Returns:
         Each paragraph in the docx file in a list of strings.
 
+    Note:
+        Does not copy formatting from docx file - only text.
+
     """
     paragraphs = []
     doc = docx.Document(file_path)
