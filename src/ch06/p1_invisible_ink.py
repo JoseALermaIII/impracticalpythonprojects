@@ -61,6 +61,10 @@ def check_length(plaintext: list, ciphertext: list) -> int:
         can fit in **plaintext**.
 
     """
+    blanks_needed = len(ciphertext) - plaintext.count('')
+    if blanks_needed <= 0:
+        return 0
+    return blanks_needed
 
 
 def write_invisible(plaintext: list, ciphertext: list,
