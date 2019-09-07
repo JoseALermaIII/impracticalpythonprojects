@@ -42,7 +42,7 @@ def get_text(file_path: str, skip_blank: bool = True) -> list:
     return paragraphs
 
 
-def check_length(plaintext: list, ciphertext: list) -> int:
+def check_blanks(plaintext: list, ciphertext: list) -> int:
     """Check if the ciphertext can fit in plaintext.
 
     Compare the number of blank lines in **plaintext** to the number of lines

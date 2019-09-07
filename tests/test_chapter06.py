@@ -29,27 +29,27 @@ class TestInvisibleInk(unittest.TestCase):
              'Word.']
         self.assertEqual(answerlist, paragraphs)
 
-    def test_check_length(self):
-        """Test check_length."""
+    def test_check_blanks(self):
+        """Test check_blanks."""
         fakefile = os.path.normpath('tests/data/ch06/fake.docx')
         cipherfile = os.path.normpath('tests/data/ch06/cipher.docx')
         # Test that it doesn't need extra blanks.
         faketext = invisible_ink.get_text(fakefile, False)
         ciphertext = invisible_ink.get_text(cipherfile)
-        blanks_needed = invisible_ink.check_length(faketext, ciphertext)
+        blanks_needed = invisible_ink.check_blanks(faketext, ciphertext)
         self.assertEqual(blanks_needed, 0)
         # Test that it does need extra blanks.
         faketext = invisible_ink.get_text(fakefile)
-        blanks_needed = invisible_ink.check_length(faketext, ciphertext)
+        blanks_needed = invisible_ink.check_blanks(faketext, ciphertext)
         self.assertEqual(blanks_needed, 3)
         faketext.append('')
-        blanks_needed = invisible_ink.check_length(faketext, ciphertext)
+        blanks_needed = invisible_ink.check_blanks(faketext, ciphertext)
         self.assertEqual(blanks_needed, 2)
         faketext.append('')
-        blanks_needed = invisible_ink.check_length(faketext, ciphertext)
+        blanks_needed = invisible_ink.check_blanks(faketext, ciphertext)
         self.assertEqual(blanks_needed, 1)
         faketext.append('')
-        blanks_needed = invisible_ink.check_length(faketext, ciphertext)
+        blanks_needed = invisible_ink.check_blanks(faketext, ciphertext)
         self.assertEqual(blanks_needed, 0)
 
 
