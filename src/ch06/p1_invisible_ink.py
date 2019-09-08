@@ -13,6 +13,7 @@ Warning:
 
 """
 import docx
+import os
 from docx.shared import RGBColor, Pt
 
 
@@ -108,6 +109,35 @@ def write_invisible(plaintext: list, ciphertext: list,
         https://python-docx.readthedocs.io/en/latest/user/styles-understanding.html
 
     """
+    blanks_needed = check_blanks(plaintext, ciphertext)
+    if blanks_needed > 0:
+        raise ValueError(f'{blanks_needed} more blanks are needed in the '
+                         f'plaintext (fake) message.')
+    if template_path is None:
+        # Use default template.
+        doc = docx.Document()
+    else:
+        doc = docx.Document(template_path)
+
+    index = 0
+    for line in plaintext:
+        if all([line == '', index < len(ciphertext)]):
+            paragraph = doc.add_paragraph(ciphertext[index])
+            paragraph_index = len(doc.paragraphs) - 1
+            # Set real message color to white.
+            run = doc.paragraphs[paragraph_index].runs[0]
+            font = run.font
+            # Make red for testing.
+            font.color.rgb = RGBColor(255, 255, 255)
+            index += 1
+        else:
+            paragraph = doc.add_paragraph(line)
+        # Set line spacing between paragraphs.
+        paragraph_format = paragraph.paragraph_format
+        paragraph_format.space_before = Pt(0)
+        paragraph_format.space_after = Pt(0)
+
+    doc.save(os.path.join(os.path.curdir, filename))
 
 
 def main():
