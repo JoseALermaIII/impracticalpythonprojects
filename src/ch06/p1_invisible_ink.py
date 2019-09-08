@@ -12,8 +12,8 @@ Warning:
     for actual covert operations (covered in MIT License).
 
 """
-import docx
 import os
+import docx
 from docx.shared import RGBColor, Pt
 
 
