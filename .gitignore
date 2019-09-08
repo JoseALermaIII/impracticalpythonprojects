@@ -19,3 +19,6 @@ build/
 
 # LibreOffice
 .~lock.*
+
+# Chapter 6
+output.docx
