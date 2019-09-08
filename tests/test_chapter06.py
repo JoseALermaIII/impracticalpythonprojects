@@ -52,6 +52,44 @@ class TestInvisibleInk(unittest.TestCase):
         blanks_needed = invisible_ink.check_blanks(faketext, ciphertext)
         self.assertEqual(blanks_needed, 0)
 
+    def test_write_invisible(self):
+        """Test write_invisible."""
+        fakefile = os.path.normpath('tests/data/ch06/fake.docx')
+        cipherfile = os.path.normpath('tests/data/ch06/cipher.docx')
+        faketext = invisible_ink.get_text(fakefile, False)
+        ciphertext = invisible_ink.get_text(cipherfile)
+        current_dir = os.path.curdir
+        # Test default template and filename.
+        invisible_ink.write_invisible(faketext, ciphertext)
+        output_file = os.path.join(current_dir, 'output.docx')
+        self.assertTrue(os.path.exists(output_file))
+        output_text = invisible_ink.get_text(output_file)
+        all_text = [element for element in faketext if element != ''] + \
+            ciphertext
+        self.assertEqual(len(all_text), len(output_text))
+        for line in output_text:
+            self.assertIn(line, all_text)
+        os.remove(output_file)
+        # Test custom template and filename.
+        template_file = os.path.normpath('tests/data/ch06/template.docx')
+        output_file = os.path.join(current_dir, 'letter.docx')
+        invisible_ink.write_invisible(faketext, ciphertext, template_file, 'letter.docx')
+        self.assertTrue(os.path.exists(output_file))
+        output_text = invisible_ink.get_text(output_file)
+        all_text = [element for element in faketext if element != ''] + \
+            ciphertext
+        self.assertEqual(len(all_text), len(output_text))
+        for line in output_text:
+            self.assertIn(line, all_text)
+        os.remove(output_file)
+        # Test error.
+        faketext = invisible_ink.get_text(fakefile)
+        error = ('3 more blanks are needed in the '
+                 'plaintext (fake) message.')
+        with self.assertRaises(ValueError) as err:
+            invisible_ink.write_invisible(faketext, ciphertext)
+        self.assertEqual(error, str(err.exception))
+
 
 if __name__ == '__main__':
     unittest.main()
