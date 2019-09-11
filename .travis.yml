@@ -39,9 +39,9 @@ matrix:
     - name: "3.7 pydocstyle Check"
       python: 3.7
       env: TOXENV=pydocstyle
-# Dependencies specified in requirements file.
+# Dependencies needed to run tox tests and update coverage.
 install:
-  - pip install -r requirements-dev.txt
+  - pip install tox
   - pip install coveralls
 # Run each test in matrix
 script:
