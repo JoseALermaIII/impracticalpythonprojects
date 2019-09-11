@@ -12,7 +12,7 @@ Warning:
     for actual covert operations (covered in MIT License).
 
 """
-import os
+from pathlib import Path, PurePath
 import docx
 from docx.shared import RGBColor, Pt
 
@@ -140,8 +140,43 @@ def write_invisible(plaintext: list, ciphertext: list,
     doc.save(filename)
 
 
-def main():
-    """Demonstrate the invisible ink writer."""
+def main(fakefile: str = None, cipherfile: str = None,
+         filepath: str = None) -> None:
+    """Demonstrate the invisible ink writer.
+
+    Demonstrate :func:`write_invisible`, but for testing,
+    it is a basic wrapper function for :func:`write_invisible`.
+    Embed **cipherfile** in **fakefile**'s whitespace.
+
+    Args:
+        fakefile (str): Path to .docx file with fake message.
+            Defaults to ``./p1files/fake.docx``.
+        cipherfile (str): Path to .docx file with real message.
+            Defaults to ``./p1files/real.docx``.
+        filepath (str): Path to .docx file for output.
+            Defaults to ``./p1files/LetterToUSDA.docx``.
+
+    Returns:
+         :py:obj:`None`. The contents of **cipherfile**'s text is embedded
+         in **fakefile**'s whitespace in :func:`write_invisible`'s default
+         output filename.
+
+    """
+    print('I can embed a hidden message in a .docx file\'s white space '
+          'by making the font\ncolor white. It isn\'t as bulletproof '
+          'as it sounds.\n')
+    current_dir = Path('./p1files').resolve()
+    if fakefile is None or cipherfile is None:
+        fakefile = PurePath(current_dir).joinpath('fake.docx')
+        cipherfile = PurePath(current_dir).joinpath('real.docx')
+    if filepath is None:
+        filepath = PurePath(current_dir).joinpath('LetterToUSDA.docx')
+    faketext = get_text(fakefile, False)
+    ciphertext = get_text(cipherfile)
+    write_invisible(faketext, ciphertext, None, filepath)
+    print('Done.\n')
+    print('To read the real message, select the entire document and\n'
+          'highlight it a dark gray.')
 
 
 if __name__ == '__main__':
