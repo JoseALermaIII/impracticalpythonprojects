@@ -137,7 +137,7 @@ def write_invisible(plaintext: list, ciphertext: list,
         paragraph_format.space_before = Pt(0)
         paragraph_format.space_after = Pt(0)
 
-    doc.save(os.path.join(os.path.curdir, filename))
+    doc.save(filename)
 
 
 def main():
