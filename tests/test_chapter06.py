@@ -90,6 +90,59 @@ class TestInvisibleInk(unittest.TestCase):
             invisible_ink.write_invisible(faketext, ciphertext)
         self.assertEqual(error, str(err.exception))
 
+    @unittest.mock.patch('src.ch06.p1_invisible_ink.Path.resolve')
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout, mock_abspath):
+        """Test demo main function."""
+        # FIXME: Why doesn't current_dir = os.path.abspath('./p1files') and
+        #   fakefile = os.path.join(current_dir, 'fake.docx') used in
+        #   src/ch06.p1_invisible_ink.main work with
+        #   @unittest.mock.patch('src.ch06.p1_invisible_ink.os.path.abspath')
+        #   and mock_abspath.return_value = os.path.normpath('src/ch06/p1files')
+        #   used here?
+        #   Using Python 3.6.8 and python-docx 0.8.10, fails with:
+        #   ValueError: PackURI must begin with slash, got 'src/ch06/p1files'
+        #   Had to use pathlib's Path and PurePath in p1_invisible_ink.main
+
+        # Mock output of abspath to avoid FileNotFoundError.
+        mock_abspath.return_value = os.path.normpath('src/ch06/p1files')
+        current_dir = os.getcwd()
+        # Test using test files.
+        fakefile = os.path.join(current_dir, 'tests/data/ch06/fake.docx')
+        cipherfile = os.path.join(current_dir, 'tests/data/ch06/cipher.docx')
+        output_file = os.path.join(current_dir, 'tests/data/ch06/output.docx')
+        faketext = invisible_ink.get_text(fakefile, False)
+        ciphertext = invisible_ink.get_text(cipherfile)
+        invisible_ink.main(fakefile, cipherfile, output_file)
+        self.assertTrue(os.path.exists(output_file))
+        output_text = invisible_ink.get_text(output_file)
+        all_text = ([element for element in faketext if element != ''] +
+                    ciphertext)
+        self.assertEqual(len(all_text), len(output_text))
+        for line in output_text:
+            self.assertIn(line, all_text)
+        os.remove(output_file)
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch06/main/invisible_ink.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+        # Test using default files.
+        invisible_ink.main()
+        fakefile = os.path.join(current_dir, 'src/ch06/p1files/fake.docx')
+        cipherfile = os.path.join(current_dir, 'src/ch06/p1files/real.docx')
+        output_file = os.path.normpath('src/ch06/p1files/LetterToUSDA.docx')
+        faketext = invisible_ink.get_text(fakefile, False)
+        ciphertext = invisible_ink.get_text(cipherfile)
+        self.assertTrue(os.path.exists(output_file))
+        output_text = invisible_ink.get_text(output_file)
+        all_text = ([element for element in faketext if element != ''] +
+                    ciphertext)
+        self.assertEqual(len(all_text), len(output_text))
+        for line in output_text:
+            self.assertIn(line, all_text)
+        os.remove(output_file)
+
 
 if __name__ == '__main__':
     unittest.main()
