@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src.ch06 package &#8212; impracticalpythonprojects 0.27.1 documentation</title>
+    <link rel="stylesheet" href="_static/flask.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="src.ch05 package" href="src.ch05.html" />
+  <script>DOCUMENTATION_OPTIONS.URL_ROOT = './';</script>
+   
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="src.ch05.html" title="src.ch05 package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.27.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="src.html" accesskey="U">src package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="src-ch06-package">
+<h1>src.ch06 package<a class="headerlink" href="#src-ch06-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-src.ch06.p1_invisible_ink">
+<span id="src-ch06-p1-invisible-ink-module"></span><h2>src.ch06.p1_invisible_ink module<a class="headerlink" href="#module-src.ch06.p1_invisible_ink" title="Permalink to this headline">¶</a></h2>
+<p>Use stenography to hide messages in a word processor document.</p>
+<p>Use <a class="reference external" href="https://python-docx.readthedocs.io/en/latest/api/document.html#docx.Document" title="(in python-docx v0.8.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">docx.Document</span></code></a> to hide encrypted messages in a word processor
+document by embedding the encrypted message in a fake message’s whitespace,
+then changing the encrypted message’s font color to white.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Using LibreOffice version 6.0.7.3</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>There are many ways this method of stenography can fail. Please don’t use
+for actual covert operations (covered in MIT License).</p>
+</div>
+<dl class="function">
+<dt id="src.ch06.p1_invisible_ink.check_blanks">
+<code class="sig-prename descclassname">src.ch06.p1_invisible_ink.</code><code class="sig-name descname">check_blanks</code><span class="sig-paren">(</span><em class="sig-param">plaintext: list</em>, <em class="sig-param">ciphertext: list</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/src/ch06/p1_invisible_ink.html#check_blanks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch06.p1_invisible_ink.check_blanks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the ciphertext can fit in plaintext.</p>
+<p>Compare the number of blank lines in <strong>plaintext</strong> to the number of lines
+in <strong>ciphertext</strong>. If they aren’t a match, returns the number of extra
+blank lines needed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plaintext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Paragraphs of a fake message in a list of strings
+(likely from <a class="reference internal" href="#src.ch06.p1_invisible_ink.get_text" title="src.ch06.p1_invisible_ink.get_text"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_text()</span></code></a>).</p></li>
+<li><p><strong>ciphertext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Paragraphs of an encrypted message in a list of
+strings (likely from <a class="reference internal" href="#src.ch06.p1_invisible_ink.get_text" title="src.ch06.p1_invisible_ink.get_text"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_text()</span></code></a>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Integer representing the number of needed blank lines to fit
+<strong>ciphertext</strong> in <strong>plaintext</strong>. <code class="docutils literal notranslate"><span class="pre">0</span></code> would mean that <strong>ciphertext</strong>
+can fit in <strong>plaintext</strong>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch06.p1_invisible_ink.get_text">
+<code class="sig-prename descclassname">src.ch06.p1_invisible_ink.</code><code class="sig-name descname">get_text</code><span class="sig-paren">(</span><em class="sig-param">file_path: str</em>, <em class="sig-param">skip_blank: bool = True</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch06/p1_invisible_ink.html#get_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch06.p1_invisible_ink.get_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get text from a docx file.</p>
+<p>Loads paragraphs from the given docx file into a list. Optionally skips
+blank lines.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Absolute path to a .docx file to load.</p></li>
+<li><p><strong>skip_blank</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether or not to skip blank lines. Defaults
+to <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Each paragraph in the docx file in a list of strings.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Does not copy formatting from docx file - only text.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch06.p1_invisible_ink.main">
+<code class="sig-prename descclassname">src.ch06.p1_invisible_ink.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><em class="sig-param">fakefile: str = None</em>, <em class="sig-param">cipherfile: str = None</em>, <em class="sig-param">savepath: str = None</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/src/ch06/p1_invisible_ink.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch06.p1_invisible_ink.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Demonstrate the invisible ink writer.</p>
+<p>Demonstrate <a class="reference internal" href="#src.ch06.p1_invisible_ink.write_invisible" title="src.ch06.p1_invisible_ink.write_invisible"><code class="xref py py-func docutils literal notranslate"><span class="pre">write_invisible()</span></code></a>, but for testing,
+it is a basic wrapper function for <a class="reference internal" href="#src.ch06.p1_invisible_ink.write_invisible" title="src.ch06.p1_invisible_ink.write_invisible"><code class="xref py py-func docutils literal notranslate"><span class="pre">write_invisible()</span></code></a>.
+Embed <strong>cipherfile</strong> in <strong>fakefile</strong>’s whitespace.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fakefile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to .docx file with fake message.
+Defaults to <code class="docutils literal notranslate"><span class="pre">./p1files/fake.docx</span></code>.</p></li>
+<li><p><strong>cipherfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to .docx file with real message.
+Defaults to <code class="docutils literal notranslate"><span class="pre">./p1files/real.docx</span></code>.</p></li>
+<li><p><strong>savepath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to .docx file for output.
+Defaults to <code class="docutils literal notranslate"><span class="pre">./p1files/LetterToUSDA.docx</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>. The contents of <strong>cipherfile</strong>’s text is embedded
+in <strong>fakefile</strong>’s whitespace and saved to <strong>savepath</strong>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch06.p1_invisible_ink.write_invisible">
+<code class="sig-prename descclassname">src.ch06.p1_invisible_ink.</code><code class="sig-name descname">write_invisible</code><span class="sig-paren">(</span><em class="sig-param">plaintext: list</em>, <em class="sig-param">ciphertext: list</em>, <em class="sig-param">template_path: str = None</em>, <em class="sig-param">filename: str = 'output.docx'</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/src/ch06/p1_invisible_ink.html#write_invisible"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch06.p1_invisible_ink.write_invisible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Embed ciphertext in plaintext’s whitespace.</p>
+<p>Open a template file, <strong>template_path</strong>, with the needed fonts, styles,
+and margins. Write each paragraph in <strong>plaintext</strong> to the template file
+and add each paragraph in <strong>ciphertext</strong> to <strong>plaintext</strong>’s blank space.
+Save the new file as <strong>filename</strong>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plaintext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Paragraphs of a fake message in a list of strings
+(likely from <a class="reference internal" href="#src.ch06.p1_invisible_ink.get_text" title="src.ch06.p1_invisible_ink.get_text"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_text()</span></code></a>).</p></li>
+<li><p><strong>ciphertext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Paragraphs of an encrypted message in a list of
+strings (likely from <a class="reference internal" href="#src.ch06.p1_invisible_ink.get_text" title="src.ch06.p1_invisible_ink.get_text"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_text()</span></code></a>).</p></li>
+<li><p><strong>template_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Absolute path to .docx file with predefined
+fonts, styles, and margins. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>. If not
+provided, defaults will be created.</p></li>
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name to use for output file. Defaults to
+<code class="docutils literal notranslate"><span class="pre">output.docx</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>. <strong>plaintext</strong> is written to the file at
+<strong>template_path</strong> with <strong>ciphertext</strong> embedded in the blank space.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – If the number of blank lines in <strong>plaintext</strong> aren’t
+    enough to embed <strong>ciphertext</strong> based on output of
+    <a class="reference internal" href="#src.ch06.p1_invisible_ink.check_blanks" title="src.ch06.p1_invisible_ink.check_blanks"><code class="xref py py-func docutils literal notranslate"><span class="pre">check_blanks()</span></code></a>.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As of python-docx v0.8.10, creating custom styles isn’t well
+supported. More info <a class="reference external" href="https://python-docx.readthedocs.io/en/latest/user/styles-understanding.html">here</a>.</p>
+<p>As a result, if a template isn’t provided, the default template is
+used.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.ch06">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.ch06" title="Permalink to this headline">¶</a></h2>
+<p>Chapter 6.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  
+    
+  
+
+  <h3>Contents</h3>
+  <ul>
+<li><a class="reference internal" href="#">src.ch06 package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-src.ch06.p1_invisible_ink">src.ch06.p1_invisible_ink module</a></li>
+<li><a class="reference internal" href="#module-src.ch06">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<h3>Navigation</h3>
+<ul>
+  <li><a href="index.html">Overview</a>
+    <ul>
+      <li><a href="modules.html">src</a>
+        <ul>
+      <li><a href="src.html">src package</a>
+        <ul>
+          <li>Previous: <a href="src.ch05.html" title="previous chapter">src.ch05 package</a>
+          </ul>
+      </li></ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jose A. Lerma III.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+    </div>
+
+  </body>
+</html>

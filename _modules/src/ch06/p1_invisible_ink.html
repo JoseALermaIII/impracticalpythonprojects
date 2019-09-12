@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src.ch06.p1_invisible_ink &#8212; impracticalpythonprojects 0.27.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/flask.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <script>DOCUMENTATION_OPTIONS.URL_ROOT = '../../../';</script>
+   
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">impracticalpythonprojects 0.27.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for src.ch06.p1_invisible_ink</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Use stenography to hide messages in a word processor document.</span>
+
+<span class="sd">Use :py:obj:`docx.Document` to hide encrypted messages in a word processor</span>
+<span class="sd">document by embedding the encrypted message in a fake message&#39;s whitespace,</span>
+<span class="sd">then changing the encrypted message&#39;s font color to white.</span>
+
+<span class="sd">Note:</span>
+<span class="sd">    Using LibreOffice version 6.0.7.3</span>
+
+<span class="sd">Warning:</span>
+<span class="sd">    There are many ways this method of stenography can fail. Please don&#39;t use</span>
+<span class="sd">    for actual covert operations (covered in MIT License).</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span><span class="p">,</span> <span class="n">PurePath</span>
+<span class="kn">import</span> <span class="nn">docx</span>
+<span class="kn">from</span> <span class="nn">docx.shared</span> <span class="k">import</span> <span class="n">RGBColor</span><span class="p">,</span> <span class="n">Pt</span>
+
+
+<div class="viewcode-block" id="get_text"><a class="viewcode-back" href="../../../src.ch06.html#src.ch06.p1_invisible_ink.get_text">[docs]</a><span class="k">def</span> <span class="nf">get_text</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">skip_blank</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get text from a docx file.</span>
+
+<span class="sd">    Loads paragraphs from the given docx file into a list. Optionally skips</span>
+<span class="sd">    blank lines.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        file_path (str): Absolute path to a .docx file to load.</span>
+<span class="sd">        skip_blank (bool): Whether or not to skip blank lines. Defaults</span>
+<span class="sd">            to :py:obj:`True`.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Each paragraph in the docx file in a list of strings.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Does not copy formatting from docx file - only text.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">paragraphs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">docx</span><span class="o">.</span><span class="n">Document</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">paragraph</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">paragraphs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="n">skip_blank</span><span class="p">,</span> <span class="ow">not</span> <span class="n">paragraph</span><span class="o">.</span><span class="n">text</span><span class="p">]):</span>
+            <span class="k">continue</span>
+        <span class="n">paragraphs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">paragraph</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">paragraphs</span></div>
+
+
+<div class="viewcode-block" id="check_blanks"><a class="viewcode-back" href="../../../src.ch06.html#src.ch06.p1_invisible_ink.check_blanks">[docs]</a><span class="k">def</span> <span class="nf">check_blanks</span><span class="p">(</span><span class="n">plaintext</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">ciphertext</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Check if the ciphertext can fit in plaintext.</span>
+
+<span class="sd">    Compare the number of blank lines in **plaintext** to the number of lines</span>
+<span class="sd">    in **ciphertext**. If they aren&#39;t a match, returns the number of extra</span>
+<span class="sd">    blank lines needed.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        plaintext (list): Paragraphs of a fake message in a list of strings</span>
+<span class="sd">            (likely from :func:`get_text`).</span>
+<span class="sd">        ciphertext (list): Paragraphs of an encrypted message in a list of</span>
+<span class="sd">            strings (likely from :func:`get_text`).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Integer representing the number of needed blank lines to fit</span>
+<span class="sd">        **ciphertext** in **plaintext**. ``0`` would mean that **ciphertext**</span>
+<span class="sd">        can fit in **plaintext**.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">blanks_needed</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">)</span> <span class="o">-</span> <span class="n">plaintext</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">blanks_needed</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">blanks_needed</span></div>
+
+
+<div class="viewcode-block" id="write_invisible"><a class="viewcode-back" href="../../../src.ch06.html#src.ch06.p1_invisible_ink.write_invisible">[docs]</a><span class="k">def</span> <span class="nf">write_invisible</span><span class="p">(</span><span class="n">plaintext</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">ciphertext</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+                    <span class="n">template_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;output.docx&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Embed ciphertext in plaintext&#39;s whitespace.</span>
+
+<span class="sd">    Open a template file, **template_path**, with the needed fonts, styles,</span>
+<span class="sd">    and margins. Write each paragraph in **plaintext** to the template file</span>
+<span class="sd">    and add each paragraph in **ciphertext** to **plaintext**&#39;s blank space.</span>
+<span class="sd">    Save the new file as **filename**.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        plaintext (list): Paragraphs of a fake message in a list of strings</span>
+<span class="sd">            (likely from :func:`get_text`).</span>
+<span class="sd">        ciphertext (list): Paragraphs of an encrypted message in a list of</span>
+<span class="sd">            strings (likely from :func:`get_text`).</span>
+<span class="sd">        template_path (str): Absolute path to .docx file with predefined</span>
+<span class="sd">            fonts, styles, and margins. Defaults to :py:obj:`None`. If not</span>
+<span class="sd">            provided, defaults will be created.</span>
+<span class="sd">        filename (str): File name to use for output file. Defaults to</span>
+<span class="sd">            ``output.docx``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        :py:obj:`None`. **plaintext** is written to the file at</span>
+<span class="sd">        **template_path** with **ciphertext** embedded in the blank space.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the number of blank lines in **plaintext** aren&#39;t</span>
+<span class="sd">            enough to embed **ciphertext** based on output of</span>
+<span class="sd">            :func:`check_blanks`.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        As of python-docx v0.8.10, creating custom styles isn&#39;t well</span>
+<span class="sd">        supported. More info `here`_.</span>
+
+<span class="sd">        As a result, if a template isn&#39;t provided, the default template is</span>
+<span class="sd">        used.</span>
+
+<span class="sd">    .. _here:</span>
+<span class="sd">        https://python-docx.readthedocs.io/en/latest/user/styles-understanding.html</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">blanks_needed</span> <span class="o">=</span> <span class="n">check_blanks</span><span class="p">(</span><span class="n">plaintext</span><span class="p">,</span> <span class="n">ciphertext</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">blanks_needed</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{blanks_needed}</span><span class="s1"> more blanks are needed in the &#39;</span>
+                         <span class="n">f</span><span class="s1">&#39;plaintext (fake) message.&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">template_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Use default template.</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">docx</span><span class="o">.</span><span class="n">Document</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">docx</span><span class="o">.</span><span class="n">Document</span><span class="p">(</span><span class="n">template_path</span><span class="p">)</span>
+
+    <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">plaintext</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="n">line</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">)]):</span>
+            <span class="n">paragraph</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">add_paragraph</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+            <span class="n">paragraph_index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">paragraphs</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="c1"># Set real message color to white.</span>
+            <span class="n">run</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">paragraphs</span><span class="p">[</span><span class="n">paragraph_index</span><span class="p">]</span><span class="o">.</span><span class="n">runs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">font</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">font</span>
+            <span class="c1"># Make red for testing.</span>
+            <span class="n">font</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">rgb</span> <span class="o">=</span> <span class="n">RGBColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+            <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">paragraph</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">add_paragraph</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="c1"># Set line spacing between paragraphs.</span>
+        <span class="n">paragraph_format</span> <span class="o">=</span> <span class="n">paragraph</span><span class="o">.</span><span class="n">paragraph_format</span>
+        <span class="n">paragraph_format</span><span class="o">.</span><span class="n">space_before</span> <span class="o">=</span> <span class="n">Pt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">paragraph_format</span><span class="o">.</span><span class="n">space_after</span> <span class="o">=</span> <span class="n">Pt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../src.ch06.html#src.ch06.p1_invisible_ink.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">fakefile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">cipherfile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+         <span class="n">savepath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Demonstrate the invisible ink writer.</span>
+
+<span class="sd">    Demonstrate :func:`write_invisible`, but for testing,</span>
+<span class="sd">    it is a basic wrapper function for :func:`write_invisible`.</span>
+<span class="sd">    Embed **cipherfile** in **fakefile**&#39;s whitespace.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        fakefile (str): Path to .docx file with fake message.</span>
+<span class="sd">            Defaults to ``./p1files/fake.docx``.</span>
+<span class="sd">        cipherfile (str): Path to .docx file with real message.</span>
+<span class="sd">            Defaults to ``./p1files/real.docx``.</span>
+<span class="sd">        savepath (str): Path to .docx file for output.</span>
+<span class="sd">            Defaults to ``./p1files/LetterToUSDA.docx``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">         :py:obj:`None`. The contents of **cipherfile**&#39;s text is embedded</span>
+<span class="sd">         in **fakefile**&#39;s whitespace and saved to **savepath**.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;I can embed a hidden message in a .docx file</span><span class="se">\&#39;</span><span class="s1">s white space &#39;</span>
+          <span class="s1">&#39;by making the font</span><span class="se">\n</span><span class="s1">color white. It isn</span><span class="se">\&#39;</span><span class="s1">t as bulletproof &#39;</span>
+          <span class="s1">&#39;as it sounds.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">current_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;./p1files&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">fakefile</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">cipherfile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fakefile</span> <span class="o">=</span> <span class="n">PurePath</span><span class="p">(</span><span class="n">current_dir</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s1">&#39;fake.docx&#39;</span><span class="p">)</span>
+        <span class="n">cipherfile</span> <span class="o">=</span> <span class="n">PurePath</span><span class="p">(</span><span class="n">current_dir</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s1">&#39;real.docx&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">savepath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">savepath</span> <span class="o">=</span> <span class="n">PurePath</span><span class="p">(</span><span class="n">current_dir</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s1">&#39;LetterToUSDA.docx&#39;</span><span class="p">)</span>
+    <span class="n">faketext</span> <span class="o">=</span> <span class="n">get_text</span><span class="p">(</span><span class="n">fakefile</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">ciphertext</span> <span class="o">=</span> <span class="n">get_text</span><span class="p">(</span><span class="n">cipherfile</span><span class="p">)</span>
+    <span class="n">write_invisible</span><span class="p">(</span><span class="n">faketext</span><span class="p">,</span> <span class="n">ciphertext</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">savepath</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Done.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;To read the real message, select the entire document and</span><span class="se">\n</span><span class="s1">&#39;</span>
+          <span class="s1">&#39;highlight it a dark gray.&#39;</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  
+    
+  
+<h3>Navigation</h3>
+<ul>
+  <li><a href="../../../index.html">Overview</a>
+    <ul>
+      <li><a href="../../index.html">Module code</a>
+        
+          
+          </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jose A. Lerma III.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+    </div>
+
+  </body>
+</html>
