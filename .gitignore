@@ -16,3 +16,10 @@ htmlcov/
 __pycache__
 venv*/
 build/
+
+# LibreOffice
+.~lock.*
+
+# Chapter 6
+output.docx
+LetterToUSDA.docx

@@ -1,6 +1,8 @@
 # .coveragerc for coverage.py
 [run]
-omit = tests/*
+omit =
+    tests/*
+    .tox/*
 
 [report]
 show_missing = True

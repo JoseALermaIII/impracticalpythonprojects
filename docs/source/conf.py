@@ -54,6 +54,7 @@ exclude_patterns = []
 # Map external module's documentation written with Sphinx
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3/', None),
+    'docx': ('https://python-docx.readthedocs.io/en/latest/', None),
 }
 
 # Default options for autodoc directives.
