@@ -158,8 +158,7 @@ def main(fakefile: str = None, cipherfile: str = None,
 
     Returns:
          :py:obj:`None`. The contents of **cipherfile**'s text is embedded
-         in **fakefile**'s whitespace in :func:`write_invisible`'s default
-         output filename.
+         in **fakefile**'s whitespace and saved to **savepath**.
 
     """
     print('I can embed a hidden message in a .docx file\'s white space '
