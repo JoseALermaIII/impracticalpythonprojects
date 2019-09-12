@@ -99,8 +99,8 @@ def write_invisible(plaintext: list, ciphertext: list,
             :func:`check_blanks`.
 
     Note:
-        As of python-docx v0.8.10, custom styles aren't supported well.
-        More info `here`_.
+        As of python-docx v0.8.10, creating custom styles isn't well
+        supported. More info `here`_.
 
         As a result, if a template isn't provided, the default template is
         used.
