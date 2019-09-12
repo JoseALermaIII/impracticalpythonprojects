@@ -14,7 +14,9 @@ supporting files can be found at the `official GitHub page`_.
 
 It's a fantastic intermediate level book that has truly impractical (but fun)
 projects. It's a great way to get tricked into learning new conventions,
-techniques, and modules.
+techniques, and modules. My `closed PRs`_ and the comments on my `release`_
+commits act as a blog of sorts detailing some of the things learned along
+the way.
 
 My original `python-tutorials`_ repository is already very nested, so these
 will be easier to find and review here; however, the original repository still
@@ -28,6 +30,10 @@ at all).
     https://nostarch.com/impracticalpythonprojects
 .. _official GitHub page:
     https://github.com/rlvaugh/Impractical_Python_Projects
+.. _closed PRs:
+    https://github.com/JoseALermaIII/impracticalpythonprojects/pulls?q=is%3Apr+is%3Aclosed
+.. _release:
+    https://github.com/JoseALermaIII/impracticalpythonprojects/releases
 .. _python-tutorials: https://github.com/JoseALermaIII/python-tutorials
 
 License
