@@ -141,7 +141,7 @@ def write_invisible(plaintext: list, ciphertext: list,
 
 
 def main(fakefile: str = None, cipherfile: str = None,
-         filepath: str = None) -> None:
+         savepath: str = None) -> None:
     """Demonstrate the invisible ink writer.
 
     Demonstrate :func:`write_invisible`, but for testing,
@@ -153,7 +153,7 @@ def main(fakefile: str = None, cipherfile: str = None,
             Defaults to ``./p1files/fake.docx``.
         cipherfile (str): Path to .docx file with real message.
             Defaults to ``./p1files/real.docx``.
-        filepath (str): Path to .docx file for output.
+        savepath (str): Path to .docx file for output.
             Defaults to ``./p1files/LetterToUSDA.docx``.
 
     Returns:
@@ -169,11 +169,11 @@ def main(fakefile: str = None, cipherfile: str = None,
     if fakefile is None or cipherfile is None:
         fakefile = PurePath(current_dir).joinpath('fake.docx')
         cipherfile = PurePath(current_dir).joinpath('real.docx')
-    if filepath is None:
-        filepath = PurePath(current_dir).joinpath('LetterToUSDA.docx')
+    if savepath is None:
+        savepath = PurePath(current_dir).joinpath('LetterToUSDA.docx')
     faketext = get_text(fakefile, False)
     ciphertext = get_text(cipherfile)
-    write_invisible(faketext, ciphertext, None, filepath)
+    write_invisible(faketext, ciphertext, None, savepath)
     print('Done.\n')
     print('To read the real message, select the entire document and\n'
           'highlight it a dark gray.')
