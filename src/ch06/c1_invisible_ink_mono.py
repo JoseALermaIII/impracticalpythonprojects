@@ -40,17 +40,8 @@ def check_fit(plaintext: list, ciphertext: list) -> int:
         **plaintext** do not count.
 
     """
-    blanks, letters = 0, 0
-    for line in plaintext:
-        if line == '':
-            # Skip blank lines.
-            continue
-        blanks += line.count(' ')
-    for line in ciphertext:
-        if line == '':
-            # Skip blank lines.
-            continue
-        letters += len(line)
+    blanks = sum(line.count(' ') for line in plaintext if line != '')
+    letters = sum(len(line) for line in ciphertext if line != '')
     if blanks >= letters:
         return 0
     return letters - blanks
