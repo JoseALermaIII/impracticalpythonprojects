@@ -3,6 +3,7 @@ import os
 import unittest.mock
 from io import StringIO
 import src.ch06.p1_invisible_ink as invisible_ink
+import src.ch06.c1_invisible_ink_mono as invisible_ink_mono
 
 
 class TestInvisibleInk(unittest.TestCase):
@@ -142,6 +143,36 @@ class TestInvisibleInk(unittest.TestCase):
         for line in output_text:
             self.assertIn(line, all_text)
         os.remove(output_file)
+
+
+class TestInvisibleInkMono(unittest.TestCase):
+    """Test Invisible Ink Mono."""
+
+    def test_check_fit(self):
+        """Test check_fit."""
+        fakefile = os.path.normpath('tests/data/ch06/fake_mono.docx')
+        cipherfile = os.path.normpath('tests/data/ch06/cipher_mono.docx')
+        # Test that it doesn't need extra blanks.
+        faketext = invisible_ink.get_text(fakefile, False)
+        ciphertext = invisible_ink.get_text(cipherfile)
+        blanks_needed = invisible_ink_mono.check_fit(faketext, ciphertext)
+        self.assertEqual(blanks_needed, 0)
+        # Test that it does need extra blanks.
+        faketext = ['This is too short.']
+        blanks_needed = invisible_ink_mono.check_fit(faketext, ciphertext)
+        self.assertEqual(blanks_needed, 49)
+        faketext.append('You would have to write a small novel to get it to '
+                        'fit.')
+        blanks_needed = invisible_ink_mono.check_fit(faketext, ciphertext)
+        self.assertEqual(blanks_needed, 37)
+        faketext.append('Filling in blanks is not as easy as it seems because '
+                        'so few are in every sentence.')
+        blanks_needed = invisible_ink_mono.check_fit(faketext, ciphertext)
+        self.assertEqual(blanks_needed, 21)
+        faketext.append('The use of small words helps, but it is not a good '
+                        'way to go about being a super secret spy person.')
+        blanks_needed = invisible_ink_mono.check_fit(faketext, ciphertext)
+        self.assertEqual(blanks_needed, 0)
 
 
 if __name__ == '__main__':
