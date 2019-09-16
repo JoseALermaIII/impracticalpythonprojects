@@ -14,6 +14,7 @@ Warning:
 """
 import docx
 from docx.shared import RGBColor
+
 from src.ch06.p1_invisible_ink import get_text
 
 
