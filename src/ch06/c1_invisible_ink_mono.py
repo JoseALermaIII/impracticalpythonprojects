@@ -83,7 +83,9 @@ def write_invisible(plaintext: list, ciphertext: list,
         supported. More info `here`_.
 
         As a result, if a template isn't provided, the default template is
-        modified to use a font named ``Monospace`` in the ``Normal`` style.
+        modified to use a font named ``Courier New`` on Windows and
+        ``Liberation Mono`` on other operating systems in the ``Normal``
+        style.
 
     .. _here:
         https://python-docx.readthedocs.io/en/latest/user/styles-understanding.html
