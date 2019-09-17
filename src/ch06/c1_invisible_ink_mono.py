@@ -12,6 +12,8 @@ Warning:
     for actual covert operations (covered in MIT License).
 
 """
+from platform import system
+
 import docx
 from docx.shared import RGBColor
 
@@ -92,6 +94,45 @@ def write_invisible(plaintext: list, ciphertext: list,
         https://python-docx.readthedocs.io/en/latest/user/styles-understanding.html
 
     """
+    blanks_needed = check_fit(plaintext, ciphertext)
+    if blanks_needed > 0:
+        raise ValueError(f'Need {blanks_needed} more spaces in the plaintext '
+                         f'(fake) message.')
+    if template_path is None:
+        # Modify default template.
+        doc = docx.Document()
+        style = doc.styles['Normal']
+        font = style.font
+        if system().lower().startswith('windows'):
+            font.name = 'Courier New'
+        else:
+            font.name = 'Liberation Mono'
+    else:
+        doc = docx.Document(template_path)
+
+    line_index, letter_index = 0, 0
+    for line in plaintext:
+        # Add new paragraph to template.
+        paragraph = doc.add_paragraph()
+        paragraph_index = len(doc.paragraphs) - 1
+        for letter in line:
+            # Add each letter to paragraph.
+            if all([letter == ' ',
+                    letter_index < len(ciphertext[line_index])]):
+                # Add real message to space and set color to white.
+                paragraph.add_run(ciphertext[line_index][letter_index])
+                run = doc.paragraphs[paragraph_index].runs[-1]
+                font = run.font
+                # Make red for testing.
+                font.color.rgb = RGBColor(255, 255, 255)
+                letter_index += 1
+            else:
+                paragraph.add_run(letter)
+            if letter_index > len(ciphertext[line_index]):
+                # Go to next line in ciphertext if end reached.
+                line_index += 1
+                letter_index = 0
+    doc.save(filename)
 
 
 def main():
