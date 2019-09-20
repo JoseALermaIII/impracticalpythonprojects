@@ -277,13 +277,55 @@ class TestInvisibleInkMono(unittest.TestCase):
                     continue
                 self.assertEqual(paragraph.style.font.name, "Liberation Mono")
         os.remove(output_file)
+        # Test multi-line ciphertext.
+        ciphertext.append('Hi')
+        invisible_ink_mono.write_invisible(faketext, ciphertext)
+        output_file = os.path.join(current_dir, 'output.docx')
+        self.assertTrue(os.path.exists(output_file))
+        output_text = invisible_ink.get_text(output_file)
+        answer_text = [
+            'ThisTishaitestsdocument withiaslot ofsfiller,'
+            'uorpunnecessarypwordiness.',
+            'Please,otrysnotetodwrite liketthisobecause itbiseas annoyingaas '
+            'itsishunnecessary.',
+            'Unless,oofrcourse,tyou,are '
+            'writinguantypeeofncharactercthatrisywordypandtusesewordsd'
+            'unnecessarily.',
+            'In thatmrare,euncommonsinstance,sitaisgperfectlyepermissible.'
+            'toHbeiwordy.']
+        self.assertListEqual(answer_text, output_text)
+        # Check color
+        paragraph_index, count = 0, 0
+        cipher_len = sum(len(line) for line in ciphertext)
+        doc = Document(output_file)
+        while count < cipher_len:
+            for line in faketext:
+                paragraph = doc.paragraphs[paragraph_index]
+                if line == '':
+                    # Skip blanks in faketext and output_file.
+                    paragraph_index += 1
+                    continue
+                letter_index = 0
+                for word in line.split():
+                    # Check color of each letter after word.
+                    letter_index += len(word)
+                    if letter_index >= len(line):
+                        # Stop checking at the end of the line.
+                        break
+                    run = paragraph.runs[letter_index]
+                    if all([len(run.text) == 1, run.text != ' ']):
+                        self.assertEqual(run.font.color.rgb, RGBColor(255, 255, 255))
+                    count += 1
+                    letter_index += 1
+                paragraph_index += 1
+        os.remove(output_file)
         # Test error.
+        ciphertext = ciphertext[:-1]
         faketext = invisible_ink.get_text(fakefile)[2:]
         error = 'Need 25 more spaces in the plaintext (fake) message.'
         with self.assertRaises(ValueError) as err:
             invisible_ink_mono.write_invisible(faketext, ciphertext)
         self.assertEqual(error, str(err.exception))
-        # TODO: Test multi-line ciphertext.
 
 
 if __name__ == '__main__':
