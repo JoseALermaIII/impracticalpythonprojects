@@ -128,7 +128,8 @@ def write_invisible(plaintext: list, ciphertext: list,
                 letter_index += 1
             else:
                 paragraph.add_run(letter)
-            if letter_index > len(ciphertext[line_index]):
+            if all([letter_index >= len(ciphertext[line_index]),
+                    line_index < len(ciphertext) - 1]):
                 # Go to next line in ciphertext if end reached.
                 line_index += 1
                 letter_index = 0
