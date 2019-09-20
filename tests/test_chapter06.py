@@ -263,16 +263,20 @@ class TestInvisibleInkMono(unittest.TestCase):
                     letter_index += 1
                 paragraph_index += 1
         os.remove(output_file)
-        # Test Windows OS font.
+        # Test font name.
+        invisible_ink_mono.write_invisible(faketext, ciphertext, None, 'letter.docx')
+        doc = Document(output_file)
         if system().lower().startswith('windows'):
-            invisible_ink_mono.write_invisible(faketext, ciphertext, None, 'letter.docx')
-            doc = Document(output_file)
             for paragraph in doc.paragraphs:
                 if paragraph.text == '':
                     continue
-                for run in paragraph.runs:
-                    self.assertEqual(run.font.name, "Courier New")
-            os.remove(output_file)
+                self.assertEqual(paragraph.style.font.name, "Courier New")
+        else:
+            for paragraph in doc.paragraphs:
+                if paragraph.text == '':
+                    continue
+                self.assertEqual(paragraph.style.font.name, "Liberation Mono")
+        os.remove(output_file)
         # Test error.
         faketext = invisible_ink.get_text(fakefile)[2:]
         error = 'Need 25 more spaces in the plaintext (fake) message.'
