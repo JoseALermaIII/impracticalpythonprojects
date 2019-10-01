@@ -9,6 +9,10 @@ boson
 c
 cat
 catatonic
+cool
+coot
+cover
+coverage
 d
 dog
 dirge
@@ -23,8 +27,11 @@ gecko
 gopher
 h
 heels
+hello
 hemoglobin
 hermit
+hoot
+hover
 i
 imp
 indigo
@@ -40,6 +47,8 @@ l
 lemon
 less
 lime
+loss
+lovely
 m
 mesolithic
 moonlight
@@ -55,10 +64,13 @@ pat
 patti
 penny
 pepper
+pillow
 pip
 pit
 pita
 pitt
+polo
+pool
 q
 quasar
 quark
@@ -66,6 +78,9 @@ r
 riddle
 rubber
 s
+salve
+salvo
+servlet
 set
 slight
 swift
@@ -85,6 +100,8 @@ umbra
 v
 venus
 vertiginous
+vocal
+vocation
 w
 whip
 whirl

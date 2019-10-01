@@ -93,7 +93,7 @@ def main():
     print(f'Analyzing: {word}\n')
     print('In the Ubuntu default `american-english` dictionary, these are\n'
           'the digram counts for the above word:')
-    digram_count = digram_counter(word)
+    digram_count = digram_counter(word, DICTIONARY_FILE_PATH)
     print_bar_chart(digram_count)
     top_digram = sorted(digram_count.keys())[0]
     print(f'\nThe "{top_digram}" digram occurs {digram_count[top_digram]} '
