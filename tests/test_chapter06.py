@@ -2,6 +2,10 @@
 import os
 import unittest.mock
 from io import StringIO
+
+from docx import Document
+from docx.shared import RGBColor
+
 import src.ch06.p1_invisible_ink as invisible_ink
 
 
@@ -69,6 +73,13 @@ class TestInvisibleInk(unittest.TestCase):
         self.assertEqual(len(all_text), len(output_text))
         for line in output_text:
             self.assertIn(line, all_text)
+        # Check color
+        doc = Document(output_file)
+        for paragraph in doc.paragraphs:
+            if paragraph.text in ciphertext:
+                for run in paragraph.runs:
+                    self.assertEqual(run.font.color.rgb,
+                                     RGBColor(255, 255, 255))
         os.remove(output_file)
         # Test custom template and filename.
         template_file = os.path.normpath('tests/data/ch06/template.docx')
@@ -81,6 +92,13 @@ class TestInvisibleInk(unittest.TestCase):
         self.assertEqual(len(all_text), len(output_text))
         for line in output_text:
             self.assertIn(line, all_text)
+        # Check color
+        doc = Document(output_file)
+        for paragraph in doc.paragraphs:
+            if paragraph.text in ciphertext:
+                for run in paragraph.runs:
+                    self.assertEqual(run.font.color.rgb,
+                                     RGBColor(255, 255, 255))
         os.remove(output_file)
         # Test error.
         faketext = invisible_ink.get_text(fakefile)
