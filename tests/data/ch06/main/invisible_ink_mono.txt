@@ -1,0 +1,7 @@
+I can embed a hidden message in a .docx file's white space between letters by making the font
+color white. It's far less bulletproof than it sounds.
+
+Fin.
+
+To read the hidden message, select the entire document and
+highlight it a darkish gray.
