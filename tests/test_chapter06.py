@@ -2,11 +2,15 @@
 import os
 import unittest.mock
 from io import StringIO
+from platform import system
 
 from docx import Document
 from docx.shared import RGBColor
 
 import src.ch06.p1_invisible_ink as invisible_ink
+import src.ch06.c1_invisible_ink_mono as invisible_ink_mono
+
+import tests.data.ch06.constants as constants
 
 
 class TestInvisibleInk(unittest.TestCase):
@@ -22,16 +26,7 @@ class TestInvisibleInk(unittest.TestCase):
         paragraphs = invisible_ink.get_text(testfile)
         self.assertEqual(paragraphs.count(''), 0)
         # Test that it read contents.
-        answerlist = \
-            ['This is a test document.',
-             'This is a paragraph with two runs. However, it’s not because it has two '
-             'lines.',
-             'There is intentionally a lot of blank spaces to check if the code can count '
-             'them correctly.',
-             'So, don’t send me e-mails saying that the formatting in my test files is '
-             'incorrect.',
-             'Word.']
-        self.assertEqual(answerlist, paragraphs)
+        self.assertEqual(constants.GET_TEST, paragraphs)
 
     def test_check_blanks(self):
         """Test check_blanks."""
@@ -159,6 +154,193 @@ class TestInvisibleInk(unittest.TestCase):
         self.assertEqual(len(all_text), len(output_text))
         for line in output_text:
             self.assertIn(line, all_text)
+        os.remove(output_file)
+
+
+class TestInvisibleInkMono(unittest.TestCase):
+    """Test Invisible Ink Mono."""
+
+    def test_check_fit(self):
+        """Test check_fit."""
+        fakefile = os.path.normpath('tests/data/ch06/fake_mono.docx')
+        cipherfile = os.path.normpath('tests/data/ch06/cipher_mono.docx')
+        # Test that it doesn't need extra blanks.
+        faketext = invisible_ink.get_text(fakefile, False)
+        ciphertext = invisible_ink.get_text(cipherfile)
+        blanks_needed = invisible_ink_mono.check_fit(faketext, ciphertext)
+        self.assertEqual(blanks_needed, 0)
+        # Test that it does need extra blanks.
+        faketext = ['This is too short.']
+        blanks_needed = invisible_ink_mono.check_fit(faketext, ciphertext)
+        self.assertEqual(blanks_needed, 49)
+        faketext.append('You would have to write a small novel to get it to '
+                        'fit.')
+        blanks_needed = invisible_ink_mono.check_fit(faketext, ciphertext)
+        self.assertEqual(blanks_needed, 37)
+        faketext.append('Filling in blanks is not as easy as it seems because '
+                        'so few are in every sentence.')
+        blanks_needed = invisible_ink_mono.check_fit(faketext, ciphertext)
+        self.assertEqual(blanks_needed, 21)
+        faketext.append('The use of small words helps, but it is not a good '
+                        'way to go about being a super secret spy person.')
+        blanks_needed = invisible_ink_mono.check_fit(faketext, ciphertext)
+        self.assertEqual(blanks_needed, 0)
+
+    def test_write_invisible(self):
+        """Test write_invisible."""
+        fakefile = os.path.normpath('tests/data/ch06/fake_mono.docx')
+        cipherfile = os.path.normpath('tests/data/ch06/cipher_mono.docx')
+        faketext = invisible_ink.get_text(fakefile, False)
+        ciphertext = invisible_ink.get_text(cipherfile)
+        current_dir = os.path.curdir
+        # Test default template and filename.
+        invisible_ink_mono.write_invisible(faketext, ciphertext)
+        output_file = os.path.join(current_dir, 'output.docx')
+        self.assertTrue(os.path.exists(output_file))
+        output_text = invisible_ink.get_text(output_file)
+        self.assertListEqual(constants.WRITE_DEFAULT_MONO, output_text)
+        # Check color
+        paragraph_index, count = 0, 0
+        cipher_len = sum(len(line) for line in ciphertext)
+        doc = Document(output_file)
+        while count < cipher_len:
+            for line in faketext:
+                paragraph = doc.paragraphs[paragraph_index]
+                if line == '':
+                    # Skip blanks in faketext and output_file.
+                    paragraph_index += 1
+                    continue
+                letter_index = 0
+                for word in line.split():
+                    # Check color of each letter after word.
+                    letter_index += len(word)
+                    if letter_index >= len(line):
+                        # Stop checking at the end of the line.
+                        break
+                    run = paragraph.runs[letter_index]
+                    if all([len(run.text) == 1, run.text != ' ']):
+                        self.assertEqual(run.font.color.rgb, RGBColor(255, 255, 255))
+                    count += 1
+                    letter_index += 1
+                paragraph_index += 1
+        os.remove(output_file)
+        # Test custom template and filename.
+        template_file = os.path.normpath('tests/data/ch06/template_mono.docx')
+        output_file = os.path.join(current_dir, 'letter.docx')
+        invisible_ink_mono.write_invisible(faketext, ciphertext, template_file, 'letter.docx')
+        self.assertTrue(os.path.exists(output_file))
+        output_text = invisible_ink.get_text(output_file)
+        self.assertListEqual(constants.WRITE_DEFAULT_MONO, output_text)
+        # Check color
+        paragraph_index, count = 0, 0
+        cipher_len = sum(len(line) for line in ciphertext)
+        doc = Document(output_file)
+        while count < cipher_len:
+            for line in faketext:
+                paragraph = doc.paragraphs[paragraph_index]
+                if line == '':
+                    # Skip blanks in faketext and output_file.
+                    paragraph_index += 1
+                    continue
+                if paragraph.text == '':
+                    # FIXME: template_file always has a blank paragraph.
+                    paragraph_index += 1
+                    paragraph = doc.paragraphs[paragraph_index]
+                letter_index = 0
+                for word in line.split():
+                    # Check color of each letter after word.
+                    letter_index += len(word)
+                    if letter_index >= len(line):
+                        # Stop checking at the end of the line.
+                        break
+                    run = paragraph.runs[letter_index]
+                    if all([len(run.text) == 1, run.text != ' ']):
+                        self.assertEqual(run.font.color.rgb, RGBColor(255, 255, 255))
+                    count += 1
+                    letter_index += 1
+                paragraph_index += 1
+        os.remove(output_file)
+        # Test font name.
+        invisible_ink_mono.write_invisible(faketext, ciphertext, None, 'letter.docx')
+        doc = Document(output_file)
+        if system().lower().startswith('windows'):
+            for paragraph in doc.paragraphs:
+                if paragraph.text == '':
+                    continue
+                self.assertEqual(paragraph.style.font.name, "Courier New")
+        else:
+            for paragraph in doc.paragraphs:
+                if paragraph.text == '':
+                    continue
+                self.assertEqual(paragraph.style.font.name, "Liberation Mono")
+        os.remove(output_file)
+        # Test multi-line ciphertext.
+        ciphertext.append('Hi')
+        invisible_ink_mono.write_invisible(faketext, ciphertext)
+        output_file = os.path.join(current_dir, 'output.docx')
+        self.assertTrue(os.path.exists(output_file))
+        output_text = invisible_ink.get_text(output_file)
+        self.assertListEqual(constants.WRITE_TEST_MONO, output_text)
+        # Check color
+        paragraph_index, count = 0, 0
+        cipher_len = sum(len(line) for line in ciphertext)
+        doc = Document(output_file)
+        while count < cipher_len:
+            for line in faketext:
+                paragraph = doc.paragraphs[paragraph_index]
+                if line == '':
+                    # Skip blanks in faketext and output_file.
+                    paragraph_index += 1
+                    continue
+                letter_index = 0
+                for word in line.split():
+                    # Check color of each letter after word.
+                    letter_index += len(word)
+                    if letter_index >= len(line):
+                        # Stop checking at the end of the line.
+                        break
+                    run = paragraph.runs[letter_index]
+                    if all([len(run.text) == 1, run.text != ' ']):
+                        self.assertEqual(run.font.color.rgb, RGBColor(255, 255, 255))
+                    count += 1
+                    letter_index += 1
+                paragraph_index += 1
+        os.remove(output_file)
+        # Test error.
+        ciphertext = ciphertext[:-1]
+        faketext = invisible_ink.get_text(fakefile)[2:]
+        error = 'Need 25 more spaces in the plaintext (fake) message.'
+        with self.assertRaises(ValueError) as err:
+            invisible_ink_mono.write_invisible(faketext, ciphertext)
+        self.assertEqual(error, str(err.exception))
+
+    @unittest.mock.patch('src.ch06.c1_invisible_ink_mono.Path.resolve')
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout, mock_resolve):
+        """Test demo main function."""
+        # Mock output of abspath to avoid FileNotFoundError.
+        mock_resolve.return_value = os.path.normpath('src/ch06/c1files')
+        current_dir = os.getcwd()
+        # Test using test files.
+        fakefile = os.path.join(current_dir, 'tests/data/ch06/fake_mono.docx')
+        cipherfile = os.path.join(current_dir, 'tests/data/ch06/cipher_mono.docx')
+        output_file = os.path.join(current_dir, 'tests/data/ch06/output.docx')
+        invisible_ink_mono.main(fakefile, cipherfile, output_file)
+        self.assertTrue(os.path.exists(output_file))
+        output_text = invisible_ink.get_text(output_file)
+        self.assertEqual(constants.MAIN_TEST_MONO, output_text)
+        os.remove(output_file)
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch06/main/invisible_ink_mono.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+        # Test using default files.
+        invisible_ink_mono.main()
+        output_file = os.path.normpath('src/ch06/c1files/DearInternet.docx')
+        self.assertTrue(os.path.exists(output_file))
+        output_text = invisible_ink.get_text(output_file)
+        self.assertEqual(constants.MAIN_DEFAULT_MONO, output_text)
         os.remove(output_file)
 
 
