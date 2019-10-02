@@ -40,7 +40,8 @@ matrix:
       python: 3.7
       env: TOXENV=pydocstyle
 
-    - python: '3.7'
+    - name: "3.7 sphinx Check"
+      python: 3.7
       env: TOXENV=sphinx
 # Dependencies needed to run tox tests and update coverage.
 install:
