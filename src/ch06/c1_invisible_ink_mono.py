@@ -64,9 +64,9 @@ def write_invisible(plaintext: list, ciphertext: list,
 
     Args:
         plaintext (list): Lines of a fake message in a list of strings
-            (likely from :func:`get_text`).
+            (likely from :func:`~src.ch06.p1_invisible_ink.get_text`).
         ciphertext (list): Lines of an encrypted message in a list of
-            strings (likely from :func:`get_text`).
+            strings (likely from :func:`~src.ch06.p1_invisible_ink.get_text`).
         template_path (str): Absolute path to .docx file with predefined
             fonts, styles, and margins. Defaults to :py:obj:`None`. If not
             provided, defaults will be created.
