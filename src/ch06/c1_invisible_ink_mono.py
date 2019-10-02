@@ -170,9 +170,9 @@ def main(fakefile: str = None, cipherfile: str = None,
     faketext = get_text(fakefile, False)
     ciphertext = get_text(cipherfile)
     write_invisible(faketext, ciphertext, None, savepath)
-    print('Done.\n')
-    print('To read the real message, select the entire document and\n'
-          'highlight it a dark gray.')
+    print('Fin.\n')
+    print('To read the hidden message, select the entire document and\n'
+          'highlight it a darkish gray.')
 
 
 if __name__ == '__main__':
