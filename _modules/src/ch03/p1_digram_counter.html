@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>src.ch03.p1_digram_counter &#8212; impracticalpythonprojects 0.27.1 documentation</title>
+    <title>src.ch03.p1_digram_counter &#8212; impracticalpythonprojects 0.28.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/flask.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
@@ -27,7 +27,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">impracticalpythonprojects 0.27.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">impracticalpythonprojects 0.28.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -133,7 +133,7 @@
     <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Analyzing: </span><span class="si">{word}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;In the Ubuntu default `american-english` dictionary, these are</span><span class="se">\n</span><span class="s1">&#39;</span>
           <span class="s1">&#39;the digram counts for the above word:&#39;</span><span class="p">)</span>
-    <span class="n">digram_count</span> <span class="o">=</span> <span class="n">digram_counter</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+    <span class="n">digram_count</span> <span class="o">=</span> <span class="n">digram_counter</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">DICTIONARY_FILE_PATH</span><span class="p">)</span>
     <span class="n">print_bar_chart</span><span class="p">(</span><span class="n">digram_count</span><span class="p">)</span>
     <span class="n">top_digram</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">digram_count</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">The &quot;</span><span class="si">{top_digram}</span><span class="s1">&quot; digram occurs </span><span class="si">{digram_count[top_digram]}</span><span class="s1"> &#39;</span>
