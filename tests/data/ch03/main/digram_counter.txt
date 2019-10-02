@@ -7,13 +7,13 @@ Analyzing: volvo
 
 In the Ubuntu default `american-english` dictionary, these are
 the digram counts for the above word:
-Counter({'lo': 3554,
-         'ol': 3376,
-         'oo': 2265,
-         'ov': 1223,
-         'vo': 603,
-         'lv': 260,
-         'vv': 21,
-         'vl': 12})
+Counter({'lo': 7,
+         'oo': 6,
+         'ol': 5,
+         'ov': 4,
+         'vo': 3,
+         'lv': 2,
+         'vl': 1,
+         'vv': 0})
 
-The "lo" digram occurs 3554 times!
+The "lo" digram occurs 7 times!

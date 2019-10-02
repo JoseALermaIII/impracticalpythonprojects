@@ -53,6 +53,8 @@ class TestDigramCounter(unittest.TestCase):
         self.assertDictEqual(count, test_count)
 
     @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    @unittest.mock.patch('src.ch03.p1_digram_counter.DICTIONARY_FILE_PATH',
+                         'tests/data/ch03/dictionary.txt')
     def test_main(self, mock_stdout):
         """Test demo main function."""
         digram_counter.main()
