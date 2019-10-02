@@ -10,6 +10,8 @@ from docx.shared import RGBColor
 import src.ch06.p1_invisible_ink as invisible_ink
 import src.ch06.c1_invisible_ink_mono as invisible_ink_mono
 
+import tests.data.ch06.constants as constants
+
 
 class TestInvisibleInk(unittest.TestCase):
     """Test Invisible Ink."""
@@ -340,6 +342,35 @@ class TestInvisibleInkMono(unittest.TestCase):
         with self.assertRaises(ValueError) as err:
             invisible_ink_mono.write_invisible(faketext, ciphertext)
         self.assertEqual(error, str(err.exception))
+
+    @unittest.mock.patch('src.ch06.c1_invisible_ink_mono.Path.resolve')
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout, mock_resolve):
+        """Test demo main function."""
+        # Mock output of abspath to avoid FileNotFoundError.
+        mock_resolve.return_value = os.path.normpath('src/ch06/c1files')
+        current_dir = os.getcwd()
+        # Test using test files.
+        fakefile = os.path.join(current_dir, 'tests/data/ch06/fake_mono.docx')
+        cipherfile = os.path.join(current_dir, 'tests/data/ch06/cipher_mono.docx')
+        output_file = os.path.join(current_dir, 'tests/data/ch06/output.docx')
+        invisible_ink_mono.main(fakefile, cipherfile, output_file)
+        self.assertTrue(os.path.exists(output_file))
+        output_text = invisible_ink.get_text(output_file)
+        self.assertEqual(constants.MAIN_TEST_MONO, output_text)
+        os.remove(output_file)
+        # Test printed output.
+        with open(os.path.normpath('tests/data/ch06/main/invisible_ink_mono.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+        # Test using default files.
+        invisible_ink_mono.main()
+        output_file = os.path.normpath('src/ch06/c1files/DearInternet.docx')
+        self.assertTrue(os.path.exists(output_file))
+        output_text = invisible_ink.get_text(output_file)
+        self.assertEqual(constants.MAIN_DEFAULT_MONO, output_text)
+        os.remove(output_file)
 
 
 if __name__ == '__main__':
