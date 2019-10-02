@@ -151,7 +151,7 @@ def main(fakefile: str = None, cipherfile: str = None,
         cipherfile (str): Path to .docx file with real message.
             Defaults to ``./c1files/real.docx``.
         savepath (str): Path to .docx file for output.
-            Defaults to ``./c1files/Hello.docx``.
+            Defaults to ``./c1files/DearInternet.docx``.
 
     Returns:
          :py:obj:`None`. The contents of **cipherfile**'s text is embedded
