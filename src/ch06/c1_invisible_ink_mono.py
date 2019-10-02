@@ -29,9 +29,9 @@ def check_fit(plaintext: list, ciphertext: list) -> int:
 
     Args:
         plaintext (list): Paragraphs of a fake message in a list of strings
-            (likely from :func:`get_text`).
+            (likely from :func:`~src.ch06.p1_invisible_ink.get_text`).
         ciphertext (list): Paragraphs of an encrypted message in a list of
-            strings (likely from :func:`get_text`).
+            strings (likely from :func:`~src.ch06.p1_invisible_ink.get_text`).
 
     Returns:
         Integer representing the number of needed blanks to fit
