@@ -3,12 +3,51 @@
 Constants for test_chapter06.py.
 
 Attributes:
+    GET_TEST (list): List of strings with expected output of
+        tests.test_chapter06.TestInvisibleInk.test_get_text test values.
+    WRITE_DEFAULT_MONO (list): List of strings with expected output of
+        src.ch06.c1_invisible_ink_mono.write_invisible default values.
+    WRITE_TEST_MONO (list): List of strings with expected output of
+        tests.test_chapter06.TestInvisibleInkMono.test_write_invisible test
+        values.
     MAIN_TEST_MONO (list): List of strings with expected output of
         tests.test_chapter06.TestInvisibleInkMono.test_main test values.
     MAIN_DEFAULT_MONO (list): List of strings with expected output of
         src.ch06.c1_invisible_ink_mono.main default values.
 
 """
+GET_TEST = [
+    'This is a test document.',
+    'This is a paragraph with two runs. However, it’s not because it has two '
+    'lines.',
+    'There is intentionally a lot of blank spaces to check if the code can count '
+    'them correctly.',
+    'So, don’t send me e-mails saying that the formatting in my test files is '
+    'incorrect.',
+    'Word.']
+
+WRITE_DEFAULT_MONO = [
+    'ThisTishaitestsdocument withiaslot ofsfiller,'
+    'uorpunnecessarypwordiness.',
+    'Please,otrysnotetodwrite liketthisobecause itbiseas annoyingaas '
+    'itsishunnecessary.',
+    'Unless,oofrcourse,tyou,are '
+    'writinguantypeeofncharactercthatrisywordypandtusesewordsd'
+    'unnecessarily.',
+    'In thatmrare,euncommonsinstance,sitaisgperfectlyepermissible.'
+    'to be wordy.']
+
+WRITE_TEST_MONO = [
+    'ThisTishaitestsdocument withiaslot ofsfiller,'
+    'uorpunnecessarypwordiness.',
+    'Please,otrysnotetodwrite liketthisobecause itbiseas annoyingaas '
+    'itsishunnecessary.',
+    'Unless,oofrcourse,tyou,are '
+    'writinguantypeeofncharactercthatrisywordypandtusesewordsd'
+    'unnecessarily.',
+    'In thatmrare,euncommonsinstance,sitaisgperfectlyepermissible.'
+    'toHbeiwordy.']
+
 MAIN_TEST_MONO = [
     'ThisTishaitestsdocument withiaslot ofsfiller,uorpunnecessarypwordiness.',
     'Please,otrysnotetodwrite liketthisobecause itbiseas annoyingaas '

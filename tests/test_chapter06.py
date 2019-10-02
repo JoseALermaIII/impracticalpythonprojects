@@ -26,16 +26,7 @@ class TestInvisibleInk(unittest.TestCase):
         paragraphs = invisible_ink.get_text(testfile)
         self.assertEqual(paragraphs.count(''), 0)
         # Test that it read contents.
-        answerlist = \
-            ['This is a test document.',
-             'This is a paragraph with two runs. However, it’s not because it has two '
-             'lines.',
-             'There is intentionally a lot of blank spaces to check if the code can count '
-             'them correctly.',
-             'So, don’t send me e-mails saying that the formatting in my test files is '
-             'incorrect.',
-             'Word.']
-        self.assertEqual(answerlist, paragraphs)
+        self.assertEqual(constants.GET_TEST, paragraphs)
 
     def test_check_blanks(self):
         """Test check_blanks."""
@@ -207,17 +198,7 @@ class TestInvisibleInkMono(unittest.TestCase):
         output_file = os.path.join(current_dir, 'output.docx')
         self.assertTrue(os.path.exists(output_file))
         output_text = invisible_ink.get_text(output_file)
-        answer_text = [
-            'ThisTishaitestsdocument withiaslot ofsfiller,'
-            'uorpunnecessarypwordiness.',
-            'Please,otrysnotetodwrite liketthisobecause itbiseas annoyingaas '
-            'itsishunnecessary.',
-            'Unless,oofrcourse,tyou,are '
-            'writinguantypeeofncharactercthatrisywordypandtusesewordsd'
-            'unnecessarily.',
-            'In thatmrare,euncommonsinstance,sitaisgperfectlyepermissible.'
-            'to be wordy.']
-        self.assertListEqual(answer_text, output_text)
+        self.assertListEqual(constants.WRITE_DEFAULT_MONO, output_text)
         # Check color
         paragraph_index, count = 0, 0
         cipher_len = sum(len(line) for line in ciphertext)
@@ -249,7 +230,7 @@ class TestInvisibleInkMono(unittest.TestCase):
         invisible_ink_mono.write_invisible(faketext, ciphertext, template_file, 'letter.docx')
         self.assertTrue(os.path.exists(output_file))
         output_text = invisible_ink.get_text(output_file)
-        self.assertListEqual(answer_text, output_text)
+        self.assertListEqual(constants.WRITE_DEFAULT_MONO, output_text)
         # Check color
         paragraph_index, count = 0, 0
         cipher_len = sum(len(line) for line in ciphertext)
@@ -299,17 +280,7 @@ class TestInvisibleInkMono(unittest.TestCase):
         output_file = os.path.join(current_dir, 'output.docx')
         self.assertTrue(os.path.exists(output_file))
         output_text = invisible_ink.get_text(output_file)
-        answer_text = [
-            'ThisTishaitestsdocument withiaslot ofsfiller,'
-            'uorpunnecessarypwordiness.',
-            'Please,otrysnotetodwrite liketthisobecause itbiseas annoyingaas '
-            'itsishunnecessary.',
-            'Unless,oofrcourse,tyou,are '
-            'writinguantypeeofncharactercthatrisywordypandtusesewordsd'
-            'unnecessarily.',
-            'In thatmrare,euncommonsinstance,sitaisgperfectlyepermissible.'
-            'toHbeiwordy.']
-        self.assertListEqual(answer_text, output_text)
+        self.assertListEqual(constants.WRITE_TEST_MONO, output_text)
         # Check color
         paragraph_index, count = 0, 0
         cipher_len = sum(len(line) for line in ciphertext)
