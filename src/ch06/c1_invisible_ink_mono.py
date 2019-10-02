@@ -12,6 +12,7 @@ Warning:
     for actual covert operations (covered in MIT License).
 
 """
+from pathlib import Path, PurePath
 from platform import system
 
 import docx
@@ -136,8 +137,42 @@ def write_invisible(plaintext: list, ciphertext: list,
     doc.save(filename)
 
 
-def main():
-    """Demonstrate the invisible ink writer."""
+def main(fakefile: str = None, cipherfile: str = None,
+         savepath: str = None) -> None:
+    """Demonstrate the invisible ink writer.
+
+    Demonstrate :func:`write_invisible`, but for testing,
+    it is a basic wrapper function for :func:`write_invisible`.
+    Embed **cipherfile** in **fakefile**'s whitespace.
+
+    Args:
+        fakefile (str): Path to .docx file with fake message.
+            Defaults to ``./c1files/fake.docx``.
+        cipherfile (str): Path to .docx file with real message.
+            Defaults to ``./c1files/real.docx``.
+        savepath (str): Path to .docx file for output.
+            Defaults to ``./c1files/Hello.docx``.
+
+    Returns:
+         :py:obj:`None`. The contents of **cipherfile**'s text is embedded
+         in **fakefile**'s whitespace and saved to **savepath**.
+
+    """
+    print('I can embed a hidden message in a .docx file\'s white space '
+          'between letters by making the font\ncolor white. It\'s far less '
+          'bulletproof than it sounds.\n')
+    current_dir = Path('./c1files').resolve()
+    if fakefile is None or cipherfile is None:
+        fakefile = PurePath(current_dir).joinpath('fake.docx')
+        cipherfile = PurePath(current_dir).joinpath('real.docx')
+    if savepath is None:
+        savepath = PurePath(current_dir).joinpath('DearInternet.docx')
+    faketext = get_text(fakefile, False)
+    ciphertext = get_text(cipherfile)
+    write_invisible(faketext, ciphertext, None, savepath)
+    print('Done.\n')
+    print('To read the real message, select the entire document and\n'
+          'highlight it a dark gray.')
 
 
 if __name__ == '__main__':
