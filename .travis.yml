@@ -43,10 +43,9 @@ matrix:
     - name: "3.7 sphinx Check"
       python: 3.7
       env: TOXENV=sphinx
-# Dependencies needed to run tox tests and update coverage.
+# Dependencies needed to run tox tests.
 install:
   - pip install tox
-  - pip install coveralls
 # Run each test in matrix
 script:
   - tox -e $TOXENV
