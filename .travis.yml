@@ -50,7 +50,3 @@ install:
 # Run each test in matrix
 script:
   - tox -e $TOXENV
-# Update coveralls coverage
-after_success:
-  - tox -e coverage
-  - coveralls
