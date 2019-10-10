@@ -147,8 +147,30 @@ def crossover(population: dict, litter_sz: int) -> dict:
     return litter
 
 
-def mutate(children, mut_odds, mut_min, mut_max):
-    pass
+def mutate(litter, mut_odds, mut_min, mut_max):
+    """Randomly alter pup weights applying input odds as a scalar.
+
+    For each pup in **litter**, randomly decide if a floating point number
+    between **mut_min** and **mut_max** from :py:mod:`~random.uniform` will
+    be used as a scalar to modified their weight.
+
+    Args:
+        litter (dict): Dictionary of lists with ``males`` and ``females``
+            as keys and specimen weight in grams as values.
+        mut_odds (float): Probability of a mutation occurring in a pup.
+        mut_min (float): Scalar on rat weight of least beneficial mutation.
+        mut_max (float): Scalar on rat weight of most beneficial mutation.
+
+    Returns:
+        Same dictionary of lists with weights potentially modified.
+
+    """
+    for gender in litter:
+        pups = litter[gender]
+        for index, pup in enumerate(pups):
+            if mut_odds >= random.random():
+                pups[index] = round(pup * random.uniform(mut_min, mut_max))
+    return litter
 
 
 def main():
