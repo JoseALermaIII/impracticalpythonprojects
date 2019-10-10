@@ -52,6 +52,80 @@ class TestBreedRats(unittest.TestCase):
         expected_population = [361, 329, 309, 293, 290]
         self.assertListEqual(test_population, expected_population)
 
+    @unittest.mock.patch('src.ch07.c1_breed_rats.random')
+    def test_crossover(self, mock_random):
+        """Test crossover."""
+        # Patch random to use non-random seed.
+        self.random.seed(411)
+        mock_random.choice._mock_side_effect = self.random.choice
+        mock_random.randint._mock_side_effect = self.random.randint
+
+        # Test equal males and females.
+        population = {
+            'males': [219, 293, 281],
+            'females': [119, 193, 181]
+        }
+        litter_sz = 8
+        litter = breed_rats.crossover(population, litter_sz)
+        expected_litter = {
+            'males': [128, 148, 196, 197, 201, 206, 213, 214, 256, 269],
+            'females': [120, 160, 170, 182, 187, 193, 196, 197, 203,
+                        212, 215, 250, 251, 256]
+        }
+        self.assertDictEqual(litter, expected_litter)
+        litter_total = sum([len(value) for value in litter.values()])
+        self.assertEqual(litter_total,
+                         litter_sz * len(population['females']))
+
+        # Test fewer males than females.
+        population = {
+            'males': [219, 293],
+            'females': [119, 193, 181]
+        }
+        litter_sz = 8
+        litter = breed_rats.crossover(population, litter_sz)
+        expected_litter = {
+            'males': [165, 190, 208, 210, 245, 257, 280, 287],
+            'females': [128, 140, 179, 181, 182, 182, 184, 187,
+                        187, 194, 201, 206, 216, 241, 281, 290]
+        }
+        self.assertDictEqual(litter, expected_litter)
+        litter_total = sum([len(value) for value in litter.values()])
+        self.assertEqual(litter_total,
+                         litter_sz * len(population['females']))
+
+        # Test fewer females than males.
+        population = {
+            'males': [219, 293],
+            'females': [119]
+        }
+        litter_sz = 8
+        litter = breed_rats.crossover(population, litter_sz)
+        expected_litter = {
+            'males': [162, 201, 265],
+            'females': [205, 228, 254, 261, 282]
+        }
+        self.assertDictEqual(litter, expected_litter)
+        litter_total = sum([len(value) for value in litter.values()])
+        self.assertEqual(litter_total,
+                         litter_sz * len(population['females']))
+
+        # Test different litter size.
+        population = {
+            'males': [219, 293],
+            'females': [119]
+        }
+        litter_sz = 3
+        litter = breed_rats.crossover(population, litter_sz)
+        expected_litter = {
+            'males': [167, 181],
+            'females': [291]
+        }
+        self.assertDictEqual(litter, expected_litter)
+        litter_total = sum([len(value) for value in litter.values()])
+        self.assertEqual(litter_total,
+                         litter_sz * len(population['females']))
+
 
 if __name__ == '__main__':
     unittest.main()
