@@ -126,6 +126,22 @@ class TestBreedRats(unittest.TestCase):
         self.assertEqual(litter_total,
                          litter_sz * len(population['females']))
 
+        # Test larger female than males.
+        population = {
+            'males': [119, 193],
+            'females': [219]
+        }
+        litter_sz = 3
+        litter = breed_rats.crossover(population, litter_sz)
+        expected_litter = {
+            'males': [139, 150],
+            'females': [119]
+        }
+        self.assertDictEqual(litter, expected_litter)
+        litter_total = sum([len(value) for value in litter.values()])
+        self.assertEqual(litter_total,
+                         litter_sz * len(population['females']))
+
     @unittest.mock.patch('src.ch07.c1_breed_rats.random')
     def test_mutate(self, mock_random):
         """Test mutate."""
