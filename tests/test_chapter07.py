@@ -126,6 +126,52 @@ class TestBreedRats(unittest.TestCase):
         self.assertEqual(litter_total,
                          litter_sz * len(population['females']))
 
+    @unittest.mock.patch('src.ch07.c1_breed_rats.random')
+    def test_mutate(self, mock_random):
+        """Test mutate."""
+        # Patch random to use non-random seed.
+        self.random.seed(311)
+        mock_random.random._mock_side_effect = self.random.random
+        mock_random.uniform._mock_side_effect = self.random.uniform
+
+        # Test large litter with low mutation chance.
+        litter = {
+            'males': [165, 190, 208, 210, 245, 257, 280, 287],
+            'females': [128, 140, 179, 181, 182, 182, 184, 187,
+                        187, 194, 201, 206, 216, 241, 281, 290]
+        }
+        mutated_litter = breed_rats.mutate(litter, 0.01, 0.5, 1.2)
+        expected = {
+            'males': [165, 190, 208, 210, 245, 257, 280, 287],
+            'females': [128, 140, 179, 181, 182, 182, 184, 187,
+                        187, 194, 201, 206, 216, 241, 281, 290]
+        }
+        self.assertDictEqual(mutated_litter, expected)
+
+        # Test small litter with large mutation chance.
+        litter = {
+            'males': [162, 201, 265],
+            'females': [205, 228, 254, 261, 282]
+        }
+        mutated_litter = breed_rats.mutate(litter, 0.90, 0.5, 1.2)
+        expected = {
+            'males': [95, 201, 265],
+            'females': [179, 130, 267, 211, 261]
+        }
+        self.assertDictEqual(mutated_litter, expected)
+
+        # Test small litter with large mutation chance and scale factor.
+        litter = {
+            'males': [162, 201, 265],
+            'females': [205, 228, 254, 261, 282]
+        }
+        mutated_litter = breed_rats.mutate(litter, 0.90, 2.0, 3.0)
+        expected = {
+            'males': [338, 442, 655],
+            'females': [469, 666, 254, 612, 789]
+        }
+        self.assertDictEqual(mutated_litter, expected)
+
 
 if __name__ == '__main__':
     unittest.main()
