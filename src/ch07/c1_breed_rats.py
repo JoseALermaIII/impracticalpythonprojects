@@ -2,8 +2,8 @@
 
 Use genetic algorithm on a mixed population of male and female rats.
 
-Running as a program will output simulation in :func:`main` and the time (in
-seconds) it took to run the simulation.
+Running :func:`main` will output demonstration simulation and the time (in
+seconds) it took to run.
 
 Weights and number of each gender vary and can be set by modifying the
 following:
