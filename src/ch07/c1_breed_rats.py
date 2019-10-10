@@ -14,8 +14,10 @@ Attributes:
     NUM_FEMALES (int): Number of female rats in population.
     INIT_MIN_WT (int): Minimum weight of adult rat in initial population.
     INIT_MAX_WT (int): Maximum weight of adult rat in initial population.
-    INIT_MALE_MODE_WT (int): Most common adult male rat weight in initial population.
-    INIT_FEMALE_MODE_WT (int): Most common adult female rat weight in initial population.
+    INIT_MALE_MODE_WT (int): Most common adult male rat weight in initial
+        population.
+    INIT_FEMALE_MODE_WT (int): Most common adult female rat weight in initial
+        population.
     MUT_ODDS (float): Probability of a mutation occurring in a pup.
     MUT_MIN (float): Scalar on rat weight of least beneficial mutation.
     MUT_MAX (float): Scalar on rat weight of most beneficial mutation.
@@ -34,8 +36,8 @@ NUM_MALES = 4  # Number of male rats in population.
 NUM_FEMALES = 16  # Number of female rats in population.
 INIT_MIN_WT = 200  # Minimum weight of adult rat in initial population.
 INIT_MAX_WT = 600  # Maximum weight of adult rat in initial population.
-INIT_MALE_MODE_WT = 300  # Most common adult male rat weight in initial population.
-INIT_FEMALE_MODE_WT = 250  # Most common adult female rat weight in initial population.
+INIT_MALE_MODE_WT = 300  # Most common adult male rat weight.
+INIT_FEMALE_MODE_WT = 250  # Most common adult female rat weight.
 MUT_ODDS = 0.01  # Probability of a mutation occurring in a pup.
 MUT_MIN = 0.5  # Scalar on rat weight of least beneficial mutation.
 MUT_MAX = 1.2  # Scalar on rat weight of most beneficial mutation.
