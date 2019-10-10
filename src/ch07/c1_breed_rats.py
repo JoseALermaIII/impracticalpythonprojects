@@ -91,8 +91,21 @@ def measure(population: dict, target_wt: int) -> float:
     return mean / target_wt
 
 
-def select(population, to_keep):
-    pass
+def select(population: list, to_keep: int) -> list:
+    """Select largest members of population.
+
+    Sort members in descending order, and then keep largest members up to
+    **to_keep**.
+
+    Args:
+        population (list): List of members (weights in grams) in population.
+        to_keep (int): Number of members in population to keep.
+
+    Returns:
+        List of length **to_keep** of largest members of **population**.
+
+    """
+    return sorted(population, reverse=True)[:to_keep]
 
 
 def crossover(males, females, litter_sz):
