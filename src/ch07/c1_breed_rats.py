@@ -44,7 +44,25 @@ LITTERS_PER_YR = 10  # Number of litters per year per pair of breeding rats.
 GEN_LIMIT = 500  # Generational cutoff to stop breeding program.
 
 
-def populate(pop_total, minimum_wt, maximum_wt, mode_wt):
+def populate(pop_total: int, minimum_wt: int,
+             maximum_wt: int, mode_wt: int) -> list:
+    """Generate population with a triangular distribution of weights.
+
+    Use :py:mod:`~random.triangular` to generate a population with a triangular
+    distribution of weights based on *minimum_wt*, *maximum_wt*, and *mode_wt*.
+
+    Args:
+        pop_total (int): Total number of rats in population.
+        minimum_wt (int): Minimum weight of adult rat in initial population.
+        maximum_wt (int): Maximum weight of adult rat in initial population.
+        mode_wt (int): Most common adult rat weight in initial population.
+
+    Returns:
+        List of triangularly distributed weights of a given rat population.
+
+    """
+    return [int(random.triangular(minimum_wt, maximum_wt, mode_wt))
+            for _ in range(pop_total)]
 
 
 def measure(population, target_wt):
