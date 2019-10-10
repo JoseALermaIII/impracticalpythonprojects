@@ -67,8 +67,28 @@ def populate(pop_total: int, minimum_wt: int,
             for _ in range(pop_total)]
 
 
-def measure(population, target_wt):
-    pass
+def measure(population: dict, target_wt: int) -> float:
+    """Measure average weight of population against target.
+
+    Calculate mean weight of **population** and divide by **target_wt** to
+    determine if goal has been met.
+
+    Args:
+        population (dict): Dictionary of lists with ``males`` and ``females``
+            as keys and specimen weight in grams as values.
+        target_wt (int): Target average weight of population in grams.
+
+    Returns:
+        :py:obj:`float` representing decimal percentage of completion where a
+        value of ``1`` is ``100%``, or complete.
+
+    """
+    # Combine genders into same list for measurement.
+    total = []
+    for value in population.values():
+        total.extend(value)
+    mean = statistics.mean(total)
+    return mean / target_wt
 
 
 def select(population, to_keep):
