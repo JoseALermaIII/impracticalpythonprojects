@@ -66,15 +66,19 @@ def populate(pop_total: int, minimum_wt: int,
 
 
 def measure(population, target_wt):
+    pass
 
 
 def select(population, to_keep):
+    pass
 
 
 def crossover(males, females, litter_sz):
+    pass
 
 
 def mutate(children, mut_odds, mut_min, mut_max):
+    pass
 
 
 def main():
@@ -84,6 +88,7 @@ def main():
     and mutate to meet goal of 50000 grams.
 
     """
+    pass
 
 
 if __name__ == '__main__':
