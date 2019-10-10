@@ -127,7 +127,7 @@ def main():
     pass
     end_time = time.time()
     duration = end_time - start_time
-    print("\nRuntime for this program was {} seconds.".format(duration))
+    print(f'Runtime for this program was {duration} seconds.')
 
 
 if __name__ == '__main__':
