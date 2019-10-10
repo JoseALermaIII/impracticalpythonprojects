@@ -15,6 +15,21 @@ import time
 import random
 import statistics
 
+# CONSTANTS (weights in grams)
+TARGET_WT = 50000  # Target weight in grams.
+NUM_MALES = 4  # Number of male rats in population.
+NUM_FEMALES = 16  # Number of female rats in population.
+INIT_MIN_WT = 200  # Minimum weight of adult rat in initial population.
+INIT_MAX_WT = 600  # Maximum weight of adult rat in initial population.
+INIT_MALE_MODE_WT = 300  # Most common adult male rat weight in initial population.
+INIT_FEMALE_MODE_WT = 250  # Most common adult female rat weight in initial population.
+MUT_ODDS = 0.01  # Probability of a mutation occurring in a pup.
+MUT_MIN = 0.5  # Scalar on rat weight of least beneficial mutation.
+MUT_MAX = 1.2  # Scalar on rat weight of most beneficial mutation.
+LITTER_SZ = 8  # Number of pups per pair of breeding rats.
+LITTERS_PER_YR = 10  # Number of litters per year per pair of breeding rats.
+GEN_LIMIT = 500  # Generational cutoff to stop breeding program.
+
 
 def populate(pop_total, minimum_wt, maximum_wt, mode_wt):
 
