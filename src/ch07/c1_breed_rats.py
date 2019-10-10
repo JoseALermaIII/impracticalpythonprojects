@@ -123,12 +123,12 @@ def main():
     and mutate to meet goal of 50000 grams.
 
     """
-    pass
-
-
-if __name__ == '__main__':
     start_time = time.time()
-    main()
+    pass
     end_time = time.time()
     duration = end_time - start_time
     print("\nRuntime for this program was {} seconds.".format(duration))
+
+
+if __name__ == '__main__':
+    main()
