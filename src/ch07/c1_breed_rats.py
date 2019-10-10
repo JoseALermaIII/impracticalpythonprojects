@@ -108,8 +108,43 @@ def select(population: list, to_keep: int) -> list:
     return sorted(population, reverse=True)[:to_keep]
 
 
-def crossover(males, females, litter_sz):
-    pass
+def crossover(population: dict, litter_sz: int) -> dict:
+    """Crossover genes among members (weights) of a population.
+
+    Breed population where each breeding pair produces a litter
+    of **litter_sz** pups. Pup's gender is assigned randomly.
+
+    To accommodate mismatched pairs, breeding pairs are selected randomly,
+    and once paired, females are removed from the breeding pool while
+    males remain.
+
+    Args:
+        population (dict): Dictionary of lists with ``males`` and ``females``
+            as keys and specimen weight in grams as values.
+        litter_sz (int): Number of pups per breeding pair of rats.
+
+    Returns:
+        Dictionary of lists with ``males`` and ``females`` as keys and
+        pup weight in grams as values.
+
+    """
+    males = population['males']
+    females = population['females'].copy()
+    litter = {'males': [], 'females': []}
+    while females:
+        male = random.choice(males)
+        female = random.choice(females)
+        for pup in range(litter_sz):
+            pup = random.randint(female, male)
+            if random.choice([0, 1]):
+                litter['males'].append(pup)
+            else:
+                litter['females'].append(pup)
+        females.remove(female)
+    # Sort output for test consistency.
+    for value in litter.values():
+        value.sort()
+    return litter
 
 
 def mutate(children, mut_odds, mut_min, mut_max):
