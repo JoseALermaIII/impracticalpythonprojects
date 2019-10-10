@@ -135,7 +135,10 @@ def crossover(population: dict, litter_sz: int) -> dict:
         male = random.choice(males)
         female = random.choice(females)
         for pup in range(litter_sz):
-            pup = random.randint(female, male)
+            larger, smaller = male, female
+            if female > male:
+                larger, smaller = female, male
+            pup = random.randint(smaller, larger)
             if random.choice([0, 1]):
                 litter['males'].append(pup)
             else:
