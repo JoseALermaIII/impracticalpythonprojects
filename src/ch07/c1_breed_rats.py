@@ -9,6 +9,19 @@ Weights and number of each gender vary and can be set by modifying the
 following:
 
 Attributes:
+    TARGET_WT (int): Target weight in grams.
+    NUM_MALES (int): Number of male rats in population.
+    NUM_FEMALES (int): Number of female rats in population.
+    INIT_MIN_WT (int): Minimum weight of adult rat in initial population.
+    INIT_MAX_WT (int): Maximum weight of adult rat in initial population.
+    INIT_MALE_MODE_WT (int): Most common adult male rat weight in initial population.
+    INIT_FEMALE_MODE_WT (int): Most common adult female rat weight in initial population.
+    MUT_ODDS (float): Probability of a mutation occurring in a pup.
+    MUT_MIN (float): Scalar on rat weight of least beneficial mutation.
+    MUT_MAX (float): Scalar on rat weight of most beneficial mutation.
+    LITTER_SZ (int): Number of pups per pair of breeding rats.
+    LITTERS_PER_YR (int): Number of litters per year per pair of breeding rats.
+    GEN_LIMIT (int): Generational cutoff to stop breeding program.
 
 """
 import time
