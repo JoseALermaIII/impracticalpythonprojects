@@ -31,6 +31,26 @@ class TestBreedRats(unittest.TestCase):
         completion = breed_rats.measure(population, 500)
         self.assertEqual(completion, 0.4698)
 
+    def test_select(self):
+        """Test select."""
+        population = [219, 293, 281, 290, 361, 290, 258, 269, 309, 329]
+
+        # Test even numbered populations.
+        test_population = breed_rats.select(population, 2)
+        expected_population = [361, 329]
+        self.assertListEqual(test_population, expected_population)
+        test_population = breed_rats.select(population, 4)
+        expected_population = [361, 329, 309, 293]
+        self.assertListEqual(test_population, expected_population)
+
+        # Test odd numbered populations.
+        test_population = breed_rats.select(population, 3)
+        expected_population = [361, 329, 309]
+        self.assertListEqual(test_population, expected_population)
+        test_population = breed_rats.select(population, 5)
+        expected_population = [361, 329, 309, 293, 290]
+        self.assertListEqual(test_population, expected_population)
+
 
 if __name__ == '__main__':
     unittest.main()
