@@ -322,7 +322,7 @@ class BreedRats(object):
                     pups[index] = round(pup * random.uniform(self._mut_min, self._mut_max))
         return litter
 
-    def breed_rats(self, population: dict) -> tuple:
+    def simulate(self, population: dict) -> tuple:
         """Simulate genetic algorithm by breeding rats.
 
         Using **population**, repeat cycle of measure, select, crossover,
@@ -340,7 +340,7 @@ class BreedRats(object):
             >>> from src.ch07.c1_breed_rats import BreedRats
             >>> sample_one = BreedRats()
             >>> s1_population = sample_one.get_population()
-            >>> ave_wt, generations = sample_one.breed_rats(s1_population)
+            >>> ave_wt, generations = sample_one.simulate(s1_population)
             >>> print(generations)
             248
 
@@ -379,7 +379,7 @@ def main():
     print(f'Initial population match: {match * 100}%')
     print(f'Number of males, females to keep: {experiment.num_males}, '
           f'{experiment.num_females}')
-    ave_wt, generations = experiment.breed_rats(population)
+    ave_wt, generations = experiment.simulate(population)
 
     print(f'Average weight per generation: {ave_wt}')
     print(f'\nNumber of generations: {generations}')
