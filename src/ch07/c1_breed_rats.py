@@ -280,14 +280,32 @@ def breed_rats(population: dict, limits: tuple, pop_stats: tuple,
 
 
 def main():
-    """Simulate genetic algorithm.
+    """Demonstrate breed_rats function.
 
-    After initializing population, repeat cycle of measure, select, crossover,
-    and mutate to meet goal of 50000 grams.
+    Wrap :func:`populate` and :func:`breed_rats` with module
+    constants and then display time to run.
 
     """
     start_time = time.time()
-    pass
+
+    population = {
+        'males': populate(NUM_MALES, INIT_MIN_WT, INIT_MAX_WT,
+                          INIT_MALE_MODE_WT),
+        'females': populate(NUM_FEMALES, INIT_MIN_WT, INIT_MAX_WT,
+                            INIT_FEMALE_MODE_WT)
+    }
+    match = measure(population, TARGET_WT)
+    print(f'Initial population match: {match * 100}%')
+    print(f'Number of males, females to keep: {NUM_MALES}, {NUM_FEMALES}')
+    ave_wt, generations = breed_rats(population,
+                                     (TARGET_WT, GEN_LIMIT),
+                                     (NUM_MALES, NUM_FEMALES, LITTER_SZ),
+                                     (MUT_ODDS, MUT_MIN, MUT_MAX))
+
+    print(f'Average weight per generation: {ave_wt}')
+    print(f'\nNumber of generations: {generations}')
+    print(f'Number of years: {int(generations/LITTERS_PER_YR)}')
+
     end_time = time.time()
     duration = end_time - start_time
     print(f'Runtime for this program was {duration} seconds.')
