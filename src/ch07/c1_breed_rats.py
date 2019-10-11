@@ -148,7 +148,7 @@ class BreedRats(object):
         """Generate population with a triangular distribution of weights.
 
         Use :py:mod:`~random.triangular` to generate a population with a triangular
-        distribution of weights based on *minimum_wt*, *maximum_wt*, and *mode_wt*.
+        distribution of weights based on **mode_wt**.
 
         Args:
             pop_total (int): Total number of rats in population.
