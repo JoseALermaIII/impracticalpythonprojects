@@ -23,6 +23,16 @@ class TestBreedRats(unittest.TestCase):
         expected_pop = [119, 193, 181, 190, 261, 190, 158, 169, 109, 229]
         self.assertListEqual(test_pop, expected_pop)
 
+    def test_combine_values(self):
+        """Test combine_values."""
+        dictionary = {
+            'first': [1, 2, 3, 4, 5],
+            'second': [6, 7, 8, 9, 0]
+        }
+        combined = breed_rats.combine_values(dictionary)
+        expected = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+        self.assertListEqual(combined, expected)
+
     def test_measure(self):
         """Test measure."""
         population = {
