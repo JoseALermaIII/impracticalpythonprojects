@@ -101,11 +101,7 @@ def measure(population: dict, target_wt: int) -> float:
         value of ``1`` is ``100%``, or complete.
 
     """
-    # Combine genders into same list for measurement.
-    total = []
-    for value in population.values():
-        total.extend(value)
-    mean = statistics.mean(total)
+    mean = statistics.mean(combine_values(population))
     return mean / target_wt
 
 
