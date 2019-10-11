@@ -228,14 +228,14 @@ class BreedRats(object):
         """Select largest members of population.
 
         Sort members in descending order, and then keep largest members up to
-        **to_keep**.
+        instance values for **num_males** and **num_females**.
 
         Args:
             population (dict): Dictionary of lists with ``males`` and ``females``
                 as keys and specimen weight in grams as values.
 
         Returns:
-            Dictionary of lists of length **to_keep** of largest members of
+            Dictionary of lists of specified length of largest members of
             **population**.
 
         Examples:
