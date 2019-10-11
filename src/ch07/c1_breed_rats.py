@@ -299,7 +299,7 @@ class BreedRats(object):
             value.sort()
         return litter
 
-    def mutate(self, litter):
+    def mutate(self, litter: dict) -> dict:
         """Randomly alter pup weights applying input odds as a scalar.
 
         For each pup in **litter**, randomly decide if a floating point number
