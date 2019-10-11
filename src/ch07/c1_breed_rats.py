@@ -67,6 +67,24 @@ def populate(pop_total: int, minimum_wt: int,
             for _ in range(pop_total)]
 
 
+def combine_values(dictionary: dict) -> list:
+    """Combine dictionary values.
+
+    Combine values in a dictionary of lists into one list.
+
+    Args:
+        dictionary (dict): Dictionary of lists.
+
+    Returns:
+        List containing all values that were in **dictionary**.
+
+    """
+    values = []
+    for value in dictionary.values():
+        values.extend(value)
+    return values
+
+
 def measure(population: dict, target_wt: int) -> float:
     """Measure average weight of population against target.
 
