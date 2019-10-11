@@ -236,6 +236,24 @@ class TestBreedRats(unittest.TestCase):
             file_data = ''.join(file.readlines())
         self.assertEqual(mock_stdout.getvalue(), file_data)
 
+    @unittest.mock.patch('src.ch07.c1_breed_rats.time')
+    @unittest.mock.patch('src.ch07.c1_breed_rats.random', new_callable=Random)
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout, mock_random, mock_time):
+        """Test main."""
+        self.maxDiff = None
+        # Patch out variances.
+        mock_random.seed(311)
+        mock_time.time.return_value = 12345
+
+        breed_rats.main()
+
+        # Test sys.stdout output.
+        with open(os.path.normpath('tests/data/ch07/main/breed_rats.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
 
 if __name__ == '__main__':
     unittest.main()
