@@ -303,8 +303,9 @@ class BreedRats(object):
         """Randomly alter pup weights applying input odds as a scalar.
 
         For each pup in **litter**, randomly decide if a floating point number
-        between **mut_min** and **mut_max** from :py:mod:`~random.uniform` will
-        be used as a scalar to modified their weight.
+        between instance values for **_mut_min** and **_mut_max** from
+        :py:mod:`~random.uniform` will be used as a scalar to modified their
+        weight.
 
         Args:
             litter (dict): Dictionary of lists with ``males`` and ``females``
