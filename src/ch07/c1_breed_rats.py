@@ -211,6 +211,74 @@ def mutate(litter, mut_odds, mut_min, mut_max):
     return litter
 
 
+def breed_rats(population: dict, limits: tuple, pop_stats: tuple,
+               mut_stats: tuple) -> tuple:
+    """Simulate genetic algorithm by breeding rats.
+
+    Using **population**, repeat cycle of measure, select, crossover,
+    and mutate until either of **limits** are met.
+
+    Args:
+        population (dict): Dictionary of lists with ``males`` and ``females``
+            as keys and specimen weight in grams as values.
+        limits (tuple): Tuple of integers representing target weight
+            (in grams) and generational cutoff to stop breeding program.
+        pop_stats (tuple): Tuple of integers representing number of male
+            rats in population, number of female rats in population, and
+            number of pups per pair of breeding rats.
+        mut_stats (tuple): Tuple of floats representing probability of a
+            mutation occurring in a pup, scalar on pup weight of least
+            beneficial mutation, and scalar on pup weight of most
+            beneficial mutation.
+
+    Returns:
+        Tuple containing list of average weights of generations and number
+        of generations before meeting **target_wt**.
+
+    Examples:
+        >>> from src.ch07.c1_breed_rats import populate, breed_rats
+        >>> INIT_MIN_WT, INIT_MAX_WT = 200, 600
+        >>> INIT_MALE_MODE_WT, INIT_FEMALE_MODE_WT = 300, 250
+        >>> TARGET_WT, GEN_LIMIT = 50000, 500
+        >>> NUM_MALES, NUM_FEMALES, LITTER_SZ = 4, 16, 8
+        >>> MUT_ODDS, MUT_MIN, MUT_MAX = 0.01, 0.5, 1.2
+        >>>     population = {
+        ...         'males': populate(NUM_MALES, INIT_MIN_WT, INIT_MAX_WT,
+        ...                           INIT_MALE_MODE_WT),
+        ...         'females': populate(NUM_FEMALES, INIT_MIN_WT, INIT_MAX_WT,
+        ...                             INIT_FEMALE_MODE_WT)
+        ...     }
+        >>> ave_wt, generations = breed_rats(population,
+        ...                                  (TARGET_WT, GEN_LIMIT),
+        ...                                  (NUM_MALES, NUM_FEMALES,
+        ...                                   LITTER_SZ),
+        ...                                  (MUT_ODDS, MUT_MIN, MUT_MAX))
+        >>> print(generations)
+        248
+
+    """
+    litter_sz = pop_stats[2]
+    target_wt, gen_limit = limits
+    mut_odds, mut_min, mut_max = mut_stats
+
+    generations = 0
+    ave_wt = []
+    match = measure(population, target_wt)
+
+    while match < 1 and generations < gen_limit:
+        population = select(population, pop_stats[:2])
+        litter = crossover(population, litter_sz)
+        litter = mutate(litter, mut_odds, mut_min, mut_max)
+        for gender in litter:
+            population[gender].extend(litter[gender])
+        match = measure(population, limits[0])
+        print(f'Generation {generations} match: {match * 100:.4f}%')
+
+        ave_wt.append(int(statistics.mean(combine_values(population))))
+        generations += 1
+    return ave_wt, generations
+
+
 def main():
     """Simulate genetic algorithm.
 
