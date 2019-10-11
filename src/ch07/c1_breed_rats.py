@@ -326,7 +326,7 @@ class BreedRats(object):
         """Simulate genetic algorithm by breeding rats.
 
         Using **population**, repeat cycle of measure, select, crossover,
-        and mutate until either of **limits** are met.
+        and mutate until either **target_wt** or **gen_limit** are met.
 
         Args:
             population (dict): Dictionary of lists with ``males`` and ``females``
@@ -334,8 +334,7 @@ class BreedRats(object):
 
         Returns:
             Tuple containing list of average weights of generations and number
-            of generations before meeting target weight or generation limit in
-            **limits**.
+            of generations.
 
         Examples:
             >>> from src.ch07.c1_breed_rats import BreedRats
