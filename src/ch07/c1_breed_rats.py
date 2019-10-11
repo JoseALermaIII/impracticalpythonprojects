@@ -105,21 +105,42 @@ def measure(population: dict, target_wt: int) -> float:
     return mean / target_wt
 
 
-def select(population: list, to_keep: int) -> list:
+def select(population: dict, to_keep: tuple) -> dict:
     """Select largest members of population.
 
     Sort members in descending order, and then keep largest members up to
     **to_keep**.
 
     Args:
-        population (list): List of members (weights in grams) in population.
-        to_keep (int): Number of members in population to keep.
+        population (dict): Dictionary of lists with ``males`` and ``females``
+            as keys and specimen weight in grams as values.
+        to_keep (tuple): Tuple of integers representing number of males
+            and females in population to keep.
 
     Returns:
-        List of length **to_keep** of largest members of **population**.
+        Dictionary of lists of length **to_keep** of largest members of
+        **population**.
+
+    Examples:
+        >>> from src.ch07.c1_breed_rats import select
+        >>> NUM_MALES, NUM_FEMALES = 4, 5
+        >>> population = {
+        ...     'males': [111, 222, 333, 444, 555],
+        ...     'females': [666, 777, 888, 999, 1, 2]}
+        >>> print(select(population, (NUM_MALES, NUM_FEMALES)))
+        {'males': [555, 444, 333, 222], 'females': [999, 888, 777, 666]}
 
     """
-    return sorted(population, reverse=True)[:to_keep]
+    new_population = {'males': [], 'females': []}
+    for gender in population:
+        num_males, num_females = to_keep
+        if gender == 'males':
+            new_population[gender].extend(sorted(population[gender],
+                                                 reverse=True)[:num_males])
+        else:
+            new_population[gender].extend(sorted(population[gender],
+                                                 reverse=True)[:num_females])
+    return new_population
 
 
 def crossover(population: dict, litter_sz: int) -> dict:
