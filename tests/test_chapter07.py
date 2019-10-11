@@ -1,6 +1,8 @@
 """Test Chapter 7."""
 import unittest.mock
+import os
 from random import Random
+from io import StringIO
 
 import src.ch07.c1_breed_rats as breed_rats
 
@@ -209,6 +211,30 @@ class TestBreedRats(unittest.TestCase):
             'females': [469, 666, 254, 612, 789]
         }
         self.assertDictEqual(mutated_litter, expected)
+
+    @unittest.mock.patch('src.ch07.c1_breed_rats.random', new_callable=Random)
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_breed_rats(self, mock_stdout, mock_random):
+        """Test breed_rats."""
+        # Patch random to use non-random seed.
+        mock_random.seed(311)
+
+        population = {
+            'males': [450, 320, 510],
+            'females': [250, 300, 220, 160]
+        }
+        ave, generations = breed_rats.breed_rats(population, (20000, 500),
+                                                 (3, 10, 8),
+                                                 (0.75, .75, 1.5))
+        self.assertEqual(generations, 12)
+        self.assertEqual(ave, [347, 564, 861, 1181, 1636, 2344, 3319, 4950,
+                               7234, 10464, 15115, 21703])
+
+        # Test sys.stdout output.
+        with open(os.path.normpath('tests/data/ch07/breed_rats.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
 
 
 if __name__ == '__main__':
