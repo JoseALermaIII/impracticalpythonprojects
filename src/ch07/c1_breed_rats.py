@@ -261,8 +261,9 @@ class BreedRats(object):
     def crossover(self, population: dict) -> dict:
         """Crossover genes among members (weights) of a population.
 
-        Breed population where each breeding pair produces a litter
-        of **litter_sz** pups. Pup's gender is assigned randomly.
+        Breed **population** where each breeding pair produces a litter
+        of instance value for **_litter_sz** pups. Pup's gender is assigned
+        randomly.
 
         To accommodate mismatched pairs, breeding pairs are selected randomly,
         and once paired, females are removed from the breeding pool while
