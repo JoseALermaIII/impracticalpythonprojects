@@ -363,31 +363,26 @@ class BreedRats(object):
 
 
 def main():
-    """Demonstrate breed_rats function.
+    """Demonstrate BreedRats class.
 
-    Wrap :func:`populate` and :func:`breed_rats` with module
-    constants and then display time to run.
+    Use default values to run a demonstration simulation and display time
+    (in seconds) it took to run.
 
     """
     start_time = time.time()
+    experiment = BreedRats()
 
-    population = {
-        'males': populate(NUM_MALES, INIT_MIN_WT, INIT_MAX_WT,
-                          INIT_MALE_MODE_WT),
-        'females': populate(NUM_FEMALES, INIT_MIN_WT, INIT_MAX_WT,
-                            INIT_FEMALE_MODE_WT)
-    }
-    match = measure(population, TARGET_WT)
+    population = experiment.get_population()
+    match = experiment.measure(population)
+    print(f'Initial population: {population}')
     print(f'Initial population match: {match * 100}%')
-    print(f'Number of males, females to keep: {NUM_MALES}, {NUM_FEMALES}')
-    ave_wt, generations = breed_rats(population,
-                                     (TARGET_WT, GEN_LIMIT),
-                                     (NUM_MALES, NUM_FEMALES, LITTER_SZ),
-                                     (MUT_ODDS, MUT_MIN, MUT_MAX))
+    print(f'Number of males, females to keep: {experiment.num_males}, '
+          f'{experiment.num_females}')
+    ave_wt, generations = experiment.breed_rats(population)
 
     print(f'Average weight per generation: {ave_wt}')
     print(f'\nNumber of generations: {generations}')
-    print(f'Number of years: {int(generations/LITTERS_PER_YR)}')
+    print(f'Number of years: {int(generations/experiment.litters_per_yr)}')
 
     end_time = time.time()
     duration = end_time - start_time
