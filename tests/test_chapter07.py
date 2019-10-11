@@ -44,23 +44,35 @@ class TestBreedRats(unittest.TestCase):
 
     def test_select(self):
         """Test select."""
-        population = [219, 293, 281, 290, 361, 290, 258, 269, 309, 329]
+        population = {
+            'males': [219, 293, 281, 290, 361, 290, 258, 269, 309, 329],
+            'females': [119, 193, 181, 190, 261, 190, 158, 169, 209, 229]
+        }
 
         # Test even numbered populations.
-        test_population = breed_rats.select(population, 2)
-        expected_population = [361, 329]
-        self.assertListEqual(test_population, expected_population)
-        test_population = breed_rats.select(population, 4)
-        expected_population = [361, 329, 309, 293]
-        self.assertListEqual(test_population, expected_population)
+        test_population = breed_rats.select(population, (2, 2))
+        expected_population = {
+            'males': [361, 329], 'females': [261, 229]
+        }
+        self.assertDictEqual(test_population, expected_population)
+        test_population = breed_rats.select(population, (4, 4))
+        expected_population = {
+            'males': [361, 329, 309, 293], 'females': [261, 229, 209, 193]
+        }
+        self.assertDictEqual(test_population, expected_population)
 
         # Test odd numbered populations.
-        test_population = breed_rats.select(population, 3)
-        expected_population = [361, 329, 309]
-        self.assertListEqual(test_population, expected_population)
-        test_population = breed_rats.select(population, 5)
-        expected_population = [361, 329, 309, 293, 290]
-        self.assertListEqual(test_population, expected_population)
+        test_population = breed_rats.select(population, (3, 3))
+        expected_population = {
+            'males': [361, 329, 309], 'females': [261, 229, 209]
+        }
+        self.assertDictEqual(test_population, expected_population)
+        test_population = breed_rats.select(population, (5, 5))
+        expected_population = {
+            'males': [361, 329, 309, 293, 290],
+            'females': [261, 229, 209, 193, 190]
+        }
+        self.assertDictEqual(test_population, expected_population)
 
     @unittest.mock.patch('src.ch07.c1_breed_rats.random')
     def test_crossover(self, mock_random):
