@@ -242,7 +242,8 @@ def breed_rats(population: dict, limits: tuple, pop_stats: tuple,
 
     Returns:
         Tuple containing list of average weights of generations and number
-        of generations before meeting **target_wt**.
+        of generations before meeting target weight or generation limit in
+        **limits**.
 
     Examples:
         >>> from src.ch07.c1_breed_rats import populate, breed_rats
