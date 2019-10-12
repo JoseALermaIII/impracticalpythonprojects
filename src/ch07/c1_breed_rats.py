@@ -159,6 +159,54 @@ class BreedRats:
     def litters_per_yr(self, value: int):
         self._litters_per_yr = value
 
+    @property
+    def num_males(self):
+        """int: Number of male rats in population.
+
+        Default is ``4``.
+        """
+        return self._num_males
+
+    @num_males.setter
+    def num_males(self, value: int):
+        self._num_males = value
+
+    @property
+    def num_females(self):
+        """int: Number of female rats in population.
+
+        Default is ``16``.
+        """
+        return self._num_females
+
+    @num_females.setter
+    def num_females(self, value: int):
+        self._num_females = value
+
+    @property
+    def target_wt(self):
+        """int: Target weight in grams.
+
+        Default is ``50000``.
+        """
+        return self._target_wt
+
+    @target_wt.setter
+    def target_wt(self, value: int):
+        self._target_wt = value
+
+    @property
+    def gen_limit(self):
+        """int: Generational cutoff to stop breeding program.
+
+        Default is ``500``.
+        """
+        return self._gen_limit
+
+    @gen_limit.setter
+    def gen_limit(self, value: int):
+        self._gen_limit = value
+
     def populate(self, pop_total: int, mode_wt: int) -> list:
         """Generate population with a triangular distribution of weights.
 
