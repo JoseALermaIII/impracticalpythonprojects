@@ -1,3 +1,4 @@
+Initial population: {'males': [453, 301, 253, 339], 'females': [535, 255, 349, 344, 271, 291, 288, 410, 368, 405, 394, 284, 456, 355, 365, 278]}
 Initial population match: 0.6993999999999999%
 Number of males, females to keep: 4, 16
 Generation 0 match: 0.6763%
