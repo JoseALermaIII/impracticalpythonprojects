@@ -42,8 +42,8 @@ class BreedRats(object):
             Default is ``1.2``.
         _litter_sz (int): Number of pups per pair of breeding rats.
             Default is ``8``.
-        _litters_per_yr (int): Number of litters per year per pair of breeding rats.
-            Default is ``10``.
+        _litters_per_yr (int): Number of litters per year per pair of
+            breeding rats. Default is ``10``.
 
     """
     def __init__(self, num_males: int = 4, num_females: int = 16,
@@ -147,8 +147,8 @@ class BreedRats(object):
     def populate(self, pop_total: int, mode_wt: int) -> list:
         """Generate population with a triangular distribution of weights.
 
-        Use :py:mod:`~random.triangular` to generate a population with a triangular
-        distribution of weights based on **mode_wt**.
+        Use :py:mod:`~random.triangular` to generate a population with a
+        triangular distribution of weights based on **mode_wt**.
 
         Args:
             pop_total (int): Total number of rats in population.
@@ -213,12 +213,12 @@ class BreedRats(object):
         determine if goal has been met.
 
         Args:
-            population (dict): Dictionary of lists with ``males`` and ``females``
-                as keys and specimen weight in grams as values.
+            population (dict): Dictionary of lists with ``males`` and
+                ``females`` as keys and specimen weight in grams as values.
 
         Returns:
-            :py:obj:`float` representing decimal percentage of completion where a
-            value of ``1`` is ``100%``, or complete.
+            :py:obj:`float` representing decimal percentage of completion
+            where a value of ``1`` is ``100%``, or complete.
 
         """
         mean = statistics.mean(self.combine_values(population))
@@ -231,8 +231,8 @@ class BreedRats(object):
         instance values for **num_males** and **num_females**.
 
         Args:
-            population (dict): Dictionary of lists with ``males`` and ``females``
-                as keys and specimen weight in grams as values.
+            population (dict): Dictionary of lists with ``males`` and
+                ``females`` as keys and specimen weight in grams as values.
 
         Returns:
             Dictionary of lists of specified length of largest members of
@@ -251,11 +251,13 @@ class BreedRats(object):
         new_population = {'males': [], 'females': []}
         for gender in population:
             if gender == 'males':
-                new_population[gender].extend(sorted(population[gender],
-                                                     reverse=True)[:self.num_males])
+                new_population[gender].extend(
+                    sorted(population[gender],
+                           reverse=True)[:self.num_males])
             else:
-                new_population[gender].extend(sorted(population[gender],
-                                                     reverse=True)[:self.num_females])
+                new_population[gender].extend(
+                    sorted(population[gender],
+                           reverse=True)[:self.num_females])
         return new_population
 
     def crossover(self, population: dict) -> dict:
@@ -270,8 +272,8 @@ class BreedRats(object):
         males remain.
 
         Args:
-            population (dict): Dictionary of lists with ``males`` and ``females``
-                as keys and specimen weight in grams as values.
+            population (dict): Dictionary of lists with ``males`` and
+                ``females`` as keys and specimen weight in grams as values.
 
         Returns:
             Dictionary of lists with ``males`` and ``females`` as keys and
@@ -319,7 +321,9 @@ class BreedRats(object):
             pups = litter[gender]
             for index, pup in enumerate(pups):
                 if self._mut_odds >= random.random():
-                    pups[index] = round(pup * random.uniform(self._mut_min, self._mut_max))
+                    pups[index] = round(pup *
+                                        random.uniform(self._mut_min,
+                                                       self._mut_max))
         return litter
 
     def simulate(self, population: dict) -> tuple:
@@ -329,8 +333,8 @@ class BreedRats(object):
         and mutate until either **target_wt** or **gen_limit** are met.
 
         Args:
-            population (dict): Dictionary of lists with ``males`` and ``females``
-                as keys and specimen weight in grams as values.
+            population (dict): Dictionary of lists with ``males`` and
+                ``females`` as keys and specimen weight in grams as values.
 
         Returns:
             Tuple containing list of average weights of generations and number
@@ -358,7 +362,8 @@ class BreedRats(object):
             match = self.measure(population)
             print(f'Generation {generations} match: {match * 100:.4f}%')
 
-            ave_wt.append(int(statistics.mean(self.combine_values(population))))
+            ave_wt.append(int(statistics.mean(
+                self.combine_values(population))))
             generations += 1
         return ave_wt, generations
 
