@@ -257,9 +257,12 @@ class TestBreedRats(unittest.TestCase):
             'males': [450, 320, 510],
             'females': [250, 300, 220, 160]
         }
-        ave, generations = breed_rats.breed_rats(population, (20000, 500),
-                                                 (3, 10, 8),
-                                                 (0.75, .75, 1.5))
+        experiment = breed_rats.BreedRats(num_males=3, num_females=10,
+                                          target_wt=20000, gen_limit=500)
+        experiment.mut_odds = 0.75
+        experiment.mut_min = 0.75
+        experiment.mut_max = 1.5
+        ave, generations = experiment.simulate(population)
         self.assertEqual(generations, 12)
         self.assertEqual(ave, [347, 564, 861, 1181, 1636, 2344, 3319, 4950,
                                7234, 10464, 15115, 21703])
