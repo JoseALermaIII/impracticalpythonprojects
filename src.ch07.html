@@ -1,0 +1,473 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src.ch07 package &#8212; impracticalpythonprojects 0.31.0 documentation</title>
+    <link rel="stylesheet" href="_static/flask.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="src.ch06 package" href="src.ch06.html" />
+  <script>DOCUMENTATION_OPTIONS.URL_ROOT = './';</script>
+   
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="src.ch06.html" title="src.ch06 package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.31.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="src.html" accesskey="U">src package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="src-ch07-package">
+<h1>src.ch07 package<a class="headerlink" href="#src-ch07-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-src.ch07.c1_breed_rats">
+<span id="src-ch07-c1-breed-rats-module"></span><h2>src.ch07.c1_breed_rats module<a class="headerlink" href="#module-src.ch07.c1_breed_rats" title="Permalink to this headline">¶</a></h2>
+<p>Efficiently breed rats to an average weight of 50000 grams.</p>
+<p>Use genetic algorithm on a mixed population of male and female rats.</p>
+<dl class="class">
+<dt id="src.ch07.c1_breed_rats.BreedRats">
+<em class="property">class </em><code class="sig-prename descclassname">src.ch07.c1_breed_rats.</code><code class="sig-name descname">BreedRats</code><span class="sig-paren">(</span><em class="sig-param">num_males: int = 4</em>, <em class="sig-param">num_females: int = 16</em>, <em class="sig-param">target_wt: int = 50000</em>, <em class="sig-param">gen_limit: int = 500</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch07/c1_breed_rats.html#BreedRats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Efficiently breed rats to an average weight of <strong>target_wt</strong>.</p>
+<p>Use genetic algorithm on a mixed population of male and female rats.</p>
+<p>Weights and number of each gender vary and can be set by modifying the
+following:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_males</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of male rats in population.
+Default is <code class="docutils literal notranslate"><span class="pre">4</span></code>.</p></li>
+<li><p><strong>num_females</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of female rats in population.
+Default is <code class="docutils literal notranslate"><span class="pre">16</span></code>.</p></li>
+<li><p><strong>target_wt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Target weight in grams. Default is <code class="docutils literal notranslate"><span class="pre">50000</span></code>.</p></li>
+<li><p><strong>gen_limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Generational cutoff to stop breeding program.
+Default is <code class="docutils literal notranslate"><span class="pre">500</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.combine_values">
+<em class="property">static </em><code class="sig-name descname">combine_values</code><span class="sig-paren">(</span><em class="sig-param">dictionary: dict</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch07/c1_breed_rats.html#BreedRats.combine_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.combine_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combine dictionary values.</p>
+<p>Combine values in a dictionary of lists into one list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dictionary</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Dictionary of lists.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List containing all values that were in <strong>dictionary</strong>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.crossover">
+<code class="sig-name descname">crossover</code><span class="sig-paren">(</span><em class="sig-param">population: dict</em><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="_modules/src/ch07/c1_breed_rats.html#BreedRats.crossover"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.crossover" title="Permalink to this definition">¶</a></dt>
+<dd><p>Crossover genes among members (weights) of a population.</p>
+<p>Breed <strong>population</strong> where each breeding pair produces a litter
+of instance value for <strong>litter_sz</strong> pups. Pup’s gender is assigned
+randomly.</p>
+<p>To accommodate mismatched pairs, breeding pairs are selected randomly,
+and once paired, females are removed from the breeding pool while
+males remain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>population</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Dictionary of lists with <code class="docutils literal notranslate"><span class="pre">males</span></code> and
+<code class="docutils literal notranslate"><span class="pre">females</span></code> as keys and specimen weight in grams as values.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary of lists with <code class="docutils literal notranslate"><span class="pre">males</span></code> and <code class="docutils literal notranslate"><span class="pre">females</span></code> as keys and
+pup weight in grams as values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.female_mode_wt">
+<em class="property">property </em><code class="sig-name descname">female_mode_wt</code><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.female_mode_wt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Most common adult female rat weight in initial population.</p>
+<p>Default is <code class="docutils literal notranslate"><span class="pre">250</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.gen_limit">
+<em class="property">property </em><code class="sig-name descname">gen_limit</code><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.gen_limit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generational cutoff to stop breeding program.</p>
+<p>Default is <code class="docutils literal notranslate"><span class="pre">500</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.get_population">
+<code class="sig-name descname">get_population</code><span class="sig-paren">(</span><em class="sig-param">num_males: int = None</em>, <em class="sig-param">num_females: int = None</em><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="_modules/src/ch07/c1_breed_rats.html#BreedRats.get_population"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.get_population" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate random population of rats.</p>
+<p>Wraps <a class="reference internal" href="#src.ch07.c1_breed_rats.BreedRats.populate" title="src.ch07.c1_breed_rats.BreedRats.populate"><code class="xref py py-func docutils literal notranslate"><span class="pre">populate()</span></code></a> using <strong>num_males</strong> and <strong>num_females</strong>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_males</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of males in population.
+If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, defaults to instance value.</p></li>
+<li><p><strong>num_females</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of females in population.
+If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, defaults to instance value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary of lists with <code class="docutils literal notranslate"><span class="pre">males</span></code> and <code class="docutils literal notranslate"><span class="pre">females</span></code> as keys and
+specimen weight in grams as values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.litter_sz">
+<em class="property">property </em><code class="sig-name descname">litter_sz</code><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.litter_sz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of pups per pair of breeding rats.</p>
+<p>Default is <code class="docutils literal notranslate"><span class="pre">8</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.litters_per_yr">
+<em class="property">property </em><code class="sig-name descname">litters_per_yr</code><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.litters_per_yr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of litters per year per pair of breeding rats.</p>
+<p>Default is <code class="docutils literal notranslate"><span class="pre">10</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.male_mode_wt">
+<em class="property">property </em><code class="sig-name descname">male_mode_wt</code><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.male_mode_wt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Most common adult male rat weight in initial population.</p>
+<p>Default is <code class="docutils literal notranslate"><span class="pre">300</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.max_wt">
+<em class="property">property </em><code class="sig-name descname">max_wt</code><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.max_wt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximum weight of adult rat in initial population.</p>
+<p>Default is <code class="docutils literal notranslate"><span class="pre">600</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.measure">
+<code class="sig-name descname">measure</code><span class="sig-paren">(</span><em class="sig-param">population: dict</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/src/ch07/c1_breed_rats.html#BreedRats.measure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.measure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measure average weight of population against target.</p>
+<p>Calculate mean weight of <strong>population</strong> and divide by <strong>target_wt</strong> to
+determine if goal has been met.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>population</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Dictionary of lists with <code class="docutils literal notranslate"><span class="pre">males</span></code> and
+<code class="docutils literal notranslate"><span class="pre">females</span></code> as keys and specimen weight in grams as values.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a> representing decimal percentage of completion
+where a value of <code class="docutils literal notranslate"><span class="pre">1</span></code> is <code class="docutils literal notranslate"><span class="pre">100%</span></code>, or complete.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.min_wt">
+<em class="property">property </em><code class="sig-name descname">min_wt</code><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.min_wt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Minimum weight of adult rat in initial population.</p>
+<p>Default is <code class="docutils literal notranslate"><span class="pre">200</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.mut_max">
+<em class="property">property </em><code class="sig-name descname">mut_max</code><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.mut_max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scalar on rat weight of most beneficial mutation.</p>
+<p>Default is <code class="docutils literal notranslate"><span class="pre">1.2</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.mut_min">
+<em class="property">property </em><code class="sig-name descname">mut_min</code><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.mut_min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scalar on rat weight of least beneficial mutation.</p>
+<p>Default is <code class="docutils literal notranslate"><span class="pre">0.5</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.mut_odds">
+<em class="property">property </em><code class="sig-name descname">mut_odds</code><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.mut_odds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Probability of a mutation occurring in a pup.</p>
+<p>Default is <code class="docutils literal notranslate"><span class="pre">0.01</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.mutate">
+<code class="sig-name descname">mutate</code><span class="sig-paren">(</span><em class="sig-param">litter: dict</em><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="_modules/src/ch07/c1_breed_rats.html#BreedRats.mutate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.mutate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Randomly alter pup weights applying input odds as a scalar.</p>
+<p>For each pup in <strong>litter</strong>, randomly decide if a floating point number
+between instance values for <strong>mut_min</strong> and <strong>mut_max</strong> from
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">uniform</span></code> will be used as a scalar to modified their
+weight.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>litter</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Dictionary of lists with <code class="docutils literal notranslate"><span class="pre">males</span></code> and <code class="docutils literal notranslate"><span class="pre">females</span></code>
+as keys and specimen weight in grams as values.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Same dictionary of lists with weights potentially modified.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.num_females">
+<em class="property">property </em><code class="sig-name descname">num_females</code><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.num_females" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of female rats in population.</p>
+<p>Default is <code class="docutils literal notranslate"><span class="pre">16</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.num_males">
+<em class="property">property </em><code class="sig-name descname">num_males</code><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.num_males" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of male rats in population.</p>
+<p>Default is <code class="docutils literal notranslate"><span class="pre">4</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.populate">
+<code class="sig-name descname">populate</code><span class="sig-paren">(</span><em class="sig-param">pop_total: int</em>, <em class="sig-param">mode_wt: int</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch07/c1_breed_rats.html#BreedRats.populate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.populate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate population with a triangular distribution of weights.</p>
+<p>Use <code class="xref py py-mod docutils literal notranslate"><span class="pre">triangular</span></code> to generate a population with a
+triangular distribution of weights based on <strong>mode_wt</strong>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pop_total</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Total number of rats in population.</p></li>
+<li><p><strong>mode_wt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Most common adult rat weight in initial population.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of triangularly distributed weights of a given rat population.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.select">
+<code class="sig-name descname">select</code><span class="sig-paren">(</span><em class="sig-param">population: dict</em><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="_modules/src/ch07/c1_breed_rats.html#BreedRats.select"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select largest members of population.</p>
+<p>Sort members in descending order, and then keep largest members up to
+instance values for <strong>num_males</strong> and <strong>num_females</strong>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>population</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Dictionary of lists with <code class="docutils literal notranslate"><span class="pre">males</span></code> and
+<code class="docutils literal notranslate"><span class="pre">females</span></code> as keys and specimen weight in grams as values.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary of lists of specified length of largest members of
+<strong>population</strong>.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">src.ch07.c1_breed_rats</span> <span class="k">import</span> <span class="n">BreedRats</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sample_one</span> <span class="o">=</span> <span class="n">BreedRats</span><span class="p">(</span><span class="n">num_males</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">num_females</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1_population</span> <span class="o">=</span> <span class="n">sample_one</span><span class="o">.</span><span class="n">get_population</span><span class="p">(</span><span class="n">num_males</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+<span class="gp">... </span>                                          <span class="n">num_females</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">selected_population</span> <span class="o">=</span> <span class="n">sample_one</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">s1_population</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">selected_population</span><span class="p">)</span>
+<span class="go">{&#39;males&#39;: [555, 444, 333, 222], &#39;females&#39;: [999, 888, 777, 666]}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.simulate">
+<code class="sig-name descname">simulate</code><span class="sig-paren">(</span><em class="sig-param">population: dict</em><span class="sig-paren">)</span> &#x2192; tuple<a class="reference internal" href="_modules/src/ch07/c1_breed_rats.html#BreedRats.simulate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.simulate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simulate genetic algorithm by breeding rats.</p>
+<p>Using <strong>population</strong>, repeat cycle of measure, select, crossover,
+and mutate until either <strong>target_wt</strong> or <strong>gen_limit</strong> are met.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>population</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Dictionary of lists with <code class="docutils literal notranslate"><span class="pre">males</span></code> and
+<code class="docutils literal notranslate"><span class="pre">females</span></code> as keys and specimen weight in grams as values.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Tuple containing list of average weights of generations and number
+of generations.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">src.ch07.c1_breed_rats</span> <span class="k">import</span> <span class="n">BreedRats</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sample_one</span> <span class="o">=</span> <span class="n">BreedRats</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1_population</span> <span class="o">=</span> <span class="n">sample_one</span><span class="o">.</span><span class="n">get_population</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ave_wt</span><span class="p">,</span> <span class="n">generations</span> <span class="o">=</span> <span class="n">sample_one</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">s1_population</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">generations</span><span class="p">)</span>
+<span class="go">248</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.ch07.c1_breed_rats.BreedRats.target_wt">
+<em class="property">property </em><code class="sig-name descname">target_wt</code><a class="headerlink" href="#src.ch07.c1_breed_rats.BreedRats.target_wt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Target weight in grams.</p>
+<p>Default is <code class="docutils literal notranslate"><span class="pre">50000</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch07.c1_breed_rats.main">
+<code class="sig-prename descclassname">src.ch07.c1_breed_rats.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch07/c1_breed_rats.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch07.c1_breed_rats.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Demonstrate BreedRats class.</p>
+<p>Use default values to run a demonstration simulation and display time
+(in seconds) it took to run.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.ch07">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.ch07" title="Permalink to this headline">¶</a></h2>
+<p>Chapter 7.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  
+    
+  
+
+  <h3>Contents</h3>
+  <ul>
+<li><a class="reference internal" href="#">src.ch07 package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-src.ch07.c1_breed_rats">src.ch07.c1_breed_rats module</a></li>
+<li><a class="reference internal" href="#module-src.ch07">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<h3>Navigation</h3>
+<ul>
+  <li><a href="index.html">Overview</a>
+    <ul>
+      <li><a href="modules.html">src</a>
+        <ul>
+      <li><a href="src.html">src package</a>
+        <ul>
+          <li>Previous: <a href="src.ch06.html" title="previous chapter">src.ch06 package</a>
+          </ul>
+      </li></ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jose A. Lerma III.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+    </div>
+
+  </body>
+</html>

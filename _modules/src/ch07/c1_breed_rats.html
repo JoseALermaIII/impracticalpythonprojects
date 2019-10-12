@@ -1,0 +1,548 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src.ch07.c1_breed_rats &#8212; impracticalpythonprojects 0.31.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/flask.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <script>DOCUMENTATION_OPTIONS.URL_ROOT = '../../../';</script>
+   
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">impracticalpythonprojects 0.31.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for src.ch07.c1_breed_rats</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Efficiently breed rats to an average weight of 50000 grams.</span>
+
+<span class="sd">Use genetic algorithm on a mixed population of male and female rats.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">statistics</span>
+
+
+<div class="viewcode-block" id="BreedRats"><a class="viewcode-back" href="../../../src.ch07.html#src.ch07.c1_breed_rats.BreedRats">[docs]</a><span class="k">class</span> <span class="nc">BreedRats</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Efficiently breed rats to an average weight of **target_wt**.</span>
+
+<span class="sd">    Use genetic algorithm on a mixed population of male and female rats.</span>
+
+<span class="sd">    Weights and number of each gender vary and can be set by modifying the</span>
+<span class="sd">    following:</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        num_males (int): Number of male rats in population.</span>
+<span class="sd">            Default is ``4``.</span>
+<span class="sd">        num_females (int): Number of female rats in population.</span>
+<span class="sd">            Default is ``16``.</span>
+<span class="sd">        target_wt (int): Target weight in grams. Default is ``50000``.</span>
+<span class="sd">        gen_limit (int): Generational cutoff to stop breeding program.</span>
+<span class="sd">            Default is ``500``.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># pylint: disable=too-many-instance-attributes,too-many-public-methods</span>
+    <span class="c1"># Limit is for instance attributes and public methods are 7 and 20,</span>
+    <span class="c1"># but analysis like this requires many constants.</span>
+    <span class="c1"># I am opting to make them modifiable in something that is isn&#39;t a</span>
+    <span class="c1"># dictionary.</span>
+    <span class="c1"># If there is a better way, please submit an issue for discussion.</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_males</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">num_females</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
+                 <span class="n">target_wt</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50000</span><span class="p">,</span> <span class="n">gen_limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize class.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_min_wt</span> <span class="o">=</span> <span class="mi">200</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_wt</span> <span class="o">=</span> <span class="mi">600</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_male_mode_wt</span> <span class="o">=</span> <span class="mi">300</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_female_mode_wt</span> <span class="o">=</span> <span class="mi">250</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mut_odds</span> <span class="o">=</span> <span class="mf">0.01</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mut_min</span> <span class="o">=</span> <span class="mf">0.5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mut_max</span> <span class="o">=</span> <span class="mf">1.2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_litter_sz</span> <span class="o">=</span> <span class="mi">8</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_litters_per_yr</span> <span class="o">=</span> <span class="mi">10</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num_males</span> <span class="o">=</span> <span class="n">num_males</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num_females</span> <span class="o">=</span> <span class="n">num_females</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target_wt</span> <span class="o">=</span> <span class="n">target_wt</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_gen_limit</span> <span class="o">=</span> <span class="n">gen_limit</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">min_wt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;int: Minimum weight of adult rat in initial population.</span>
+
+<span class="sd">        Default is ``200``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_min_wt</span>
+
+    <span class="nd">@min_wt</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">min_wt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_min_wt</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">max_wt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;int: Maximum weight of adult rat in initial population.</span>
+
+<span class="sd">        Default is ``600``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_wt</span>
+
+    <span class="nd">@max_wt</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">max_wt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_wt</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">male_mode_wt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;int: Most common adult male rat weight in initial population.</span>
+
+<span class="sd">        Default is ``300``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_male_mode_wt</span>
+
+    <span class="nd">@male_mode_wt</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">male_mode_wt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_male_mode_wt</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">female_mode_wt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;int: Most common adult female rat weight in initial population.</span>
+
+<span class="sd">        Default is ``250``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_female_mode_wt</span>
+
+    <span class="nd">@female_mode_wt</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">female_mode_wt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_female_mode_wt</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mut_odds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;float: Probability of a mutation occurring in a pup.</span>
+
+<span class="sd">        Default is ``0.01``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mut_odds</span>
+
+    <span class="nd">@mut_odds</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">mut_odds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mut_odds</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mut_min</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;float: Scalar on rat weight of least beneficial mutation.</span>
+
+<span class="sd">        Default is ``0.5``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mut_min</span>
+
+    <span class="nd">@mut_min</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">mut_min</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mut_min</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mut_max</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;float: Scalar on rat weight of most beneficial mutation.</span>
+
+<span class="sd">        Default is ``1.2``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mut_max</span>
+
+    <span class="nd">@mut_max</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">mut_max</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mut_max</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">litter_sz</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;int: Number of pups per pair of breeding rats.</span>
+
+<span class="sd">        Default is ``8``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_litter_sz</span>
+
+    <span class="nd">@litter_sz</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">litter_sz</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_litter_sz</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">litters_per_yr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;int: Number of litters per year per pair of breeding rats.</span>
+
+<span class="sd">        Default is ``10``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_litters_per_yr</span>
+
+    <span class="nd">@litters_per_yr</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">litters_per_yr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_litters_per_yr</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">num_males</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;int: Number of male rats in population.</span>
+
+<span class="sd">        Default is ``4``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_males</span>
+
+    <span class="nd">@num_males</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">num_males</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num_males</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">num_females</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;int: Number of female rats in population.</span>
+
+<span class="sd">        Default is ``16``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_females</span>
+
+    <span class="nd">@num_females</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">num_females</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num_females</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">target_wt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;int: Target weight in grams.</span>
+
+<span class="sd">        Default is ``50000``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target_wt</span>
+
+    <span class="nd">@target_wt</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">target_wt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target_wt</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">gen_limit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;int: Generational cutoff to stop breeding program.</span>
+
+<span class="sd">        Default is ``500``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gen_limit</span>
+
+    <span class="nd">@gen_limit</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">gen_limit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_gen_limit</span> <span class="o">=</span> <span class="n">value</span>
+
+<div class="viewcode-block" id="BreedRats.populate"><a class="viewcode-back" href="../../../src.ch07.html#src.ch07.c1_breed_rats.BreedRats.populate">[docs]</a>    <span class="k">def</span> <span class="nf">populate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pop_total</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mode_wt</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Generate population with a triangular distribution of weights.</span>
+
+<span class="sd">        Use :py:mod:`~random.triangular` to generate a population with a</span>
+<span class="sd">        triangular distribution of weights based on **mode_wt**.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            pop_total (int): Total number of rats in population.</span>
+<span class="sd">            mode_wt (int): Most common adult rat weight in initial population.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List of triangularly distributed weights of a given rat population.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">triangular</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_min_wt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_wt</span><span class="p">,</span> <span class="n">mode_wt</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pop_total</span><span class="p">)]</span></div>
+
+<div class="viewcode-block" id="BreedRats.get_population"><a class="viewcode-back" href="../../../src.ch07.html#src.ch07.c1_breed_rats.BreedRats.get_population">[docs]</a>    <span class="k">def</span> <span class="nf">get_population</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_males</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                       <span class="n">num_females</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Generate random population of rats.</span>
+
+<span class="sd">        Wraps :func:`populate` using **num_males** and **num_females**.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            num_males (int): Number of males in population.</span>
+<span class="sd">                If :obj:`None`, defaults to instance value.</span>
+<span class="sd">            num_females (int): Number of females in population.</span>
+<span class="sd">                If :obj:`None`, defaults to instance value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary of lists with ``males`` and ``females`` as keys and</span>
+<span class="sd">            specimen weight in grams as values.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">num_males</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">num_males</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_males</span>
+        <span class="k">if</span> <span class="n">num_females</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">num_females</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_females</span>
+        <span class="n">population</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;males&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">populate</span><span class="p">(</span><span class="n">num_males</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_male_mode_wt</span><span class="p">),</span>
+            <span class="s1">&#39;females&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">populate</span><span class="p">(</span><span class="n">num_females</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_female_mode_wt</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">population</span></div>
+
+<div class="viewcode-block" id="BreedRats.combine_values"><a class="viewcode-back" href="../../../src.ch07.html#src.ch07.c1_breed_rats.BreedRats.combine_values">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">combine_values</span><span class="p">(</span><span class="n">dictionary</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Combine dictionary values.</span>
+
+<span class="sd">        Combine values in a dictionary of lists into one list.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            dictionary (dict): Dictionary of lists.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List containing all values that were in **dictionary**.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">values</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">values</span></div>
+
+<div class="viewcode-block" id="BreedRats.measure"><a class="viewcode-back" href="../../../src.ch07.html#src.ch07.c1_breed_rats.BreedRats.measure">[docs]</a>    <span class="k">def</span> <span class="nf">measure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Measure average weight of population against target.</span>
+
+<span class="sd">        Calculate mean weight of **population** and divide by **target_wt** to</span>
+<span class="sd">        determine if goal has been met.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            population (dict): Dictionary of lists with ``males`` and</span>
+<span class="sd">                ``females`` as keys and specimen weight in grams as values.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            :py:obj:`float` representing decimal percentage of completion</span>
+<span class="sd">            where a value of ``1`` is ``100%``, or complete.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mean</span> <span class="o">=</span> <span class="n">statistics</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">combine_values</span><span class="p">(</span><span class="n">population</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">mean</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target_wt</span></div>
+
+<div class="viewcode-block" id="BreedRats.select"><a class="viewcode-back" href="../../../src.ch07.html#src.ch07.c1_breed_rats.BreedRats.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Select largest members of population.</span>
+
+<span class="sd">        Sort members in descending order, and then keep largest members up to</span>
+<span class="sd">        instance values for **num_males** and **num_females**.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            population (dict): Dictionary of lists with ``males`` and</span>
+<span class="sd">                ``females`` as keys and specimen weight in grams as values.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary of lists of specified length of largest members of</span>
+<span class="sd">            **population**.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; from src.ch07.c1_breed_rats import BreedRats</span>
+<span class="sd">            &gt;&gt;&gt; sample_one = BreedRats(num_males = 4, num_females = 4)</span>
+<span class="sd">            &gt;&gt;&gt; s1_population = sample_one.get_population(num_males = 5,</span>
+<span class="sd">            ...                                           num_females = 10)</span>
+<span class="sd">            &gt;&gt;&gt; selected_population = sample_one.select(s1_population)</span>
+<span class="sd">            &gt;&gt;&gt; print(selected_population)</span>
+<span class="sd">            {&#39;males&#39;: [555, 444, 333, 222], &#39;females&#39;: [999, 888, 777, 666]}</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">new_population</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;males&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;females&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+        <span class="k">for</span> <span class="n">gender</span> <span class="ow">in</span> <span class="n">population</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">gender</span> <span class="o">==</span> <span class="s1">&#39;males&#39;</span><span class="p">:</span>
+                <span class="n">new_population</span><span class="p">[</span><span class="n">gender</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                    <span class="nb">sorted</span><span class="p">(</span><span class="n">population</span><span class="p">[</span><span class="n">gender</span><span class="p">],</span>
+                           <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)[:</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_males</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">new_population</span><span class="p">[</span><span class="n">gender</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                    <span class="nb">sorted</span><span class="p">(</span><span class="n">population</span><span class="p">[</span><span class="n">gender</span><span class="p">],</span>
+                           <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)[:</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_females</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">new_population</span></div>
+
+<div class="viewcode-block" id="BreedRats.crossover"><a class="viewcode-back" href="../../../src.ch07.html#src.ch07.c1_breed_rats.BreedRats.crossover">[docs]</a>    <span class="k">def</span> <span class="nf">crossover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Crossover genes among members (weights) of a population.</span>
+
+<span class="sd">        Breed **population** where each breeding pair produces a litter</span>
+<span class="sd">        of instance value for **litter_sz** pups. Pup&#39;s gender is assigned</span>
+<span class="sd">        randomly.</span>
+
+<span class="sd">        To accommodate mismatched pairs, breeding pairs are selected randomly,</span>
+<span class="sd">        and once paired, females are removed from the breeding pool while</span>
+<span class="sd">        males remain.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            population (dict): Dictionary of lists with ``males`` and</span>
+<span class="sd">                ``females`` as keys and specimen weight in grams as values.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary of lists with ``males`` and ``females`` as keys and</span>
+<span class="sd">            pup weight in grams as values.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">males</span> <span class="o">=</span> <span class="n">population</span><span class="p">[</span><span class="s1">&#39;males&#39;</span><span class="p">]</span>
+        <span class="n">females</span> <span class="o">=</span> <span class="n">population</span><span class="p">[</span><span class="s1">&#39;females&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">litter</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;males&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;females&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+        <span class="k">while</span> <span class="n">females</span><span class="p">:</span>
+            <span class="n">male</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">males</span><span class="p">)</span>
+            <span class="n">female</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">females</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">pup</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_litter_sz</span><span class="p">):</span>
+                <span class="n">larger</span><span class="p">,</span> <span class="n">smaller</span> <span class="o">=</span> <span class="n">male</span><span class="p">,</span> <span class="n">female</span>
+                <span class="k">if</span> <span class="n">female</span> <span class="o">&gt;</span> <span class="n">male</span><span class="p">:</span>
+                    <span class="n">larger</span><span class="p">,</span> <span class="n">smaller</span> <span class="o">=</span> <span class="n">female</span><span class="p">,</span> <span class="n">male</span>
+                <span class="n">pup</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">smaller</span><span class="p">,</span> <span class="n">larger</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]):</span>
+                    <span class="n">litter</span><span class="p">[</span><span class="s1">&#39;males&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pup</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">litter</span><span class="p">[</span><span class="s1">&#39;females&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pup</span><span class="p">)</span>
+            <span class="n">females</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">female</span><span class="p">)</span>
+        <span class="c1"># Sort output for test consistency.</span>
+        <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">litter</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">value</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">litter</span></div>
+
+<div class="viewcode-block" id="BreedRats.mutate"><a class="viewcode-back" href="../../../src.ch07.html#src.ch07.c1_breed_rats.BreedRats.mutate">[docs]</a>    <span class="k">def</span> <span class="nf">mutate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">litter</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Randomly alter pup weights applying input odds as a scalar.</span>
+
+<span class="sd">        For each pup in **litter**, randomly decide if a floating point number</span>
+<span class="sd">        between instance values for **mut_min** and **mut_max** from</span>
+<span class="sd">        :py:mod:`~random.uniform` will be used as a scalar to modified their</span>
+<span class="sd">        weight.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            litter (dict): Dictionary of lists with ``males`` and ``females``</span>
+<span class="sd">                as keys and specimen weight in grams as values.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Same dictionary of lists with weights potentially modified.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">gender</span> <span class="ow">in</span> <span class="n">litter</span><span class="p">:</span>
+            <span class="n">pups</span> <span class="o">=</span> <span class="n">litter</span><span class="p">[</span><span class="n">gender</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">pup</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pups</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mut_odds</span> <span class="o">&gt;=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">():</span>
+                    <span class="n">pups</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">pup</span> <span class="o">*</span>
+                                        <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mut_min</span><span class="p">,</span>
+                                                       <span class="bp">self</span><span class="o">.</span><span class="n">_mut_max</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">litter</span></div>
+
+<div class="viewcode-block" id="BreedRats.simulate"><a class="viewcode-back" href="../../../src.ch07.html#src.ch07.c1_breed_rats.BreedRats.simulate">[docs]</a>    <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Simulate genetic algorithm by breeding rats.</span>
+
+<span class="sd">        Using **population**, repeat cycle of measure, select, crossover,</span>
+<span class="sd">        and mutate until either **target_wt** or **gen_limit** are met.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            population (dict): Dictionary of lists with ``males`` and</span>
+<span class="sd">                ``females`` as keys and specimen weight in grams as values.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Tuple containing list of average weights of generations and number</span>
+<span class="sd">            of generations.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; from src.ch07.c1_breed_rats import BreedRats</span>
+<span class="sd">            &gt;&gt;&gt; sample_one = BreedRats()</span>
+<span class="sd">            &gt;&gt;&gt; s1_population = sample_one.get_population()</span>
+<span class="sd">            &gt;&gt;&gt; ave_wt, generations = sample_one.simulate(s1_population)</span>
+<span class="sd">            &gt;&gt;&gt; print(generations)</span>
+<span class="sd">            248</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">generations</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">ave_wt</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">population</span><span class="p">)</span>
+
+        <span class="k">while</span> <span class="n">match</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">generations</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gen_limit</span><span class="p">:</span>
+            <span class="n">population</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">population</span><span class="p">)</span>
+            <span class="n">litter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">crossover</span><span class="p">(</span><span class="n">population</span><span class="p">)</span>
+            <span class="n">litter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mutate</span><span class="p">(</span><span class="n">litter</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">gender</span> <span class="ow">in</span> <span class="n">litter</span><span class="p">:</span>
+                <span class="n">population</span><span class="p">[</span><span class="n">gender</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">litter</span><span class="p">[</span><span class="n">gender</span><span class="p">])</span>
+            <span class="n">match</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">population</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Generation </span><span class="si">{generations}</span><span class="s1"> match: {match * 100:.4f}%&#39;</span><span class="p">)</span>
+
+            <span class="n">ave_wt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">statistics</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">combine_values</span><span class="p">(</span><span class="n">population</span><span class="p">))))</span>
+            <span class="n">generations</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">ave_wt</span><span class="p">,</span> <span class="n">generations</span></div></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../src.ch07.html#src.ch07.c1_breed_rats.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Demonstrate BreedRats class.</span>
+
+<span class="sd">    Use default values to run a demonstration simulation and display time</span>
+<span class="sd">    (in seconds) it took to run.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">experiment</span> <span class="o">=</span> <span class="n">BreedRats</span><span class="p">()</span>
+
+    <span class="n">population</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_population</span><span class="p">()</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">population</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Initial population: </span><span class="si">{population}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Initial population match: {match * 100}%&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Number of males, females to keep: </span><span class="si">{experiment.num_males}</span><span class="s1">, &#39;</span>
+          <span class="n">f</span><span class="s1">&#39;</span><span class="si">{experiment.num_females}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">ave_wt</span><span class="p">,</span> <span class="n">generations</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">population</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Average weight per generation: </span><span class="si">{ave_wt}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Number of generations: </span><span class="si">{generations}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Number of years: {int(generations/experiment.litters_per_yr)}&#39;</span><span class="p">)</span>
+
+    <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">duration</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Runtime for this program was </span><span class="si">{duration}</span><span class="s1"> seconds.&#39;</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  
+    
+  
+<h3>Navigation</h3>
+<ul>
+  <li><a href="../../../index.html">Overview</a>
+    <ul>
+      <li><a href="../../index.html">Module code</a>
+        
+          
+          </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jose A. Lerma III.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+    </div>
+
+  </body>
+</html>
