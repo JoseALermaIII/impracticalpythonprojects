@@ -38,7 +38,10 @@ class TestBreedRats(unittest.TestCase):
         # Patch random.triangular to use non-random seed.
         self.random.seed(512)
         mock_random.triangular._mock_side_effect = self.random.triangular
-        test_pop = breed_rats.populate(10, 100, 300, 200)
+        experiment = breed_rats.BreedRats()
+        experiment.min_wt = 100
+        experiment.max_wt = 300
+        test_pop = experiment.populate(10, 200)
         expected_pop = [119, 193, 181, 190, 261, 190, 158, 169, 109, 229]
         self.assertListEqual(test_pop, expected_pop)
 
