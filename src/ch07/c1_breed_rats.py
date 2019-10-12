@@ -8,7 +8,7 @@ import random
 import statistics
 
 
-class BreedRats(object):
+class BreedRats:
     """Efficiently breed rats to an average weight of **target_wt**.
 
     Use genetic algorithm on a mixed population of male and female rats.
