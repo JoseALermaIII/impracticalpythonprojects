@@ -16,7 +16,7 @@ class TestBreedRats(unittest.TestCase):
         cls.random = Random()
 
     def test_properties(self):
-        """Test default property values."""
+        """Test properties."""
         experiment = breed_rats.BreedRats()
         self.assertEqual(experiment.num_males, 4)
         self.assertEqual(experiment.num_females, 16)
