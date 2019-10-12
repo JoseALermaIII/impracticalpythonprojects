@@ -15,7 +15,7 @@ class TestBreedRats(unittest.TestCase):
         """Configure attributes for use in this class only."""
         cls.random = Random()
 
-    def test_defaults(self):
+    def test_properties(self):
         """Test default property values."""
         experiment = breed_rats.BreedRats()
         self.assertEqual(experiment.num_males, 4)
