@@ -120,8 +120,9 @@ class TestBreedRats(unittest.TestCase):
             'males': [219, 293, 281],
             'females': [119, 193, 181]
         }
-        litter_sz = 8
-        litter = breed_rats.crossover(population, litter_sz)
+        experiment = breed_rats.BreedRats()
+        experiment.litter_sz = 8
+        litter = experiment.crossover(population)
         expected_litter = {
             'males': [128, 148, 196, 197, 201, 206, 213, 214, 256, 269],
             'females': [120, 160, 170, 182, 187, 193, 196, 197, 203,
@@ -130,15 +131,14 @@ class TestBreedRats(unittest.TestCase):
         self.assertDictEqual(litter, expected_litter)
         litter_total = sum([len(value) for value in litter.values()])
         self.assertEqual(litter_total,
-                         litter_sz * len(population['females']))
+                         experiment.litter_sz * len(population['females']))
 
         # Test fewer males than females.
         population = {
             'males': [219, 293],
             'females': [119, 193, 181]
         }
-        litter_sz = 8
-        litter = breed_rats.crossover(population, litter_sz)
+        litter = experiment.crossover(population)
         expected_litter = {
             'males': [165, 190, 208, 210, 245, 257, 280, 287],
             'females': [128, 140, 179, 181, 182, 182, 184, 187,
@@ -147,15 +147,14 @@ class TestBreedRats(unittest.TestCase):
         self.assertDictEqual(litter, expected_litter)
         litter_total = sum([len(value) for value in litter.values()])
         self.assertEqual(litter_total,
-                         litter_sz * len(population['females']))
+                         experiment.litter_sz * len(population['females']))
 
         # Test fewer females than males.
         population = {
             'males': [219, 293],
             'females': [119]
         }
-        litter_sz = 8
-        litter = breed_rats.crossover(population, litter_sz)
+        litter = experiment.crossover(population)
         expected_litter = {
             'males': [162, 201, 265],
             'females': [205, 228, 254, 261, 282]
@@ -163,15 +162,15 @@ class TestBreedRats(unittest.TestCase):
         self.assertDictEqual(litter, expected_litter)
         litter_total = sum([len(value) for value in litter.values()])
         self.assertEqual(litter_total,
-                         litter_sz * len(population['females']))
+                         experiment.litter_sz * len(population['females']))
 
         # Test different litter size.
         population = {
             'males': [219, 293],
             'females': [119]
         }
-        litter_sz = 3
-        litter = breed_rats.crossover(population, litter_sz)
+        experiment.litter_sz = 3
+        litter = experiment.crossover(population)
         expected_litter = {
             'males': [167, 181],
             'females': [291]
@@ -179,15 +178,14 @@ class TestBreedRats(unittest.TestCase):
         self.assertDictEqual(litter, expected_litter)
         litter_total = sum([len(value) for value in litter.values()])
         self.assertEqual(litter_total,
-                         litter_sz * len(population['females']))
+                         experiment.litter_sz * len(population['females']))
 
         # Test larger female than males.
         population = {
             'males': [119, 193],
             'females': [219]
         }
-        litter_sz = 3
-        litter = breed_rats.crossover(population, litter_sz)
+        litter = experiment.crossover(population)
         expected_litter = {
             'males': [139, 150],
             'females': [119]
@@ -195,7 +193,7 @@ class TestBreedRats(unittest.TestCase):
         self.assertDictEqual(litter, expected_litter)
         litter_total = sum([len(value) for value in litter.values()])
         self.assertEqual(litter_total,
-                         litter_sz * len(population['females']))
+                         experiment.litter_sz * len(population['females']))
 
     @unittest.mock.patch('src.ch07.c1_breed_rats.random')
     def test_mutate(self, mock_random):
