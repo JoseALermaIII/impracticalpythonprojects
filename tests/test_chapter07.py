@@ -310,7 +310,7 @@ class TestBreedRats(unittest.TestCase):
         """Test main."""
         # Patch out variances.
         mock_random.seed(311)
-        mock_time.time.return_value = 12345
+        mock_time.time.side_effect = [12345, 67890]
 
         breed_rats.main()
 
