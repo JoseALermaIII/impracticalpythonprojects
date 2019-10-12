@@ -46,10 +46,10 @@ class BreedRats:
         self._litter_sz = 8
         self._litters_per_yr = 10
 
-        self.num_males = num_males
-        self.num_females = num_females
-        self.target_wt = target_wt
-        self.gen_limit = gen_limit
+        self._num_males = num_males
+        self._num_females = num_females
+        self._target_wt = target_wt
+        self._gen_limit = gen_limit
 
     @property
     def min_wt(self):
@@ -194,9 +194,9 @@ class BreedRats:
 
         """
         if num_males is None:
-            num_males = self.num_males
+            num_males = self._num_males
         if num_females is None:
-            num_females = self.num_females
+            num_females = self._num_females
         population = {
             'males': self.populate(num_males, self._male_mode_wt),
             'females': self.populate(num_females, self._female_mode_wt)
@@ -237,7 +237,7 @@ class BreedRats:
 
         """
         mean = statistics.mean(self.combine_values(population))
-        return mean / self.target_wt
+        return mean / self._target_wt
 
     def select(self, population: dict) -> dict:
         """Select largest members of population.
@@ -268,11 +268,11 @@ class BreedRats:
             if gender == 'males':
                 new_population[gender].extend(
                     sorted(population[gender],
-                           reverse=True)[:self.num_males])
+                           reverse=True)[:self._num_males])
             else:
                 new_population[gender].extend(
                     sorted(population[gender],
-                           reverse=True)[:self.num_females])
+                           reverse=True)[:self._num_females])
         return new_population
 
     def crossover(self, population: dict) -> dict:
@@ -368,7 +368,7 @@ class BreedRats:
         ave_wt = []
         match = self.measure(population)
 
-        while match < 1 and generations < self.gen_limit:
+        while match < 1 and generations < self._gen_limit:
             population = self.select(population)
             litter = self.crossover(population)
             litter = self.mutate(litter)
