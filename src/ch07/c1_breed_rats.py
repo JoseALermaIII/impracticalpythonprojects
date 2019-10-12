@@ -25,26 +25,6 @@ class BreedRats:
         gen_limit (int): Generational cutoff to stop breeding program.
             Default is ``500``.
 
-    Attributes:
-        _min_wt (int): Minimum weight of adult rat in initial population.
-            Default is ``200``.
-        _max_wt (int): Maximum weight of adult rat in initial population.
-            Default is ``600``.
-        _male_mode_wt (int): Most common adult male rat weight in initial
-            population. Default is ``300``.
-        _female_mode_wt (int): Most common adult female rat weight in initial
-            population. Default is ``250``.
-        _mut_odds (float): Probability of a mutation occurring in a pup.
-            Default is ``0.01``.
-        _mut_min (float): Scalar on rat weight of least beneficial mutation.
-            Default is ``0.5``.
-        _mut_max (float): Scalar on rat weight of most beneficial mutation.
-            Default is ``1.2``.
-        _litter_sz (int): Number of pups per pair of breeding rats.
-            Default is ``8``.
-        _litters_per_yr (int): Number of litters per year per pair of
-            breeding rats. Default is ``10``.
-
     """
 
     # pylint: disable=too-many-instance-attributes
@@ -72,7 +52,8 @@ class BreedRats:
 
     @property
     def min_wt(self):
-        """int: Minimum weight of adult rat in initial population."""
+        """int: Minimum weight of adult rat in initial population.
+        Default is ``200``."""
         return self._min_wt
 
     @min_wt.setter
@@ -81,7 +62,8 @@ class BreedRats:
 
     @property
     def max_wt(self):
-        """int: Maximum weight of adult rat in initial population."""
+        """int: Maximum weight of adult rat in initial population.
+        Default is ``600``."""
         return self._max_wt
 
     @max_wt.setter
@@ -90,7 +72,8 @@ class BreedRats:
 
     @property
     def male_mode_wt(self):
-        """int: Most common adult male rat weight in initial population."""
+        """int: Most common adult male rat weight in initial population.
+        Default is ``300``."""
         return self._male_mode_wt
 
     @male_mode_wt.setter
@@ -99,7 +82,8 @@ class BreedRats:
 
     @property
     def female_mode_wt(self):
-        """int: Most common adult female rat weight in initial population."""
+        """int: Most common adult female rat weight in initial population.
+        Default is ``250``."""
         return self._female_mode_wt
 
     @female_mode_wt.setter
@@ -108,7 +92,8 @@ class BreedRats:
 
     @property
     def mut_odds(self):
-        """float: Probability of a mutation occurring in a pup."""
+        """float: Probability of a mutation occurring in a pup.
+        Default is ``0.01``."""
         return self._mut_odds
 
     @mut_odds.setter
@@ -117,7 +102,8 @@ class BreedRats:
 
     @property
     def mut_min(self):
-        """float: Scalar on rat weight of least beneficial mutation."""
+        """float: Scalar on rat weight of least beneficial mutation.
+        Default is ``0.5``."""
         return self._mut_min
 
     @mut_min.setter
@@ -126,7 +112,8 @@ class BreedRats:
 
     @property
     def mut_max(self):
-        """float: Scalar on rat weight of most beneficial mutation."""
+        """float: Scalar on rat weight of most beneficial mutation.
+        Default is ``1.2``."""
         return self._mut_max
 
     @mut_max.setter
@@ -135,7 +122,8 @@ class BreedRats:
 
     @property
     def litter_sz(self):
-        """int: Number of pups per pair of breeding rats."""
+        """int: Number of pups per pair of breeding rats.
+        Default is ``8``."""
         return self._litter_sz
 
     @litter_sz.setter
@@ -144,7 +132,8 @@ class BreedRats:
 
     @property
     def litters_per_yr(self):
-        """int: Number of litters per year per pair of breeding rats."""
+        """int: Number of litters per year per pair of breeding rats.
+        Default is ``10``."""
         return self._litters_per_yr
 
     @litters_per_yr.setter
@@ -271,7 +260,7 @@ class BreedRats:
         """Crossover genes among members (weights) of a population.
 
         Breed **population** where each breeding pair produces a litter
-        of instance value for **_litter_sz** pups. Pup's gender is assigned
+        of instance value for **litter_sz** pups. Pup's gender is assigned
         randomly.
 
         To accommodate mismatched pairs, breeding pairs are selected randomly,
@@ -312,7 +301,7 @@ class BreedRats:
         """Randomly alter pup weights applying input odds as a scalar.
 
         For each pup in **litter**, randomly decide if a floating point number
-        between instance values for **_mut_min** and **_mut_max** from
+        between instance values for **mut_min** and **mut_max** from
         :py:mod:`~random.uniform` will be used as a scalar to modified their
         weight.
 
