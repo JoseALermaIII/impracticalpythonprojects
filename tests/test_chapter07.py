@@ -34,6 +34,34 @@ class TestBreedRats(unittest.TestCase):
         self.assertEqual(experiment.litters_per_yr, 10)
         self.assertEqual(experiment.litter_sz, 8)
 
+        # Test setters.
+        experiment.num_males = 10
+        self.assertEqual(experiment.num_males, 10)
+        experiment.num_females = 20
+        self.assertEqual(experiment.num_females, 20)
+        experiment.target_wt = 20000
+        self.assertEqual(experiment.target_wt, 20000)
+        experiment.gen_limit = 200
+        self.assertEqual(experiment.gen_limit, 200)
+        experiment.min_wt = 250
+        self.assertEqual(experiment.min_wt, 250)
+        experiment.max_wt = 700
+        self.assertEqual(experiment.max_wt, 700)
+        experiment.male_mode_wt = 400
+        self.assertEqual(experiment.male_mode_wt, 400)
+        experiment.female_mode_wt = 300
+        self.assertEqual(experiment.female_mode_wt, 300)
+        experiment.mut_odds = 0.93
+        self.assertEqual(experiment.mut_odds, 0.93)
+        experiment.mut_min = 2.5
+        self.assertEqual(experiment.mut_min, 2.5)
+        experiment.mut_max = 3.0
+        self.assertEqual(experiment.mut_max, 3.0)
+        experiment.litters_per_yr = 8
+        self.assertEqual(experiment.litters_per_yr, 8)
+        experiment.litter_sz = 3
+        self.assertEqual(experiment.litter_sz, 3)
+
     @unittest.mock.patch('src.ch07.c1_breed_rats.random')
     def test_populate(self, mock_random):
         """Test populate."""
