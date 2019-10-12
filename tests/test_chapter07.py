@@ -248,8 +248,8 @@ class TestBreedRats(unittest.TestCase):
 
     @unittest.mock.patch('src.ch07.c1_breed_rats.random', new_callable=Random)
     @unittest.mock.patch('sys.stdout', new_callable=StringIO)
-    def test_breed_rats(self, mock_stdout, mock_random):
-        """Test breed_rats."""
+    def test_simulate(self, mock_stdout, mock_random):
+        """Test simulate."""
         # Patch random to use non-random seed.
         mock_random.seed(311)
 
