@@ -15,6 +15,23 @@ class TestBreedRats(unittest.TestCase):
         """Configure attributes for use in this class only."""
         cls.random = Random()
 
+    def test_defaults(self):
+        """Test default property values."""
+        experiment = breed_rats.BreedRats()
+        self.assertEqual(experiment.num_males, 4)
+        self.assertEqual(experiment.num_females, 16)
+        self.assertEqual(experiment.target_wt, 50000)
+        self.assertEqual(experiment.gen_limit, 500)
+        self.assertEqual(experiment.min_wt, 200)
+        self.assertEqual(experiment.max_wt, 600)
+        self.assertEqual(experiment.male_mode_wt, 300)
+        self.assertEqual(experiment.female_mode_wt, 250)
+        self.assertEqual(experiment.mut_odds, 0.01)
+        self.assertEqual(experiment.mut_min, 0.5)
+        self.assertEqual(experiment.mut_max, 1.2)
+        self.assertEqual(experiment.litters_per_yr, 10)
+        self.assertEqual(experiment.litter_sz, 8)
+
     @unittest.mock.patch('src.ch07.c1_breed_rats.random')
     def test_populate(self, mock_random):
         """Test populate."""
