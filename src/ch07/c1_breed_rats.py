@@ -27,8 +27,9 @@ class BreedRats:
 
     """
 
-    # pylint: disable=too-many-instance-attributes
-    # Limit is 7, but analysis like this requires many constants.
+    # pylint: disable=too-many-instance-attributes,too-many-public-methods
+    # Limit is for instance attributes and public methods are 7 and 20,
+    # but analysis like this requires many constants.
     # I am opting to make them modifiable in something that is isn't a
     # dictionary.
     # If there is a better way, please submit an issue for discussion.
