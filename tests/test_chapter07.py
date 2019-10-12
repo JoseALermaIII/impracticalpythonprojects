@@ -51,7 +51,8 @@ class TestBreedRats(unittest.TestCase):
             'first': [1, 2, 3, 4, 5],
             'second': [6, 7, 8, 9, 0]
         }
-        combined = breed_rats.combine_values(dictionary)
+        experiment = breed_rats.BreedRats()
+        combined = experiment.combine_values(dictionary)
         expected = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
         self.assertListEqual(combined, expected)
 
