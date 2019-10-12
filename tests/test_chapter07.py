@@ -258,7 +258,6 @@ class TestBreedRats(unittest.TestCase):
     @unittest.mock.patch('sys.stdout', new_callable=StringIO)
     def test_main(self, mock_stdout, mock_random, mock_time):
         """Test main."""
-        self.maxDiff = None
         # Patch out variances.
         mock_random.seed(311)
         mock_time.time.return_value = 12345
