@@ -35,6 +35,7 @@ class BreedRats:
 
     def __init__(self, num_males: int = 4, num_females: int = 16,
                  target_wt: int = 50000, gen_limit: int = 500):
+        """Initialize class."""
         self._min_wt = 200
         self._max_wt = 600
         self._male_mode_wt = 300
