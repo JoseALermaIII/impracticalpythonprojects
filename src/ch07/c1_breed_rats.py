@@ -53,7 +53,9 @@ class BreedRats:
     @property
     def min_wt(self):
         """int: Minimum weight of adult rat in initial population.
-        Default is ``200``."""
+
+        Default is ``200``.
+        """
         return self._min_wt
 
     @min_wt.setter
@@ -63,7 +65,9 @@ class BreedRats:
     @property
     def max_wt(self):
         """int: Maximum weight of adult rat in initial population.
-        Default is ``600``."""
+
+        Default is ``600``.
+        """
         return self._max_wt
 
     @max_wt.setter
@@ -73,7 +77,9 @@ class BreedRats:
     @property
     def male_mode_wt(self):
         """int: Most common adult male rat weight in initial population.
-        Default is ``300``."""
+
+        Default is ``300``.
+        """
         return self._male_mode_wt
 
     @male_mode_wt.setter
@@ -83,7 +89,9 @@ class BreedRats:
     @property
     def female_mode_wt(self):
         """int: Most common adult female rat weight in initial population.
-        Default is ``250``."""
+
+        Default is ``250``.
+        """
         return self._female_mode_wt
 
     @female_mode_wt.setter
@@ -93,7 +101,9 @@ class BreedRats:
     @property
     def mut_odds(self):
         """float: Probability of a mutation occurring in a pup.
-        Default is ``0.01``."""
+
+        Default is ``0.01``.
+        """
         return self._mut_odds
 
     @mut_odds.setter
@@ -103,7 +113,9 @@ class BreedRats:
     @property
     def mut_min(self):
         """float: Scalar on rat weight of least beneficial mutation.
-        Default is ``0.5``."""
+
+        Default is ``0.5``.
+        """
         return self._mut_min
 
     @mut_min.setter
@@ -113,7 +125,9 @@ class BreedRats:
     @property
     def mut_max(self):
         """float: Scalar on rat weight of most beneficial mutation.
-        Default is ``1.2``."""
+
+        Default is ``1.2``.
+        """
         return self._mut_max
 
     @mut_max.setter
@@ -123,7 +137,9 @@ class BreedRats:
     @property
     def litter_sz(self):
         """int: Number of pups per pair of breeding rats.
-        Default is ``8``."""
+
+        Default is ``8``.
+        """
         return self._litter_sz
 
     @litter_sz.setter
@@ -133,7 +149,9 @@ class BreedRats:
     @property
     def litters_per_yr(self):
         """int: Number of litters per year per pair of breeding rats.
-        Default is ``10``."""
+
+        Default is ``10``.
+        """
         return self._litters_per_yr
 
     @litters_per_yr.setter
