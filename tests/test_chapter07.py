@@ -72,26 +72,35 @@ class TestBreedRats(unittest.TestCase):
             'males': [219, 293, 281, 290, 361, 290, 258, 269, 309, 329],
             'females': [119, 193, 181, 190, 261, 190, 158, 169, 209, 229]
         }
+        experiment = breed_rats.BreedRats()
 
         # Test even numbered populations.
-        test_population = breed_rats.select(population, (2, 2))
+        experiment.num_males = 2
+        experiment.num_females = 2
+        test_population = experiment.select(population)
         expected_population = {
             'males': [361, 329], 'females': [261, 229]
         }
         self.assertDictEqual(test_population, expected_population)
-        test_population = breed_rats.select(population, (4, 4))
+        experiment.num_males = 4
+        experiment.num_females = 4
+        test_population = experiment.select(population)
         expected_population = {
             'males': [361, 329, 309, 293], 'females': [261, 229, 209, 193]
         }
         self.assertDictEqual(test_population, expected_population)
 
         # Test odd numbered populations.
-        test_population = breed_rats.select(population, (3, 3))
+        experiment.num_males = 3
+        experiment.num_females = 3
+        test_population = experiment.select(population)
         expected_population = {
             'males': [361, 329, 309], 'females': [261, 229, 209]
         }
         self.assertDictEqual(test_population, expected_population)
-        test_population = breed_rats.select(population, (5, 5))
+        experiment.num_males = 5
+        experiment.num_females = 5
+        test_population = experiment.select(population)
         expected_population = {
             'males': [361, 329, 309, 293, 290],
             'females': [261, 229, 209, 193, 190]
