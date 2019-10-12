@@ -209,4 +209,4 @@ Average weight per generation: [338, 442, 479, 513, 530, 534, 539, 575, 590, 592
 
 Number of generations: 204
 Number of years: 20
-Runtime for this program was 0 seconds.
+Runtime for this program was 55545 seconds.
