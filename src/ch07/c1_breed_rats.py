@@ -46,6 +46,13 @@ class BreedRats:
             breeding rats. Default is ``10``.
 
     """
+
+    # pylint: disable=too-many-instance-attributes
+    # Limit is 7, but analysis like this requires many constants.
+    # I am opting to make them modifiable in something that is isn't a
+    # dictionary.
+    # If there is a better way, please submit an issue for discussion.
+
     def __init__(self, num_males: int = 4, num_females: int = 16,
                  target_wt: int = 50000, gen_limit: int = 500):
         self._min_wt = 200
