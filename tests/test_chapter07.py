@@ -62,7 +62,8 @@ class TestBreedRats(unittest.TestCase):
             'males': [219, 293, 281, 290, 361, 290, 258, 269, 309, 329],
             'females': [119, 193, 181, 190, 261, 190, 158, 169, 109, 229]
         }
-        completion = breed_rats.measure(population, 500)
+        experiment = breed_rats.BreedRats(target_wt=500)
+        completion = experiment.measure(population)
         self.assertEqual(completion, 0.4698)
 
     def test_select(self):
