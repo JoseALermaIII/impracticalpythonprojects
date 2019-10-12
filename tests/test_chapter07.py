@@ -203,13 +203,15 @@ class TestBreedRats(unittest.TestCase):
         mock_random.random._mock_side_effect = self.random.random
         mock_random.uniform._mock_side_effect = self.random.uniform
 
+        experiment = breed_rats.BreedRats()
+
         # Test large litter with low mutation chance.
         litter = {
             'males': [165, 190, 208, 210, 245, 257, 280, 287],
             'females': [128, 140, 179, 181, 182, 182, 184, 187,
                         187, 194, 201, 206, 216, 241, 281, 290]
         }
-        mutated_litter = breed_rats.mutate(litter, 0.01, 0.5, 1.2)
+        mutated_litter = experiment.mutate(litter)
         expected = {
             'males': [165, 190, 208, 210, 245, 257, 280, 287],
             'females': [128, 140, 179, 181, 182, 182, 184, 187,
@@ -222,7 +224,8 @@ class TestBreedRats(unittest.TestCase):
             'males': [162, 201, 265],
             'females': [205, 228, 254, 261, 282]
         }
-        mutated_litter = breed_rats.mutate(litter, 0.90, 0.5, 1.2)
+        experiment.mut_odds = 0.90
+        mutated_litter = experiment.mutate(litter)
         expected = {
             'males': [95, 201, 265],
             'females': [179, 130, 267, 211, 261]
@@ -234,7 +237,9 @@ class TestBreedRats(unittest.TestCase):
             'males': [162, 201, 265],
             'females': [205, 228, 254, 261, 282]
         }
-        mutated_litter = breed_rats.mutate(litter, 0.90, 2.0, 3.0)
+        experiment.mut_min = 2.0
+        experiment.mut_max = 3.0
+        mutated_litter = experiment.mutate(litter)
         expected = {
             'males': [338, 442, 655],
             'females': [469, 666, 254, 612, 789]
