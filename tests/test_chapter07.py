@@ -18,6 +18,8 @@ class TestBreedRats(unittest.TestCase):
     def test_properties(self):
         """Test properties."""
         experiment = breed_rats.BreedRats()
+
+        # Test default property values.
         self.assertEqual(experiment.num_males, 4)
         self.assertEqual(experiment.num_females, 16)
         self.assertEqual(experiment.target_wt, 50000)
