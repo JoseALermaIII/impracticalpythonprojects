@@ -325,6 +325,11 @@ class TestBreedRats(unittest.TestCase):
 class TestSafeCracker(unittest.TestCase):
     """Test Safe Cracker."""
 
+    @classmethod
+    def setUpClass(cls):
+        """Configure attributes for use in this class only."""
+        cls.random = Random()
+
     def test_compare(self):
         """Test compare."""
         list1 = [8]
