@@ -16,7 +16,7 @@ import random
 def compare(combo: list, attempt: list) -> int:
     """Compare items in two lists and count number of matches.
 
-    Compare each element in **combo** with **attempt** and return
+    Compare each tumbler in **combo** with **attempt** and return
     the number of matches.
 
     Args:
@@ -24,7 +24,7 @@ def compare(combo: list, attempt: list) -> int:
         attempt (list): Integers of guessed safe combination.
 
     Returns:
-        Number of combination matches between **combo** and **attempt**.
+        Number of tumbler matches between **combo** and **attempt**.
 
     """
     return sum(1 for i, j in zip(combo, attempt) if i == j)
