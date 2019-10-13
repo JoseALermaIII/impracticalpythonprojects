@@ -9,6 +9,7 @@ respond so, the change would be discarded. This improves upon the algorithm by
 removing the locked tumbler from the pool of tumblers to randomly change.
 
 """
+import random
 
 
 def compare(combo: list, attempt: list) -> int:
@@ -26,3 +27,48 @@ def compare(combo: list, attempt: list) -> int:
 
     """
     return sum(1 for i, j in zip(combo, attempt) if i == j)
+
+
+def crack_safe(combo: str) -> tuple:
+    """Crack a safe combination with a hill-climbing algorithm.
+
+    Solve a lock combination by randomly changing a tumbler's values one
+    by one and noting whether the safe had a response. If so, lock the
+    tumbler at that value, remove it from the pool of tumblers, and
+    continue randomly changing tumbler values.
+
+    Args:
+        combo (str): String of numbers representing combination of safe.
+
+    Returns:
+        Tuple with string of solved combination and number of attempts.
+
+    """
+    # Convert combo to list.
+    combo = [int(i) for i in combo]
+
+    # Make initial guess and compare.
+    best_guess = [0] * len(combo)
+    best_guess_match = compare(combo, best_guess)
+
+    count = 0
+    tumblers = list(range(len(combo)))
+
+    # Evolve guess.
+    while best_guess != combo:
+        # Crossover.
+        guess = best_guess.copy()
+
+        # Mutate.
+        lock_tumbler = random.choice(tumblers)
+        guess[lock_tumbler] = random.randint(0, len(combo) - 1)
+
+        # Compare and select.
+        guess_match = compare(combo, guess)
+        if guess_match > best_guess_match:
+            best_guess = guess.copy()
+            best_guess_match = guess_match
+            tumblers.remove(lock_tumbler)
+        print(guess, best_guess)
+        count += 1
+    return ''.join([str(i) for i in best_guess]), count
