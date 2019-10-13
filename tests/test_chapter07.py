@@ -5,6 +5,7 @@ from random import Random
 from io import StringIO
 
 import src.ch07.c1_breed_rats as breed_rats
+import src.ch07.c2_safe_cracker as safe_cracker
 
 
 class TestBreedRats(unittest.TestCase):
@@ -316,6 +317,81 @@ class TestBreedRats(unittest.TestCase):
 
         # Test sys.stdout output.
         with open(os.path.normpath('tests/data/ch07/main/breed_rats.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
+
+class TestSafeCracker(unittest.TestCase):
+    """Test Safe Cracker."""
+
+    @classmethod
+    def setUpClass(cls):
+        """Configure attributes for use in this class only."""
+        cls.random = Random()
+
+    def test_compare(self):
+        """Test compare."""
+        list1 = [8]
+        list2 = [8]
+        test = safe_cracker.compare(list1, list2)
+        self.assertEqual(test, 1)
+        list1 = [8, 9]
+        list2 = [8]
+        test = safe_cracker.compare(list1, list2)
+        self.assertEqual(test, 1)
+        list1 = [8, 9]
+        list2 = [8, 8]
+        test = safe_cracker.compare(list1, list2)
+        self.assertEqual(test, 1)
+        list1 = [8, 9]
+        list2 = [8, 9]
+        test = safe_cracker.compare(list1, list2)
+        self.assertEqual(test, 2)
+        list1 = [8, 9, 7, 4, 5, 9, 0]
+        list2 = [8, 8, 6, 3, 5, 8, 1]
+        test = safe_cracker.compare(list1, list2)
+        self.assertEqual(test, 2)
+        list1 = [8, 9, 7, 4, 5, 9, 0]
+        list2 = [8, 9, 7, 4, 5, 9, 0]
+        test = safe_cracker.compare(list1, list2)
+        self.assertEqual(test, 7)
+
+    @unittest.mock.patch('src.ch07.c2_safe_cracker.random')
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_crack_safe(self, mock_stdout, mock_random):
+        """Test crack_safe."""
+        # Patch random to use non-random seed.
+        self.random.seed(211)
+        mock_random.choice._mock_side_effect = self.random.choice
+        mock_random.randint._mock_side_effect = self.random.randint
+
+        combo = '8974590213'
+        test, count = safe_cracker.crack_safe(combo)
+        self.assertEqual(count, 110)
+        self.assertEqual(combo, test)
+
+        # Test sys.stdout output.
+        with open(os.path.normpath('tests/data/ch07/safe_cracker.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
+    @unittest.mock.patch('src.ch07.c2_safe_cracker.time')
+    @unittest.mock.patch('src.ch07.c2_safe_cracker.random')
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout, mock_random, mock_time):
+        """Test main."""
+        # Patch out variances.
+        self.random.seed(111)
+        mock_random.choice._mock_side_effect = self.random.choice
+        mock_random.randint._mock_side_effect = self.random.randint
+        mock_time.time.side_effect = [12345, 67890]
+
+        safe_cracker.main()
+
+        # Test sys.stdout output.
+        with open(os.path.normpath('tests/data/ch07/main/safe_cracker.txt'),
                   'r') as file:
             file_data = ''.join(file.readlines())
         self.assertEqual(mock_stdout.getvalue(), file_data)
