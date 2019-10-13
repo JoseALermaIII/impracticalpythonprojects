@@ -5,6 +5,7 @@ from random import Random
 from io import StringIO
 
 import src.ch07.c1_breed_rats as breed_rats
+import src.ch07.c2_safe_cracker as safe_cracker
 
 
 class TestBreedRats(unittest.TestCase):
@@ -319,6 +320,37 @@ class TestBreedRats(unittest.TestCase):
                   'r') as file:
             file_data = ''.join(file.readlines())
         self.assertEqual(mock_stdout.getvalue(), file_data)
+
+
+class TestSafeCracker(unittest.TestCase):
+    """Test Safe Cracker."""
+
+    def test_compare(self):
+        """Test compare."""
+        list1 = [8]
+        list2 = [8]
+        test = safe_cracker.compare(list1, list2)
+        self.assertEqual(test, 1)
+        list1 = [8, 9]
+        list2 = [8]
+        test = safe_cracker.compare(list1, list2)
+        self.assertEqual(test, 1)
+        list1 = [8, 9]
+        list2 = [8, 8]
+        test = safe_cracker.compare(list1, list2)
+        self.assertEqual(test, 1)
+        list1 = [8, 9]
+        list2 = [8, 9]
+        test = safe_cracker.compare(list1, list2)
+        self.assertEqual(test, 2)
+        list1 = [8, 9, 7, 4, 5, 9, 0]
+        list2 = [8, 8, 6, 3, 5, 8, 1]
+        test = safe_cracker.compare(list1, list2)
+        self.assertEqual(test, 2)
+        list1 = [8, 9, 7, 4, 5, 9, 0]
+        list2 = [8, 9, 7, 4, 5, 9, 0]
+        test = safe_cracker.compare(list1, list2)
+        self.assertEqual(test, 7)
 
 
 if __name__ == '__main__':
