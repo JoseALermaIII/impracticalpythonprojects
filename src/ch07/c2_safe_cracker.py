@@ -9,6 +9,7 @@ respond, so the change would be discarded. This improves upon the algorithm by
 removing the locked tumbler from the pool of tumblers to randomly change.
 
 """
+import time
 import random
 
 
@@ -72,3 +73,27 @@ def crack_safe(combo: str) -> tuple:
         print(guess, best_guess)
         count += 1
     return ''.join([str(i) for i in best_guess]), count
+
+
+def main():
+    """Demonstrate safe cracker.
+
+    Use default combination to demonstrate :func:`crack_safe` and display time
+    (in seconds) it took to run.
+
+    """
+    start_time = time.time()
+
+    combination = '6822858902'
+    print(f'Combination: {combination}')
+    guess, count = crack_safe(combination)
+    print(f'\nCracked! {guess} ')
+    print(f'in {count} tries!')
+
+    end_time = time.time()
+    duration = end_time - start_time
+    print(f'\nRuntime for this program was {duration:.5f} seconds.')
+
+
+if __name__ == '__main__':
+    main()
