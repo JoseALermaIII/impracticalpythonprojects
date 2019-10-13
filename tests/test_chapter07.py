@@ -377,6 +377,25 @@ class TestSafeCracker(unittest.TestCase):
             file_data = ''.join(file.readlines())
         self.assertEqual(mock_stdout.getvalue(), file_data)
 
+    @unittest.mock.patch('src.ch07.c2_safe_cracker.time')
+    @unittest.mock.patch('src.ch07.c2_safe_cracker.random')
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_main(self, mock_stdout, mock_random, mock_time):
+        """Test main."""
+        # Patch out variances.
+        self.random.seed(111)
+        mock_random.choice._mock_side_effect = self.random.choice
+        mock_random.randint._mock_side_effect = self.random.randint
+        mock_time.time.side_effect = [12345, 67890]
+
+        safe_cracker.main()
+
+        # Test sys.stdout output.
+        with open(os.path.normpath('tests/data/ch07/main/safe_cracker.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
 
 if __name__ == '__main__':
     unittest.main()
