@@ -357,6 +357,26 @@ class TestSafeCracker(unittest.TestCase):
         test = safe_cracker.compare(list1, list2)
         self.assertEqual(test, 7)
 
+    @unittest.mock.patch('src.ch07.c2_safe_cracker.random')
+    @unittest.mock.patch('sys.stdout', new_callable=StringIO)
+    def test_crack_safe(self, mock_stdout, mock_random):
+        """Test crack_safe."""
+        # Patch random to use non-random seed.
+        self.random.seed(211)
+        mock_random.choice._mock_side_effect = self.random.choice
+        mock_random.randint._mock_side_effect = self.random.randint
+
+        combo = '8974590213'
+        test, count = safe_cracker.crack_safe(combo)
+        self.assertEqual(count, 110)
+        self.assertEqual(combo, test)
+
+        # Test sys.stdout output.
+        with open(os.path.normpath('tests/data/ch07/safe_cracker.txt'),
+                  'r') as file:
+            file_data = ''.join(file.readlines())
+        self.assertEqual(mock_stdout.getvalue(), file_data)
+
 
 if __name__ == '__main__':
     unittest.main()
