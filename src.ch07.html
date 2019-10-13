@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>src.ch07 package &#8212; impracticalpythonprojects 0.31.0 documentation</title>
+    <title>src.ch07 package &#8212; impracticalpythonprojects 0.32.0 documentation</title>
     <link rel="stylesheet" href="_static/flask.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -31,7 +31,7 @@
         <li class="right" >
           <a href="src.ch06.html" title="src.ch06 package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.31.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.32.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="src.html" accesskey="U">src package</a> &#187;</li> 
       </ul>
@@ -408,6 +408,61 @@ of generations.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-src.ch07.c2_safe_cracker">
+<span id="src-ch07-c2-safe-cracker-module"></span><h2>src.ch07.c2_safe_cracker module<a class="headerlink" href="#module-src.ch07.c2_safe_cracker" title="Permalink to this headline">¶</a></h2>
+<p>Use hill-climbing algorithm to solve a lock combination.</p>
+<p>Solve a lock combination by randomly changing a tumbler’s values one
+by one and noting whether the safe had a response. If so, lock the
+tumbler at that value and continue randomly changing tumbler values.</p>
+<p>Previously, a locked tumbler can still be changed, but the safe wouldn’t
+respond, so the change would be discarded. This improves upon the algorithm by
+removing the locked tumbler from the pool of tumblers to randomly change.</p>
+<dl class="function">
+<dt id="src.ch07.c2_safe_cracker.compare">
+<code class="sig-prename descclassname">src.ch07.c2_safe_cracker.</code><code class="sig-name descname">compare</code><span class="sig-paren">(</span><em class="sig-param">combo: list</em>, <em class="sig-param">attempt: list</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/src/ch07/c2_safe_cracker.html#compare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch07.c2_safe_cracker.compare" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare items in two lists and count number of matches.</p>
+<p>Compare each tumbler in <strong>combo</strong> with <strong>attempt</strong> and return
+the number of matches.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>combo</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Integers of safe combination.</p></li>
+<li><p><strong>attempt</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Integers of guessed safe combination.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Number of tumbler matches between <strong>combo</strong> and <strong>attempt</strong>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch07.c2_safe_cracker.crack_safe">
+<code class="sig-prename descclassname">src.ch07.c2_safe_cracker.</code><code class="sig-name descname">crack_safe</code><span class="sig-paren">(</span><em class="sig-param">combo: str</em><span class="sig-paren">)</span> &#x2192; tuple<a class="reference internal" href="_modules/src/ch07/c2_safe_cracker.html#crack_safe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch07.c2_safe_cracker.crack_safe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Crack a safe combination with a hill-climbing algorithm.</p>
+<p>Solve a lock combination by randomly changing a tumbler’s values one
+by one and noting whether the safe had a response. If so, lock the
+tumbler at that value, remove it from the pool of tumblers, and
+continue randomly changing tumbler values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>combo</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – String of numbers representing combination of safe.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Tuple with string of solved combination and number of attempts.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch07.c2_safe_cracker.main">
+<code class="sig-prename descclassname">src.ch07.c2_safe_cracker.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch07/c2_safe_cracker.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch07.c2_safe_cracker.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Demonstrate safe cracker.</p>
+<p>Use default combination to demonstrate <a class="reference internal" href="#src.ch07.c2_safe_cracker.crack_safe" title="src.ch07.c2_safe_cracker.crack_safe"><code class="xref py py-func docutils literal notranslate"><span class="pre">crack_safe()</span></code></a> and display time
+(in seconds) it took to run.</p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-src.ch07">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.ch07" title="Permalink to this headline">¶</a></h2>
 <p>Chapter 7.</p>
@@ -430,6 +485,7 @@ of generations.</p>
 <li><a class="reference internal" href="#">src.ch07 package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-src.ch07.c1_breed_rats">src.ch07.c1_breed_rats module</a></li>
+<li><a class="reference internal" href="#module-src.ch07.c2_safe_cracker">src.ch07.c2_safe_cracker module</a></li>
 <li><a class="reference internal" href="#module-src.ch07">Module contents</a></li>
 </ul>
 </li>

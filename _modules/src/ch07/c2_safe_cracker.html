@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src.ch07.c2_safe_cracker &#8212; impracticalpythonprojects 0.32.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/flask.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <script>DOCUMENTATION_OPTIONS.URL_ROOT = '../../../';</script>
+   
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">impracticalpythonprojects 0.32.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for src.ch07.c2_safe_cracker</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Use hill-climbing algorithm to solve a lock combination.</span>
+
+<span class="sd">Solve a lock combination by randomly changing a tumbler&#39;s values one</span>
+<span class="sd">by one and noting whether the safe had a response. If so, lock the</span>
+<span class="sd">tumbler at that value and continue randomly changing tumbler values.</span>
+
+<span class="sd">Previously, a locked tumbler can still be changed, but the safe wouldn&#39;t</span>
+<span class="sd">respond, so the change would be discarded. This improves upon the algorithm by</span>
+<span class="sd">removing the locked tumbler from the pool of tumblers to randomly change.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+
+<div class="viewcode-block" id="compare"><a class="viewcode-back" href="../../../src.ch07.html#src.ch07.c2_safe_cracker.compare">[docs]</a><span class="k">def</span> <span class="nf">compare</span><span class="p">(</span><span class="n">combo</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">attempt</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Compare items in two lists and count number of matches.</span>
+
+<span class="sd">    Compare each tumbler in **combo** with **attempt** and return</span>
+<span class="sd">    the number of matches.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        combo (list): Integers of safe combination.</span>
+<span class="sd">        attempt (list): Integers of guessed safe combination.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Number of tumbler matches between **combo** and **attempt**.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">combo</span><span class="p">,</span> <span class="n">attempt</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="crack_safe"><a class="viewcode-back" href="../../../src.ch07.html#src.ch07.c2_safe_cracker.crack_safe">[docs]</a><span class="k">def</span> <span class="nf">crack_safe</span><span class="p">(</span><span class="n">combo</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Crack a safe combination with a hill-climbing algorithm.</span>
+
+<span class="sd">    Solve a lock combination by randomly changing a tumbler&#39;s values one</span>
+<span class="sd">    by one and noting whether the safe had a response. If so, lock the</span>
+<span class="sd">    tumbler at that value, remove it from the pool of tumblers, and</span>
+<span class="sd">    continue randomly changing tumbler values.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        combo (str): String of numbers representing combination of safe.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple with string of solved combination and number of attempts.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Convert combo to list.</span>
+    <span class="n">combo</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">combo</span><span class="p">]</span>
+
+    <span class="c1"># Make initial guess and compare.</span>
+    <span class="n">best_guess</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">combo</span><span class="p">)</span>
+    <span class="n">best_guess_match</span> <span class="o">=</span> <span class="n">compare</span><span class="p">(</span><span class="n">combo</span><span class="p">,</span> <span class="n">best_guess</span><span class="p">)</span>
+
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">tumblers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">combo</span><span class="p">)))</span>
+
+    <span class="c1"># Evolve guess.</span>
+    <span class="k">while</span> <span class="n">best_guess</span> <span class="o">!=</span> <span class="n">combo</span><span class="p">:</span>
+        <span class="c1"># Crossover.</span>
+        <span class="n">guess</span> <span class="o">=</span> <span class="n">best_guess</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="c1"># Mutate.</span>
+        <span class="n">lock_tumbler</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">tumblers</span><span class="p">)</span>
+        <span class="n">guess</span><span class="p">[</span><span class="n">lock_tumbler</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">combo</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Compare and select.</span>
+        <span class="n">guess_match</span> <span class="o">=</span> <span class="n">compare</span><span class="p">(</span><span class="n">combo</span><span class="p">,</span> <span class="n">guess</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">guess_match</span> <span class="o">&gt;</span> <span class="n">best_guess_match</span><span class="p">:</span>
+            <span class="n">best_guess</span> <span class="o">=</span> <span class="n">guess</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">best_guess_match</span> <span class="o">=</span> <span class="n">guess_match</span>
+            <span class="n">tumblers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">lock_tumbler</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">guess</span><span class="p">,</span> <span class="n">best_guess</span><span class="p">)</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">best_guess</span><span class="p">]),</span> <span class="n">count</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../src.ch07.html#src.ch07.c2_safe_cracker.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Demonstrate safe cracker.</span>
+
+<span class="sd">    Use default combination to demonstrate :func:`crack_safe` and display time</span>
+<span class="sd">    (in seconds) it took to run.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="n">combination</span> <span class="o">=</span> <span class="s1">&#39;6822858902&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Combination: </span><span class="si">{combination}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">guess</span><span class="p">,</span> <span class="n">count</span> <span class="o">=</span> <span class="n">crack_safe</span><span class="p">(</span><span class="n">combination</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Cracked! </span><span class="si">{guess}</span><span class="s1"> &#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;in </span><span class="si">{count}</span><span class="s1"> tries!&#39;</span><span class="p">)</span>
+
+    <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">duration</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Runtime for this program was </span><span class="si">{duration:.5f}</span><span class="s1"> seconds.&#39;</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  
+    
+  
+<h3>Navigation</h3>
+<ul>
+  <li><a href="../../../index.html">Overview</a>
+    <ul>
+      <li><a href="../../index.html">Module code</a>
+        
+          
+          </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jose A. Lerma III.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+    </div>
+
+  </body>
+</html>
