@@ -10,10 +10,13 @@ import os
 from random import choice
 from string import punctuation
 
+import nltk
 from nltk.corpus import cmudict
 
 from src.ch02 import DICTIONARY_FILE_PATH
 from src.ch02.p1_cleanup_dictionary import cleanup_dict
+
+nltk.download('cmudict')
 
 # Convert CMUdict into a dictionary.
 CMUDICT = cmudict.dict()
