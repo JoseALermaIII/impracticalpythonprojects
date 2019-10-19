@@ -48,7 +48,7 @@ matrix:
       env: TOXENV=coveralls
 # Dependencies needed to run tox tests.
 install:
-  - pip install tox nltk
+  - pip install tox
   - python -m nltk.downloader cmudict
 # Run each test in matrix
 script:
