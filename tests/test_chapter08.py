@@ -27,6 +27,8 @@ class TestCountSyllables(unittest.TestCase):
         # Test remove possessives.
         for word in ['test’s', 'test\'s']:
             self.assertEqual(count_syllables.format_words(word), ['test'])
+        # Test phrase.
+        self.assertEqual(count_syllables.format_words('TEST nit-pick'), ['test', 'nit', 'pick'])
 
     def test_count_syllables(self):
         """Test count_syllables."""
