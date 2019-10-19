@@ -16,7 +16,10 @@ from nltk.corpus import cmudict
 from src.ch02 import DICTIONARY_FILE_PATH
 from src.ch02.p1_cleanup_dictionary import cleanup_dict
 
-nltk.download('cmudict')
+if not os.path.exists(os.path.expanduser('~/nltk_data/corpora/cmudict/cmudict')):
+    # FIXME: This is nearly impossible to test.
+    #  Patching os affects every use of os in the module.
+    nltk.download('cmudict')
 
 # Convert CMUdict into a dictionary.
 CMUDICT = cmudict.dict()
