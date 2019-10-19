@@ -49,6 +49,7 @@ matrix:
 # Dependencies needed to run tox tests.
 install:
   - pip install tox
+  - python -m nltk.downloader cmudict
 # Run each test in matrix
 script:
   - tox -e $TOXENV
