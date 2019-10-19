@@ -20,6 +20,13 @@ class TestCountSyllables(unittest.TestCase):
         for word in ['test’s', 'test\'s']:
             self.assertEqual(count_syllables.format_words(word), ['test'])
 
+    def test_count_syllables(self):
+        """Test count_syllables."""
+        # Test word not in CMUdict.
+        self.assertEqual(count_syllables.count_syllables(['tuxes']), 2)
+        # Test word in CMUdict.
+        self.assertEqual(count_syllables.count_syllables(['test']), 1)
+
 
 if __name__ == '__main__':
     unittest.main()
