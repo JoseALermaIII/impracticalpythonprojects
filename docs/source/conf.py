@@ -55,6 +55,7 @@ exclude_patterns = []
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3/', None),
     'docx': ('https://python-docx.readthedocs.io/en/latest/', None),
+    'nltk': ('http://www.nltk.org/', None),
 }
 
 # Default options for autodoc directives.
