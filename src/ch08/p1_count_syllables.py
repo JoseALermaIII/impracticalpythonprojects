@@ -53,8 +53,9 @@ def count_syllables(words: list) -> int:
     """Use CMUdict to count syllables in English word.
 
     Calculate sum of syllable counts for each word in **words**. Checks
-    syllable counts in CMUdict's phoneme list, if word is not found in
-    CMUdict, also checks local dictionary with syllable counts.
+    syllable counts in the :py:mod:`nltk.corpus` CMUdict phoneme list, if word
+    is not found in CMUdict, also checks local dictionary with syllable
+    counts.
 
     Args:
         words (list): List of strings to sum number of syllables.
