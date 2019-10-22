@@ -4,6 +4,13 @@ Randomly select words from a word dictionary file and pass them through
 :func:`count_syllables` to find their syllable counts. Output each word with
 their respective syllable count.
 
+Attributes:
+    CMUDICT (dict): Dictionary of CMUdict's phonemes with the word as a key
+        and its phonemes as a list of lists.
+    MISSING_WORDS (dict): Dictionary with syllable counts of words
+        missing from CMUdict's phoneme list where the word is the key and
+        its syllable count as an integer value.
+
 """
 import json
 import os
