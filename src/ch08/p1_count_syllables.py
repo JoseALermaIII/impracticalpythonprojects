@@ -104,6 +104,7 @@ def main():
             syllables = count_syllables(format_words(word))
         except KeyError:
             # Skip words in neither dictionary.
+            print(f'Not found: {word}')
             continue
         print(f'{word} {syllables}')
 
