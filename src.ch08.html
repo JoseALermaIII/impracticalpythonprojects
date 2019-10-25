@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src.ch08 package &#8212; impracticalpythonprojects 0.33.0 documentation</title>
+    <link rel="stylesheet" href="_static/flask.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="src.ch07 package" href="src.ch07.html" />
+  <script>DOCUMENTATION_OPTIONS.URL_ROOT = './';</script>
+   
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="src.ch07.html" title="src.ch07 package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.33.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="src.html" accesskey="U">src package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="src-ch08-package">
+<h1>src.ch08 package<a class="headerlink" href="#src-ch08-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-src.ch08.p1_count_syllables">
+<span id="src-ch08-p1-count-syllables-module"></span><h2>src.ch08.p1_count_syllables module<a class="headerlink" href="#module-src.ch08.p1_count_syllables" title="Permalink to this headline">¶</a></h2>
+<p>Test count_syllables with a word dictionary file.</p>
+<p>Randomly select words from a word dictionary file and pass them through
+<a class="reference internal" href="#src.ch08.p1_count_syllables.count_syllables" title="src.ch08.p1_count_syllables.count_syllables"><code class="xref py py-func docutils literal notranslate"><span class="pre">count_syllables()</span></code></a> to find their syllable counts. Output each word with
+their respective syllable count.</p>
+<dl class="attribute">
+<dt id="src.ch08.p1_count_syllables.CMUDICT">
+<code class="sig-prename descclassname">src.ch08.p1_count_syllables.</code><code class="sig-name descname">CMUDICT</code><a class="headerlink" href="#src.ch08.p1_count_syllables.CMUDICT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary of CMUdict’s phonemes with the word as a key
+and its phonemes as a list of lists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.ch08.p1_count_syllables.MISSING_WORDS">
+<code class="sig-prename descclassname">src.ch08.p1_count_syllables.</code><code class="sig-name descname">MISSING_WORDS</code><a class="headerlink" href="#src.ch08.p1_count_syllables.MISSING_WORDS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary with syllable counts of words
+missing from CMUdict’s phoneme list where the word is the key and
+its syllable count as an integer value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch08.p1_count_syllables.count_syllables">
+<code class="sig-prename descclassname">src.ch08.p1_count_syllables.</code><code class="sig-name descname">count_syllables</code><span class="sig-paren">(</span><em class="sig-param">words: list</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/src/ch08/p1_count_syllables.html#count_syllables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch08.p1_count_syllables.count_syllables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use CMUdict to count syllables in English word.</p>
+<p>Calculate sum of syllable counts for each word in <strong>words</strong>. Checks
+syllable counts in the <a class="reference external" href="http://www.nltk.org/api/nltk.corpus.html#module-nltk.corpus" title="(in NLTK v3.4.5)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">nltk.corpus</span></code></a> CMUdict phoneme list, if word
+is not found in CMUdict, also checks local dictionary with syllable
+counts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>words</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – List of strings to sum number of syllables.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Integer representing number of syllables in <strong>words</strong>.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Defaults to first element in CMUdict phoneme list. So, multiple
+syllable counts are ignored.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch08.p1_count_syllables.format_words">
+<code class="sig-prename descclassname">src.ch08.p1_count_syllables.</code><code class="sig-name descname">format_words</code><span class="sig-paren">(</span><em class="sig-param">words: str</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/src/ch08/p1_count_syllables.html#format_words"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch08.p1_count_syllables.format_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format words for processing.</p>
+<p>Remove hyphens, convert to lowercase, and strip both punctuation and
+possessives from word or phrase.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>words</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Word or phrase to format for processing.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of strings containing processed words.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.ch08.p1_count_syllables.main">
+<code class="sig-prename descclassname">src.ch08.p1_count_syllables.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/ch08/p1_count_syllables.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.ch08.p1_count_syllables.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Demonstrate count_syllables with a word dictionary file.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.ch08">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.ch08" title="Permalink to this headline">¶</a></h2>
+<p>Chapter 8.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  
+    
+  
+
+  <h3>Contents</h3>
+  <ul>
+<li><a class="reference internal" href="#">src.ch08 package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-src.ch08.p1_count_syllables">src.ch08.p1_count_syllables module</a></li>
+<li><a class="reference internal" href="#module-src.ch08">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<h3>Navigation</h3>
+<ul>
+  <li><a href="index.html">Overview</a>
+    <ul>
+      <li><a href="modules.html">src</a>
+        <ul>
+      <li><a href="src.html">src package</a>
+        <ul>
+          <li>Previous: <a href="src.ch07.html" title="previous chapter">src.ch07 package</a>
+          </ul>
+      </li></ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jose A. Lerma III.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+    </div>
+
+  </body>
+</html>

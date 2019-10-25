@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>src.ch06 package &#8212; impracticalpythonprojects 0.32.0 documentation</title>
+    <title>src.ch06 package &#8212; impracticalpythonprojects 0.33.0 documentation</title>
     <link rel="stylesheet" href="_static/flask.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -35,7 +35,7 @@
         <li class="right" >
           <a href="src.ch05.html" title="src.ch05 package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.32.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">impracticalpythonprojects 0.33.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="src.html" accesskey="U">src package</a> &#187;</li> 
       </ul>
@@ -75,9 +75,9 @@ in <strong>ciphertext</strong> to see if it can fit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>plaintext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Paragraphs of a fake message in a list of strings
+<li><p><strong>plaintext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Paragraphs of a fake message in a list of strings
 (likely from <a class="reference internal" href="#src.ch06.p1_invisible_ink.get_text" title="src.ch06.p1_invisible_ink.get_text"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_text()</span></code></a>).</p></li>
-<li><p><strong>ciphertext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Paragraphs of an encrypted message in a list of
+<li><p><strong>ciphertext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Paragraphs of an encrypted message in a list of
 strings (likely from <a class="reference internal" href="#src.ch06.p1_invisible_ink.get_text" title="src.ch06.p1_invisible_ink.get_text"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_text()</span></code></a>).</p></li>
 </ul>
 </dd>
@@ -105,16 +105,16 @@ Embed <strong>cipherfile</strong> in <strong>fakefile</strong>’s whitespace.</
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fakefile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to .docx file with fake message.
+<li><p><strong>fakefile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Path to .docx file with fake message.
 Defaults to <code class="docutils literal notranslate"><span class="pre">./c1files/fake.docx</span></code>.</p></li>
-<li><p><strong>cipherfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to .docx file with real message.
+<li><p><strong>cipherfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Path to .docx file with real message.
 Defaults to <code class="docutils literal notranslate"><span class="pre">./c1files/real.docx</span></code>.</p></li>
-<li><p><strong>savepath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to .docx file for output.
+<li><p><strong>savepath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Path to .docx file for output.
 Defaults to <code class="docutils literal notranslate"><span class="pre">./c1files/DearInternet.docx</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>. The contents of <strong>cipherfile</strong>’s text is embedded
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>. The contents of <strong>cipherfile</strong>’s text is embedded
 in <strong>fakefile</strong>’s whitespace and saved to <strong>savepath</strong>.</p>
 </dd>
 </dl>
@@ -132,23 +132,23 @@ Save the new file as <strong>filename</strong>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>plaintext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Lines of a fake message in a list of strings
+<li><p><strong>plaintext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Lines of a fake message in a list of strings
 (likely from <a class="reference internal" href="#src.ch06.p1_invisible_ink.get_text" title="src.ch06.p1_invisible_ink.get_text"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_text()</span></code></a>).</p></li>
-<li><p><strong>ciphertext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Lines of an encrypted message in a list of
+<li><p><strong>ciphertext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Lines of an encrypted message in a list of
 strings (likely from <a class="reference internal" href="#src.ch06.p1_invisible_ink.get_text" title="src.ch06.p1_invisible_ink.get_text"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_text()</span></code></a>).</p></li>
-<li><p><strong>template_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Absolute path to .docx file with predefined
-fonts, styles, and margins. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>. If not
+<li><p><strong>template_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Absolute path to .docx file with predefined
+fonts, styles, and margins. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>. If not
 provided, defaults will be created.</p></li>
-<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name to use for output file. Defaults to
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – File name to use for output file. Defaults to
 <code class="docutils literal notranslate"><span class="pre">output.docx</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>. <strong>plaintext</strong> is written to the file at
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>. <strong>plaintext</strong> is written to the file at
 <strong>template_path</strong> with <strong>ciphertext</strong> embedded in the blank space.</p>
 </dd>
 <dt class="field-odd">Raises</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – If the number of spaces in <strong>plaintext</strong> aren’t
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.8)"><strong>ValueError</strong></a> – If the number of spaces in <strong>plaintext</strong> aren’t
     enough to embed <strong>ciphertext</strong> based on output of
     <a class="reference internal" href="#src.ch06.c1_invisible_ink_mono.check_fit" title="src.ch06.c1_invisible_ink_mono.check_fit"><code class="xref py py-func docutils literal notranslate"><span class="pre">check_fit()</span></code></a>.</p>
 </dd>
@@ -190,9 +190,9 @@ blank lines needed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>plaintext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Paragraphs of a fake message in a list of strings
+<li><p><strong>plaintext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Paragraphs of a fake message in a list of strings
 (likely from <a class="reference internal" href="#src.ch06.p1_invisible_ink.get_text" title="src.ch06.p1_invisible_ink.get_text"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_text()</span></code></a>).</p></li>
-<li><p><strong>ciphertext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Paragraphs of an encrypted message in a list of
+<li><p><strong>ciphertext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Paragraphs of an encrypted message in a list of
 strings (likely from <a class="reference internal" href="#src.ch06.p1_invisible_ink.get_text" title="src.ch06.p1_invisible_ink.get_text"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_text()</span></code></a>).</p></li>
 </ul>
 </dd>
@@ -213,9 +213,9 @@ blank lines.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Absolute path to a .docx file to load.</p></li>
-<li><p><strong>skip_blank</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether or not to skip blank lines. Defaults
-to <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>.</p></li>
+<li><p><strong>file_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Absolute path to a .docx file to load.</p></li>
+<li><p><strong>skip_blank</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether or not to skip blank lines. Defaults
+to <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -238,16 +238,16 @@ Embed <strong>cipherfile</strong> in <strong>fakefile</strong>’s whitespace.</
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fakefile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to .docx file with fake message.
+<li><p><strong>fakefile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Path to .docx file with fake message.
 Defaults to <code class="docutils literal notranslate"><span class="pre">./p1files/fake.docx</span></code>.</p></li>
-<li><p><strong>cipherfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to .docx file with real message.
+<li><p><strong>cipherfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Path to .docx file with real message.
 Defaults to <code class="docutils literal notranslate"><span class="pre">./p1files/real.docx</span></code>.</p></li>
-<li><p><strong>savepath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to .docx file for output.
+<li><p><strong>savepath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Path to .docx file for output.
 Defaults to <code class="docutils literal notranslate"><span class="pre">./p1files/LetterToUSDA.docx</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>. The contents of <strong>cipherfile</strong>’s text is embedded
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>. The contents of <strong>cipherfile</strong>’s text is embedded
 in <strong>fakefile</strong>’s whitespace and saved to <strong>savepath</strong>.</p>
 </dd>
 </dl>
@@ -264,23 +264,23 @@ Save the new file as <strong>filename</strong>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>plaintext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Paragraphs of a fake message in a list of strings
+<li><p><strong>plaintext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Paragraphs of a fake message in a list of strings
 (likely from <a class="reference internal" href="#src.ch06.p1_invisible_ink.get_text" title="src.ch06.p1_invisible_ink.get_text"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_text()</span></code></a>).</p></li>
-<li><p><strong>ciphertext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Paragraphs of an encrypted message in a list of
+<li><p><strong>ciphertext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Paragraphs of an encrypted message in a list of
 strings (likely from <a class="reference internal" href="#src.ch06.p1_invisible_ink.get_text" title="src.ch06.p1_invisible_ink.get_text"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_text()</span></code></a>).</p></li>
-<li><p><strong>template_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Absolute path to .docx file with predefined
-fonts, styles, and margins. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>. If not
+<li><p><strong>template_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Absolute path to .docx file with predefined
+fonts, styles, and margins. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>. If not
 provided, defaults will be created.</p></li>
-<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name to use for output file. Defaults to
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – File name to use for output file. Defaults to
 <code class="docutils literal notranslate"><span class="pre">output.docx</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>. <strong>plaintext</strong> is written to the file at
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>. <strong>plaintext</strong> is written to the file at
 <strong>template_path</strong> with <strong>ciphertext</strong> embedded in the blank space.</p>
 </dd>
 <dt class="field-odd">Raises</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – If the number of blank lines in <strong>plaintext</strong> aren’t
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.8)"><strong>ValueError</strong></a> – If the number of blank lines in <strong>plaintext</strong> aren’t
     enough to embed <strong>ciphertext</strong> based on output of
     <a class="reference internal" href="#src.ch06.p1_invisible_ink.check_blanks" title="src.ch06.p1_invisible_ink.check_blanks"><code class="xref py py-func docutils literal notranslate"><span class="pre">check_blanks()</span></code></a>.</p>
 </dd>
