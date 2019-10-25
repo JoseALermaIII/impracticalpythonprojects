@@ -39,11 +39,11 @@ class TestCountSyllables(unittest.TestCase):
 
     @unittest.mock.patch('src.ch08.p1_count_syllables.DICTIONARY_FILE_PATH', 'tests/data/ch08/dictionary.txt')
     @unittest.mock.patch('sys.stdout', new_callable=StringIO)
-    @unittest.mock.patch('src.ch08.p1_count_syllables.choice')
-    def test_main(self, mock_choice, mock_stdout):
+    @unittest.mock.patch('src.ch08.p1_count_syllables.sample')
+    def test_main(self, mock_sample, mock_stdout):
         """Test demo main function."""
         self.random.seed(222)
-        mock_choice._mock_side_effect = self.random.choice
+        mock_sample.side_effect = self.random.sample
 
         count_syllables.main()
 
