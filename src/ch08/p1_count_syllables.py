@@ -14,7 +14,7 @@ Attributes:
 """
 import json
 import os
-from random import choice
+from random import sample
 from string import punctuation
 
 import nltk
@@ -98,8 +98,8 @@ def count_syllables(words: list) -> int:
 def main():
     """Demonstrate count_syllables with a word dictionary file."""
     word_list = cleanup_dict(DICTIONARY_FILE_PATH)
-    for _ in range(15):
-        word = choice(word_list)
+    sample_list = sample(word_list, 15)
+    for word in sample_list:
         try:
             syllables = count_syllables(format_words(word))
         except KeyError:
