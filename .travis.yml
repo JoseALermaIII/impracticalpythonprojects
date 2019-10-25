@@ -6,7 +6,10 @@
 # https://travis-ci.com/JoseALermaIII
 dist: bionic  # required for Python >= 3.7
 language: python
-cache: pip  # Don't delete pip install
+cache:
+  pip: true  # Don't delete pip install
+  directories:
+    - $HOME/nltk_data/corpora/
 # Branch safelist
 branches:
   only:

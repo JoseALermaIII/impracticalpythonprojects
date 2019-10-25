@@ -1,0 +1,15 @@
+Not found: yggdrasil
+dog 1
+hermit 2
+jack-o-lantern 4
+journey 2
+bee 1
+abracadabra 5
+penny 2
+hemoglobin 4
+opaque 2
+venus 2
+umbra 2
+cat 1
+whirl 1
+zen 1
