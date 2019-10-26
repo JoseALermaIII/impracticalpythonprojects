@@ -33,6 +33,11 @@ class TestMarkovHaiku(unittest.TestCase):
         expected = {'a cat': ['a'], 'cat a': ['dog'], 'a dog': ['cat'],
                     'dog cat': ['ballou']}
         self.assertDictEqual(test_dict, expected)
+        # Test third order.
+        test_dict = markov_haiku.get_markov_model(word_list, 3)
+        expected = {'a cat a': ['dog'], 'cat a dog': ['cat'],
+                    'a dog cat': ['ballou']}
+        self.assertDictEqual(test_dict, expected)
 
 
 if __name__ == '__main__':
