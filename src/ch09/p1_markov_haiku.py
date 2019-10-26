@@ -70,7 +70,7 @@ def prep_training(filepath: str) -> list:
     for line in lines:
         words = format_words(line)
         word_list.extend(words)
-    LOG.debug(f'Length of prep_training output: {len(word_list)}')
+    LOG.debug(f'prep_training: {len(word_list)} words')
     return word_list
 
 
