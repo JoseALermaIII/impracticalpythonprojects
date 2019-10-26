@@ -24,3 +24,6 @@ build/
 output.docx
 LetterToUSDA.docx
 DearInternet.docx
+
+# Errata
+*.log
