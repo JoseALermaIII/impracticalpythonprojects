@@ -63,6 +63,57 @@ class TestMarkovHaiku(unittest.TestCase):
         result = markov_haiku.random_word(word_list, 1)
         self.assertTupleEqual(result, ('an', 1))
 
+    def test_next_words(self):
+        """Test next_words."""
+        # Test first order Markov model.
+        markov_model = {'a': ['cat', 'dog', 'dimension'],
+                        'cat': ['a', 'elusive'], 'dog': ['cat', 'sitter']}
+        prefix = 'a'
+        # Test target syllable count of 2.
+        test_list = markov_haiku.next_words(prefix, markov_model, 2)
+        expected = ['cat', 'dog']
+        self.assertListEqual(test_list, expected)
+        # Test target syllable count of 4.
+        test_list = markov_haiku.next_words(prefix, markov_model, 4)
+        expected = ['cat', 'dog', 'dimension']
+        self.assertListEqual(test_list, expected)
+
+        # Test second order Markov model.
+        markov_model = {'a cat': ['sitter', 'groomer', 'fanatic'],
+                        'a dog': ['cat'], 'dog cat': ['pound']}
+        prefix = 'a cat'
+        # Test target syllable count of 4.
+        test_list = markov_haiku.next_words(prefix, markov_model, 4)
+        expected = ['sitter', 'groomer']
+        self.assertListEqual(test_list, expected)
+        # Test target syllable count of 5.
+        test_list = markov_haiku.next_words(prefix, markov_model, 5)
+        expected = ['sitter', 'groomer', 'fanatic']
+        self.assertListEqual(test_list, expected)
+
+        # Test third order Markov model.
+        markov_model = {'a cat a': ['dog', 'ferret', 'pet'],
+                        'a dog cat': ['shelter']}
+        prefix = 'a cat a'
+        # Test target syllable count of 4.
+        test_list = markov_haiku.next_words(prefix, markov_model, 4)
+        expected = ['dog', 'pet']
+        self.assertListEqual(test_list, expected)
+        # Test target syllable count of 5.
+        test_list = markov_haiku.next_words(prefix, markov_model, 5)
+        expected = ['dog', 'ferret', 'pet']
+        self.assertListEqual(test_list, expected)
+
+        # Test low target syllable count.
+        test_list = markov_haiku.next_words(prefix, markov_model, 3)
+        expected = []
+        self.assertListEqual(test_list, expected)
+        # Test unlisted prefix.
+        prefix = 'a cat dog'
+        test_list = markov_haiku.next_words(prefix, markov_model, 4)
+        expected = []
+        self.assertListEqual(test_list, expected)
+
 
 if __name__ == '__main__':
     unittest.main()
