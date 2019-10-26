@@ -41,6 +41,39 @@ LOG.addHandler(CH)
 LOG.addHandler(FH)
 
 
+def prep_training(filepath: str) -> list:
+    """Prepare training corpus from file.
+
+    Use a training text from **filepath** to prepare a list of words
+    to generate Markov models from.
+
+    Pass **filepath** through
+    :func:`~src.ch01.challenge.c2_name_generator.read_from_file` to
+    get each line in a list of strings. Then, pass each line through
+    :func:`src.ch08.p1_count_syllables.format_words` to get each word
+    in a list of strings.
+
+    Args:
+        filepath (str): String with absolute path to training file.
+
+
+    Returns:
+        List of words from training file.
+
+    Note:
+        It is imperative that the words stay in order as read from the file
+        so that the Markov models are accurate and consistent.
+
+    """
+    lines = read_from_file(filepath)
+    word_list = []
+    for line in lines:
+        words = format_words(line)
+        word_list.extend(words)
+    LOG.debug(f'Length of prep_training output: {len(word_list)}')
+    return word_list
+
+
 def main():
     """Demonstrate Markov haiku maker."""
 
