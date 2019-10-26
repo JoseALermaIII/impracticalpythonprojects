@@ -24,21 +24,21 @@ from src.ch08.p1_count_syllables import format_words, count_syllables
 # object, 'markov_haiku', will use this parent logger.
 #
 # logging.disable()  # Disable logging. Comment out to enable.
-log = logging.getLogger('markov_haiku')
-log.setLevel(logging.DEBUG)
+LOG = logging.getLogger('markov_haiku')
+LOG.setLevel(logging.DEBUG)
 # Make file handler that logs everything.
-fh = logging.FileHandler('markov_haiku.log')
-fh.setLevel(logging.DEBUG)
+FH = logging.FileHandler('markov_haiku.log')
+FH.setLevel(logging.DEBUG)
 # Make console handler that outputs INFO or above levels.
-ch = logging.StreamHandler()
-ch.setLevel(logging.INFO)
+CH = logging.StreamHandler()
+CH.setLevel(logging.INFO)
 # Make formatter and add it to the handlers
 formatter = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
-ch.setFormatter(formatter)
-fh.setFormatter(formatter)
+CH.setFormatter(formatter)
+FH.setFormatter(formatter)
 # Add the handlers to log.
-log.addHandler(ch)
-log.addHandler(fh)
+LOG.addHandler(CH)
+LOG.addHandler(FH)
 
 
 def main():
