@@ -78,6 +78,17 @@ def get_markov_model(word_list: list, order_num: int) -> dict:
     """Get Markov model of nth order.
 
     Generate a dictionary representing a Markov model of **order_num** order.
+    Take each word in **word_list** and add the next words up to length
+    **order_num** to form the prefix. The suffixes are the very next string
+    after the prefix.
+
+    Args:
+         word_list (list): List of strings of individual words from training
+            text.
+         order_num (int): Order of Markov model to generate.
+
+    Returns:
+        Dictionary of prefixes as strings and a list of suffixes as values.
 
     """
     end = len(word_list) - order_num
