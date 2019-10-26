@@ -1,12 +1,18 @@
 """Test Chapter 9."""
 import unittest.mock
 import os
+from random import Random
 
 import src.ch09.p1_markov_haiku as markov_haiku
 
 
 class TestMarkovHaiku(unittest.TestCase):
     """Test Markov Haiku."""
+
+    @classmethod
+    def setUpClass(cls):
+        """Configure attributes for use in this class only."""
+        cls.random = Random()
 
     def test_prep_training(self):
         """Test prep_training."""
