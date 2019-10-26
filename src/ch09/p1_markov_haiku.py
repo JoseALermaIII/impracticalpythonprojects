@@ -74,23 +74,23 @@ def prep_training(filepath: str) -> list:
     return word_list
 
 
-def get_markov_model(word_list: list, order: int) -> dict:
+def get_markov_model(word_list: list, order_num: int) -> dict:
     """Get Markov model of nth order.
 
-    Generate a dictionary representing a Markov model of **order** order.
+    Generate a dictionary representing a Markov model of **order_num** order.
 
     """
-    end = len(word_list) - order
+    end = len(word_list) - order_num
     markov_model = defaultdict(list)
 
     for index, word in enumerate(word_list):
         if index < end:
-            if order == 1:
+            if order_num == 1:
                 prefix = word
             else:
-                chain = [word_list[index + i] for i in range(order)]
+                chain = [word_list[index + i] for i in range(order_num)]
                 prefix = ' '.join(chain)
-            suffix = word_list[index + order]
+            suffix = word_list[index + order_num]
             markov_model[prefix].append(suffix)
     LOG.debug(f'get_markov_model keys: {markov_model.keys()}')
     return markov_model
