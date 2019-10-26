@@ -45,6 +45,24 @@ class TestMarkovHaiku(unittest.TestCase):
                     'a dog cat': ['ballou']}
         self.assertDictEqual(test_dict, expected)
 
+    @unittest.mock.patch('src.ch09.p1_markov_haiku.random')
+    def test_random_word(self, mock_random):
+        """Test random_word."""
+        self.random.seed(1234)
+        mock_random.choice.side_effect = self.random.choice
+
+        word_list = ['coding', 'time', 'an', 'illusion',
+                     'dimension', 'unseen']
+        # Test default max_syls.
+        result = markov_haiku.random_word(word_list)
+        self.assertTupleEqual(result, ('illusion', 3))
+        # Test smaller max_syls.
+        result = markov_haiku.random_word(word_list, 2)
+        self.assertTupleEqual(result, ('coding', 2))
+        # Test smallest max_syls.
+        result = markov_haiku.random_word(word_list, 1)
+        self.assertTupleEqual(result, ('an', 1))
+
 
 if __name__ == '__main__':
     unittest.main()
