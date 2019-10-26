@@ -74,6 +74,28 @@ def prep_training(filepath: str) -> list:
     return word_list
 
 
+def get_markov_model(word_list: list, order: int) -> dict:
+    """Get Markov model of nth order.
+
+    Generate a dictionary representing a Markov model of **order** order.
+
+    """
+    end = len(word_list) - order
+    markov_model = defaultdict(list)
+
+    for index, word in enumerate(word_list):
+        if index < end:
+            if order == 1:
+                prefix = word
+            else:
+                chain = [word_list[index + i] for i in range(order)]
+                prefix = ' '.join(chain)
+            suffix = word_list[index + order]
+            markov_model[prefix].append(suffix)
+    LOG.debug(f'get_markov_model keys: {markov_model.keys()}')
+    return markov_model
+
+
 def main():
     """Demonstrate Markov haiku maker."""
 
