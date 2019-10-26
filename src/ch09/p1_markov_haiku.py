@@ -23,7 +23,7 @@ from src.ch08.p1_count_syllables import format_words, count_syllables
 # NOTE: All modules that import this module and reference the same logger
 # object, 'markov_haiku', will use this parent logger.
 #
-# logging.disable()  # Disable logging. Comment out to enable.
+# logging.disable(logging.CRITICAL)  # Disable logging. Comment out to enable.
 LOG = logging.getLogger('markov_haiku')
 LOG.setLevel(logging.DEBUG)
 # Make file handler that logs everything.
