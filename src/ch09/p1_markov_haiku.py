@@ -107,6 +107,21 @@ def get_markov_model(word_list: list, order_num: int) -> dict:
     return markov_model
 
 
+def random_word(word_list: list, max_syls: int = 4) -> tuple:
+    """Get random word from word list.
+
+    Get random word from **word_list** with a syllable count less than
+    **max_syls**.
+
+    """
+    word = random.choice(word_list)
+    syllables = count_syllables(format_words(word))
+    while syllables > max_syls:
+        word = random.choice(word_list)
+        syllables = count_syllables(format_words(word))
+    return word, syllables
+
+
 def main():
     """Demonstrate Markov haiku maker."""
 
