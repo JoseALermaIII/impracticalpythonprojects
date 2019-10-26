@@ -33,9 +33,9 @@ FH.setLevel(logging.DEBUG)
 CH = logging.StreamHandler()
 CH.setLevel(logging.INFO)
 # Make formatter and add it to the handlers
-formatter = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
-CH.setFormatter(formatter)
-FH.setFormatter(formatter)
+FORMATTER = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
+CH.setFormatter(FORMATTER)
+FH.setFormatter(FORMATTER)
 # Add the handlers to log.
 LOG.addHandler(CH)
 LOG.addHandler(FH)
