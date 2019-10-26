@@ -113,6 +113,16 @@ def random_word(word_list: list, max_syls: int = 4) -> tuple:
     Get random word from **word_list** with a syllable count less than
     **max_syls**.
 
+    Can generate seed word for :func:`get_markov_model`.
+
+    Args:
+        word_list (list): List of words to select from.
+        max_syls (int): Maximum number of syllables word can be. Defaults
+            to ``4``.
+
+    Returns:
+        :py:obj:`tuple` with word and syllable count as values.
+
     """
     word = random.choice(word_list)
     syllables = count_syllables(format_words(word))
