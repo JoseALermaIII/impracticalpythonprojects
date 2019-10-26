@@ -133,6 +133,29 @@ def random_word(word_list: list, max_syls: int = 4) -> tuple:
     return word, syllables
 
 
+def next_words(prefix, markov_model, syllable_target):
+    """Get next usable words for prefix in Markov model.
+
+    Get next words from **markov_model** given a **prefix** that will meet
+    **syllable_target** when added to **prefix**.
+
+    """
+    usable_words = []
+    syllable_count = count_syllables(format_words(prefix))
+    suffixes = markov_model.get(prefix)
+    if suffixes is None:
+        # Prefix is last entry in word_list used to make markov_model and
+        # also happens to be unique.
+        LOG.warning('No suffixes for: %s', prefix)
+        return usable_words
+    for suffix in suffixes:
+        syllables = count_syllables(format_words(suffix))
+        if syllable_count + syllables <= syllable_target:
+            usable_words.append(suffix)
+    LOG.debug('next_words for "%s": %s', prefix, usable_words)
+    return usable_words
+
+
 def main():
     """Demonstrate Markov haiku maker."""
 
