@@ -70,7 +70,7 @@ def prep_training(filepath: str) -> list:
     for line in lines:
         words = format_words(line)
         word_list.extend(words)
-    LOG.debug(f'prep_training: {len(word_list)} words')
+    LOG.debug('prep_training: %s words', len(word_list))
     return word_list
 
 
@@ -92,7 +92,7 @@ def get_markov_model(word_list: list, order_num: int) -> dict:
                 prefix = ' '.join(chain)
             suffix = word_list[index + order_num]
             markov_model[prefix].append(suffix)
-    LOG.debug(f'get_markov_model keys: {markov_model.keys()}')
+    LOG.debug('get_markov_model keys: %s', markov_model.keys())
     return markov_model
 
 
