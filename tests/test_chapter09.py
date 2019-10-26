@@ -20,6 +20,20 @@ class TestMarkovHaiku(unittest.TestCase):
                     'what', 'does', 'it', 'look', 'like']
         self.assertListEqual(test_list, expected)
 
+    def test_get_markov_model(self):
+        """Test get_markov_model."""
+        word_list = ['a', 'cat', 'a', 'dog', 'cat', 'ballou']
+        # Test first order.
+        test_dict = markov_haiku.get_markov_model(word_list, 1)
+        expected = {'a': ['cat', 'dog'], 'cat': ['a', 'ballou'],
+                    'dog': ['cat']}
+        self.assertDictEqual(test_dict, expected)
+        # Test second order.
+        test_dict = markov_haiku.get_markov_model(word_list, 2)
+        expected = {'a cat': ['a'], 'cat a': ['dog'], 'a dog': ['cat'],
+                    'dog cat': ['ballou']}
+        self.assertDictEqual(test_dict, expected)
+
 
 if __name__ == '__main__':
     unittest.main()
