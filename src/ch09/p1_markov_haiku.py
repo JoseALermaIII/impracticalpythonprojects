@@ -119,6 +119,7 @@ def random_word(word_list: list, max_syls: int = 4) -> tuple:
     while syllables > max_syls:
         word = random.choice(word_list)
         syllables = count_syllables(format_words(word))
+    LOG.debug('random_word: %s, %s', word, syllables)
     return word, syllables
 
 
