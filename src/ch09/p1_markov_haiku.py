@@ -136,8 +136,17 @@ def random_word(word_list: list, max_syls: int = 4) -> tuple:
 def next_words(prefix: str, markov_model: dict, max_syls: int) -> list:
     """Get next usable words for prefix in Markov model.
 
-    Get next words from **markov_model** given a **prefix** that will meet
-    **syllable_target** when added to **prefix**.
+    Get next words from **markov_model** given a **prefix** that will be
+    less than or equal to **syllable_target** when added to **prefix**.
+
+    Args:
+        prefix (str): Word or phrase to find next usable words of.
+        markov_model (dict): Markov model of order matching number of words
+            in **prefix**.
+        max_syls (int): Maximum number of total syllables.
+
+    Return:
+        List of usable words that can follow **prefix**.
 
     """
     usable_words = []
