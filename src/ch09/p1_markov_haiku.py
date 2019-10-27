@@ -133,7 +133,7 @@ def random_word(word_list: list, max_syls: int = 4) -> tuple:
     return word, syllables
 
 
-def next_words(prefix, markov_model, syllable_target):
+def next_words(prefix: str, markov_model: dict, max_syls: int) -> list:
     """Get next usable words for prefix in Markov model.
 
     Get next words from **markov_model** given a **prefix** that will meet
@@ -150,7 +150,7 @@ def next_words(prefix, markov_model, syllable_target):
         return usable_words
     for suffix in suffixes:
         syllables = count_syllables(format_words(suffix))
-        if syllable_count + syllables <= syllable_target:
+        if syllable_count + syllables <= max_syls:
             usable_words.append(suffix)
     LOG.debug('next_words for "%s": %s', prefix, usable_words)
     return usable_words
