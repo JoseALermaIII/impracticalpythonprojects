@@ -103,7 +103,7 @@ def get_markov_model(word_list: list, order_num: int) -> dict:
                 prefix = ' '.join(chain)
             suffix = word_list[index + order_num]
             markov_model[prefix].append(suffix)
-    LOG.debug('get_markov_model keys: %s', markov_model.keys())
+    LOG.debug('get_markov_model number of keys: %s', len(markov_model.keys()))
     return markov_model
 
 
