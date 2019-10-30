@@ -165,6 +165,50 @@ def next_words(prefix: str, markov_model: dict, max_syls: int) -> list:
     return usable_words
 
 
+def haiku_line(prefix, word_list, target_syls):
+    """Make a line of haiku.
+
+    Given a **prefix**, use **word_list** to make a Markov model
+    of the needed order to make a line with a syllable count of
+    **target_syls**.
+
+    """
+    line = prefix
+    words = format_words(line)
+    order = len(words)
+    syllables = count_syllables(words)
+    LOG.debug('syllables: %s', syllables)
+    if order == 1:
+        markov_model = get_markov_model(word_list, order)
+        usable_words = next_words(line, markov_model, target_syls)
+    else:
+        # Seed is more than one word, use last two words.
+        markov_model = get_markov_model(word_list, 2)
+        usable_words = next_words(' '.join(words[-2:]), markov_model, target_syls)
+    if syllables == target_syls:
+        return line
+    while not usable_words:
+        # No usable words, randomly choose another prefix.
+        new_prefix = random.choice(word_list)
+        if len(format_words(new_prefix)) == 1:
+            markov_model = get_markov_model(word_list, 1)
+        else:
+            markov_model = get_markov_model(word_list, 2)
+            new_words = words.copy()
+            new_words.append(new_prefix)
+            new_prefix = ' '.join(new_words[-2:])
+        LOG.debug('No usable_words. New prefix: %s', new_prefix)
+        usable_words = next_words(new_prefix, markov_model, target_syls)
+    while True:
+        # Recursively build haiku line.
+        next_word = random.choice(usable_words)
+        LOG.debug('Add "%s" to "%s"', next_word, line)
+        if count_syllables(format_words(next_word)) + syllables > target_syls:
+            continue
+        words.append(next_word)
+        return haiku_line(' '.join(words), word_list, target_syls)
+
+
 def main():
     """Demonstrate Markov haiku maker."""
 
