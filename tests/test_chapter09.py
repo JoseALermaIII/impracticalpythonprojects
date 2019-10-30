@@ -114,6 +114,28 @@ class TestMarkovHaiku(unittest.TestCase):
         expected = []
         self.assertListEqual(test_list, expected)
 
+    @unittest.mock.patch('src.ch09.p1_markov_haiku.random')
+    def test_haiku_line(self, mock_random):
+        """Test haiku_line."""
+        self.random.seed(5676)
+        mock_random.choice.side_effect = self.random.choice
+
+        word_list = ['a', 'cat', 'a', 'dog', 'cat', 'ballou']
+        # Test line 1.
+        line = markov_haiku.haiku_line('a', word_list, 5)
+        expected = 'a dog cat ballou'
+        self.assertEqual(line, expected)
+        # Test line 2.
+        end_prev = ' '.join(line.split()[-2:])
+        line2 = markov_haiku.haiku_line(end_prev, word_list, 7)
+        expected = 'cat ballou dog ballou cat'
+        self.assertEqual(line2, expected)
+        # Test line 3.
+        end_prev = ' '.join(line2.split()[-2:])
+        line3 = markov_haiku.haiku_line(end_prev, word_list, 5)
+        expected = 'ballou cat a dog'
+        self.assertEqual(line3, expected)
+
 
 if __name__ == '__main__':
     unittest.main()
