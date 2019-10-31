@@ -165,7 +165,9 @@ def next_words(prefix: str, markov_model: dict, max_syls: int) -> list:
     return usable_words
 
 
-def haiku_line(prefix, word_list, target_syls, line=None, is_first_line=False):
+def haiku_line(prefix: str, word_list: list,
+               target_syls: int, line: list = None,
+               is_first_line: bool = False) -> str:
     """Make a line of haiku.
 
     Given a **prefix**, use **word_list** to make a Markov model
