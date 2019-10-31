@@ -222,9 +222,11 @@ def haiku_line(prefix: str, word_list: list,
         next_word = random.choice(usable_words)
         LOG.debug('Add "%s" to "%s"', next_word, line)
         if count_syllables(format_words(next_word)) + syllables > target_syls:
-            if usable_words.count(usable_words[0]) == len(usable_words):
-                # Same word in usable words goes over syllable count.
+            if sum([1 for word in usable_words if
+                    len(word) == len(usable_words[0])]) == len(usable_words):
+                # All words in usable words go over syllable count.
                 line = line[:-1]
+                usable_words = []
                 while not usable_words:
                     # No usable words, randomly choose another prefix.
                     new_prefix = random.choice(word_list)
