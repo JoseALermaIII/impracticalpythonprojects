@@ -215,6 +215,8 @@ def haiku_line(prefix: str, word_list: list,
             new_prefix = ' '.join([words[-1], new_prefix])
         LOG.debug('No usable_words. New prefix: %s', new_prefix)
         usable_words = next_words(new_prefix, markov_model, target_syls)
+        if usable_words:
+            line.append(new_prefix)
     while True:
         # Recursively build haiku line.
         next_word = random.choice(usable_words)
