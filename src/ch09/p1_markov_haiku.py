@@ -222,6 +222,21 @@ def haiku_line(prefix: str, word_list: list,
         next_word = random.choice(usable_words)
         LOG.debug('Add "%s" to "%s"', next_word, line)
         if count_syllables(format_words(next_word)) + syllables > target_syls:
+            if usable_words.count(usable_words[0]) == len(usable_words):
+                # Same word in usable words goes over syllable count.
+                line = line[:-1]
+                while not usable_words:
+                    # No usable words, randomly choose another prefix.
+                    new_prefix = random.choice(word_list)
+                    if len(format_words(new_prefix)) == 1:
+                        markov_model = get_markov_model(word_list, 1)
+                    else:
+                        markov_model = get_markov_model(word_list, 2)
+                        new_prefix = ' '.join([words[-1], new_prefix])
+                    LOG.debug('No usable_words and over count. New prefix: %s', new_prefix)
+                    usable_words = next_words(new_prefix, markov_model, target_syls)
+                    if usable_words:
+                        line.append(new_prefix)
             continue
         line.append(next_word)
         if len(line) < 2:
