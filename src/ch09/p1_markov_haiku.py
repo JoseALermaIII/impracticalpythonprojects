@@ -50,7 +50,7 @@ def prep_training(filepath: str) -> list:
     Pass **filepath** through
     :func:`~src.ch01.challenge.c2_name_generator.read_from_file` to
     get each line in a list of strings. Then, pass each line through
-    :func:`src.ch08.p1_count_syllables.format_words` to get each word
+    :func:`~src.ch08.p1_count_syllables.format_words` to get each word
     in a list of strings.
 
     Args:
