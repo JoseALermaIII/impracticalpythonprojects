@@ -177,11 +177,11 @@ def haiku_line(prefix, word_list, target_syls, line=None, is_first_line=False):
     words = format_words(prefix)
     if is_first_line and not line:
         line.extend(words)
-    order = len(words)
+    order_num = len(words)
     syllables = count_syllables(line)
     LOG.debug('syllables: %s', syllables)
-    if order == 1:
-        markov_model = get_markov_model(word_list, order)
+    if order_num == 1:
+        markov_model = get_markov_model(word_list, order_num)
         usable_words = next_words(prefix, markov_model, target_syls)
     else:
         # Prefix is more than one word, use last two words.
