@@ -122,18 +122,18 @@ class TestMarkovHaiku(unittest.TestCase):
 
         word_list = ['a', 'cat', 'a', 'dog', 'cat', 'ballou']
         # Test line 1.
-        line = markov_haiku.haiku_line('a', word_list, 5)
+        line = markov_haiku.haiku_line('a', word_list, 5, is_first_line=True)
         expected = 'a dog cat ballou'
         self.assertEqual(line, expected)
         # Test line 2.
         end_prev = ' '.join(line.split()[-2:])
         line2 = markov_haiku.haiku_line(end_prev, word_list, 7)
-        expected = 'cat ballou dog ballou cat'
+        expected = 'dog ballou cat a dog cat'
         self.assertEqual(line2, expected)
         # Test line 3.
         end_prev = ' '.join(line2.split()[-2:])
         line3 = markov_haiku.haiku_line(end_prev, word_list, 5)
-        expected = 'ballou cat a dog'
+        expected = 'ballou ballou cat'
         self.assertEqual(line3, expected)
 
 

@@ -165,7 +165,7 @@ def next_words(prefix: str, markov_model: dict, max_syls: int) -> list:
     return usable_words
 
 
-def haiku_line(prefix, word_list, target_syls):
+def haiku_line(prefix, word_list, target_syls, line=None, is_first_line=False):
     """Make a line of haiku.
 
     Given a **prefix**, use **word_list** to make a Markov model
@@ -173,20 +173,22 @@ def haiku_line(prefix, word_list, target_syls):
     **target_syls**.
 
     """
-    line = prefix
-    words = format_words(line)
+    line = line or []
+    words = format_words(prefix)
+    if is_first_line and not line:
+        line.extend(words)
     order = len(words)
-    syllables = count_syllables(words)
+    syllables = count_syllables(line)
     LOG.debug('syllables: %s', syllables)
     if order == 1:
         markov_model = get_markov_model(word_list, order)
-        usable_words = next_words(line, markov_model, target_syls)
+        usable_words = next_words(prefix, markov_model, target_syls)
     else:
-        # Seed is more than one word, use last two words.
+        # Prefix is more than one word, use last two words.
         markov_model = get_markov_model(word_list, 2)
         usable_words = next_words(' '.join(words[-2:]), markov_model, target_syls)
     if syllables == target_syls:
-        return line
+        return ' '.join(line)
     while not usable_words:
         # No usable words, randomly choose another prefix.
         new_prefix = random.choice(word_list)
@@ -205,8 +207,13 @@ def haiku_line(prefix, word_list, target_syls):
         LOG.debug('Add "%s" to "%s"', next_word, line)
         if count_syllables(format_words(next_word)) + syllables > target_syls:
             continue
-        words.append(next_word)
-        return haiku_line(' '.join(words), word_list, target_syls)
+        line.append(next_word)
+        if len(line) < 2:
+            # Not enough words in line to form new prefix.
+            new_prefix = ' '.join([words[-1], line[-1]])
+        else:
+            new_prefix = ' '.join(line[-2:])
+        return haiku_line(new_prefix, word_list, target_syls, line)
 
 
 def main():
