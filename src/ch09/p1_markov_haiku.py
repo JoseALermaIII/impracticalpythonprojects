@@ -186,7 +186,8 @@ def haiku_line(prefix, word_list, target_syls, line=None, is_first_line=False):
     else:
         # Prefix is more than one word, use last two words.
         markov_model = get_markov_model(word_list, 2)
-        usable_words = next_words(' '.join(words[-2:]), markov_model, target_syls)
+        usable_words = next_words(' '.join(words[-2:]), markov_model,
+                                  target_syls)
     if syllables == target_syls:
         return ' '.join(line)
     while not usable_words:
