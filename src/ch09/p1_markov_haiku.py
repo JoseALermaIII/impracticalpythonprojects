@@ -197,9 +197,7 @@ def haiku_line(prefix, word_list, target_syls, line=None, is_first_line=False):
             markov_model = get_markov_model(word_list, 1)
         else:
             markov_model = get_markov_model(word_list, 2)
-            new_words = words.copy()
-            new_words.append(new_prefix)
-            new_prefix = ' '.join(new_words[-2:])
+            new_prefix = ' '.join([words[-1], new_prefix])
         LOG.debug('No usable_words. New prefix: %s', new_prefix)
         usable_words = next_words(new_prefix, markov_model, target_syls)
     while True:
