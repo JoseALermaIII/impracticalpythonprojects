@@ -174,6 +174,19 @@ def haiku_line(prefix: str, word_list: list,
     of the needed order to make a line with a syllable count of
     **target_syls**.
 
+    Args:
+        prefix (str): Words to use as a seed for the Markov model.
+        word_list (list): List of words from a training text.
+        target_syls (int): Number of syllables to make **line**.
+        line (list): List of words containing current state of the line
+            of haiku. Defaults to :py:obj:`None`.
+        is_first_line (bool): Boolean flag indicating that current haiku line
+            is the first line of haiku. Used to initialize **line** with
+            **prefix** if **line** is empty. Defaults to :py:obj:`False`.
+
+    Returns:
+        Line of haiku with **target_syls** syllables.
+
     """
     line = line or []
     words = format_words(prefix)
