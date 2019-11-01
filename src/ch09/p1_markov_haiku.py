@@ -220,10 +220,11 @@ def haiku_line(prefix: str, word_list: list,
     while True:
         # Recursively build haiku line.
         next_word = random.choice(usable_words)
+        next_word_syls = count_syllables(format_words(next_word))
         LOG.debug('Add "%s" to "%s"', next_word, line)
-        if count_syllables(format_words(next_word)) + syllables > target_syls:
+        if next_word_syls + syllables > target_syls:
             if sum([1 for word in usable_words if
-                    len(word) == len(usable_words[0])]) == len(usable_words):
+                    count_syllables(format_words(word)) >= next_word_syls]) == len(usable_words):
                 # All words in usable words go over syllable count.
                 line = line[:-1]
                 usable_words = []
