@@ -139,6 +139,19 @@ class TestMarkovHaiku(unittest.TestCase):
         expected = 'ballou cat a dog'
         self.assertEqual(line3, expected)
 
+        # Test all usable words too long.
+        with unittest.mock.patch('src.ch09.p1_markov_haiku.next_words') as mock_next_words:
+            mock_next_words.side_effect = [['cat'],
+                                           ['dog'],
+                                           ['testing', 'tested', 'tester'],
+                                           [],
+                                           ['mouse'],
+                                           ['cat']]
+            end_prev = ' '.join(line3.split()[-2:])
+            line4 = markov_haiku.haiku_line(end_prev, word_list, 3)
+            expected = 'cat cat mouse'
+            self.assertEqual(line4, expected)
+
 
 if __name__ == '__main__':
     unittest.main()
