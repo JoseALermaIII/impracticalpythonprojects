@@ -208,11 +208,7 @@ def haiku_line(prefix: str, word_list: list,
     while not usable_words:
         # No usable words, randomly choose another prefix.
         new_prefix = random.choice(word_list)
-        if len(format_words(new_prefix)) == 1:
-            markov_model = get_markov_model(word_list, 1)
-        else:
-            markov_model = get_markov_model(word_list, 2)
-            new_prefix = ' '.join([words[-1], new_prefix])
+        markov_model = get_markov_model(word_list, 1)
         LOG.debug('No usable_words. New prefix: %s', new_prefix)
         usable_words = next_words(new_prefix, markov_model, target_syls)
         if usable_words:
@@ -231,11 +227,7 @@ def haiku_line(prefix: str, word_list: list,
                 while not usable_words:
                     # No usable words, randomly choose another prefix.
                     new_prefix = random.choice(word_list)
-                    if len(format_words(new_prefix)) == 1:
-                        markov_model = get_markov_model(word_list, 1)
-                    else:
-                        markov_model = get_markov_model(word_list, 2)
-                        new_prefix = ' '.join([words[-1], new_prefix])
+                    markov_model = get_markov_model(word_list, 1)
                     LOG.debug('No usable_words and over count. New prefix: %s', new_prefix)
                     usable_words = next_words(new_prefix, markov_model, target_syls)
                     if usable_words:
