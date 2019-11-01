@@ -230,8 +230,7 @@ def haiku_line(prefix: str, word_list: list,
                     markov_model = get_markov_model(word_list, 1)
                     LOG.debug('No usable_words and over count. New prefix: %s', new_prefix)
                     usable_words = next_words(new_prefix, markov_model, target_syls)
-                    if usable_words:
-                        line.append(new_prefix)
+                line.append(new_prefix)
             continue
         line.append(next_word)
         if len(line) < 2:
