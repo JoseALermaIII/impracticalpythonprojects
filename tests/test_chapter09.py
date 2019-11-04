@@ -144,9 +144,8 @@ class TestMarkovHaiku(unittest.TestCase):
             mock_next_words.side_effect = [['cat'],
                                            ['dog'],
                                            ['testing', 'tested', 'tester'],
-                                           [],
-                                           ['mouse'],
-                                           ['cat']]
+                                           [],  # Usable words of next random word 'ballou'
+                                           ['mouse']]  # Usable words of next random word 'cat'
             end_prev = ' '.join(line3.split()[-2:])
             line4 = markov_haiku.haiku_line(end_prev, word_list, 3)
             expected = 'cat cat mouse'
