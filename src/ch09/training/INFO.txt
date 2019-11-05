@@ -1,0 +1,59 @@
+Summary of folder contents.
+
+***********
+ATTRIBUTION
+***********
+The file romeo-and-juliet.txt consists of text from
+http://www.gutenberg.org/ebooks/100
+
+Project Gutenberg’s The Complete Works of William Shakespeare, by William
+Shakespeare
+
+This eBook is for the use of anyone anywhere in the United States and
+most other parts of the world at no cost and with almost no restrictions
+whatsoever.  You may copy it, give it away or re-use it under the terms
+of the Project Gutenberg License included with this eBook or online at
+www.gutenberg.org.  If you are not located in the United States, you’ll
+have to check the laws of the country where you are located before using
+this ebook.
+
+
+Title: The Complete Works of William Shakespeare
+
+Author: William Shakespeare
+
+Release Date: January 1994 [EBook #100]
+Last Updated: September 7, 2019
+
+More info about use: http://www.gutenberg.org/wiki/Gutenberg:Permission_How-To
+
+**********************
+BUILDING TRAINING TEXT
+**********************
+
+Background
+----------
+
+Rather than find haiku in the public domain, I used other text in the public
+domain. Specifically, William Shakespeare's Tragedy of Romeo and Juliet.
+
+
+Methodology
+-----------
+
+Accessing text from Project Gutenberg is for human readers only! As a result, I
+manually accessed the page, copied the text into a word processor, then used
+regular expressions to remove text that wasn't spoken.
+
+For example, to remove actions like [Sang.]:
+\[.+\]
+
+The leading space left by lines that began with an action:
+^\s
+
+Or the speakers of the lines, like JULIET.:
+[A-Z]*\s?[A-Z]+\.\s
+
+This creates an old English training text based entirely on the single play
+Romeo and Juliet. Syllable counts for words not in CMUdict's phoneme list will
+have to be manually provided.
